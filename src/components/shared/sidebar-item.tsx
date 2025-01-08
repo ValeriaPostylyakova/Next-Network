@@ -15,8 +15,8 @@ export const SidebarItem: FC<Props> = ({ text, icons }) => {
 	return (
 		<ListItem disablePadding>
 			<ListItemButton sx={{ py: 2 }}>
-				<ListItemIcon>{icons}</ListItemIcon>
-				<ListItemText primary={text} />
+				<ListItemIcon sx={{ color: '#a6a6a6' }}>{icons}</ListItemIcon>
+				<ListItemText sx={{ ml: -2 }} primary={text} />
 			</ListItemButton>
 		</ListItem>
 	)

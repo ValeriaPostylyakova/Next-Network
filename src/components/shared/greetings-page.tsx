@@ -11,7 +11,7 @@ const GreetingsPage = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			router.push('/login')
-		}, 3000)
+		}, 1000)
 	}, [])
 
 	return (

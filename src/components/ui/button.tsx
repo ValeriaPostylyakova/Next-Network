@@ -10,6 +10,9 @@ export interface Props {
 	bgcolor?: string
 	click?: () => void
 	width?: string
+	color?: string
+	fontWeight?: number
+	px?: number
 }
 
 {
@@ -35,13 +38,16 @@ export const ButtonUI: FC<Props> = ({
 	bgcolor,
 	click,
 	width,
+	color,
+	fontWeight,
+	px,
 }) => {
 	return (
 		<Button
 			onClick={click}
 			variant={variant}
 			sx={{
-				px: 4,
+				px: px || 2,
 				borderRadius: '1rem',
 				display: 'flex',
 				alignItems: 'center',
@@ -49,6 +55,8 @@ export const ButtonUI: FC<Props> = ({
 				mb: m,
 				bgcolor: bgcolor,
 				width: width,
+				color: color,
+				fontWeight: fontWeight || 600,
 			}}
 		>
 			{children}

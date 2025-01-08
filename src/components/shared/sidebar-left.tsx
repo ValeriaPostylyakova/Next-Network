@@ -1,12 +1,20 @@
 'use client'
 
-import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material/'
 import {
-	EarthLock,
+	Box,
+	Drawer,
+	List,
+	TextField,
+	Toolbar,
+	Typography,
+} from '@mui/material/'
+import {
 	House,
 	Logs,
-	MessageCircle,
+	Music,
+	Search,
 	Settings,
+	Target,
 	Users,
 } from 'lucide-react'
 import { FC } from 'react'
@@ -23,39 +31,81 @@ export const SidebarLeft: FC<Props> = ({ drawerWidth }) => {
 		<Drawer
 			sx={[
 				theme => ({
-					backgroundColor: '#aeabf5',
-					width: 300,
+					width: drawerWidth,
 					flexShrink: 0,
-					position: 'relative',
 					'& .MuiDrawer-paper': {
 						width: drawerWidth,
 						boxSizing: 'border-box',
+						color: '#fff',
 					},
 				}),
 				theme =>
-					theme.applyStyles('dark', {
-						backgroundColor: theme.palette.primary.main,
+					theme.applyStyles('light', {
+						'& .MuiDrawer-paper': {
+							backgroundColor: theme.palette.primary.light,
+						},
 					}),
 			]}
 			variant='permanent'
 			anchor='left'
 		>
-			<Box sx={{ mt: 5, ml: 2, cursor: 'pointer' }}>
-				<FlexContainer>
-					<EarthLock />
-					<Typography variant='h6' sx={{ textTransform: 'uppercase' }}>
-						Next network
+			<Toolbar
+				sx={{
+					pt: 3,
+					ml: -1,
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'start',
+				}}
+			>
+				<FlexContainer mb='2rem'>
+					<Target />
+					<Typography
+						sx={{
+							textTransform: 'uppercase',
+							fontSize: '16px',
+							cursor: 'pointer',
+							fontWeight: 600,
+						}}
+					>
+						Next Network
 					</Typography>
 				</FlexContainer>
-			</Box>
-			<Toolbar />
-			<Divider />
-			<List>
-				<SidebarItem icons={<House />} text='Feed' />
-				<SidebarItem icons={<Logs />} text='Stories' />
-				<SidebarItem icons={<Users />} text='Friends' />
-				<SidebarItem icons={<MessageCircle />} text='Message' />
-				<SidebarItem icons={<Settings />} text='Settings' />
+				<Box
+					sx={{
+						position: 'relative',
+						ml: -1,
+					}}
+				>
+					<Search
+						style={{
+							position: 'absolute',
+							top: '50%',
+							left: '10px',
+							transform: 'translateY(-50%)',
+							color: '#c2c2c2',
+						}}
+					/>
+					<TextField
+						size='small'
+						sx={{
+							width: '100%',
+							outline: 'none',
+							'.MuiOutlinedInput-root': {
+								borderRadius: 4.3,
+								pl: '30px',
+							},
+						}}
+						placeholder='Search'
+					/>
+				</Box>
+			</Toolbar>
+			<List sx={{ mt: 4 }}>
+				<SidebarItem text='Feed' icons={<House />} />
+				<SidebarItem text='Stories' icons={<Logs />} />
+				<SidebarItem text='Friends' icons={<Users />} />
+				<SidebarItem text='Settings' icons={<Settings />} />
+				<SidebarItem text='Music' icons={<Music />} />
 			</List>
 			<SidebarProfile />
 		</Drawer>
