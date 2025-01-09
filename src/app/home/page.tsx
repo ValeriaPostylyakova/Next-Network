@@ -1,4 +1,11 @@
-import { Header, SidebarLeft, SidebarRight } from '@/components/shared'
+import {
+	Header,
+	PostBlock,
+	SidebarLeft,
+	SidebarRight,
+	StoriesBlock,
+} from '@/components/shared'
+import { MainWrapper } from '@/components/ui/main-wrapper'
 import { Box } from '@mui/material'
 import { FC } from 'react'
 
@@ -7,12 +14,16 @@ interface Props {
 }
 
 const Page: FC<Props> = () => {
-	const drawerWidth = 300
-
 	return (
 		<Box sx={{ display: 'flex' }}>
-			<Header drawerWidth={drawerWidth} />
-			<SidebarLeft drawerWidth={drawerWidth} />
+			<Header />
+			<SidebarLeft />
+			<MainWrapper>
+				<Box sx={{ width: '95%', m: '0 auto', pt: 3 }}>
+					<StoriesBlock />
+					<PostBlock />
+				</Box>
+			</MainWrapper>
 			<SidebarRight />
 		</Box>
 	)

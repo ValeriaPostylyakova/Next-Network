@@ -1,20 +1,15 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import { ThemeProvider } from '@mui/material/styles'
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import theme from '../theme'
 
 import { ButtonGroupTheme } from '@/components/shared/button-group-theme'
 import { Box } from '@mui/material'
 import './globals.scss'
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
+const inter = Inter({
+	variable: '--font-inter',
 	subsets: ['latin'],
 })
 
@@ -30,7 +25,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${geistSans.variable} ${geistMono.variable}`}>
+			<body className={`${inter.variable}`}>
 				<AppRouterCacheProvider>
 					<ThemeProvider theme={theme}>
 						<Box

@@ -1,22 +1,20 @@
-import { AppBar, Toolbar } from '@mui/material'
+import { AppBar, Divider, Toolbar } from '@mui/material'
 import { Plus } from 'lucide-react'
 import { FC } from 'react'
 import { ButtonUI } from '../ui'
 import { HeaderSearch } from './search'
 
-export interface Props {
-	drawerWidth: number
-}
+export interface Props {}
 
-export const Header: FC<Props> = ({ drawerWidth }) => {
+export const Header: FC<Props> = () => {
 	return (
 		<AppBar
 			position='fixed'
 			sx={{
 				bgcolor: 'background.default',
-				boxShadow: '0px 8px 8px -7px rgba(84, 84, 84, 0.2)',
-				width: `calc(100% - ${drawerWidth * 2}px)`,
-				mx: `${drawerWidth}px`,
+				width: `calc(100% - 660px)`,
+				boxShadow: 'none',
+				mx: `360px`,
 			}}
 		>
 			<Toolbar
@@ -32,6 +30,7 @@ export const Header: FC<Props> = ({ drawerWidth }) => {
 					<Plus style={{ color: '#fff' }} />
 				</ButtonUI>
 			</Toolbar>
+			<Divider />
 		</AppBar>
 	)
 }

@@ -16,6 +16,9 @@ const theme = createTheme({
 			dark: '#000',
 		},
 	},
+	typography: {
+		fontFamily: 'Inter, sans-serif',
+	},
 })
 
 export default theme

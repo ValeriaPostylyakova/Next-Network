@@ -24,7 +24,7 @@ export const ButtonGroupTheme: FC<Props> = () => {
 				position: 'absolute',
 				top: '0.5rem',
 				right: '0.5rem',
-				zIndex: '100',
+				zIndex: '10000',
 			}}
 		>
 			<FormLabel id='demo-theme-toggle'>Theme</FormLabel>

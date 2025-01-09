@@ -22,19 +22,17 @@ import { FlexContainer } from '../ui'
 import { SidebarItem } from './sidebar-item'
 import { SidebarProfile } from './sidebar-profile'
 
-export interface Props {
-	drawerWidth: number
-}
+export interface Props {}
 
-export const SidebarLeft: FC<Props> = ({ drawerWidth }) => {
+export const SidebarLeft: FC<Props> = () => {
 	return (
 		<Drawer
 			sx={[
 				theme => ({
-					width: drawerWidth,
+					width: 300,
 					flexShrink: 0,
 					'& .MuiDrawer-paper': {
-						width: drawerWidth,
+						width: 300,
 						boxSizing: 'border-box',
 						color: '#fff',
 					},
