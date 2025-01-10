@@ -6,6 +6,7 @@ export interface Props {
 	mb?: string
 	durection?: string
 	content?: string
+	pt?: number
 }
 
 export const FlexContainer: FC<Props> = ({
@@ -13,6 +14,7 @@ export const FlexContainer: FC<Props> = ({
 	mb,
 	durection,
 	content,
+	pt,
 }) => {
 	return (
 		<Box
@@ -23,6 +25,7 @@ export const FlexContainer: FC<Props> = ({
 				gap: '1rem',
 				justifyContent: content,
 				mb: mb,
+				pt: pt,
 			}}
 		>
 			{children}

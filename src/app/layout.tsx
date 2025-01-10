@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import theme from '../theme'
 
-import { ButtonGroupTheme } from '@/components/shared/button-group-theme'
 import { Box } from '@mui/material'
 import './globals.scss'
 
@@ -37,7 +36,6 @@ export default function RootLayout({
 								color: 'text.primary',
 							}}
 						>
-							<ButtonGroupTheme />
 							{children}
 						</Box>
 					</ThemeProvider>

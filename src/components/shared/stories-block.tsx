@@ -1,5 +1,6 @@
+import { Box } from '@mui/material'
 import { FC } from 'react'
-import { FlexContainer, MainBlock } from '../ui'
+import { MainBlock } from '../ui'
 import { StoryBlock } from './story-block'
 
 export interface Props {
@@ -9,11 +10,19 @@ export interface Props {
 export const StoriesBlock: FC<Props> = () => {
 	return (
 		<MainBlock>
-			<FlexContainer>
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					gap: '1rem',
+					overflowY: 'auto',
+					scrollbarWidth: 'thin',
+				}}
+			>
 				{Array.from({ length: 12 }).map((_, index) => (
 					<StoryBlock key={index} />
 				))}
-			</FlexContainer>
+			</Box>
 		</MainBlock>
 	)
 }

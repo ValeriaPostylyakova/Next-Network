@@ -19,14 +19,7 @@ export const ButtonGroupTheme: FC<Props> = () => {
 	}
 
 	return (
-		<FormControl
-			sx={{
-				position: 'absolute',
-				top: '0.5rem',
-				right: '0.5rem',
-				zIndex: '10000',
-			}}
-		>
+		<FormControl sx={{ mt: 4, ml: 2 }}>
 			<FormLabel id='demo-theme-toggle'>Theme</FormLabel>
 			<RadioGroup
 				aria-labelledby='demo-theme-toggle'

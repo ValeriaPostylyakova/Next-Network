@@ -11,10 +11,10 @@ import {
 import {
 	House,
 	Logs,
+	MessageSquareShare,
 	Music,
 	Search,
 	Settings,
-	Target,
 	Users,
 } from 'lucide-react'
 import { FC } from 'react'
@@ -57,7 +57,7 @@ export const SidebarLeft: FC<Props> = () => {
 				}}
 			>
 				<FlexContainer mb='2rem'>
-					<Target />
+					<MessageSquareShare size={23} />
 					<Typography
 						sx={{
 							textTransform: 'uppercase',
@@ -88,10 +88,19 @@ export const SidebarLeft: FC<Props> = () => {
 						size='small'
 						sx={{
 							width: '100%',
-							outline: 'none',
-							'.MuiOutlinedInput-root': {
+							'& .MuiOutlinedInput-root': {
 								borderRadius: 4.3,
 								pl: '30px',
+								color: 'white',
+								'& fieldset': {
+									borderColor: '#ffffff',
+								},
+								'&:hover fieldset': {
+									borderColor: '#ffffff',
+								},
+								'&.Mui-focused fieldset': {
+									borderColor: '#ffffff',
+								},
 							},
 						}}
 						placeholder='Search'

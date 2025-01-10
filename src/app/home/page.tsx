@@ -22,6 +22,8 @@ const Page: FC<Props> = () => {
 				<Box sx={{ width: '95%', m: '0 auto', pt: 3 }}>
 					<StoriesBlock />
 					<PostBlock />
+					<PostBlock />
+					<PostBlock />
 				</Box>
 			</MainWrapper>
 			<SidebarRight />
