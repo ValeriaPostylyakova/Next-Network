@@ -4,26 +4,28 @@ import { Search } from 'lucide-react'
 import { FC } from 'react'
 
 export interface Props {
-	className?: string
+	width: number
+	placeholder: string
 }
 
-export const HeaderSearch: FC<Props> = () => {
+export const HeaderSearch: FC<Props> = ({ width, placeholder }) => {
 	return (
 		<Box
 			sx={{
 				position: 'relative',
+				width: `${width}px`,
 			}}
 		>
 			<TextField
 				size='small'
 				sx={{
-					width: '420px',
+					width: `${width}px`,
 					outline: 'none',
 					'.MuiOutlinedInput-root': {
 						borderRadius: 5,
 					},
 				}}
-				placeholder='Search for friends, groups, pages'
+				placeholder={placeholder}
 			/>
 
 			<Search

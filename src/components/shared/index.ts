@@ -1,5 +1,7 @@
 export { AuthForm } from './auth-form'
 export { ButtonGroupTheme } from './button-group-theme'
+export { ChatBlock } from './chat-block'
+export { FriendBlock } from './friend-block'
 export { Header } from './header'
 export { PostBlock } from './post-block'
 export { PostBlockHeader } from './post-block-header'

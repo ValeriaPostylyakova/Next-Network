@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { FlexContainer } from '../ui'
 
 export interface Props {
@@ -8,8 +8,10 @@ export interface Props {
 	height: number
 	image: string
 	sizeTitle: number
-	sizeSubTitle: number
-	text: string
+	sizeSubTitle?: number
+	text?: string
+	messageBlock?: ReactNode
+	cursor?: string
 }
 
 export const UserInfoName: FC<Props> = ({
@@ -19,6 +21,8 @@ export const UserInfoName: FC<Props> = ({
 	sizeSubTitle,
 	sizeTitle,
 	text,
+	messageBlock,
+	cursor,
 }) => {
 	return (
 		<FlexContainer>
@@ -32,6 +36,7 @@ export const UserInfoName: FC<Props> = ({
 					backgroundSize: 'cover',
 					backgroundRepeat: 'no-repeat',
 					mb: 1,
+					cursor: cursor,
 				}}
 			/>
 			<Box
@@ -44,15 +49,18 @@ export const UserInfoName: FC<Props> = ({
 				<Typography sx={{ fontSize: `${sizeTitle}px`, fontWeight: 600 }}>
 					X_AE_A-13
 				</Typography>
-				<Typography
-					sx={{
-						fontSize: `${sizeSubTitle}px`,
-						fontWeight: 500,
-						color: '#b5b5b5',
-					}}
-				>
-					{text}
-				</Typography>
+				{sizeSubTitle && (
+					<Typography
+						sx={{
+							fontSize: `${sizeSubTitle}px`,
+							fontWeight: 500,
+							color: '#b5b5b5',
+						}}
+					>
+						{text}
+					</Typography>
+				)}
+				{messageBlock && messageBlock}
 			</Box>
 		</FlexContainer>
 	)

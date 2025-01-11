@@ -27,7 +27,10 @@ export const Header: FC<Props> = () => {
 					alignItems: 'center',
 				}}
 			>
-				<HeaderSearch />
+				<HeaderSearch
+					width={420}
+					placeholder='Search for friends, groups, pages'
+				/>
 				<ButtonUI variant='contained' bgcolor='#5145d6' color='#fff'>
 					Add New Post
 					<Plus style={{ color: '#fff' }} />
