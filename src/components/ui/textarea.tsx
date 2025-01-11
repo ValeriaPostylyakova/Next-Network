@@ -1,6 +1,6 @@
 'use client'
 
-import { Textarea } from '@mui/joy'
+import Textarea from '@mui/joy/Textarea'
 import { FC } from 'react'
 
 export interface Props {

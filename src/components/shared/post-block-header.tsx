@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+
 import { EllipsisVertical } from 'lucide-react'
 import { FC } from 'react'
-import { FlexContainer } from '../ui'
+import { UserInfoName } from './user-info-name'
 
 export interface Props {
 	className?: string
@@ -18,37 +19,14 @@ export const PostBlockHeader: FC<Props> = () => {
 				justifyContent: 'space-between',
 			}}
 		>
-			<FlexContainer>
-				<Box
-					sx={{
-						borderRadius: '100%',
-						p: 0.25,
-						width: '55px',
-						height: '55px',
-						backgroundImage:
-							'url(https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg)',
-						backgroundSize: 'cover',
-						backgroundRepeat: 'no-repeat',
-						mb: 1,
-					}}
-				/>
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'start',
-						flexDirection: 'column',
-					}}
-				>
-					<Typography sx={{ fontSize: '18px', fontWeight: 600 }}>
-						X_AE_A-13
-					</Typography>
-					<Typography
-						sx={{ fontSize: '15px', fontWeight: 500, color: '#b5b5b5' }}
-					>
-						Product Desiner, slohUI
-					</Typography>
-				</Box>
-			</FlexContainer>
+			<UserInfoName
+				text='Product Desiner, slohUI'
+				width={55}
+				height={55}
+				image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
+				sizeTitle={18}
+				sizeSubTitle={15}
+			/>
 			<EllipsisVertical cursor='pointer' />
 		</Box>
 	)

@@ -1,5 +1,5 @@
 'use client'
-import { TextField } from '@mui/material'
+import TextField from '@mui/material/TextField'
 import { FC, useState } from 'react'
 import { ButtonUI } from '../ui'
 import { ModalFormUI } from '../ui/modal-form'

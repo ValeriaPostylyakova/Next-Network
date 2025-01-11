@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box'
 import { FC } from 'react'
 import { MainBlock } from '../ui'
 import { StoryBlock } from './story-block'
@@ -19,7 +19,7 @@ export const StoriesBlock: FC<Props> = () => {
 					scrollbarWidth: 'thin',
 				}}
 			>
-				{Array.from({ length: 12 }).map((_, index) => (
+				{Array.from({ length: 8 }).map((_, index) => (
 					<StoryBlock key={index} />
 				))}
 			</Box>

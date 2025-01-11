@@ -1,5 +1,7 @@
 'use client'
-import { Divider, TextField } from '@mui/material'
+
+import Divider from '@mui/material/Divider'
+import TextField from '@mui/material/TextField'
 import Image from 'next/image'
 import { FC, useState } from 'react'
 import { ButtonUI } from '../ui'

@@ -1,7 +1,7 @@
-import { Box, Divider, Typography } from '@mui/material'
-import { LogOut, UserRoundPen } from 'lucide-react'
+import Box from '@mui/material/Box'
+
 import { FC } from 'react'
-import { FlexContainer } from '../ui'
+import { UserInfoName } from './user-info-name'
 
 export interface Props {
 	className?: string
@@ -22,30 +22,14 @@ export const SidebarProfile: FC<Props> = () => {
 					justifyContent: 'center',
 				}}
 			>
-				<FlexContainer content='space-between'>
-					<UserRoundPen />
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'start',
-							flexDirection: 'column',
-						}}
-					>
-						<Typography
-							sx={{ fontSize: '14px', fontWeight: 600, color: '#fff' }}
-						>
-							Valeria Postylyakova
-						</Typography>
-						<Typography
-							sx={{ fontSize: '12px', fontWeight: 500, color: '#cacaca' }}
-						>
-							User
-						</Typography>
-					</Box>
-					<LogOut
-						style={{ marginLeft: '2rem', color: '#fff', cursor: 'pointer' }}
-					/>
-				</FlexContainer>
+				<UserInfoName
+					text='@valera'
+					width={40}
+					height={40}
+					image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
+					sizeTitle={16}
+					sizeSubTitle={14}
+				/>
 			</Box>
 		</>
 	)

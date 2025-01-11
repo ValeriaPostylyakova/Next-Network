@@ -1,9 +1,15 @@
-import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material/'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Drawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+
 import { Bell, MessageCircleMore, Settings } from 'lucide-react'
 import { FC } from 'react'
 import { ButtonUI } from '../ui'
-import { SidebarRightItem } from './sidebar-right-item'
 import { ButtonGroupTheme } from './button-group-theme'
+import { SidebarRightItem } from './sidebar-right-item'
 
 export interface Props {
 	className?: string

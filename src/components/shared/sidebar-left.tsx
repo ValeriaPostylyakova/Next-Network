@@ -1,22 +1,22 @@
 'use client'
 
-import {
-	Box,
-	Drawer,
-	List,
-	TextField,
-	Toolbar,
-	Typography,
-} from '@mui/material/'
+import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
+import TextField from '@mui/material/TextField'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+
 import {
 	House,
-	Logs,
 	MessageSquareShare,
+	MessagesSquare,
 	Music,
 	Search,
 	Settings,
 	Users,
 } from 'lucide-react'
+import Link from 'next/link'
 import { FC } from 'react'
 import { FlexContainer } from '../ui'
 import { SidebarItem } from './sidebar-item'
@@ -108,11 +108,21 @@ export const SidebarLeft: FC<Props> = () => {
 				</Box>
 			</Toolbar>
 			<List sx={{ mt: 4 }}>
-				<SidebarItem text='Feed' icons={<House />} />
-				<SidebarItem text='Stories' icons={<Logs />} />
-				<SidebarItem text='Friends' icons={<Users />} />
-				<SidebarItem text='Settings' icons={<Settings />} />
-				<SidebarItem text='Music' icons={<Music />} />
+				<Link href='feed'>
+					<SidebarItem text='Feed' icons={<House />} />
+				</Link>
+				<Link href='messages'>
+					<SidebarItem text='Messages' icons={<MessagesSquare />} />
+				</Link>
+				<Link href='friends'>
+					<SidebarItem text='Friends' icons={<Users />} />
+				</Link>
+				<Link href='settings'>
+					<SidebarItem text='Settings' icons={<Settings />} />
+				</Link>
+				<Link href='music'>
+					<SidebarItem text='Music' icons={<Music />} />
+				</Link>
 			</List>
 			<SidebarProfile />
 		</Drawer>

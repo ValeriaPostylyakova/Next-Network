@@ -1,4 +1,7 @@
-import { AppBar, Divider, Toolbar } from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import Divider from '@mui/material/Divider'
+import Toolbar from '@mui/material/Toolbar'
+
 import { Plus } from 'lucide-react'
 import { FC } from 'react'
 import { ButtonUI } from '../ui'

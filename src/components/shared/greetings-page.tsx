@@ -1,6 +1,6 @@
 'use client'
 
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { Logo } from '../ui/logo'
@@ -17,20 +17,27 @@ const GreetingsPage = () => {
 	return (
 		<Box
 			sx={{
-				height: '80vh',
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
+				height: '100vh',
+				bgcolor: '#000',
 			}}
 		>
 			<Box
 				sx={{
+					height: '80vh',
 					display: 'flex',
-					height: '100%',
 					alignItems: 'center',
+					justifyContent: 'center',
 				}}
 			>
-				<Logo />
+				<Box
+					sx={{
+						display: 'flex',
+						height: '100%',
+						alignItems: 'center',
+					}}
+				>
+					<Logo />
+				</Box>
 			</Box>
 		</Box>
 	)

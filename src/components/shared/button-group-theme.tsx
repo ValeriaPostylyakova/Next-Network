@@ -1,13 +1,12 @@
 'use client'
 
-import {
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	Radio,
-	RadioGroup,
-	useColorScheme,
-} from '@mui/material'
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormLabel from '@mui/material/FormLabel'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import { useColorScheme } from '@mui/material/styles'
+
 import { FC } from 'react'
 
 export interface Props {}

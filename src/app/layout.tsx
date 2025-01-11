@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import theme from '../theme'
 
-import { Box } from '@mui/material'
 import './globals.scss'
 
 const inter = Inter({
@@ -26,19 +25,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={`${inter.variable}`}>
 				<AppRouterCacheProvider>
-					<ThemeProvider theme={theme}>
-						<Box
-							sx={{
-								position: 'relative',
-								width: '100vw',
-								minHeight: '100vh',
-								bgcolor: 'background.default',
-								color: 'text.primary',
-							}}
-						>
-							{children}
-						</Box>
-					</ThemeProvider>
+					<ThemeProvider theme={theme}>{children}</ThemeProvider>
 				</AppRouterCacheProvider>
 			</body>
 		</html>

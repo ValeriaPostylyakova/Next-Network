@@ -1,4 +1,9 @@
-import { Box, Button, Divider, TextField, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+
 import { Heart, MessageSquareText, SendHorizontal, Smile } from 'lucide-react'
 import { FC } from 'react'
 import { ButtonUI, FlexContainer, MainBlock } from '../ui'
@@ -96,14 +101,14 @@ export const PostBlock: FC<Props> = () => {
 							placeholder='Write your comment..'
 						/>
 					</FlexContainer>
-					<Box sx={{ display: 'flex', gap: 0.5 }}>
+					<FlexContainer>
 						<ButtonUI variant='outlined'>
 							<Smile />
 						</ButtonUI>
 						<ButtonUI variant='outlined'>
 							<SendHorizontal />
 						</ButtonUI>
-					</Box>
+					</FlexContainer>
 				</FlexContainer>
 			</Box>
 		</MainBlock>
