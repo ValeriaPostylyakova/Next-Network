@@ -17,6 +17,7 @@ export const MainWrapper: FC<Props> = ({ children, mt }) => {
 					mt: `${mt}px`,
 					minHeight: '100vh',
 					width: '100%',
+					position: 'relative',
 				}),
 				theme =>
 					theme.applyStyles('dark', {

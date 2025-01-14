@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
-import { Ellipsis, MessageCircle } from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 import { FC } from 'react'
+import { FriendBlockButton } from './friend-block-button'
 import { UserInfoName } from './user-info-name'
 
 export interface Props {
@@ -41,9 +41,7 @@ export const FriendBlock: FC<Props> = () => {
 					</Box>
 				}
 			/>
-			<Button>
-				<Ellipsis size={30} />
-			</Button>
+			<FriendBlockButton />
 		</Box>
 	)
 }
