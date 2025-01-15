@@ -1,7 +1,4 @@
-'use client'
-
 import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import TextField from '@mui/material/TextField'
 import Toolbar from '@mui/material/Toolbar'
@@ -16,9 +13,8 @@ import {
 	Settings,
 	Users,
 } from 'lucide-react'
-import Link from 'next/link'
 import { FC } from 'react'
-import { FlexContainer } from '../ui'
+import { DrawerUI, FlexContainer } from '../ui'
 import { SidebarItem } from './sidebar-item'
 import { SidebarProfile } from './sidebar-profile'
 
@@ -26,27 +22,7 @@ export interface Props {}
 
 export const SidebarLeft: FC<Props> = () => {
 	return (
-		<Drawer
-			sx={[
-				theme => ({
-					width: 300,
-					flexShrink: 0,
-					'& .MuiDrawer-paper': {
-						width: 300,
-						boxSizing: 'border-box',
-						color: '#fff',
-					},
-				}),
-				theme =>
-					theme.applyStyles('light', {
-						'& .MuiDrawer-paper': {
-							backgroundColor: theme.palette.primary.light,
-						},
-					}),
-			]}
-			variant='permanent'
-			anchor='left'
-		>
+		<DrawerUI>
 			<Toolbar
 				sx={{
 					pt: 3,
@@ -108,23 +84,17 @@ export const SidebarLeft: FC<Props> = () => {
 				</Box>
 			</Toolbar>
 			<List sx={{ mt: 4 }}>
-				<Link href='feed'>
-					<SidebarItem text='Feed' icons={<House />} />
-				</Link>
-				<Link href='messages'>
-					<SidebarItem text='Messages' icons={<MessagesSquare />} />
-				</Link>
-				<Link href='friends'>
-					<SidebarItem text='Friends' icons={<Users />} />
-				</Link>
-				<Link href='settings'>
-					<SidebarItem text='Settings' icons={<Settings />} />
-				</Link>
-				<Link href='music'>
-					<SidebarItem text='Music' icons={<Music />} />
-				</Link>
+				<SidebarItem text='Feed' icons={<House />} link='feed' />
+				<SidebarItem
+					text='Messages'
+					icons={<MessagesSquare />}
+					link='messages'
+				/>
+				<SidebarItem text='Friends' icons={<Users />} link='friends' />
+				<SidebarItem text='Settings' icons={<Settings />} link='settings' />
+				<SidebarItem text='Music' icons={<Music />} link='music' />
 			</List>
 			<SidebarProfile />
-		</Drawer>
+		</DrawerUI>
 	)
 }

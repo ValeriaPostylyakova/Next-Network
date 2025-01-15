@@ -2,6 +2,7 @@ import Box from '@mui/material/Box'
 
 import { FC } from 'react'
 import { UserInfoName } from './user-info-name'
+import Link from 'next/link'
 
 export interface Props {
 	className?: string
@@ -9,7 +10,7 @@ export interface Props {
 
 export const SidebarProfile: FC<Props> = () => {
 	return (
-		<>
+		<Link href='/profile'>
 			<Box
 				sx={{
 					position: 'absolute',
@@ -20,6 +21,7 @@ export const SidebarProfile: FC<Props> = () => {
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
+					cursor: 'pointer',
 				}}
 			>
 				<UserInfoName
@@ -31,6 +33,6 @@ export const SidebarProfile: FC<Props> = () => {
 					sizeSubTitle={14}
 				/>
 			</Box>
-		</>
+		</Link>
 	)
 }

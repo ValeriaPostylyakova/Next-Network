@@ -17,6 +17,7 @@ export const PostBlockHeader: FC<Props> = () => {
 				display: 'flex',
 				alignItems: 'center',
 				justifyContent: 'space-between',
+				cursor: 'pointer',
 			}}
 		>
 			<UserInfoName
@@ -27,7 +28,7 @@ export const PostBlockHeader: FC<Props> = () => {
 				sizeTitle={18}
 				sizeSubTitle={15}
 			/>
-			<EllipsisVertical cursor='pointer' />
+			<EllipsisVertical />
 		</Box>
 	)
 }

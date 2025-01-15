@@ -1,4 +1,5 @@
 import { Box, Divider, Typography } from '@mui/material'
+import Link from 'next/link'
 import { FC } from 'react'
 import { UserInfoName } from './user-info-name'
 
@@ -7,8 +8,9 @@ export interface Props {
 }
 
 export const ChatBlock: FC<Props> = () => {
+	const id = 1
 	return (
-		<>
+		<Link href={`/chat/${id}`}>
 			<Box
 				sx={{
 					width: '97%',
@@ -33,6 +35,6 @@ export const ChatBlock: FC<Props> = () => {
 				<Typography>16:55</Typography>
 			</Box>
 			<Divider />
-		</>
+		</Link>
 	)
 }
