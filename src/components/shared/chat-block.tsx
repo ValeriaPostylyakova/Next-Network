@@ -1,7 +1,6 @@
 import { Box, Divider, Typography } from '@mui/material'
 import Link from 'next/link'
 import { FC } from 'react'
-import { UserInfoName } from './user-info-name'
 
 export interface Props {
 	className?: string
@@ -23,14 +22,41 @@ export const ChatBlock: FC<Props> = () => {
 					cursor: 'pointer',
 				}}
 			>
-				<Box>
-					<UserInfoName
-						height={40}
-						width={40}
-						image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
-						sizeTitle={16}
+				<Box sx={{ display: 'flex', gap: '1.5rem' }}>
+					<Box
+						sx={{
+							borderRadius: '100%',
+							p: 0.25,
+							width: `80px`,
+							height: `80px`,
+							backgroundImage: `url(https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg)`,
+							backgroundSize: 'cover',
+							backgroundRepeat: 'no-repeat',
+							mb: 1,
+						}}
 					/>
-					<Typography>Lorem ipsum dolor, sit amet</Typography>
+					<Box
+						sx={{
+							display: 'flex',
+							height: '100%',
+							flexDirection: 'column',
+							gap: '1rem',
+						}}
+					>
+						<Typography sx={{ fontSize: `20px`, fontWeight: 600 }}>
+							X_AE_A-13
+						</Typography>
+						<Typography
+							sx={{
+								fontSize: `17px`,
+								fontWeight: 500,
+								color: '#b5b5b5',
+							}}
+						>
+							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta,
+							nobis.
+						</Typography>
+					</Box>
 				</Box>
 				<Typography>16:55</Typography>
 			</Box>

@@ -5,10 +5,8 @@ import List from '@mui/material/List'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
-import { Bell, MessageCircleMore, Settings } from 'lucide-react'
 import { FC } from 'react'
-import { ButtonUI } from '../ui'
-import { ButtonGroupTheme } from './button-group-theme'
+import { SidebarRightButtonGroup } from './sidebar-right-button-group'
 import { SidebarRightItem } from './sidebar-right-item'
 
 export interface Props {
@@ -51,24 +49,7 @@ export const SidebarRight: FC<Props> = () => {
 						mb: 1,
 					}}
 				/>
-
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						gap: '10px',
-					}}
-				>
-					<ButtonUI variant='outlined'>
-						<Bell />
-					</ButtonUI>
-					<ButtonUI variant='outlined'>
-						<Settings />
-					</ButtonUI>
-					<ButtonUI variant='outlined'>
-						<MessageCircleMore />
-					</ButtonUI>
-				</Box>
+				<SidebarRightButtonGroup />
 			</Toolbar>
 			<Divider />
 			<Box
@@ -85,7 +66,6 @@ export const SidebarRight: FC<Props> = () => {
 				<SidebarRightItem />
 				<SidebarRightItem />
 			</List>
-			<ButtonGroupTheme />
 		</Drawer>
 	)
 }

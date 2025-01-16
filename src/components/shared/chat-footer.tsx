@@ -1,22 +1,37 @@
 'use client'
 
+import { TMessages } from '@/app/(dashboard)/chat/[id]/page'
 import { Button, TextField } from '@mui/material'
 import Box from '@mui/material/Box'
 import { Paperclip, SendHorizontal, Smile } from 'lucide-react'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 export interface Props {
-	className?: string
+	messages: TMessages[]
+	setMessages: (value: TMessages[]) => void
 }
 
-export const ChatFooter: FC<Props> = () => {
+export const ChatFooter: FC<Props> = ({ messages, setMessages }) => {
+	const [value, setValue] = useState<string>('')
+
+	const handleInputValue = (e: any) => {
+		if (e.code === 'Enter') {
+			const obj: TMessages = {
+				sender: 'right',
+				text: e.target.value,
+			}
+			setMessages([...messages, obj])
+			setValue('')
+		}
+	}
+
 	return (
 		<Box
 			sx={[
 				theme => ({
 					position: 'absolute',
 					bottom: '2%',
-					left: '10%',
+					left: '7%',
 					zIndex: 100,
 					width: '80%',
 					m: '0 auto',
@@ -48,6 +63,9 @@ export const ChatFooter: FC<Props> = () => {
 						width: '90%',
 						'& fieldset': { border: 'none' },
 					}}
+					value={value}
+					onKeyDown={handleInputValue}
+					onChange={e => setValue(e.target.value)}
 				/>
 				<Paperclip />
 			</Box>

@@ -1,46 +1,41 @@
-import { ChatFooter, ChatHeader } from '@/components/shared'
+'use client'
+
+import { ChatFooter, ChatHeader, Message } from '@/components/shared'
 import { MainWrapper } from '@/components/ui/main-wrapper'
-import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 interface Props {}
 
+export type TMessages = {
+	sender: string
+	text: string
+}
+
 const Page: FC<Props> = () => {
+	const [messages, setMessages] = useState<TMessages[]>([])
+
 	return (
 		<MainWrapper mt={0}>
 			<ChatHeader />
 			<Box
 				sx={{
-					position: 'relative',
-					width: '80%',
-					pt: '100px',
+					position: 'absolute',
+					bottom: '10%',
+					left: '8%',
+					width: '77%',
 					m: '0 auto',
-					height: 'calc(100vh - 90px)',
+					display: 'flex',
+					gap: 0.8,
+					flex: 1,
+					flexDirection: 'column',
 				}}
 			>
-				<Box
-					sx={{
-						position: 'absolute',
-						bottom: 0,
-						right: 0,
-						px: 2,
-						py: 1,
-						borderRadius: '8px 8px 0 8px',
-						bgcolor: '#646464',
-						maxWidth: '400px',
-						height: 'auto',
-						wordBreak: 'break-all',
-						mb: 1,
-						zIndex: 50,
-					}}
-				>
-					<Typography>
-						ghljhfgfjldjgldgldjfdkfhgjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjdhggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-					</Typography>
-				</Box>
+				{messages.map((message, index) => (
+					<Message key={index} text={message.text} align={message.sender} />
+				))}
 			</Box>
-			<ChatFooter />
+			<ChatFooter messages={messages} setMessages={setMessages} />
 		</MainWrapper>
 	)
 }

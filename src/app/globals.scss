@@ -60,3 +60,16 @@ a {
 		stroke-dashoffset: -35%;
 	}
 }
+
+.messages-box {
+	width: 100%;
+	max-height: 100vh;
+
+	&.user {
+		text-align: right;
+	}
+
+	&.friend {
+		text-align: left;
+	}
+}
