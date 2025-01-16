@@ -63,11 +63,11 @@ export const PostBlock: FC<Props> = () => {
 						sx={{
 							display: 'flex',
 							alignItems: 'center',
+							gap: '1.3rem',
+							cursor: 'pointer',
 						}}
 					>
-						<Button>
-							<MessageSquareText color='#d3d3d3' size={22} />
-						</Button>
+						<MessageSquareText color='#d3d3d3' size={22} />
 						<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
 							25 Comments
 						</Typography>

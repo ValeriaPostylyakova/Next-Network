@@ -6,15 +6,17 @@ import { FC, ReactNode } from 'react'
 export interface Props {
 	children: ReactNode
 	mt: number
+	pt?: number
 }
 
-export const MainWrapper: FC<Props> = ({ children, mt }) => {
+export const MainWrapper: FC<Props> = ({ children, mt, pt }) => {
 	return (
 		<Box
 			component='main'
 			sx={[
 				theme => ({
 					mt: `${mt}px`,
+					pt: `${pt}rem`,
 					minHeight: '100vh',
 					width: '100%',
 					position: 'relative',

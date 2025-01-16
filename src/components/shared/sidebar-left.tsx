@@ -8,7 +8,6 @@ import {
 	House,
 	MessageSquareShare,
 	MessagesSquare,
-	Music,
 	Search,
 	Settings,
 	Users,
@@ -92,7 +91,6 @@ export const SidebarLeft: FC<Props> = () => {
 				/>
 				<SidebarItem text='Friends' icons={<Users />} link='friends' />
 				<SidebarItem text='Settings' icons={<Settings />} link='settings' />
-				<SidebarItem text='Music' icons={<Music />} link='music' />
 			</List>
 			<SidebarProfile />
 		</DrawerUI>

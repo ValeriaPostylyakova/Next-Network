@@ -11,10 +11,10 @@ interface Props {
 
 const Page: FC<Props> = () => {
 	return (
-		<MainWrapper mt={0}>
+		<MainWrapper mt={0} pt={3}>
 			<Box
 				sx={{
-					width: '95%',
+					width: '73%',
 					m: '0 auto',
 					display: 'flex',
 					flexDirection: 'column',
