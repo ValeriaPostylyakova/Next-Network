@@ -1,20 +1,26 @@
-import { PrismaClient } from '@prisma/client'
+import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import dotenv from 'dotenv'
-import express, { Request, Response } from 'express'
+import express from 'express'
+import { routers } from './router/index'
 
 const app = express()
 dotenv.config()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
+app.use(cors())
+app.use('/api', routers)
 
-const prisma = new PrismaClient()
+const start = () => {
+	try {
+		app.listen(process.env.PORT || 5000, () => {
+			console.log(`Server started on ${process.env.PORT} port`)
+		})
+	} catch (e) {
+		console.log(e)
+	}
+}
 
-app.get('/users', async (req: Request, res: Response) => {
-	const users = await prisma.user.findMany()
-	res.json(users)
-})
-
-app.listen(process.env.PORT, () => {
-	console.log(`Server started in 5000 port`)
-})
+start()

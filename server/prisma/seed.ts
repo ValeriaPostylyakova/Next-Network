@@ -9,11 +9,15 @@ async function up() {
 				email: 'postylyakova.valeria@mail.ru',
 				password: '12345',
 				userName: 'Valeria Postylyakova',
+				token: '11111',
+				role: 'USER',
 			},
 			{
 				email: 'jonh@mail.ru',
 				password: '12345678890',
 				userName: 'Jonh Petrov',
+				token: '22222',
+				role: 'ADMIN',
 			},
 		],
 	})
