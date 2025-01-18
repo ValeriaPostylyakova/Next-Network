@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
-import { UserDTO } from '../dtos/user-dto'
+import { UserDTO } from './../dtos/user-dto'
+
 import { EmailService } from './email-service'
 import { TokenService } from './token-service'
 
@@ -34,7 +35,58 @@ export class UserService {
 		const userDTO = new UserDTO(user)
 		const tokens = tokenServise.generateTokens({ ...userDTO })
 		await tokenServise.saveToken(userDTO.id, tokens.refreshToken)
-		await emailService.sendActivationEmail(email, activationLink)
+		await emailService.sendActivationEmail(
+			email,
+			`${process.env.API_URL}/api/activate/${activationLink}`
+		)
+
+		return {
+			...tokens,
+			user: userDTO,
+		}
+	}
+
+	async activate(activationLink: string) {
+		const user = await prisma.user.findFirst({
+			where: {
+				activationLink: activationLink,
+			},
+		})
+
+		if (!user) {
+			throw new Error('Некорректная ссылка активации')
+		}
+
+		await prisma.user.update({
+			where: {
+				id: user.id,
+			},
+			data: {
+				isActivated: true,
+			},
+		})
+	}
+	async login(email: string, password: string) {
+		const findUser = await prisma.user.findFirst({
+			where: {
+				email: email,
+			},
+		})
+
+		if (!findUser) {
+			throw new Error('Пользователь не зарегистрирован')
+		}
+
+		const validatedPassword = bcrypt.compare(password, findUser.password)
+
+		if (!validatedPassword) {
+			throw new Error('Введен неверный пароль')
+		}
+
+		const userDTO = new UserDTO(findUser)
+
+		const tokens = tokenServise.generateTokens({ ...userDTO })
+		await tokenServise.saveToken(userDTO.id, tokens.refreshToken)
 
 		return {
 			...tokens,
