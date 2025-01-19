@@ -1,8 +1,9 @@
 'use client'
-import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box'
 import { FC, useState } from 'react'
 import { ButtonUI } from '../ui'
 import { ModalFormUI } from '../ui/modal-form'
+import { FormItem } from './form-item'
 
 export interface Props {
 	className?: string
@@ -29,28 +30,16 @@ export const AuthForm: FC<Props> = () => {
 				buttonText='Войти'
 				dialogTitle='Авторизация'
 			>
-				<TextField
-					autoFocus
-					required
-					margin='dense'
-					id='name'
-					name='email'
-					label='Email Address'
-					type='email'
-					fullWidth
-					variant='filled'
-				/>
-				<TextField
-					autoFocus
-					required
-					margin='dense'
-					id='name'
-					name='email'
-					label='Email Address'
-					type='email'
-					fullWidth
-					variant='filled'
-				/>
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '1rem',
+					}}
+				>
+					<FormItem label='Введите почту' placeholder='Введите вашу почту' />
+					<FormItem label='Введите пароль' placeholder='Введите ваш пароль' />
+				</Box>
 			</ModalFormUI>
 		</>
 	)

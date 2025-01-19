@@ -1,11 +1,12 @@
 'use client'
 
+import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
-import TextField from '@mui/material/TextField'
 import Image from 'next/image'
 import { FC, useState } from 'react'
 import { ButtonUI } from '../ui'
 import { ModalFormUI } from '../ui/modal-form'
+import { FormItem } from './form-item'
 
 export interface Props {
 	className?: string
@@ -50,28 +51,17 @@ export const RegisterForm: FC<Props> = () => {
 				buttonText='Зарегистрироваться'
 				dialogTitle='Регистрация'
 			>
-				<TextField
-					autoFocus
-					required
-					margin='dense'
-					id='name'
-					name='email'
-					label='Email Address'
-					type='email'
-					fullWidth
-					variant='filled'
-				/>
-				<TextField
-					autoFocus
-					required
-					margin='dense'
-					id='name'
-					name='email'
-					label='Email Address'
-					type='email'
-					fullWidth
-					variant='filled'
-				/>
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '1rem',
+					}}
+				>
+					<FormItem label='Введите почту' />
+					<FormItem label='Придумайте пароль' />
+					<FormItem label='Повторите пароль' />
+				</Box>
 			</ModalFormUI>
 		</>
 	)

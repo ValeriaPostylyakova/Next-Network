@@ -24,7 +24,11 @@ export const ModalFormUI: FC<Props> = ({
 	return (
 		<Dialog
 			sx={{
-				borderRadius: '1rem',
+				'& .MuiDialog-paper': {
+					borderRadius: '1rem',
+					width: '500px',
+					bgcolor: '#000',
+				},
 			}}
 			open={open}
 			onClose={handleClose}
