@@ -93,4 +93,47 @@ export class UserService {
 			user: userDTO,
 		}
 	}
+
+	async logout(token: string) {
+		const findRefToken = await prisma.token.findFirst({
+			where: {
+				refreshToken: token,
+			},
+		})
+
+		const refToken = await tokenServise.deleteToken(findRefToken?.id)
+		return refToken
+	}
+
+	async refresh(token: string) {
+		if (!token) {
+			throw new Error('Пользователь не зарегистрирован')
+		}
+
+		const userData = tokenServise.validateRefreshToken(token)
+		const tokenFromDb = tokenServise.findToken(token)
+
+		if (!userData || !tokenFromDb) {
+			throw new Error('Пользователь не зарегистрирован')
+		}
+
+		const user = await prisma.user.findFirst({
+			where: {
+				id: userData.id,
+			},
+		})
+
+		if (!user) {
+			throw new Error('Пользователя не существует')
+		}
+
+		const userDTO = new UserDTO(user)
+		const tokens = tokenServise.generateTokens({ ...userDTO })
+		await tokenServise.saveToken(userDTO.id, tokens.refreshToken)
+
+		return {
+			...tokens,
+			user: userDTO,
+		}
+	}
 }

@@ -1,9 +1,7 @@
 import { validationResult } from 'express-validator'
-import { TokenService } from '../services/token-service'
 import { UserService } from '../services/user-service'
 
 const userService = new UserService()
-const tokenService = new TokenService()
 
 export class UserControllers {
 	async registration(req: any, res: any, next: any) {
@@ -42,8 +40,12 @@ export class UserControllers {
 		}
 	}
 
-	async logout(req: any, res: any, next: any) {
+	async logout(req: any, res: any) {
 		try {
+			const { refreshToken } = req.cookies
+			const token = await userService.logout(refreshToken)
+			res.clearCookie('refreshToken')
+			return res.json(token)
 		} catch (e) {
 			console.log(e)
 		}
@@ -61,13 +63,14 @@ export class UserControllers {
 
 	async refresh(req: any, res: any, next: any) {
 		try {
-		} catch (e) {
-			console.log(e)
-		}
-	}
+			const { refreshToken } = req.cookies
+			const userData = await userService.refresh(refreshToken)
+			res.cookie('refreshToken', userData.refreshToken, {
+				maxAge: 30 * 24 * 60 * 60 * 1000,
+				httpOnly: true,
+			})
 
-	async getUsers(req: any, res: any, next: any) {
-		try {
+			return res.status(200).json(userData)
 		} catch (e) {
 			console.log(e)
 		}

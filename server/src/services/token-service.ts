@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
 const prisma = new PrismaClient()
 
@@ -20,6 +20,27 @@ export class TokenService {
 		return {
 			accessToken,
 			refreshToken,
+		}
+	}
+
+	validateAccessToken(token: string) {
+		try {
+			const userData = jwt.verify(token, process.env.JWT_ACCESS_TOKEN || '')
+			return userData
+		} catch (e) {
+			return null
+		}
+	}
+
+	validateRefreshToken(token: string) {
+		try {
+			const userData = jwt.verify(
+				token,
+				process.env.JWT_REFRESH_TOKEN || ''
+			) as JwtPayload
+			return userData
+		} catch (e) {
+			return null
 		}
 	}
 
@@ -49,5 +70,27 @@ export class TokenService {
 		})
 
 		return token
+	}
+
+	async deleteToken(userId?: number) {
+		if (userId) {
+			const tokenData = await prisma.token.delete({
+				where: {
+					userId: userId,
+				},
+			})
+
+			return tokenData
+		}
+	}
+
+	async findToken(token: string) {
+		const refToken = await prisma.token.findFirst({
+			where: {
+				refreshToken: token,
+			},
+		})
+
+		return refToken
 	}
 }
