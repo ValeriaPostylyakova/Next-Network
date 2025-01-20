@@ -1,18 +1,18 @@
 import { api } from '@/http/axios'
 
-interface AuthResponse {
+export interface AuthResponse {
 	accessToken: string
 	refreshToken: string
 	user: TUser
 }
 
-type TUser = {
+export type TUser = {
 	id: number
 	email: string
 	isActivated: boolean
 }
 
-class AuthService {
+export class AuthService {
 	static async login(email: string, password: string) {
 		return api.post<AuthResponse>('/login', { email, password })
 	}

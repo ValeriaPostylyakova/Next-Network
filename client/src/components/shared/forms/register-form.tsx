@@ -2,12 +2,20 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
 import Divider from '@mui/material/Divider'
+
+import { fetchRegistration } from '@/redux/auth/async-actions'
+import { AppDispatch } from '@/redux/store'
 import Image from 'next/image'
 import { FC, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { ButtonUI } from '../../ui'
-import { ModalFormUI } from '../../ui/modal-form'
 import { FormItem } from '../form-item'
 import { TRegisterForm, registerFormSchema } from './schema'
 
@@ -17,6 +25,7 @@ export interface Props {
 
 export const RegisterForm: FC<Props> = () => {
 	const [open, setOpen] = useState(false)
+	const dispatch: AppDispatch = useDispatch()
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -37,7 +46,7 @@ export const RegisterForm: FC<Props> = () => {
 	})
 
 	const onSubmit = (data: TRegisterForm) => {
-		console.log(data)
+		dispatch(fetchRegistration(data))
 	}
 	return (
 		<>
@@ -62,36 +71,47 @@ export const RegisterForm: FC<Props> = () => {
 			>
 				Зарегистрироваться
 			</ButtonUI>
-
 			<FormProvider {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<ModalFormUI
-						open={open}
-						handleClose={handleClose}
-						buttonText='Зарегистрироваться'
-						dialogTitle='Регистрация'
-					>
-						<Box
-							sx={{
-								display: 'flex',
-								flexDirection: 'column',
-								gap: '1rem',
-							}}
-						>
-							<FormItem label='Введите почту' name='email' />
-							<FormItem
-								label='Придумайте пароль'
-								type='password'
-								name='password'
-							/>
-							<FormItem
-								label='Повторите пароль'
-								type='password'
-								name='confirmPassword'
-							/>
-						</Box>
-					</ModalFormUI>
-				</form>
+				<Dialog
+					sx={{
+						'& .MuiDialog-paper': {
+							borderRadius: '1rem',
+							width: '500px',
+							bgcolor: '#000',
+						},
+					}}
+					open={open}
+					onClose={handleClose}
+				>
+					<form onSubmit={form.handleSubmit(onSubmit)}>
+						<DialogTitle>Регистрация</DialogTitle>
+						<DialogContent>
+							<Box
+								sx={{
+									display: 'flex',
+									flexDirection: 'column',
+									gap: '1rem',
+								}}
+							>
+								<FormItem label='Введите почту' name='email' />
+								<FormItem
+									label='Придумайте пароль'
+									type='password'
+									name='password'
+								/>
+								<FormItem
+									label='Повторите пароль'
+									type='password'
+									name='confirmPassword'
+								/>
+							</Box>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={handleClose}>Отмена</Button>
+							<Button type='submit'>Зарегистрироваться</Button>
+						</DialogActions>
+					</form>
+				</Dialog>
 			</FormProvider>
 		</>
 	)
