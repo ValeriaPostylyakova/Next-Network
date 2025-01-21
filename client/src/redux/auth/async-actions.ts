@@ -4,14 +4,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 type TParams = {
 	email: string
 	password: string
+	fullname?: string
 }
 
 export const fetchRegistration = createAsyncThunk(
 	'auth/fetchRegister',
 	async (params: TParams) => {
 		try {
-			const { email, password } = params
-			const { data } = await AuthService.registration(email, password)
+			const { email, password, fullname } = params
+			const { data } = await AuthService.registration(email, password, fullname)
 			localStorage.setItem('token', data.accessToken)
 			return data
 		} catch (e) {

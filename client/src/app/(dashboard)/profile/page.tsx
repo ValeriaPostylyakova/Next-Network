@@ -31,6 +31,7 @@ const Page: FC<Props> = () => {
 						image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
 						sizeTitle={20}
 						sizeSubTitle={16}
+						name='X_AE_A-13'
 					/>
 					<Link href='/settings'>
 						<ButtonUI variant='outlined'>Редактировать пррофиль</ButtonUI>

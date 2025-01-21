@@ -12,6 +12,7 @@ export interface Props {
 	text?: string
 	messageBlock?: ReactNode
 	cursor?: string
+	name?: string
 }
 
 export const UserInfoName: FC<Props> = ({
@@ -23,6 +24,7 @@ export const UserInfoName: FC<Props> = ({
 	text,
 	messageBlock,
 	cursor,
+	name,
 }) => {
 	return (
 		<FlexContainer>
@@ -35,7 +37,6 @@ export const UserInfoName: FC<Props> = ({
 					backgroundImage: `url(${image})`,
 					backgroundSize: 'cover',
 					backgroundRepeat: 'no-repeat',
-					mb: 1,
 					cursor: cursor,
 				}}
 			/>
@@ -47,7 +48,7 @@ export const UserInfoName: FC<Props> = ({
 				}}
 			>
 				<Typography sx={{ fontSize: `${sizeTitle}px`, fontWeight: 600 }}>
-					X_AE_A-13
+					{name}
 				</Typography>
 				{sizeSubTitle && (
 					<Typography

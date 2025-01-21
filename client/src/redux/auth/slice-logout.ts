@@ -3,7 +3,7 @@ import { fetchLogout } from './async-actions'
 import { InitiateState, Status } from './types'
 
 const initialState: InitiateState = {
-	user: null,
+	user: undefined,
 	isAuth: false,
 	status: Status.LOADIND,
 }
@@ -18,7 +18,7 @@ export const authSliceRegister = createSlice({
 		})
 		builder.addCase(fetchLogout.fulfilled, state => {
 			state.isAuth = false
-			state.user = null
+			state.user = undefined
 		})
 		builder.addCase(fetchLogout.rejected, state => {
 			state.status = Status.ERROR

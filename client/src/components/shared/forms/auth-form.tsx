@@ -7,31 +7,21 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 
+import { useOpenModal } from '@/hooks/use-open-modal'
 import { fetchLogin } from '@/redux/auth/async-actions'
 import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { ButtonUI } from '../../ui'
 import { FormItem } from '../form-item'
 import { loginFormSchema, TLoginFormSchema } from './schema'
 
-export interface Props {
-	className?: string
-}
-
-export const AuthForm: FC<Props> = () => {
+export const AuthForm: FC = () => {
 	const dispatch: AppDispatch = useDispatch()
-	const [open, setOpen] = useState(false)
-
-	const handleClickOpen = () => {
-		setOpen(true)
-	}
-
-	const handleClose = () => {
-		setOpen(false)
-	}
+	const { open, handleClose, handleOpen, router } = useOpenModal()
 
 	const form = useForm({
 		resolver: zodResolver(loginFormSchema),
@@ -44,10 +34,13 @@ export const AuthForm: FC<Props> = () => {
 
 	const onSubmit = (data: TLoginFormSchema) => {
 		dispatch(fetchLogin(data))
+		toast.success('Авторизация прошла успешно!')
+		router.push('/feed')
 	}
 	return (
 		<>
-			<ButtonUI width='80%' click={handleClickOpen} variant='outlined'>
+			ия
+			<ButtonUI width='80%' click={handleOpen} variant='outlined'>
 				Войти
 			</ButtonUI>
 			<FormProvider {...form}>

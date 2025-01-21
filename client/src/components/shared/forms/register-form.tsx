@@ -9,36 +9,27 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import Divider from '@mui/material/Divider'
 
+import { useOpenModal } from '@/hooks/use-open-modal'
 import { fetchRegistration } from '@/redux/auth/async-actions'
 import { AppDispatch } from '@/redux/store'
 import Image from 'next/image'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { ButtonUI } from '../../ui'
 import { FormItem } from '../form-item'
 import { TRegisterForm, registerFormSchema } from './schema'
 
-export interface Props {
-	className?: string
-}
-
-export const RegisterForm: FC<Props> = () => {
-	const [open, setOpen] = useState(false)
+export const RegisterForm: FC = () => {
+	const { open, handleClose, handleOpen } = useOpenModal()
 	const dispatch: AppDispatch = useDispatch()
-
-	const handleClickOpen = () => {
-		setOpen(true)
-	}
-
-	const handleClose = () => {
-		setOpen(false)
-	}
 
 	const form = useForm<TRegisterForm>({
 		resolver: zodResolver(registerFormSchema),
 		defaultValues: {
 			email: '',
+			fullname: '',
 			password: '',
 			confirmPassword: '',
 		},
@@ -46,7 +37,12 @@ export const RegisterForm: FC<Props> = () => {
 	})
 
 	const onSubmit = (data: TRegisterForm) => {
-		dispatch(fetchRegistration(data))
+		try {
+			dispatch(fetchRegistration(data))
+			toast.success('Регистрация прошла успешно!')
+		} catch (e) {
+			console.error(e)
+		}
 	}
 	return (
 		<>
@@ -63,12 +59,7 @@ export const RegisterForm: FC<Props> = () => {
 				или
 			</Divider>
 
-			<ButtonUI
-				width='80%'
-				click={handleClickOpen}
-				variant='contained'
-				m='2rem'
-			>
+			<ButtonUI width='80%' click={handleOpen} variant='contained' m='2rem'>
 				Зарегистрироваться
 			</ButtonUI>
 			<FormProvider {...form}>
@@ -93,7 +84,16 @@ export const RegisterForm: FC<Props> = () => {
 									gap: '1rem',
 								}}
 							>
-								<FormItem label='Введите почту' name='email' />
+								<FormItem
+									label='Введите свою почту'
+									placeholder='Введите почту'
+									name='email'
+								/>
+								<FormItem
+									label='Введите свое имя'
+									placeholder='Введите имя'
+									name='fullname'
+								/>
 								<FormItem
 									label='Придумайте пароль'
 									type='password'

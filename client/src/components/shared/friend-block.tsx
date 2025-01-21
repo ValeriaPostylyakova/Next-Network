@@ -25,6 +25,7 @@ export const FriendBlock: FC<Props> = () => {
 				image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
 				sizeTitle={18}
 				cursor='pointer'
+				name='X_AE_A-13'
 				messageBlock={
 					<Box
 						sx={{

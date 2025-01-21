@@ -22,6 +22,7 @@ export const SidebarRightItem: FC<Props> = () => {
 						sizeTitle={16}
 						sizeSubTitle={14}
 						text='@valera'
+						name='X_AE_A-13'
 					/>
 					<ListItemIcon sx={{ color: '#a6a6a6' }}>
 						<Plus />
