@@ -4,7 +4,7 @@ import { UserService } from '../services/user-service'
 const userService = new UserService()
 
 export class UserControllers {
-	async registration(req: any, res: any, next: any) {
+	async registration(req: any, res: any) {
 		try {
 			const errors = validationResult(req)
 
@@ -12,8 +12,8 @@ export class UserControllers {
 				throw new Error('Ошибка при валидации')
 			}
 
-			const { email, password } = req.body
-			const userData = await userService.registration(email, password)
+			const { email, password, fullname } = req.body
+			const userData = await userService.registration(email, password, fullname)
 			res.cookie('refreshToken', userData.refreshToken, {
 				maxAge: 30 * 24 * 60 * 60 * 1000,
 				httpOnly: true,
