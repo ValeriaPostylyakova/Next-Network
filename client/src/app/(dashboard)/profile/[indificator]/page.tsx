@@ -1,16 +1,25 @@
+'use client'
+
 import { Header, PostBlock, UserInfoName } from '@/components/shared'
 import { ButtonUI } from '@/components/ui'
 import { MainWrapper } from '@/components/ui/main-wrapper'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Link from 'next/link'
-import { FC } from 'react'
 
-interface Props {
-	className?: string
-}
+const Page = ({
+	params: { indificator },
+}: {
+	params: { indificator: string }
+}) => {
+	// const profileActions = new ProfileActions()
+	// const dispatch: AppDispatch = useDispatch()
+	// const profile = useSelector((state: RootState) => state.profile.profile)
+	// useEffect(() => {
+	// 	dispatch(profileActions.profile(indificator))
+	// }, [])
 
-const Page: FC<Props> = () => {
+	console.log(indificator)
 	return (
 		<MainWrapper mt={65}>
 			<Box sx={{ width: '90%', m: '0 auto', pt: 3 }}>
@@ -31,7 +40,7 @@ const Page: FC<Props> = () => {
 						image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
 						sizeTitle={20}
 						sizeSubTitle={16}
-						name='X_AE_A-13'
+						name={profile?.fullname}
 					/>
 					<Link href='/settings'>
 						<ButtonUI variant='outlined'>Редактировать пррофиль</ButtonUI>

@@ -2,10 +2,9 @@
 
 import Box from '@mui/material/Box'
 
-import { RootState } from '@/redux/store'
+import { useSubmitFormData } from '@/hooks/use-submit-form-data'
 import Link from 'next/link'
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
 import { UserInfoName } from './user-info-name'
 
 export interface Props {
@@ -13,9 +12,9 @@ export interface Props {
 }
 
 export const SidebarProfile: FC<Props> = () => {
-	const user = useSelector((state: RootState) => state.authRegister)
+	const { user } = useSubmitFormData()
 	return (
-		<Link href='/profile'>
+		<Link href='/profile/:indificator'>
 			<Box
 				sx={{
 					position: 'absolute',
@@ -30,13 +29,13 @@ export const SidebarProfile: FC<Props> = () => {
 				}}
 			>
 				<UserInfoName
-					text='@valera'
+					text={user?.identifier}
 					width={40}
 					height={40}
 					image='/user-profile.svg'
 					sizeTitle={16}
 					sizeSubTitle={14}
-					name={user.user?.fullname}
+					name={user?.fullname}
 				/>
 			</Box>
 		</Link>

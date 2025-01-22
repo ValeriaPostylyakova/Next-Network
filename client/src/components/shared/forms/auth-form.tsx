@@ -1,27 +1,24 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { useOpenModal } from '@/hooks/use-open-modal'
+import { useSubmitFormData } from '@/hooks/use-submit-form-data'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-
-import { useOpenModal } from '@/hooks/use-open-modal'
-import { fetchLogin } from '@/redux/auth/async-actions'
-import { AppDispatch } from '@/redux/store'
-import Box from '@mui/material/Box'
 import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
 import { ButtonUI } from '../../ui'
 import { FormItem } from '../form-item'
 import { loginFormSchema, TLoginFormSchema } from './schema'
 
 export const AuthForm: FC = () => {
-	const dispatch: AppDispatch = useDispatch()
-	const { open, handleClose, handleOpen, router } = useOpenModal()
+	const { open, handleClose, handleOpen, setOpen } = useOpenModal()
+	const { dispatch, user, fetchAuth, router } = useSubmitFormData()
 
 	const form = useForm({
 		resolver: zodResolver(loginFormSchema),
@@ -32,14 +29,20 @@ export const AuthForm: FC = () => {
 		mode: 'onChange',
 	})
 
-	const onSubmit = (data: TLoginFormSchema) => {
-		dispatch(fetchLogin(data))
-		toast.success('Авторизация прошла успешно!')
-		router.push('/feed')
+	const onSubmit = async (data: TLoginFormSchema) => {
+		dispatch(fetchAuth.login(data))
+
+		if (!user) {
+			toast.error('Пользователь не найден')
+		} else {
+			toast.success('Вы успешно авторизовались')
+			setOpen(false)
+			router.push('/feed')
+		}
 	}
+
 	return (
 		<>
-			ия
 			<ButtonUI width='80%' click={handleOpen} variant='outlined'>
 				Войти
 			</ButtonUI>

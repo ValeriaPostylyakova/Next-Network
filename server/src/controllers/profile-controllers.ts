@@ -5,9 +5,9 @@ const profileService = new ProfileService()
 export class ProfileControllers {
 	async profile(req: any, res: any) {
 		try {
-			const { email } = req.body
-			const userProfile = profileService.getProfile(email)
-			return res.status(200).json(userProfile)
+			const { id } = req.params
+			const response = await profileService.profile(id)
+			return res.status(200).json(response)
 		} catch (e) {
 			res.status(400).json({ message: 'Ошибка при получении профиля' })
 			console.log(e)

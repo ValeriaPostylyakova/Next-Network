@@ -12,14 +12,13 @@ import {
 	Settings,
 	Users,
 } from 'lucide-react'
+import Link from 'next/link'
 import { FC } from 'react'
 import { DrawerUI, FlexContainer } from '../ui'
 import { SidebarItem } from './sidebar-item'
 import { SidebarProfile } from './sidebar-profile'
 
-export interface Props {}
-
-export const SidebarLeft: FC<Props> = () => {
+export const SidebarLeft: FC = () => {
 	return (
 		<DrawerUI>
 			<Toolbar
@@ -33,16 +32,18 @@ export const SidebarLeft: FC<Props> = () => {
 			>
 				<FlexContainer mb='2rem'>
 					<MessageSquareShare size={23} />
-					<Typography
-						sx={{
-							textTransform: 'uppercase',
-							fontSize: '16px',
-							cursor: 'pointer',
-							fontWeight: 600,
-						}}
-					>
-						Next Network
-					</Typography>
+					<Link href='/feed'>
+						<Typography
+							sx={{
+								textTransform: 'uppercase',
+								fontSize: '16px',
+								cursor: 'pointer',
+								fontWeight: 600,
+							}}
+						>
+							Next Network
+						</Typography>
+					</Link>
 				</FlexContainer>
 				<Box
 					sx={{

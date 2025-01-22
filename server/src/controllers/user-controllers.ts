@@ -26,7 +26,7 @@ export class UserControllers {
 		}
 	}
 
-	async login(req: any, res: any, next: any) {
+	async login(req: any, res: any) {
 		try {
 			const { email, password } = req.body
 			const userData = await userService.login(email, password)
@@ -36,6 +36,7 @@ export class UserControllers {
 			})
 			return res.status(200).json(userData)
 		} catch (e) {
+			res.status(400).json({ message: 'Ошибка при авторизации' })
 			console.log(e)
 		}
 	}

@@ -1,10 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export const useOpenModal = () => {
-	const router = useRouter()
 	const [open, setOpen] = useState<boolean>(false)
 
 	const handleOpen = () => {
@@ -20,6 +18,5 @@ export const useOpenModal = () => {
 		setOpen,
 		handleOpen,
 		handleClose,
-		router,
 	}
 }

@@ -1,14 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authSliceLogin from './auth/slice-login'
-import authSliceLogout from './auth/slice-logout'
-import authSliceRegister from './auth/slice-register'
+import authSlice from './auth/auth-slice'
+import profileSlice from './profile/profile-slice'
 
 export const makeStore = () => {
 	return configureStore({
 		reducer: {
-			authRegister: authSliceRegister,
-			authLogin: authSliceLogin,
-			authLogout: authSliceLogout,
+			auth: authSlice,
+			profile: profileSlice,
 		},
 	})
 }

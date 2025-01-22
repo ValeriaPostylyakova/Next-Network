@@ -23,6 +23,7 @@ export class UserService {
 		}
 
 		const activationLink = uuidv4()
+		const identifier = String(email.slice(0, 5))
 
 		const user = await prisma.user.create({
 			data: {
@@ -30,6 +31,7 @@ export class UserService {
 				password: bcrypt.hashSync(password, 5),
 				fullname: fullname,
 				activationLink: activationLink,
+				identifier: `@${identifier}`,
 			},
 		})
 

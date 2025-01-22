@@ -9,8 +9,13 @@ export interface AuthResponse {
 export type TUser = {
 	id: number
 	email: string
-	fullname?: string
+	password: string
 	isActivated: boolean
+	activationLink?: string
+	fullname: string
+	identifier: string
+	jobTitle?: string
+	
 }
 
 export class AuthService {

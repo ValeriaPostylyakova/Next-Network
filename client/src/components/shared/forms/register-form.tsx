@@ -10,20 +10,18 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Divider from '@mui/material/Divider'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
-import { fetchRegistration } from '@/redux/auth/async-actions'
-import { AppDispatch } from '@/redux/store'
+import { useSubmitFormData } from '@/hooks/use-submit-form-data'
 import Image from 'next/image'
 import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
 import { ButtonUI } from '../../ui'
 import { FormItem } from '../form-item'
 import { TRegisterForm, registerFormSchema } from './schema'
 
 export const RegisterForm: FC = () => {
-	const { open, handleClose, handleOpen } = useOpenModal()
-	const dispatch: AppDispatch = useDispatch()
+	const { open, handleClose, handleOpen, setOpen } = useOpenModal()
+	const { dispatch, status, fetchAuth, router } = useSubmitFormData()
 
 	const form = useForm<TRegisterForm>({
 		resolver: zodResolver(registerFormSchema),
@@ -36,14 +34,20 @@ export const RegisterForm: FC = () => {
 		mode: 'onChange',
 	})
 
-	const onSubmit = (data: TRegisterForm) => {
-		try {
-			dispatch(fetchRegistration(data))
-			toast.success('Регистрация прошла успешно!')
-		} catch (e) {
-			console.error(e)
+	const onSubmit = async (data: TRegisterForm) => {
+		dispatch(fetchAuth.registration(data))
+
+		if (status === 'error') {
+			toast.error('Такой пользователь уже существует')
+		}
+
+		if (status === 'success') {
+			toast.success('Вы успешно зарегистрировались')
+			setOpen(false)
+			router.push('/feed')
 		}
 	}
+
 	return (
 		<>
 			<ButtonUI width='80%' bgcolor='#fff' m='0.3rem' variant='contained'>
