@@ -31,7 +31,7 @@ export class UserService {
 				password: bcrypt.hashSync(password, 5),
 				fullname: fullname,
 				activationLink: activationLink,
-				identifier: `@${identifier}`,
+				identifier: identifier,
 			},
 		})
 

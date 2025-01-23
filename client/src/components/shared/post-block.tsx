@@ -10,29 +10,41 @@ import { ButtonUI, FlexContainer, MainBlock } from '../ui'
 import { PostBlockHeader } from './post-block-header'
 
 export interface Props {
-	className?: string
+	text?: string
+	postImageUrl?: string
+	fullname: string
+	jobTitle?: string
+	userImageUrl?: string
+	likes: number
+	comments?: string[]
 }
 
-export const PostBlock: FC<Props> = () => {
+export const PostBlock: FC<Props> = ({
+	text,
+	postImageUrl,
+	fullname,
+	likes,
+	comments,
+	jobTitle,
+	userImageUrl,
+}) => {
 	return (
 		<MainBlock>
-			<PostBlockHeader />
+			<PostBlockHeader
+				fullname={fullname}
+				jobTitle={jobTitle}
+				userImageUrl={userImageUrl}
+			/>
 			<Divider />
 			<Box>
-				<Typography sx={{ fontSize: '16px', pt: 2, mb: 2 }}>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-					debitis voluptate vero, praesentium voluptates cupiditate distinctio
-					deserunt. Optio laudantium, pariatur sit distinctio laborum nobis quis
-					minus. Eligendi, exercitationem aliquam. Ut, aperiam.
-				</Typography>
+				<Typography sx={{ fontSize: '16px', pt: 2, mb: 2 }}>{text}</Typography>
 				<Box
 					sx={{
 						width: '100%',
 						height: '450px',
 						borderRadius: 4,
 						mb: 2,
-						backgroundImage:
-							'url(https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg)',
+						backgroundImage: `url(${postImageUrl})`,
 						backgroundRepeat: 'no-repeat',
 						backgroundSize: 'cover',
 					}}
@@ -56,7 +68,7 @@ export const PostBlock: FC<Props> = () => {
 							<Heart color='#d3d3d3' size={22} />
 						</Button>
 						<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
-							12 Likes
+							{likes} Likes
 						</Typography>
 					</Box>
 					<Box
@@ -69,7 +81,7 @@ export const PostBlock: FC<Props> = () => {
 					>
 						<MessageSquareText color='#d3d3d3' size={22} />
 						<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
-							25 Comments
+							{comments?.length} Comments
 						</Typography>
 					</Box>
 				</Box>
@@ -82,8 +94,7 @@ export const PostBlock: FC<Props> = () => {
 								p: 0.25,
 								width: '45px',
 								height: '45px',
-								backgroundImage:
-									'url(https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg)',
+								backgroundImage: 'url(/user-profile.svg)',
 								backgroundSize: 'cover',
 								backgroundRepeat: 'no-repeat',
 								mb: 1,

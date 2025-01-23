@@ -1,14 +1,19 @@
 import Box from '@mui/material/Box'
 
-import { EllipsisVertical } from 'lucide-react'
 import { FC } from 'react'
 import { UserInfoName } from './user-info-name'
 
 export interface Props {
-	className?: string
+	fullname?: string
+	jobTitle?: string
+	userImageUrl?: string
 }
 
-export const PostBlockHeader: FC<Props> = () => {
+export const PostBlockHeader: FC<Props> = ({
+	fullname,
+	jobTitle,
+	userImageUrl,
+}) => {
 	return (
 		<Box
 			sx={{
@@ -21,15 +26,14 @@ export const PostBlockHeader: FC<Props> = () => {
 			}}
 		>
 			<UserInfoName
-				text='Product Desiner, slohUI'
+				text={jobTitle}
 				width={55}
 				height={55}
-				image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
+				image='/user-profile.svg'
 				sizeTitle={18}
 				sizeSubTitle={15}
-				name='X_AE_A-13'
+				name={fullname}
 			/>
-			<EllipsisVertical />
 		</Box>
 	)
 }

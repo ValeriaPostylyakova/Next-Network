@@ -1,18 +1,18 @@
 import { api } from '@/http/axios'
-import { Chat, Friend, Post, StoryItem } from '@/redux/profile/types'
+import { Post } from '@/redux/profile/types'
 
 export interface IProfile {
 	id: number
 	fullname: string
 	email: string
-	posts?: Post[]
-	stories?: StoryItem[]
-	friend?: Friend[]
-	chats?: Chat[]
 }
 
 export const ProfileService = {
-	async profile(indificator: string) {
-		return api.get('/profile/:id', { params: { id: indificator } })
+	async profileInfo(indificator: string) {
+		return api.get<IProfile>(`/profile/${indificator}`)
+	},
+
+	async posts(id: number) {
+		return api.get<Post[]>(`/posts/${id}`)
 	},
 }

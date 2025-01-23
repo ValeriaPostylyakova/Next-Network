@@ -6,8 +6,10 @@ import { InitialState } from './types'
 const profileActions = new ProfileActions()
 
 const initialState: InitialState = {
-	profile: undefined,
-	status: Status.LOADIND,
+	profileInfo: undefined,
+	statusProfileInfo: Status.LOADIND,
+	statusPosts: Status.LOADIND,
+	posts: null,
 }
 
 const profileSlice = createSlice({
@@ -17,14 +19,24 @@ const profileSlice = createSlice({
 
 	extraReducers: builder => {
 		builder.addCase(profileActions.profile.pending, state => {
-			state.status = Status.LOADIND
+			state.statusProfileInfo = Status.LOADIND
 		})
 		builder.addCase(profileActions.profile.fulfilled, (state, actions) => {
-			state.status = Status.SUCCESS
-			state.profile = actions.payload
+			state.statusProfileInfo = Status.SUCCESS
+			state.profileInfo = actions.payload
 		})
 		builder.addCase(profileActions.profile.rejected, state => {
-			state.status = Status.ERROR
+			state.statusProfileInfo = Status.ERROR
+		})
+		builder.addCase(profileActions.posts.pending, state => {
+			state.statusPosts = Status.LOADIND
+		})
+		builder.addCase(profileActions.posts.fulfilled, (state, action) => {
+			state.statusPosts = Status.SUCCESS
+			state.posts = action.payload
+		})
+		builder.addCase(profileActions.posts.rejected, state => {
+			state.statusPosts = Status.ERROR
 		})
 	},
 })

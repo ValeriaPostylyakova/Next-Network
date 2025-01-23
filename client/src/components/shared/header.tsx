@@ -1,10 +1,8 @@
 import AppBar from '@mui/material/AppBar'
 import Divider from '@mui/material/Divider'
 import Toolbar from '@mui/material/Toolbar'
-
-import { Plus } from 'lucide-react'
 import { FC } from 'react'
-import { ButtonUI } from '../ui'
+import { CreatePostModal } from './create-post-modal'
 import { HeaderSearch } from './search'
 
 export interface Props {}
@@ -31,10 +29,7 @@ export const Header: FC<Props> = () => {
 					width={420}
 					placeholder='Search for friends, groups, pages'
 				/>
-				<ButtonUI variant='contained' bgcolor='#5145d6' color='#fff'>
-					Add New Post
-					<Plus style={{ color: '#fff' }} />
-				</ButtonUI>
+				<CreatePostModal />
 			</Toolbar>
 			<Divider />
 		</AppBar>

@@ -14,7 +14,7 @@ export interface Props {
 export const SidebarProfile: FC<Props> = () => {
 	const { user } = useSubmitFormData()
 	return (
-		<Link href='/profile/:indificator'>
+		<Link href={`/profile/${user?.identifier}`}>
 			<Box
 				sx={{
 					position: 'absolute',
@@ -28,15 +28,17 @@ export const SidebarProfile: FC<Props> = () => {
 					cursor: 'pointer',
 				}}
 			>
-				<UserInfoName
-					text={user?.identifier}
-					width={40}
-					height={40}
-					image='/user-profile.svg'
-					sizeTitle={16}
-					sizeSubTitle={14}
-					name={user?.fullname}
-				/>
+				{user && (
+					<UserInfoName
+						text={`@${user?.identifier}`}
+						width={40}
+						height={40}
+						image='/user-profile.svg'
+						sizeTitle={16}
+						sizeSubTitle={14}
+						name={user?.fullname}
+					/>
+				)}
 			</Box>
 		</Link>
 	)

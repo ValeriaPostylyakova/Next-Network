@@ -20,8 +20,12 @@ export type StoryItem = {
 export type Post = {
 	id: number
 	userId: number
-	imageUrl: string
+	postImageUrl?: string
+	fullname: string
+	jobTitle?: string
+	userImageUrl?: string
 	likes: number
+	text?: string
 	comments?: string[]
 }
 
@@ -29,13 +33,11 @@ export type IProfile = {
 	id: number
 	fullname: string
 	email: string
-	posts?: Post[]
-	stories?: StoryItem[]
-	friend?: Friend[]
-	chats?: Chat[]
 }
 
 export interface InitialState {
-	profile: IProfile | undefined
-	status: Status
+	profileInfo: IProfile | undefined
+	statusProfileInfo: Status
+	statusPosts: Status
+	posts: Post[] | null
 }

@@ -18,6 +18,7 @@ router.post('/logout', userControllers.logout)
 router.get('/activate/:link', userControllers.activate)
 router.get('/refresh', userControllers.refresh)
 
-router.get('/profile/:id', profileControllers.profile)
+router.get('/profile/:id', profileControllers.profileInfo)
+router.get('/posts/:id', profileControllers.posts)
 
 export const routers = router
