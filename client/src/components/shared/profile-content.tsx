@@ -13,24 +13,20 @@ import { PostBlock } from './post-block'
 import { UserInfoName } from './user-info-name'
 
 export interface Props {
-	indificator: string
+	id: string
 }
 
-export const ProfileContent: FC<Props> = ({ indificator }) => {
+export const ProfileContent: FC<Props> = ({ id }) => {
 	const profileActions = new ProfileActions()
 	const dispatch: AppDispatch = useDispatch()
-	const status = useSelector(
-		(state: RootState) => state.profile.statusProfileInfo
+	const profileIfo = useSelector(
+		(state: RootState) => state.profile.profileInfo
 	)
-	const profile = useSelector((state: RootState) => state.profile.profileInfo)
 	const posts = useSelector((state: RootState) => state.profile.posts)
 
 	useEffect(() => {
-		dispatch(profileActions.profile(indificator))
-
-		if (status === 'success') {
-			dispatch(profileActions.posts(profile?.id as number))
-		}
+		dispatch(profileActions.profile(id))
+		dispatch(profileActions.posts(id))
 	}, [])
 
 	return (
@@ -51,7 +47,7 @@ export const ProfileContent: FC<Props> = ({ indificator }) => {
 					image='/user-profile.svg'
 					sizeTitle={20}
 					sizeSubTitle={16}
-					name={profile?.fullname}
+					name={profileIfo?.fullname}
 				/>
 				<Link href='/settings'>
 					<ButtonUI variant='outlined'>Редактировать профиль</ButtonUI>

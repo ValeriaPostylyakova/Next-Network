@@ -14,7 +14,7 @@ export interface Props {
 export const SidebarProfile: FC<Props> = () => {
 	const { user } = useSubmitFormData()
 	return (
-		<Link href={`/profile/${user?.identifier}`}>
+		<Link href={`/profile/${user?.id}`}>
 			<Box
 				sx={{
 					position: 'absolute',

@@ -27,4 +27,16 @@ export class ProfileControllers {
 			res.status(400).json({ message: 'Ошибка при получении постов' })
 		}
 	}
+
+	async createPost(req: any, res: any) {
+		try {
+			const { postImageUrl, text, id } = req.body
+			const post = await profileService.createPost(id, postImageUrl, text)
+
+			return res.status(200).json(post)
+		} catch (e) {
+			console.log(e)
+			res.status(400).json({ message: 'Ошибка при создании поста' })
+		}
+	}
 }

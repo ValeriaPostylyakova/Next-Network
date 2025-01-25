@@ -8,11 +8,15 @@ export interface IProfile {
 }
 
 export const ProfileService = {
-	async profileInfo(indificator: string) {
-		return api.get<IProfile>(`/profile/${indificator}`)
+	async profileInfo(id: string) {
+		return api.get<IProfile>(`/profile/${id}`)
 	},
 
-	async posts(id: number) {
+	async posts(id: string) {
 		return api.get<Post[]>(`/posts/${id}`)
+	},
+
+	async createPost(id: string) {
+		return api.post<Post>('/post', { id })
 	},
 }

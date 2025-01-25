@@ -13,6 +13,7 @@ export const CreatePostModal: FC<Props> = () => {
 	const { open, handleClose, handleOpen } = useOpenModal()
 
 	const [selectedImage, setSelectedImage] = useState<string | null>(null)
+	const [text, setText] = useState<string>('')
 
 	const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
@@ -117,14 +118,30 @@ export const CreatePostModal: FC<Props> = () => {
 								</Box>
 							</Box>
 						) : (
-							<div>
+							<Box>
 								<img
 									src={selectedImage}
 									alt='Uploaded'
 									style={{ maxWidth: '400px' }}
 								/>
-							</div>
+							</Box>
 						)}
+						<textarea
+							placeholder='Напишите что-нибудь...'
+							rows={7}
+							style={{
+								width: '100%',
+								resize: 'none',
+								padding: '10px',
+								outline: 'none',
+								border: 'none',
+								fontSize: '16px',
+								color: '#fff',
+								backgroundColor: 'inherit',
+							}}
+							onChange={e => setText(e.target.value)}
+							value={text}
+						/>
 					</Box>
 				</Box>
 			</ModalUI>

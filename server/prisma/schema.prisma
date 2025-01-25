@@ -15,6 +15,7 @@ model User {
   isActivated    Boolean @default(false)
   activationLink String?
   token          Token?
+  imageUrl       String?
   fullname       String
   identifier     String? @unique
   jobTitle       String?
@@ -44,7 +45,7 @@ model Token {
 
 model Post {
   id           Int     @id @default(autoincrement())
-  postImageUrl String
+  postImageUrl String?
   fullname     String
   jobTitle     String?
   userImageUrl String?

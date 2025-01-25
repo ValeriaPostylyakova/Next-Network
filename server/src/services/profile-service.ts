@@ -2,10 +2,10 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 export class ProfileService {
-	async profile(indificator: string) {
+	async profile(id: string) {
 		const profile = await prisma.user.findFirst({
 			where: {
-				identifier: indificator,
+				id: Number(id),
 			},
 		})
 
@@ -27,5 +27,36 @@ export class ProfileService {
 		}
 
 		return postsData
+	}
+
+	async createPost(
+		id: number,
+		postImageUrl: string | null,
+		text: string | null
+	) {
+		const user = await prisma.user.findFirst({
+			where: {
+				id: id,
+			},
+		})
+
+		if (!user) {
+			throw new Error('Такого пользователя не существует')
+		}
+
+		const post = await prisma.post.create({
+			data: {
+				fullname: user.fullname,
+				jobTitle: user.jobTitle,
+				userImageUrl: user.imageUrl,
+				postImageUrl: postImageUrl,
+				text: text,
+				userId: user.id,
+				comments: [],
+				likes: 0,
+			},
+		})
+
+		return post
 	}
 }

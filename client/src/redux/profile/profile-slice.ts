@@ -10,6 +10,7 @@ const initialState: InitialState = {
 	statusProfileInfo: Status.LOADIND,
 	statusPosts: Status.LOADIND,
 	posts: null,
+	post: null,
 }
 
 const profileSlice = createSlice({
