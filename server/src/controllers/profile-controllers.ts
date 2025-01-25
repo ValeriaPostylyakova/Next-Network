@@ -30,10 +30,12 @@ export class ProfileControllers {
 
 	async createPost(req: any, res: any) {
 		try {
-			const { postImageUrl, text, id } = req.body
-			const post = await profileService.createPost(id, postImageUrl, text)
-
-			return res.status(200).json(post)
+			// const { postImageUrl, text, id } = req.body
+			// const post = await profileService.createPost(id, postImageUrl, text)
+			// return res.status(200).json(post)
+			if (req.file) {
+				console.log(req.file)
+			}
 		} catch (e) {
 			console.log(e)
 			res.status(400).json({ message: 'Ошибка при создании поста' })

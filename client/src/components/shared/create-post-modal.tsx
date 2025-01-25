@@ -1,22 +1,31 @@
 'use client'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
+import { ProfileActions } from '@/redux/profile/async-actions'
+import { AppDispatch, RootState } from '@/redux/store'
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import { ArrowUpFromDot, Plus } from 'lucide-react'
 import { ChangeEvent, FC, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { ButtonUI, ModalUI } from '../ui'
 
 export interface Props {}
 
 export const CreatePostModal: FC<Props> = () => {
 	const { open, handleClose, handleOpen } = useOpenModal()
+	const dispatch: AppDispatch = useDispatch()
+	const id = useSelector((state: RootState) => state.profile.profileInfo?.id)
+	const postImages = useSelector((state: RootState) => state.profile.postImages)
 
 	const [selectedImage, setSelectedImage] = useState<string | null>(null)
 	const [text, setText] = useState<string>('')
+	const [imgUrl, setImgUrl] = useState<any | null>(null)
+	const profileActions = new ProfileActions()
 
 	const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
+		setImgUrl(file)
 
 		if (file) {
 			const reader = new FileReader()
@@ -29,7 +38,18 @@ export const CreatePostModal: FC<Props> = () => {
 		}
 	}
 
-	{
+	const onClickButtonCreate = async () => {
+		const dataImages = new FormData()
+		dataImages.append('postImageUrl', imgUrl as string)
+
+		dispatch(
+			profileActions.createPost({
+				dataImages,
+				text,
+				id,
+			})
+		)
+		// handleClose()
 	}
 
 	return (
@@ -48,6 +68,7 @@ export const CreatePostModal: FC<Props> = () => {
 				buttonText='Создать'
 				open={open}
 				handleClose={handleClose}
+				onClickButtonCreate={onClickButtonCreate}
 			>
 				<Box>
 					<Typography

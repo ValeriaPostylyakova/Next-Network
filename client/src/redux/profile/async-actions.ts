@@ -1,6 +1,12 @@
 import { ProfileService } from '@/services/profile-service'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
+type TParams = {
+	postImageUrl?: string
+	text?: string
+	id?: number
+	dataImages: any
+}
 export class ProfileActions {
 	profile = createAsyncThunk('profile/fetchProfile', async (id: string) => {
 		const { data } = await ProfileService.profileInfo(id)
@@ -14,8 +20,9 @@ export class ProfileActions {
 
 	createPost = createAsyncThunk(
 		'profile/fetchCreatePost',
-		async (id: string) => {
-			const { data } = await ProfileService.posts(id)
+		async (params: TParams) => {
+			const { dataImages, text, id } = params
+			const { data } = await ProfileService.createPost(dataImages, text, id)
 			return data
 		}
 	)

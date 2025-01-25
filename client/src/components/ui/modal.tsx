@@ -13,6 +13,7 @@ export interface Props {
 	handleClose: () => void
 	buttonText: string
 	width?: number
+	onClickButtonCreate?: (data: any) => void
 }
 
 export const ModalUI: FC<Props> = ({
@@ -21,6 +22,7 @@ export const ModalUI: FC<Props> = ({
 	buttonText,
 	handleClose,
 	width,
+	onClickButtonCreate,
 }) => {
 	return (
 		<Dialog
@@ -36,7 +38,9 @@ export const ModalUI: FC<Props> = ({
 		>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>
-				<Button onClick={handleClose}>{buttonText}</Button>
+				<Button type='submit' onClick={onClickButtonCreate}>
+					{buttonText}
+				</Button>
 			</DialogActions>
 		</Dialog>
 	)

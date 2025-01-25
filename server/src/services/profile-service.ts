@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 export class ProfileService {
@@ -19,6 +20,9 @@ export class ProfileService {
 		const postsData = await prisma.post.findMany({
 			where: {
 				userId: Number(id),
+			},
+			orderBy: {
+				createdAt: 'desc',
 			},
 		})
 
@@ -49,7 +53,7 @@ export class ProfileService {
 				fullname: user.fullname,
 				jobTitle: user.jobTitle,
 				userImageUrl: user.imageUrl,
-				postImageUrl: postImageUrl,
+				postImageUrl: bcrypt.hashSync(postImageUrl as string, 5),
 				text: text,
 				userId: user.id,
 				comments: [],

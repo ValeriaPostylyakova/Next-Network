@@ -39,6 +39,7 @@ export interface InitialState {
 	profileInfo: IProfile | undefined
 	statusProfileInfo: Status
 	statusPosts: Status
+	statusCreatePost: Status
 	posts: Post[] | null
-	post: Post | null
+	postImages: string | null
 }
