@@ -41,5 +41,5 @@ export interface InitialState {
 	statusPosts: Status
 	statusCreatePost: Status
 	posts: Post[] | null
-	postImages: string | null
+	postImages?: string
 }

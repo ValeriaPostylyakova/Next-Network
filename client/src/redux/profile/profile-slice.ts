@@ -10,18 +10,13 @@ const initialState: InitialState = {
 	statusProfileInfo: Status.LOADIND,
 	statusPosts: Status.LOADIND,
 	statusCreatePost: Status.LOADIND,
-	postImages: null,
 	posts: null,
 }
 
 const profileSlice = createSlice({
 	name: 'profile',
 	initialState,
-	reducers: {
-		setPostImages(state, action) {
-			state.postImages = action.payload
-		},
-	},
+	reducers: {},
 
 	extraReducers: builder => {
 		builder.addCase(profileActions.profile.pending, state => {
@@ -45,16 +40,15 @@ const profileSlice = createSlice({
 			state.statusPosts = Status.ERROR
 		})
 		builder.addCase(profileActions.createPost.pending, state => {
-			state.statusPosts = Status.LOADIND
+			state.statusCreatePost = Status.LOADIND
 		})
 		builder.addCase(profileActions.createPost.fulfilled, (state, action) => {
-			state.statusPosts = Status.SUCCESS
+			state.statusCreatePost = Status.SUCCESS
 		})
 		builder.addCase(profileActions.createPost.rejected, state => {
-			state.statusPosts = Status.ERROR
+			state.statusCreatePost = Status.ERROR
 		})
 	},
 })
 
-export const { setPostImages } = profileSlice.actions
 export default profileSlice.reducer

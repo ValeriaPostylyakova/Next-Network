@@ -20,9 +20,8 @@ export class ProfileActions {
 
 	createPost = createAsyncThunk(
 		'profile/fetchCreatePost',
-		async (params: TParams) => {
-			const { dataImages, text, id } = params
-			const { data } = await ProfileService.createPost(dataImages, text, id)
+		async (formData: FormData) => {
+			const { data } = await ProfileService.createPost(formData)
 			return data
 		}
 	)

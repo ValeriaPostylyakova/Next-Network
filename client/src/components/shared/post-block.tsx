@@ -38,17 +38,21 @@ export const PostBlock: FC<Props> = ({
 			<Divider />
 			<Box>
 				<Typography sx={{ fontSize: '16px', pt: 2, mb: 2 }}>{text}</Typography>
-				<Box
-					sx={{
-						width: '100%',
-						height: '450px',
-						borderRadius: 4,
-						mb: 2,
-						backgroundImage: `url(${postImageUrl})`,
-						backgroundRepeat: 'no-repeat',
-						backgroundSize: 'cover',
-					}}
-				/>
+				{postImageUrl && (
+					// <Box
+					// sx={{
+					// 	width: '100%',
+					// 	height: '450px',
+					// 	borderRadius: 4,
+					// 	mb: 2,
+					// 	backgroundImage: `url(../${postImageUrl})`,
+					// 	backgroundRepeat: 'no-repeat',
+					// 	backgroundSize: 'cover',
+					// }}
+					// />
+					<img src={`/${postImageUrl}`} alt='images' />
+				)}
+
 				<Box
 					sx={{
 						display: 'flex',

@@ -3,12 +3,18 @@
 import { useOpenModal } from '@/hooks/use-open-modal'
 import { ProfileActions } from '@/redux/profile/async-actions'
 import { AppDispatch, RootState } from '@/redux/store'
-import { Typography } from '@mui/material'
-import Box from '@mui/material/Box'
+import {
+	Box,
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	Typography,
+} from '@mui/material'
 import { ArrowUpFromDot, Plus } from 'lucide-react'
 import { ChangeEvent, FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ButtonUI, ModalUI } from '../ui'
+import { ButtonUI } from '../ui'
 
 export interface Props {}
 
@@ -23,33 +29,31 @@ export const CreatePostModal: FC<Props> = () => {
 	const [imgUrl, setImgUrl] = useState<any | null>(null)
 	const profileActions = new ProfileActions()
 
-	const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0]
-		setImgUrl(file)
+	const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+		try {
+			const file = event.target.files?.[0]
+			setImgUrl(file)
 
-		if (file) {
-			const reader = new FileReader()
+			if (file) {
+				const reader = new FileReader()
 
-			reader.onload = e => {
-				setSelectedImage(e.target?.result as string)
+				reader.onload = e => {
+					setSelectedImage(e.target?.result as string)
+				}
+
+				reader.readAsDataURL(file)
 			}
-
-			reader.readAsDataURL(file)
+		} catch (error) {
+			console.log(error)
 		}
 	}
 
-	const onClickButtonCreate = async () => {
-		const dataImages = new FormData()
-		dataImages.append('postImageUrl', imgUrl as string)
-
-		dispatch(
-			profileActions.createPost({
-				dataImages,
-				text,
-				id,
-			})
-		)
-		// handleClose()
+	const onClickButtonSubmit = async (e: any) => {
+		e.preventDefault()
+		const formData = new FormData()
+		formData.append('text', text)
+		formData.append('post', imgUrl)
+		dispatch(profileActions.createPost(formData))
 	}
 
 	return (
@@ -63,109 +67,123 @@ export const CreatePostModal: FC<Props> = () => {
 				Add New Post
 				<Plus style={{ color: '#fff' }} />
 			</ButtonUI>
-			<ModalUI
-				width={500}
-				buttonText='Создать'
+			<Dialog
+				sx={{
+					'& .MuiDialog-paper': {
+						borderRadius: '1rem',
+						width: `500px`,
+						bgcolor: '#000',
+					},
+				}}
 				open={open}
-				handleClose={handleClose}
-				onClickButtonCreate={onClickButtonCreate}
+				onClose={handleClose}
 			>
-				<Box>
-					<Typography
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-						}}
-						fontSize='15px'
-						mb={2}
-					>
-						Новый пост
-					</Typography>
-					<Box
-						sx={{
-							width: '450px',
-							m: '0 auto',
-						}}
-					>
-						{!selectedImage ? (
-							<Box
-								sx={{
-									width: '100%',
-									height: '300px',
-									borderWidth: '1px',
-									borderColor: '#888888',
-									borderStyle: 'dashed',
-									borderRadius: 2,
-									mb: 2,
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-								}}
-							>
+				<form onSubmit={e => onClickButtonSubmit(e)}>
+					<DialogContent>
+						<Typography
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+							fontSize='15px'
+							mb={2}
+						>
+							Новый пост
+						</Typography>
+						<Box
+							sx={{
+								width: '450px',
+								m: '0 auto',
+							}}
+						>
+							{!selectedImage ? (
 								<Box
 									sx={{
+										width: '100%',
+										height: '300px',
+										borderWidth: '1px',
+										borderColor: '#888888',
+										borderStyle: 'dashed',
+										borderRadius: 2,
+										mb: 2,
 										display: 'flex',
-										flexDirection: 'column',
 										alignItems: 'center',
-										gap: '1rem',
+										justifyContent: 'center',
 									}}
 								>
 									<Box
 										sx={{
-											px: 1.5,
-											py: 1,
-											borderWidth: '2px',
-											borderColor: '#fff',
-											borderStyle: 'dashed',
-											borderRadius: 3,
-										}}
-									>
-										<ArrowUpFromDot size={30} />
-									</Box>
-									<Typography
-										sx={{
 											display: 'flex',
+											flexDirection: 'column',
 											alignItems: 'center',
-											justifyContent: 'center',
+											gap: '1rem',
 										}}
-										fontSize='18px'
-										mb={2}
 									>
-										Добавьте фото или видео
-									</Typography>
+										<Box
+											sx={{
+												px: 1.5,
+												py: 1,
+												borderWidth: '2px',
+												borderColor: '#fff',
+												borderStyle: 'dashed',
+												borderRadius: 3,
+											}}
+										>
+											<ArrowUpFromDot size={30} />
+										</Box>
+										<Typography
+											sx={{
+												display: 'flex',
+												alignItems: 'center',
+												justifyContent: 'center',
+											}}
+											fontSize='18px'
+											mb={2}
+										>
+											Добавьте фото или видео
+										</Typography>
 
-									<input type='file' onChange={handleImageChange} />
+										<input
+											name='post'
+											type='file'
+											onChange={handleImageChange}
+										/>
+									</Box>
 								</Box>
-							</Box>
-						) : (
-							<Box>
-								<img
-									src={selectedImage}
-									alt='Uploaded'
-									style={{ maxWidth: '400px' }}
-								/>
-							</Box>
-						)}
-						<textarea
-							placeholder='Напишите что-нибудь...'
-							rows={7}
-							style={{
-								width: '100%',
-								resize: 'none',
-								padding: '10px',
-								outline: 'none',
-								border: 'none',
-								fontSize: '16px',
-								color: '#fff',
-								backgroundColor: 'inherit',
-							}}
-							onChange={e => setText(e.target.value)}
-							value={text}
-						/>
-					</Box>
-				</Box>
-			</ModalUI>
+							) : (
+								<Box>
+									<img
+										src={selectedImage}
+										alt='Uploaded'
+										style={{ maxWidth: '400px' }}
+									/>
+								</Box>
+							)}
+							<textarea
+								name='text'
+								placeholder='Напишите что-нибудь...'
+								rows={7}
+								style={{
+									width: '100%',
+									resize: 'none',
+									padding: '10px',
+									outline: 'none',
+									border: 'none',
+									fontSize: '16px',
+									color: '#fff',
+									backgroundColor: 'inherit',
+								}}
+								onChange={e => setText(e.target.value)}
+								value={text}
+							/>
+						</Box>
+					</DialogContent>
+					<DialogActions>
+						<Button type='submit'>Создать</Button>
+					</DialogActions>
+				</form>
+			</Dialog>
 		</>
 	)
 }

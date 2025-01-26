@@ -16,15 +16,11 @@ export const ProfileService = {
 		return api.get<Post[]>(`/posts/${id}`)
 	},
 
-	async createPost(postImageUrl?: string, text?: string, id?: number) {
-		return api.post<any>(
-			'/post',
-			{ id, postImageUrl, text },
-			{
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-			}
-		)
+	async createPost(formData: FormData) {
+		return api.post<Post>('/post', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		})
 	},
 }

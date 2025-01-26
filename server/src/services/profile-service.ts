@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 export class ProfileService {
@@ -33,14 +32,20 @@ export class ProfileService {
 		return postsData
 	}
 
-	async createPost(
-		id: number,
-		postImageUrl: string | null,
-		text: string | null
-	) {
+	async createPost(token: string, textData?: string, fileData?: string) {
+		const tokenData = await prisma.token.findFirst({
+			where: {
+				refreshToken: token,
+			},
+		})
+
+		if (!tokenData) {
+			throw new Error('Пользователь не зарегистрирован')
+		}
+
 		const user = await prisma.user.findFirst({
 			where: {
-				id: id,
+				id: tokenData.userId,
 			},
 		})
 
@@ -53,8 +58,8 @@ export class ProfileService {
 				fullname: user.fullname,
 				jobTitle: user.jobTitle,
 				userImageUrl: user.imageUrl,
-				postImageUrl: bcrypt.hashSync(postImageUrl as string, 5),
-				text: text,
+				postImageUrl: fileData,
+				text: textData,
 				userId: user.id,
 				comments: [],
 				likes: 0,

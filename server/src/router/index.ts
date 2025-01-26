@@ -20,11 +20,10 @@ router.get('/activate/:link', userControllers.activate)
 router.get('/refresh', userControllers.refresh)
 
 router.get('/profile/:id', profileControllers.profileInfo)
-router.post(
-	'/post',
-	multersFile.single('postImageUrl'),
-	profileControllers.createPost
-)
+router.post('/post', multersFile.single('post'), profileControllers.createPost)
 router.get('/posts/:id', profileControllers.posts)
+router.get('/images/:id', (req, res) => {
+	console.log('Запрос прошел')
+})
 
 export const routers = router

@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import { ProfileService } from '../services/profile-service'
 
 const profileService = new ProfileService()
@@ -28,14 +29,19 @@ export class ProfileControllers {
 		}
 	}
 
-	async createPost(req: any, res: any) {
+	async createPost(req: Request, res: any) {
 		try {
-			// const { postImageUrl, text, id } = req.body
-			// const post = await profileService.createPost(id, postImageUrl, text)
-			// return res.status(200).json(post)
-			if (req.file) {
-				console.log(req.file)
-			}
+			const { refreshToken } = req.cookies
+			const textData = req.body.text
+			const fileData = req.file?.path
+
+			const post = await profileService.createPost(
+				refreshToken,
+				textData,
+				fileData
+			)
+
+			return res.status(200).json(post)
 		} catch (e) {
 			console.log(e)
 			res.status(400).json({ message: 'Ошибка при создании поста' })

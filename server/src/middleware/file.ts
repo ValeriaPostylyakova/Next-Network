@@ -19,4 +19,4 @@ const fileFilter = (req: any, file: any, cb: any) => {
 	}
 }
 
-export const multersFile = multer({ storage })
+export const multersFile = multer({ storage, fileFilter })
