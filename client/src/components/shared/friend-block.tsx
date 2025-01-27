@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-import { MessageCircle } from 'lucide-react'
+import { MessageCircle, Trash2 } from 'lucide-react'
 import { FC } from 'react'
-import { FriendBlockButton } from './friend-block-button'
+import { MenuBlockButton } from './menu-block-button'
 import { UserInfoName } from './user-info-name'
 
 export interface Props {
@@ -42,7 +42,7 @@ export const FriendBlock: FC<Props> = () => {
 					</Box>
 				}
 			/>
-			<FriendBlockButton />
+			<MenuBlockButton icon={<Trash2 />} ml={-17} title='Удалить из друзей' />
 		</Box>
 	)
 }

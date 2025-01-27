@@ -1,15 +1,21 @@
+'use client'
+
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
+import { PostActions } from '@/redux/post/async-action'
+import { AppDispatch } from '@/redux/store'
 import { Heart, MessageSquareText, SendHorizontal, Smile } from 'lucide-react'
 import { FC } from 'react'
+import { useDispatch } from 'react-redux'
 import { ButtonUI, FlexContainer, MainBlock } from '../ui'
 import { PostBlockHeader } from './post-block-header'
 
 export interface Props {
+	id: number
 	text?: string
 	postImageUrl?: string
 	fullname: string
@@ -20,6 +26,7 @@ export interface Props {
 }
 
 export const PostBlock: FC<Props> = ({
+	id,
 	text,
 	postImageUrl,
 	fullname,
@@ -28,6 +35,13 @@ export const PostBlock: FC<Props> = ({
 	jobTitle,
 	userImageUrl,
 }) => {
+	const postActions = new PostActions()
+	const dispath: AppDispatch = useDispatch()
+	const onClickLike = () => {
+		// 	dispath(postActions.updateLikes(String(id)))
+		// 	likes += 1
+	}
+
 	return (
 		<MainBlock>
 			<PostBlockHeader
@@ -39,18 +53,17 @@ export const PostBlock: FC<Props> = ({
 			<Box>
 				<Typography sx={{ fontSize: '16px', pt: 2, mb: 2 }}>{text}</Typography>
 				{postImageUrl && (
-					// <Box
-					// sx={{
-					// 	width: '100%',
-					// 	height: '450px',
-					// 	borderRadius: 4,
-					// 	mb: 2,
-					// 	backgroundImage: `url(../${postImageUrl})`,
-					// 	backgroundRepeat: 'no-repeat',
-					// 	backgroundSize: 'cover',
-					// }}
-					// />
-					<img src={`/${postImageUrl}`} alt='images' />
+					<Box
+						sx={{
+							width: '100%',
+							height: '450px',
+							borderRadius: 4,
+							mb: 2,
+							backgroundImage: `url(${postImageUrl})`,
+							backgroundRepeat: 'no-repeat',
+							backgroundSize: 'cover',
+						}}
+					/>
 				)}
 
 				<Box
@@ -68,7 +81,7 @@ export const PostBlock: FC<Props> = ({
 							alignItems: 'center',
 						}}
 					>
-						<Button>
+						<Button onClick={onClickLike}>
 							<Heart color='#d3d3d3' size={22} />
 						</Button>
 						<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>

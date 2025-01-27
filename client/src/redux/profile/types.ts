@@ -40,6 +40,6 @@ export interface InitialState {
 	statusProfileInfo: Status
 	statusPosts: Status
 	statusCreatePost: Status
-	posts: Post[] | null
+	posts: Post[]
 	postImages?: string
 }

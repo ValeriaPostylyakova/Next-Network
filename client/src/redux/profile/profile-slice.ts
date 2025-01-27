@@ -10,7 +10,7 @@ const initialState: InitialState = {
 	statusProfileInfo: Status.LOADIND,
 	statusPosts: Status.LOADIND,
 	statusCreatePost: Status.LOADIND,
-	posts: null,
+	posts: [],
 }
 
 const profileSlice = createSlice({
@@ -44,6 +44,7 @@ const profileSlice = createSlice({
 		})
 		builder.addCase(profileActions.createPost.fulfilled, (state, action) => {
 			state.statusCreatePost = Status.SUCCESS
+			state.posts = [...state.posts, action.payload]
 		})
 		builder.addCase(profileActions.createPost.rejected, state => {
 			state.statusCreatePost = Status.ERROR

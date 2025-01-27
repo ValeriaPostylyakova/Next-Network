@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box'
 
+import { Trash } from 'lucide-react'
 import { FC } from 'react'
+import { MenuBlockButton } from './menu-block-button'
 import { UserInfoName } from './user-info-name'
 
 export interface Props {
@@ -33,6 +35,11 @@ export const PostBlockHeader: FC<Props> = ({
 				sizeTitle={18}
 				sizeSubTitle={15}
 				name={fullname}
+			/>
+			<MenuBlockButton
+				ml={-9}
+				icon={<Trash size={20} />}
+				title='Удалить пост'
 			/>
 		</Box>
 	)

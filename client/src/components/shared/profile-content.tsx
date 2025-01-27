@@ -25,9 +25,14 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 	const posts = useSelector((state: RootState) => state.profile.posts)
 
 	useEffect(() => {
-		dispatch(profileActions.profile(id))
-		dispatch(profileActions.posts(id))
-	}, [])
+		async function fetchProfileData() {
+			await dispatch(profileActions.profile(id)).then(() => {
+				dispatch(profileActions.posts(id))
+			})
+		}
+
+		fetchProfileData()
+	}, [dispatch])
 
 	return (
 		<>

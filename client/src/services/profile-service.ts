@@ -7,20 +7,20 @@ export interface IProfile {
 	email: string
 }
 
-export const ProfileService = {
-	async profileInfo(id: string) {
+export class ProfileService {
+	static async profileInfo(id: string) {
 		return api.get<IProfile>(`/profile/${id}`)
-	},
+	}
 
-	async posts(id: string) {
+	static async posts(id: string) {
 		return api.get<Post[]>(`/posts/${id}`)
-	},
+	}
 
-	async createPost(formData: FormData) {
+	static async createPost(formData: FormData) {
 		return api.post<Post>('/post', formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			},
 		})
-	},
+	}
 }

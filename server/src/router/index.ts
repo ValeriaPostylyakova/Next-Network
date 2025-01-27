@@ -1,5 +1,6 @@
 import Router from 'express'
 import { body } from 'express-validator'
+import { PostControllers } from '../controllers/post-controllers'
 import { ProfileControllers } from '../controllers/profile-controllers'
 import { UserControllers } from '../controllers/user-controllers'
 import { multersFile } from '../middleware/file'
@@ -7,6 +8,7 @@ import { multersFile } from '../middleware/file'
 const router = Router()
 const userControllers = new UserControllers()
 const profileControllers = new ProfileControllers()
+const postControllers = new PostControllers()
 
 router.post(
 	'/registration',
@@ -22,8 +24,7 @@ router.get('/refresh', userControllers.refresh)
 router.get('/profile/:id', profileControllers.profileInfo)
 router.post('/post', multersFile.single('post'), profileControllers.createPost)
 router.get('/posts/:id', profileControllers.posts)
-router.get('/images/:id', (req, res) => {
-	console.log('Запрос прошел')
-})
+
+router.patch('/updatePost/:id', postControllers.updatePostLikes)
 
 export const routers = router
