@@ -1,4 +1,4 @@
-import { ProfileActions } from '@/redux/profile/async-actions'
+import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch } from '@/redux/store'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
@@ -11,14 +11,14 @@ export const useCreatePost = async (
 	handleClose: () => void
 ) => {
 	const dispatch: AppDispatch = useDispatch()
-	const profileActions = new ProfileActions()
+	const postActions = new PostActions()
 
 	try {
 		const formData = new FormData()
 		formData.append('text', text)
 		formData.append('post', imgUrl)
 
-		dispatch(profileActions.createPost(formData)).then(data => {
+		dispatch(postActions.createPost(formData)).then(data => {
 			handleClose()
 			setSelectedImage(null)
 			setText('')

@@ -1,11 +1,28 @@
+import { PostService } from '@/services/post-service'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { PostService } from './../../../../server/src/services/post-service'
-
-const postService = new PostService()
 
 export class PostActions {
-	updateLikes = createAsyncThunk('post/updateLikes', async (id: string) => {
-		const post = await postService.update(id)
-		return post
+	posts = createAsyncThunk('post/fetchPosts', async (id: string) => {
+		const { data } = await PostService.posts(id)
+		return data
+	})
+
+	createPost = createAsyncThunk(
+		'post/fetchCreatePost',
+		async (formData: FormData) => {
+			const { data } = await PostService.createPost(formData)
+			return data
+		}
+	)
+
+	addLikes = createAsyncThunk('post/addPostLike', async (id: string) => {
+		const { data } = await PostService.addLikes(id)
+		return data
+	})
+
+	removeLikes = createAsyncThunk('post/removePostLike', async (id: string) => {
+		const { data } = await PostService.removeLikes(id)
+		console.log(data)
+		return data
 	})
 }

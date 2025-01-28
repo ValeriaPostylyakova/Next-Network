@@ -25,6 +25,7 @@ export type Post = {
 	jobTitle?: string
 	userImageUrl?: string
 	likes: number
+	like: boolean
 	text?: string
 	comments?: string[]
 }
@@ -33,13 +34,11 @@ export type IProfile = {
 	id: number
 	fullname: string
 	email: string
+	jobTitle?: string
+	userImageUrl?: string
 }
 
 export interface InitialState {
 	profileInfo: IProfile | undefined
 	statusProfileInfo: Status
-	statusPosts: Status
-	statusCreatePost: Status
-	posts: Post[]
-	postImages?: string
 }

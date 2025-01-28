@@ -1,6 +1,6 @@
 'use client'
 
-import { Header, PostBlock } from '@/components/shared'
+import { Header } from '@/components/shared'
 import { MainWrapper } from '@/components/ui/main-wrapper'
 import { FetchAuth } from '@/redux/auth/async-actions'
 import { AppDispatch } from '@/redux/store'
@@ -25,9 +25,9 @@ const Page: FC<Props> = () => {
 			<Box sx={{ width: '95%', m: '0 auto', pt: 3 }}>
 				<Header />
 				{/* <StoriesBlock /> */}
+				{/* <PostBlock />
 				<PostBlock />
-				<PostBlock />
-				<PostBlock />
+				<PostBlock /> */}
 			</Box>
 		</MainWrapper>
 	)

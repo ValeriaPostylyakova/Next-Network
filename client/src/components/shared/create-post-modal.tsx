@@ -1,7 +1,7 @@
 'use client'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
-import { ProfileActions } from '@/redux/profile/async-actions'
+import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch } from '@/redux/store'
 import {
 	Button,
@@ -20,7 +20,7 @@ import { CreatePostModalContent } from './create-post-modal-content'
 export const CreatePostModal: FC = () => {
 	const { open, handleOpen, setOpen } = useOpenModal()
 	const dispatch: AppDispatch = useDispatch()
-	const profileActions = new ProfileActions()
+	const postActions = new PostActions()
 
 	const [selectedImage, setSelectedImage] = useState<string | null>(null)
 	const [text, setText] = useState<string>('')
@@ -39,7 +39,7 @@ export const CreatePostModal: FC = () => {
 			formData.append('text', text)
 			formData.append('post', imgUrl)
 
-			dispatch(profileActions.createPost(formData)).then(data => {
+			dispatch(postActions.createPost(formData)).then(data => {
 				handleClose()
 				setSelectedImage(null)
 				setText('')

@@ -8,9 +8,6 @@ const profileActions = new ProfileActions()
 const initialState: InitialState = {
 	profileInfo: undefined,
 	statusProfileInfo: Status.LOADIND,
-	statusPosts: Status.LOADIND,
-	statusCreatePost: Status.LOADIND,
-	posts: [],
 }
 
 const profileSlice = createSlice({
@@ -28,26 +25,6 @@ const profileSlice = createSlice({
 		})
 		builder.addCase(profileActions.profile.rejected, state => {
 			state.statusProfileInfo = Status.ERROR
-		})
-		builder.addCase(profileActions.posts.pending, state => {
-			state.statusPosts = Status.LOADIND
-		})
-		builder.addCase(profileActions.posts.fulfilled, (state, action) => {
-			state.statusPosts = Status.SUCCESS
-			state.posts = action.payload
-		})
-		builder.addCase(profileActions.posts.rejected, state => {
-			state.statusPosts = Status.ERROR
-		})
-		builder.addCase(profileActions.createPost.pending, state => {
-			state.statusCreatePost = Status.LOADIND
-		})
-		builder.addCase(profileActions.createPost.fulfilled, (state, action) => {
-			state.statusCreatePost = Status.SUCCESS
-			state.posts = [...state.posts, action.payload]
-		})
-		builder.addCase(profileActions.createPost.rejected, state => {
-			state.statusCreatePost = Status.ERROR
 		})
 	},
 })

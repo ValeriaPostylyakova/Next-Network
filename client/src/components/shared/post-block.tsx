@@ -9,7 +9,8 @@ import Typography from '@mui/material/Typography'
 import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch } from '@/redux/store'
 import { Heart, MessageSquareText, SendHorizontal, Smile } from 'lucide-react'
-import { FC } from 'react'
+import { useRouter } from 'next/navigation'
+import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ButtonUI, FlexContainer, MainBlock } from '../ui'
 import { PostBlockHeader } from './post-block-header'
@@ -22,6 +23,7 @@ export interface Props {
 	jobTitle?: string
 	userImageUrl?: string
 	likes: number
+	like: boolean
 	comments?: string[]
 }
 
@@ -31,15 +33,31 @@ export const PostBlock: FC<Props> = ({
 	postImageUrl,
 	fullname,
 	likes,
+	like,
 	comments,
 	jobTitle,
 	userImageUrl,
 }) => {
+	const [likesData, setLikesData] = useState<number>(likes)
+	const [clickLike, setClickLike] = useState<boolean>(like)
+	const router = useRouter()
 	const postActions = new PostActions()
-	const dispath: AppDispatch = useDispatch()
-	const onClickLike = () => {
-		// 	dispath(postActions.updateLikes(String(id)))
-		// 	likes += 1
+	const dispath = useDispatch<AppDispatch>()
+
+	const onClickLike = async () => {
+		if (likesData % 2 === 0) {
+			const data = await dispath(postActions.addLikes(String(id)))
+			setLikesData(data.payload.likes)
+			setClickLike(data.payload.like)
+		} else {
+			const data = await dispath(postActions.removeLikes(String(id)))
+			setLikesData(data.payload.likes)
+			setClickLike(data.payload.like)
+		}
+	}
+
+	const onClickComments = () => {
+		router.push(`/post/${id}`)
 	}
 
 	return (
@@ -82,25 +100,31 @@ export const PostBlock: FC<Props> = ({
 						}}
 					>
 						<Button onClick={onClickLike}>
-							<Heart color='#d3d3d3' size={22} />
+							{clickLike ? (
+								<Heart color='#b63939' size={22} />
+							) : (
+								<Heart color='#d3d3d3' size={22} />
+							)}
 						</Button>
 						<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
-							{likes} Likes
+							{likesData ? likesData : likes} Likes
 						</Typography>
 					</Box>
-					<Box
-						sx={{
+
+					<div
+						style={{
 							display: 'flex',
 							alignItems: 'center',
 							gap: '1.3rem',
 							cursor: 'pointer',
 						}}
+						onClick={onClickComments}
 					>
 						<MessageSquareText color='#d3d3d3' size={22} />
 						<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
 							{comments?.length} Comments
 						</Typography>
-					</Box>
+					</div>
 				</Box>
 				<Divider />
 				<FlexContainer content='space-between' pt={2.5}>
@@ -141,4 +165,7 @@ export const PostBlock: FC<Props> = ({
 			</Box>
 		</MainBlock>
 	)
+}
+function setPostLikes(id: number) {
+	throw new Error('Function not implemented.')
 }

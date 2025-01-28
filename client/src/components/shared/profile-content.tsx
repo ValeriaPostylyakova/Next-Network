@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Link from 'next/link'
 
+import { PostActions } from '@/redux/post/async-action'
 import { ProfileActions } from '@/redux/profile/async-actions'
 import { AppDispatch, RootState } from '@/redux/store'
 import { FC, useEffect } from 'react'
@@ -18,16 +19,17 @@ export interface Props {
 
 export const ProfileContent: FC<Props> = ({ id }) => {
 	const profileActions = new ProfileActions()
+	const postActions = new PostActions()
 	const dispatch: AppDispatch = useDispatch()
 	const profileIfo = useSelector(
 		(state: RootState) => state.profile.profileInfo
 	)
-	const posts = useSelector((state: RootState) => state.profile.posts)
+	const posts = useSelector((state: RootState) => state.post.posts)
 
 	useEffect(() => {
 		async function fetchProfileData() {
 			await dispatch(profileActions.profile(id)).then(() => {
-				dispatch(profileActions.posts(id))
+				dispatch(postActions.posts(id))
 			})
 		}
 
@@ -46,7 +48,7 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 				}}
 			>
 				<UserInfoName
-					text='Product Desiner, slohUI'
+					text={profileIfo?.jobTitle}
 					width={80}
 					height={80}
 					image='/user-profile.svg'
