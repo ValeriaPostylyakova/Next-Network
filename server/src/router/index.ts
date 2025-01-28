@@ -22,9 +22,10 @@ router.get('/activate/:link', userControllers.activate)
 router.get('/refresh', userControllers.refresh)
 
 router.get('/profile/:id', profileControllers.profileInfo)
-router.post('/post', multersFile.single('post'), profileControllers.createPost)
-router.get('/posts/:id', profileControllers.posts)
 
-router.patch('/updatePost/:id', postControllers.updatePostLikes)
+router.post('/post', multersFile.single('post'), postControllers.createPost)
+router.get('/posts/:id', postControllers.posts)
+router.patch('/addPostLike/:id', postControllers.addPostLike)
+router.patch('/removePostLike/:id', postControllers.removePostLike)
 
 export const routers = router

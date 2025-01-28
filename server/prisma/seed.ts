@@ -10,9 +10,9 @@ async function up() {
 			password: bcrypt.hashSync('test', 7),
 			id: 1,
 			isActivated: false,
-			fullname: 'Test Test',
-			identifier: 'test3',
-			jobTitle: 'Product Desiner, slohUI',
+			fullname: 'Валерия Постылякова',
+			identifier: 'valeriapos',
+			jobTitle: 'Frontend Developer',
 		},
 	})
 
@@ -29,11 +29,12 @@ async function up() {
 				postImageUrl:
 					'https://i.pinimg.com/736x/0c/44/96/0c4496f2ce6b09278171c80ba92046e5.jpg',
 				text: 'test text',
-				fullname: 'Test Test',
-				jobTitle: 'Product Desiner, slohUI',
+				fullname: 'Валерия Постылякова',
+				jobTitle: 'Frontend Developer',
 				userImageUrl:
 					'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
-				likes: 10,
+				likes: 0,
+				like: false,
 				comments: [
 					{
 						username: 'X_AE_A-13',
@@ -49,11 +50,11 @@ async function up() {
 			{
 				postImageUrl:
 					'https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg',
-				fullname: 'Test Test',
-				jobTitle: 'Product Desiner, slohUI',
+				fullname: 'Валерия Постылякова',
+				jobTitle: 'Frontend Developer',
 				userImageUrl:
 					'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
-				likes: 6,
+				likes: 0,
 				comments: [],
 				userId: 1,
 			},
