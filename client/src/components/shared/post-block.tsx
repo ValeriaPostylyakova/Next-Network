@@ -1,19 +1,15 @@
-'use client'
-
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
-import { PostActions } from '@/redux/post/async-action'
-import { AppDispatch } from '@/redux/store'
-import { Heart, MessageSquareText, SendHorizontal, Smile } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { ButtonUI, FlexContainer, MainBlock } from '../ui'
+import { Comments } from '@/redux/profile/types'
+import { FC } from 'react'
+import { MainBlock } from '../ui'
+import { CommentsBlock } from './comments-block'
 import { PostBlockHeader } from './post-block-header'
+import { PostCommentsBlock } from './post-comments-block'
+import { PostLikesBlock } from './post-likes-block'
+import { PostWriteCommentsBlock } from './post-write-comments-block'
 
 export interface Props {
 	id: number
@@ -24,7 +20,7 @@ export interface Props {
 	userImageUrl?: string
 	likes: number
 	like: boolean
-	comments?: string[]
+	comments?: Comments[]
 }
 
 export const PostBlock: FC<Props> = ({
@@ -38,28 +34,6 @@ export const PostBlock: FC<Props> = ({
 	jobTitle,
 	userImageUrl,
 }) => {
-	const [likesData, setLikesData] = useState<number>(likes)
-	const [clickLike, setClickLike] = useState<boolean>(like)
-	const router = useRouter()
-	const postActions = new PostActions()
-	const dispath = useDispatch<AppDispatch>()
-
-	const onClickLike = async () => {
-		if (likesData % 2 === 0) {
-			const data = await dispath(postActions.addLikes(String(id)))
-			setLikesData(data.payload.likes)
-			setClickLike(data.payload.like)
-		} else {
-			const data = await dispath(postActions.removeLikes(String(id)))
-			setLikesData(data.payload.likes)
-			setClickLike(data.payload.like)
-		}
-	}
-
-	const onClickComments = () => {
-		router.push(`/post/${id}`)
-	}
-
 	return (
 		<MainBlock>
 			<PostBlockHeader
@@ -83,7 +57,6 @@ export const PostBlock: FC<Props> = ({
 						}}
 					/>
 				)}
-
 				<Box
 					sx={{
 						display: 'flex',
@@ -93,79 +66,19 @@ export const PostBlock: FC<Props> = ({
 						mb: 2,
 					}}
 				>
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-						}}
-					>
-						<Button onClick={onClickLike}>
-							{clickLike ? (
-								<Heart color='#b63939' size={22} />
-							) : (
-								<Heart color='#d3d3d3' size={22} />
-							)}
-						</Button>
-						<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
-							{likesData ? likesData : likes} Likes
-						</Typography>
-					</Box>
-
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							gap: '1.3rem',
-							cursor: 'pointer',
-						}}
-						onClick={onClickComments}
-					>
-						<MessageSquareText color='#d3d3d3' size={22} />
-						<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
-							{comments?.length} Comments
-						</Typography>
-					</div>
+					<PostLikesBlock id={id} likes={likes} like={like} />
+					<PostCommentsBlock comments={comments} />
 				</Box>
 				<Divider />
-				<FlexContainer content='space-between' pt={2.5}>
-					<FlexContainer>
-						<Box
-							sx={{
-								borderRadius: '100%',
-								p: 0.25,
-								width: '45px',
-								height: '45px',
-								backgroundImage: 'url(/user-profile.svg)',
-								backgroundSize: 'cover',
-								backgroundRepeat: 'no-repeat',
-								mb: 1,
-							}}
-						/>
-						<TextField
-							size='small'
-							sx={{
-								width: '400px',
-								outline: 'none',
-								'.MuiOutlinedInput-root': {
-									borderRadius: 5,
-								},
-							}}
-							placeholder='Write your comment..'
-						/>
-					</FlexContainer>
-					<FlexContainer>
-						<ButtonUI variant='outlined'>
-							<Smile />
-						</ButtonUI>
-						<ButtonUI variant='outlined'>
-							<SendHorizontal />
-						</ButtonUI>
-					</FlexContainer>
-				</FlexContainer>
+				<Box sx={{ py: 2 }}>
+					<Box>
+						{comments?.map(comment => (
+							<CommentsBlock {...comment} />
+						))}
+					</Box>
+				</Box>
+				<PostWriteCommentsBlock />
 			</Box>
 		</MainBlock>
 	)
-}
-function setPostLikes(id: number) {
-	throw new Error('Function not implemented.')
 }

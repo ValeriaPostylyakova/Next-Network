@@ -25,4 +25,9 @@ export class PostActions {
 		console.log(data)
 		return data
 	})
+
+	comments = createAsyncThunk('post/fetchComments', async (id: string) => {
+		const { data } = await PostService.comments(id)
+		return data
+	})
 }

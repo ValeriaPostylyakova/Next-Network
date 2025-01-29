@@ -25,6 +25,7 @@ router.get('/profile/:id', profileControllers.profileInfo)
 
 router.post('/post', multersFile.single('post'), postControllers.createPost)
 router.get('/posts/:id', postControllers.posts)
+router.get('/postComments/:id', postControllers.comments)
 router.patch('/addPostLike/:id', postControllers.addPostLike)
 router.patch('/removePostLike/:id', postControllers.removePostLike)
 

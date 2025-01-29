@@ -60,18 +60,6 @@ model Post {
   updatedAt DateTime @updatedAt
 }
 
-model Likes {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Comments {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model StoryItem {
   id Int @id @default(autoincrement())
 

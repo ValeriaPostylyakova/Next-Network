@@ -104,4 +104,21 @@ export class PostService {
 
 		return post
 	}
+
+	async comments(id: string) {
+		const commentsData = await prisma.post.findFirst({
+			where: {
+				id: Number(id),
+			},
+			select: {
+				comments: true,
+			},
+		})
+
+		if (!commentsData) {
+			return null
+		}
+
+		return commentsData
+	}
 }

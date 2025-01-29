@@ -25,9 +25,16 @@ export type Post = {
 	jobTitle?: string
 	userImageUrl?: string
 	likes: number
+	comments?: Comments[]
 	like: boolean
 	text?: string
-	comments?: string[]
+}
+
+export type Comments = {
+	id: number
+	text: string
+	username: string
+	userImgUrl?: string
 }
 
 export type IProfile = {

@@ -34,18 +34,19 @@ async function up() {
 				userImageUrl:
 					'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
 				likes: 0,
-				like: false,
+				userId: 1,
 				comments: [
 					{
-						username: 'X_AE_A-13',
-						text: 'test message 1',
+						username: 'Иван Иванов',
+						userImgUrl:
+							'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
+						text: 'test comment 2',
 					},
 					{
-						username: 'X_AE_A-15',
-						text: 'test message 2',
+						username: 'Сергей Сергеев',
+						text: 'test comment',
 					},
 				],
-				userId: 1,
 			},
 			{
 				postImageUrl:

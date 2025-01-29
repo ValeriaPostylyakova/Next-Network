@@ -20,4 +20,8 @@ export class PostService {
 	static async removeLikes(id: string) {
 		return api.patch(`/removePostLike/${id}`)
 	}
+
+	static async comments(id: string) {
+		return api.get(`/postComments/${id}`)
+	}
 }

@@ -54,4 +54,15 @@ export class PostControllers {
 			res.status(400).json({ message: 'Ошибка при создании поста' })
 		}
 	}
+
+	async comments(req: any, res: any) {
+		try {
+			const { id } = req.params
+			const comments = await postService.comments(id)
+			return res.status(200).json(comments)
+		} catch (e) {
+			console.log(e)
+			res.status(400).json({ message: 'Ошибка при получении комментариев' })
+		}
+	}
 }
