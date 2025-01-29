@@ -1,7 +1,12 @@
+'use client'
+
+import { CommentsActions } from '@/redux/comments/async-actions'
+import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { SendHorizontal, Smile } from 'lucide-react'
 import { FC } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { ButtonUI, FlexContainer } from '../ui'
 
 export interface Props {
@@ -9,6 +14,28 @@ export interface Props {
 }
 
 export const PostWriteCommentsBlock: FC<Props> = () => {
+	const commentActions = new CommentsActions()
+	const profileInfo = useSelector(
+		(state: RootState) => state.profile.profileInfo
+	)
+
+	const dispatch: AppDispatch = useDispatch()
+
+	const handleWhiteComment = async (e: any) => {
+		if (e.code === 'Enter' && profileInfo) {
+			const data = await dispatch(
+				commentActions.createComment({
+					id: profileInfo.id,
+					username: profileInfo.fullname,
+					userImgUrl: profileInfo.userImageUrl,
+					text: e.target.value,
+				})
+			)
+
+			console.log(data.payload)
+			e.target.value = ''
+		}
+	}
 	return (
 		<FlexContainer content='space-between' pt={2.5}>
 			<FlexContainer>
@@ -34,6 +61,9 @@ export const PostWriteCommentsBlock: FC<Props> = () => {
 						},
 					}}
 					placeholder='Write your comment..'
+					onKeyDown={e => {
+						handleWhiteComment(e)
+					}}
 				/>
 			</FlexContainer>
 			<FlexContainer>

@@ -59,6 +59,9 @@ export class PostService {
 			orderBy: {
 				createdAt: 'desc',
 			},
+			include: {
+				comments: true,
+			},
 		})
 
 		if (!postsData) {
@@ -97,7 +100,6 @@ export class PostService {
 				postImageUrl: fileData,
 				text: textData,
 				userId: user.id,
-				comments: [],
 				likes: 0,
 			},
 		})
@@ -105,20 +107,27 @@ export class PostService {
 		return post
 	}
 
-	async comments(id: string) {
-		const commentsData = await prisma.post.findFirst({
+	async comments(
+		id: string,
+		text: string,
+		username: string,
+		userImgUrl?: string
+	) {
+		const post = await prisma.post.findFirst({
 			where: {
 				id: Number(id),
 			},
-			select: {
-				comments: true,
-			},
 		})
 
-		if (!commentsData) {
-			return null
+		if (!post) {
+			throw Error('Такого поста не существует')
 		}
 
-		return commentsData
+		const postData = await prisma.post.update({
+			where: {
+				id: Number(id),
+			},
+			data: {},
+		})
 	}
 }

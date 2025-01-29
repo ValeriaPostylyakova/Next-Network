@@ -73,7 +73,7 @@ export const PostBlock: FC<Props> = ({
 				<Box sx={{ py: 2 }}>
 					<Box>
 						{comments?.map(comment => (
-							<CommentsBlock {...comment} />
+							<CommentsBlock key={comment.id} {...comment} />
 						))}
 					</Box>
 				</Box>

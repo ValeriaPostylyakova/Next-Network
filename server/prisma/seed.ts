@@ -35,18 +35,6 @@ async function up() {
 					'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
 				likes: 0,
 				userId: 1,
-				comments: [
-					{
-						username: 'Иван Иванов',
-						userImgUrl:
-							'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
-						text: 'test comment 2',
-					},
-					{
-						username: 'Сергей Сергеев',
-						text: 'test comment',
-					},
-				],
 			},
 			{
 				postImageUrl:
@@ -56,8 +44,22 @@ async function up() {
 				userImageUrl:
 					'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
 				likes: 0,
-				comments: [],
 				userId: 1,
+			},
+		],
+	})
+
+	await prisma.comment.createMany({
+		data: [
+			{
+				text: 'test text',
+				username: 'test',
+				postId: 1,
+			},
+			{
+				text: 'test text',
+				username: 'test',
+				postId: 1,
 			},
 		],
 	})
@@ -67,6 +69,7 @@ async function down() {
 	await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Post" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Token" RESTART IDENTITY CASCADE`
+	await prisma.$executeRaw`TRUNCATE TABLE "Comment" RESTART IDENTITY CASCADE`
 }
 
 async function main() {

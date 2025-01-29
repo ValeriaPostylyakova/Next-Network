@@ -44,17 +44,32 @@ model Token {
 }
 
 model Post {
-  id           Int     @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   postImageUrl String?
   fullname     String
   jobTitle     String?
   userImageUrl String?
   likes        Int
-  like         Boolean @default(false)
-  comments     Json
-  text         String?
-  user         User    @relation(fields: [userId], references: [id])
-  userId       Int
+  like         Boolean   @default(false)
+  comments     Comment[]
+
+  text   String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+
+  username   String
+  userImgUrl String?
+  text       String
+
+  Post   Post? @relation(fields: [postId], references: [id])
+  postId Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

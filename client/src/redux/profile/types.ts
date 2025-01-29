@@ -32,9 +32,9 @@ export type Post = {
 
 export type Comments = {
 	id: number
-	text: string
 	username: string
 	userImgUrl?: string
+	text: string
 }
 
 export type IProfile = {

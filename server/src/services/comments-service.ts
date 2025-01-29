@@ -1,0 +1,28 @@
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+export class CommentsService {
+	async create(id: number, username: string, userImgUrl: string, text: string) {
+		const post = await prisma.post.findFirst({
+			where: {
+				id: id,
+			},
+		})
+
+		if (!post) {
+			throw new Error('Такого поста не существует')
+		}
+
+		const comment = await prisma.comment.create({
+			data: {
+				postId: id,
+				username: username,
+				userImgUrl: userImgUrl ? userImgUrl : null,
+				text: text,
+			},
+		})
+
+		return comment
+	}
+}

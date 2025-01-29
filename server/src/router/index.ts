@@ -1,5 +1,6 @@
 import Router from 'express'
 import { body } from 'express-validator'
+import { CommentsController } from '../controllers/comments-controller'
 import { PostControllers } from '../controllers/post-controllers'
 import { ProfileControllers } from '../controllers/profile-controllers'
 import { UserControllers } from '../controllers/user-controllers'
@@ -9,6 +10,7 @@ const router = Router()
 const userControllers = new UserControllers()
 const profileControllers = new ProfileControllers()
 const postControllers = new PostControllers()
+const commentsController = new CommentsController()
 
 router.post(
 	'/registration',
@@ -25,8 +27,10 @@ router.get('/profile/:id', profileControllers.profileInfo)
 
 router.post('/post', multersFile.single('post'), postControllers.createPost)
 router.get('/posts/:id', postControllers.posts)
-router.get('/postComments/:id', postControllers.comments)
+
 router.patch('/addPostLike/:id', postControllers.addPostLike)
 router.patch('/removePostLike/:id', postControllers.removePostLike)
+
+router.post('/comment', commentsController.createCommentPost)
 
 export const routers = router

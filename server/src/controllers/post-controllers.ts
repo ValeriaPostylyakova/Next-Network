@@ -57,8 +57,13 @@ export class PostControllers {
 
 	async comments(req: any, res: any) {
 		try {
-			const { id } = req.params
-			const comments = await postService.comments(id)
+			const { id, text, userImgUrl, username } = req.body
+			const comments = await postService.comments(
+				id,
+				text,
+				username,
+				userImgUrl
+			)
 			return res.status(200).json(comments)
 		} catch (e) {
 			console.log(e)
