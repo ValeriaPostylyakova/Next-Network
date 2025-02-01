@@ -1,13 +1,18 @@
+'use client'
+
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 
+import { PostActions } from '@/redux/post/async-action'
 import { Comments } from '@/redux/profile/types'
-import { FC } from 'react'
+import { AppDispatch, RootState } from '@/redux/store'
+import { FC, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { MainBlock } from '../ui'
-import { CommentsBlock } from './comments-block'
 import { PostBlockHeader } from './post-block-header'
 import { PostCommentsBlock } from './post-comments-block'
+import { PostCommentsContainer } from './post-comments-container'
 import { PostLikesBlock } from './post-likes-block'
 import { PostWriteCommentsBlock } from './post-write-comments-block'
 
@@ -34,12 +39,54 @@ export const PostBlock: FC<Props> = ({
 	jobTitle,
 	userImageUrl,
 }) => {
+	const dispatch: AppDispatch = useDispatch()
+	const [openComments, setOpenComments] = useState<boolean>(false)
+	const [value, setValue] = useState<string>('')
+
+	const profileInfo = useSelector(
+		(state: RootState) => state.profile.profileInfo
+	)
+	const postActions = new PostActions()
+
+	const handleWhiteComment = (e: any) => {
+		if (e.code === 'Enter' && profileInfo) {
+			dispatch(
+				postActions.createComment({
+					id: id,
+					username: profileInfo.fullname,
+					userImgUrl: profileInfo.userImageUrl,
+					text: e.target.value,
+				})
+			)
+			e.target.value = ''
+		}
+	}
+
+	const deletePost = () => {
+		dispatch(postActions.deletePost(id))
+	}
+
+	const handleClickComment = () => {
+		if (profileInfo) {
+			dispatch(
+				postActions.createComment({
+					id: id,
+					username: profileInfo.fullname,
+					userImgUrl: profileInfo.userImageUrl,
+					text: value,
+				})
+			)
+			setValue('')
+		}
+	}
+
 	return (
 		<MainBlock>
 			<PostBlockHeader
 				fullname={fullname}
 				jobTitle={jobTitle}
 				userImageUrl={userImageUrl}
+				deletePost={deletePost}
 			/>
 			<Divider />
 			<Box>
@@ -67,17 +114,22 @@ export const PostBlock: FC<Props> = ({
 					}}
 				>
 					<PostLikesBlock id={id} likes={likes} like={like} />
-					<PostCommentsBlock comments={comments} />
+					<PostCommentsBlock
+						setOpenComments={setOpenComments}
+						openComments={openComments}
+						comments={comments}
+					/>
 				</Box>
 				<Divider />
-				<Box sx={{ py: 2 }}>
-					<Box>
-						{comments?.map(comment => (
-							<CommentsBlock key={comment.id} {...comment} />
-						))}
-					</Box>
-				</Box>
-				<PostWriteCommentsBlock />
+				<PostCommentsContainer
+					comments={openComments ? comments : comments?.slice(0, 1)}
+				/>
+				<PostWriteCommentsBlock
+					value={value}
+					setValue={setValue}
+					handleWhiteComment={handleWhiteComment}
+					handleClickComment={handleClickComment}
+				/>
 			</Box>
 		</MainBlock>
 	)

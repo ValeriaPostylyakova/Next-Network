@@ -130,4 +130,24 @@ export class PostService {
 			data: {},
 		})
 	}
+
+	async deletePost(id: string) {
+		const post = await prisma.post.findFirst({
+			where: {
+				id: Number(id),
+			},
+		})
+
+		if (!post) {
+			throw new Error('Такого поста не существует')
+		}
+
+		await prisma.post.delete({
+			where: {
+				id: Number(id),
+			},
+		})
+
+		return post
+	}
 }

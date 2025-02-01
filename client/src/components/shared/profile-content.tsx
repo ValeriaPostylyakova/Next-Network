@@ -17,6 +17,7 @@ export interface Props {
 export const ProfileContent: FC<Props> = ({ id }) => {
 	const profileActions = new ProfileActions()
 	const postActions = new PostActions()
+
 	const dispatch: AppDispatch = useDispatch()
 	const profileIfo = useSelector(
 		(state: RootState) => state.profile.profileInfo
@@ -25,9 +26,8 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 
 	useEffect(() => {
 		async function fetchProfileData() {
-			await dispatch(profileActions.profile(id)).then(() => {
-				dispatch(postActions.posts(id))
-			})
+			await dispatch(profileActions.profile(id))
+			await dispatch(postActions.posts(id))
 		}
 
 		fetchProfileData()

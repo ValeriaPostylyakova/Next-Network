@@ -7,4 +7,6 @@ export interface InitialState {
 	statusCreatePost: Status
 	statusAddLike: Status
 	statusRemoveLike: Status
+	statusComments: Status
+	statusDeletePost: Status
 }

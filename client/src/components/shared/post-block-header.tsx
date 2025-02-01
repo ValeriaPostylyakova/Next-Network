@@ -9,12 +9,14 @@ export interface Props {
 	fullname?: string
 	jobTitle?: string
 	userImageUrl?: string
+	deletePost: () => void
 }
 
 export const PostBlockHeader: FC<Props> = ({
 	fullname,
 	jobTitle,
 	userImageUrl,
+	deletePost,
 }) => {
 	return (
 		<Box
@@ -31,7 +33,7 @@ export const PostBlockHeader: FC<Props> = ({
 				text={jobTitle}
 				width={55}
 				height={55}
-				image='/user-profile.svg'
+				image={userImageUrl ? userImageUrl : '/user-profile.svg'}
 				sizeTitle={18}
 				sizeSubTitle={15}
 				name={fullname}
@@ -40,6 +42,7 @@ export const PostBlockHeader: FC<Props> = ({
 				ml={-9}
 				icon={<Trash size={20} />}
 				title='Удалить пост'
+				handleClickItem={deletePost}
 			/>
 		</Box>
 	)

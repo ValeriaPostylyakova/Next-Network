@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
+import { Heart } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
 
@@ -19,6 +20,7 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 					margin: '0 auto',
 					display: 'flex',
 					alignItems: 'center',
+					justifyContent: 'space-between',
 					background: 'background.default',
 					py: 2,
 					cursor: 'pointer',
@@ -52,6 +54,7 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 						<Typography sx={{ fontSize: `16px`, fontWeight: 600 }}>
 							{username}
 						</Typography>
+
 						<Typography
 							sx={{
 								fontSize: `14px`,
@@ -63,6 +66,7 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 						</Typography>
 					</Box>
 				</Box>
+				<Heart color='#d3d3d3' size={22} />
 			</Box>
 			<Divider />
 		</Link>

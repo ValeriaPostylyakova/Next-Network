@@ -1,41 +1,24 @@
 'use client'
 
-import { CommentsActions } from '@/redux/comments/async-actions'
-import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import { SendHorizontal, Smile } from 'lucide-react'
+import { SendHorizonal, Smile } from 'lucide-react'
 import { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { ButtonUI, FlexContainer } from '../ui'
 
 export interface Props {
-	className?: string
+	handleWhiteComment: (e: any) => void
+	value: string
+	setValue: (value: string) => void
+	handleClickComment: () => void
 }
 
-export const PostWriteCommentsBlock: FC<Props> = () => {
-	const commentActions = new CommentsActions()
-	const profileInfo = useSelector(
-		(state: RootState) => state.profile.profileInfo
-	)
-
-	const dispatch: AppDispatch = useDispatch()
-
-	const handleWhiteComment = async (e: any) => {
-		if (e.code === 'Enter' && profileInfo) {
-			const data = await dispatch(
-				commentActions.createComment({
-					id: profileInfo.id,
-					username: profileInfo.fullname,
-					userImgUrl: profileInfo.userImageUrl,
-					text: e.target.value,
-				})
-			)
-
-			console.log(data.payload)
-			e.target.value = ''
-		}
-	}
+export const PostWriteCommentsBlock: FC<Props> = ({
+	handleWhiteComment,
+	value,
+	setValue,
+	handleClickComment,
+}) => {
 	return (
 		<FlexContainer content='space-between' pt={2.5}>
 			<FlexContainer>
@@ -64,14 +47,16 @@ export const PostWriteCommentsBlock: FC<Props> = () => {
 					onKeyDown={e => {
 						handleWhiteComment(e)
 					}}
+					onChange={e => setValue(e.target.value)}
+					value={value}
 				/>
 			</FlexContainer>
 			<FlexContainer>
 				<ButtonUI variant='outlined'>
 					<Smile />
 				</ButtonUI>
-				<ButtonUI variant='outlined'>
-					<SendHorizontal />
+				<ButtonUI variant='outlined' click={handleClickComment}>
+					<SendHorizonal />
 				</ButtonUI>
 			</FlexContainer>
 		</FlexContainer>

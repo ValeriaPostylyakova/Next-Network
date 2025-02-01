@@ -9,8 +9,10 @@ const initialState: InitialState = {
 	posts: [],
 	statusPosts: Status.LOADIND,
 	statusCreatePost: Status.LOADIND,
+	statusDeletePost: Status.LOADIND,
 	statusAddLike: Status.LOADIND,
 	statusRemoveLike: Status.LOADIND,
+	statusComments: Status.LOADIND,
 }
 
 const postSlice = createSlice({
@@ -59,6 +61,34 @@ const postSlice = createSlice({
 		})
 		builder.addCase(postActions.removeLikes.rejected, state => {
 			state.statusRemoveLike = Status.ERROR
+		})
+
+		builder.addCase(postActions.createComment.pending, state => {
+			state.statusComments = Status.LOADIND
+		})
+
+		builder.addCase(postActions.createComment.fulfilled, (state, actions) => {
+			state.statusComments = Status.SUCCESS
+			state.posts
+				.find(post => post.id === actions.payload.postId)
+				?.comments.push(actions.payload)
+		})
+
+		builder.addCase(postActions.createComment.rejected, state => {
+			state.statusComments = Status.ERROR
+		})
+
+		builder.addCase(postActions.deletePost.pending, state => {
+			state.statusDeletePost = Status.LOADIND
+		})
+
+		builder.addCase(postActions.deletePost.fulfilled, (state, actions) => {
+			state.statusDeletePost = Status.SUCCESS
+			state.posts = state.posts.filter(post => post.id !== actions.payload.id)
+		})
+
+		builder.addCase(postActions.deletePost.rejected, state => {
+			state.statusDeletePost = Status.ERROR
 		})
 	},
 })

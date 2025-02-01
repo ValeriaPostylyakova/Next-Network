@@ -14,9 +14,10 @@ export interface Props {
 	icon: JSX.Element
 	title: string
 	ml: number
+	handleClickItem: () => void
 }
 
-export const MenuBlockButton: FC<Props> = ({ icon, title, ml }) => {
+export const MenuBlockButton: FC<Props> = ({ icon, title, ml, handleClickItem }) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,7 +56,7 @@ export const MenuBlockButton: FC<Props> = ({ icon, title, ml }) => {
 					'aria-labelledby': 'basic-button',
 				}}
 			>
-				<MenuItem onClick={handleClose}>
+				<MenuItem onClick={handleClickItem}>
 					<FlexContainer>
 						{icon}
 						<Typography sx={{ fontSize: '14px' }}>{title}</Typography>

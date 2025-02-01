@@ -25,7 +25,7 @@ export type Post = {
 	jobTitle?: string
 	userImageUrl?: string
 	likes: number
-	comments?: Comments[]
+	comments: Comments[]
 	like: boolean
 	text?: string
 }

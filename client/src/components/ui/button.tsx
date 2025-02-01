@@ -8,7 +8,7 @@ export interface Props {
 	variant: 'text' | 'outlined' | 'contained'
 	m?: string
 	bgcolor?: string
-	click?: () => void
+	click?: (e?: any) => void
 	width?: string
 	color?: string
 	fontWeight?: number
