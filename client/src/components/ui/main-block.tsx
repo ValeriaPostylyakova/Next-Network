@@ -5,9 +5,10 @@ import { FC, ReactNode } from 'react'
 
 export interface Props {
 	children: ReactNode
+	mt?: number
 }
 
-export const MainBlock: FC<Props> = ({ children }) => {
+export const MainBlock: FC<Props> = ({ children, mt }) => {
 	return (
 		<Box
 			sx={[
@@ -18,6 +19,7 @@ export const MainBlock: FC<Props> = ({ children }) => {
 					borderRadius: 4,
 					backgroundColor: 'background.default',
 					mb: 6,
+					mt: `${mt}px`,
 				}),
 				theme =>
 					theme.applyStyles('dark', {

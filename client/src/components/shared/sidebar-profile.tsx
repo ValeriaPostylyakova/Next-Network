@@ -33,7 +33,7 @@ export const SidebarProfile: FC<Props> = () => {
 						text={`@${user?.identifier}`}
 						width={40}
 						height={40}
-						image='/user-profile.svg'
+						image='/images/user-profile.svg'
 						sizeTitle={16}
 						sizeSubTitle={14}
 						name={user?.fullname}

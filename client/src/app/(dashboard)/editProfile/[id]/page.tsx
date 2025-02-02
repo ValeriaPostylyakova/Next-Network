@@ -1,15 +1,14 @@
-import { ButtonGroupTheme, SettingsBlock } from '@/components/shared'
+import { EditProfileContent } from '@/components/shared'
 import { MainWrapper } from '@/components/ui/main-wrapper'
 import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-
 import { FC } from 'react'
 
 interface Props {
-	className?: string
+	params: { id: string }
 }
 
-const Page: FC<Props> = () => {
+const Page: FC<Props> = async ({params}) => {
+	const {id} = params
 	return (
 		<MainWrapper mt={0} pt={3}>
 			<Box
@@ -20,14 +19,7 @@ const Page: FC<Props> = () => {
 					flexDirection: 'column',
 				}}
 			>
-				<ButtonGroupTheme />
-				<Divider />
-
-				<SettingsBlock
-					title='Language'
-					content='English'
-					typographyText='Выбор языка'
-				/>
+				<EditProfileContent id={id}/>
 			</Box>
 		</MainWrapper>
 	)

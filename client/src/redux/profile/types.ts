@@ -43,6 +43,7 @@ export type IProfile = {
 	email: string
 	jobTitle?: string
 	userImageUrl?: string
+	identifier: string
 }
 
 export interface InitialState {

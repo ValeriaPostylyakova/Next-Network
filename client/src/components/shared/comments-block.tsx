@@ -41,7 +41,12 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 							}}
 						/>
 					) : (
-						<img src='/user-profile.svg' alt='avatar' width={40} height={40} />
+						<img
+							src='/images/user-profile.svg'
+							alt='avatar'
+							width={40}
+							height={40}
+						/>
 					)}
 					<Box
 						sx={{

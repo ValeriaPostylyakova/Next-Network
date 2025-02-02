@@ -28,7 +28,7 @@ export const PostWriteCommentsBlock: FC<Props> = ({
 						p: 0.25,
 						width: '45px',
 						height: '45px',
-						backgroundImage: 'url(/user-profile.svg)',
+						backgroundImage: 'url(/images/user-profile.svg)',
 						backgroundSize: 'cover',
 						backgroundRepeat: 'no-repeat',
 						mb: 1,

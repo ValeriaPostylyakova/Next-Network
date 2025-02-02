@@ -15,7 +15,7 @@ const LoginPage: FC<Props> = () => (
 		}}
 	>
 		<ContainerUI width='65%'>
-			<Image width={500} height={500} src='/logo.svg' alt='logo' />
+			<Image width={500} height={500} src='/images/logo.svg' alt='logo' />
 			<Box
 				sx={{
 					display: 'flex',

@@ -8,6 +8,7 @@ import { PostActions } from '@/redux/post/async-action'
 import { Comments } from '@/redux/profile/types'
 import { AppDispatch, RootState } from '@/redux/store'
 import { FC, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { MainBlock } from '../ui'
 import { PostBlockHeader } from './post-block-header'
@@ -48,22 +49,28 @@ export const PostBlock: FC<Props> = ({
 	)
 	const postActions = new PostActions()
 
-	const handleWhiteComment = (e: any) => {
+	const handleWhiteComment = (e: KeyboardEvent) => {
 		if (e.code === 'Enter' && profileInfo) {
 			dispatch(
 				postActions.createComment({
 					id: id,
 					username: profileInfo.fullname,
 					userImgUrl: profileInfo.userImageUrl,
-					text: e.target.value,
+					text: value,
 				})
 			)
-			e.target.value = ''
+			setValue('')
 		}
 	}
 
-	const deletePost = () => {
-		dispatch(postActions.deletePost(id))
+	const deletePost = async () => {
+		try {
+			dispatch(postActions.deletePost(id))
+			toast.success('Пост успешно удалён')
+		} catch (e) {
+			console.error(e)
+			toast.error('Ошибка при удалении поста')
+		}
 	}
 
 	const handleClickComment = () => {

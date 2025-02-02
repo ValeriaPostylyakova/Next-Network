@@ -6,7 +6,7 @@ import { ButtonUI } from '../ui'
 
 export interface Props {
 	typographyText?: string
-	title: string
+	title?: string
 	content: string
 	children?: ReactNode
 }
@@ -31,9 +31,11 @@ export const SettingsBlock: FC<Props> = ({
 					py: 2,
 				}}
 			>
-				<Typography sx={{ fontWeight: 500, color: '#929292' }}>
-					{title}
-				</Typography>
+				{title && (
+					<Typography sx={{ fontWeight: 500, color: '#929292' }}>
+						{title}
+					</Typography>
+				)}
 				<Typography>{content}</Typography>
 				<ButtonUI variant='outlined'>Изменить</ButtonUI>
 			</Box>

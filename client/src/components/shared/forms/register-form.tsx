@@ -51,7 +51,7 @@ export const RegisterForm: FC = () => {
 	return (
 		<>
 			<ButtonUI width='80%' bgcolor='#fff' m='0.3rem' variant='contained'>
-				<Image src='/google.png' alt='google' width={20} height={20} />
+				<Image src='/images/google.png' alt='google' width={20} height={20} />
 				Google
 			</ButtonUI>
 			<Divider

@@ -26,12 +26,12 @@ export const ProfileInfoBlock: FC<Props> = ({ profileInfo }) => {
 					text={profileInfo?.jobTitle}
 					width={80}
 					height={80}
-					image='/user-profile.svg'
+					image='/images/user-profile.svg'
 					sizeTitle={20}
 					sizeSubTitle={16}
 					name={profileInfo?.fullname}
 				/>
-				<Link href='/settings'>
+				<Link href='/editProfile/:id'>
 					<ButtonUI variant='outlined'>Редактировать профиль</ButtonUI>
 				</Link>
 			</Box>
