@@ -15,7 +15,7 @@ export const Providers: FC<Props> = ({ children }) => {
 		<>
 			<Toaster />
 			<AppRouterCacheProvider>
-				<ThemeProvider theme={theme}>
+				<ThemeProvider theme={theme} defaultMode='dark'>
 					<StoreProvider>{children}</StoreProvider>
 				</ThemeProvider>
 			</AppRouterCacheProvider>

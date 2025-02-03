@@ -4,14 +4,16 @@ export class UserDTO {
 	id
 	email
 	isActivated
-	fullname
+	firstname
 	identifier
+	lastname
 
 	constructor(user: User) {
 		this.email = user.email
 		this.id = user.id
 		this.isActivated = user.isActivated
-		this.fullname = user.fullname
+		this.firstname = user.firstname
+		this.lastname = user.lastname
 		this.identifier = user.identifier
 	}
 }

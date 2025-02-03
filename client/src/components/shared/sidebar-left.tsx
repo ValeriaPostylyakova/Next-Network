@@ -84,14 +84,10 @@ export const SidebarLeft: FC = () => {
 				</Box>
 			</Toolbar>
 			<List sx={{ mt: 4 }}>
-				<SidebarItem text='Feed' icons={<House />} link='feed' />
-				<SidebarItem
-					text='Messages'
-					icons={<MessagesSquare />}
-					link='messages'
-				/>
-				<SidebarItem text='Friends' icons={<Users />} link='friends' />
-				<SidebarItem text='Settings' icons={<Settings />} link='settings' />
+				<SidebarItem text='Главная' icons={<House />} link='feed' />
+				<SidebarItem text='Чаты' icons={<MessagesSquare />} link='messages' />
+				<SidebarItem text='Друзья' icons={<Users />} link='friends' />
+				<SidebarItem text='Настройки' icons={<Settings />} link='settings' />
 			</List>
 			<SidebarProfile />
 		</DrawerUI>

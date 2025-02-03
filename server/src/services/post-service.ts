@@ -94,7 +94,7 @@ export class PostService {
 
 		const post = await prisma.post.create({
 			data: {
-				fullname: user.fullname,
+				fullname: user.firstname + ' ' + user.lastname,
 				jobTitle: user.jobTitle,
 				userImageUrl: user.imageUrl,
 				postImageUrl: fileData,

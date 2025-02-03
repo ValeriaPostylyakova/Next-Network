@@ -1,5 +1,5 @@
-import { Status } from '../auth/types'
-import { Post } from '../profile/types'
+import { Status } from '../../../@types/fetchStatus'
+import { Post } from '../../../@types/post'
 
 export interface InitialState {
 	posts: Post[]

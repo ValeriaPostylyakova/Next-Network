@@ -5,11 +5,11 @@ import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 
 import { PostActions } from '@/redux/post/async-action'
-import { Comments } from '@/redux/profile/types'
 import { AppDispatch, RootState } from '@/redux/store'
 import { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
+import { Comments } from '../../../@types/post'
 import { MainBlock } from '../ui'
 import { PostBlockHeader } from './post-block-header'
 import { PostCommentsBlock } from './post-comments-block'
@@ -54,8 +54,8 @@ export const PostBlock: FC<Props> = ({
 			dispatch(
 				postActions.createComment({
 					id: id,
-					username: profileInfo.fullname,
-					userImgUrl: profileInfo.userImageUrl,
+					username: profileInfo.firstname + ' ' + profileInfo.lastname,
+					userImgUrl: profileInfo.imageUrl,
 					text: value,
 				})
 			)
@@ -78,8 +78,8 @@ export const PostBlock: FC<Props> = ({
 			dispatch(
 				postActions.createComment({
 					id: id,
-					username: profileInfo.fullname,
-					userImgUrl: profileInfo.userImageUrl,
+					username: profileInfo.firstname + ' ' + profileInfo.lastname,
+					userImgUrl: profileInfo.imageUrl,
 					text: value,
 				})
 			)
@@ -99,15 +99,15 @@ export const PostBlock: FC<Props> = ({
 			<Box>
 				<Typography sx={{ fontSize: '16px', pt: 2, mb: 2 }}>{text}</Typography>
 				{postImageUrl && (
-					<Box
-						sx={{
+					<img
+						src={postImageUrl}
+						style={{
 							width: '100%',
 							height: '450px',
-							borderRadius: 4,
-							mb: 2,
-							backgroundImage: `url(${postImageUrl})`,
-							backgroundRepeat: 'no-repeat',
-							backgroundSize: 'cover',
+							borderRadius: '7px',
+							marginBottom: 2,
+							objectFit: 'cover',
+							objectPosition: 'center',
 						}}
 					/>
 				)}

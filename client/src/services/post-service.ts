@@ -1,5 +1,5 @@
 import { api } from '@/http/axios'
-import { Post } from '@/redux/profile/types'
+import { Post } from '../../@types/post'
 
 export class PostService {
 	static async createPost(formData: FormData) {

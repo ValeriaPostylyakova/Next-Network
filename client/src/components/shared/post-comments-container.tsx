@@ -1,6 +1,6 @@
-import { Comments } from '@/redux/profile/types'
 import Box from '@mui/material/Box'
 import { FC } from 'react'
+import { Comments } from '../../../@types/post'
 import { CommentsBlock } from './comments-block'
 
 export interface Props {

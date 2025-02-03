@@ -28,15 +28,15 @@ export const UserInfoName: FC<Props> = ({
 }) => {
 	return (
 		<FlexContainer>
-			<Box
-				sx={{
-					borderRadius: '100%',
-					p: 0.25,
+			<img
+				src={image ? image : '/images/user-profile.svg'}
+				style={{
+					borderRadius: '50%',
+					padding: 0.25,
 					width: `${width}px`,
 					height: `${height}px`,
-					backgroundImage: `url(${image})`,
-					backgroundSize: 'cover',
-					backgroundRepeat: 'no-repeat',
+					objectFit: 'cover',
+					objectPosition: 'center',
 					cursor: cursor,
 				}}
 			/>

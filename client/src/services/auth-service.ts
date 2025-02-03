@@ -1,21 +1,10 @@
 import { api } from '@/http/axios'
+import { TProfile } from '../../@types/profile'
 
 export interface AuthResponse {
 	accessToken: string
 	refreshToken: string
-	user: TUser
-}
-
-export type TUser = {
-	id: number
-	email: string
-	password: string
-	isActivated: boolean
-	activationLink?: string
-	fullname: string
-	identifier: string
-	jobTitle?: string
-	
+	user: TProfile
 }
 
 export class AuthService {
@@ -26,12 +15,14 @@ export class AuthService {
 	static async registration(
 		email: string,
 		password: string,
-		fullname?: string
+		firstname: string,
+		lastname: string
 	) {
 		return api.post<AuthResponse>('/registration', {
 			email,
 			password,
-			fullname,
+			firstname,
+			lastname,
 		})
 	}
 

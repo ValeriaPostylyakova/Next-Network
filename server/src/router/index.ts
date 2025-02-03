@@ -24,6 +24,7 @@ router.get('/activate/:link', userControllers.activate)
 router.get('/refresh', userControllers.refresh)
 
 router.get('/profile/:id', profileControllers.profileInfo)
+router.patch('/updateProfile', profileControllers.updateProfileInfo)
 
 router.post('/post', multersFile.single('post'), postControllers.createPost)
 router.get('/posts/:id', postControllers.posts)

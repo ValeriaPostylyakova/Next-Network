@@ -12,8 +12,13 @@ export class UserControllers {
 				throw new Error('Ошибка при валидации')
 			}
 
-			const { email, password, fullname } = req.body
-			const userData = await userService.registration(email, password, fullname)
+			const { email, password, firstname, lastname } = req.body
+			const userData = await userService.registration(
+				email,
+				password,
+				firstname,
+				lastname
+			)
 			res.cookie('refreshToken', userData.refreshToken, {
 				maxAge: 30 * 24 * 60 * 60 * 1000,
 				httpOnly: true,

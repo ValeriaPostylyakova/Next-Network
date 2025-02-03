@@ -24,6 +24,8 @@ const Page: FC<Props> = () => {
 				<Divider />
 
 				<SettingsBlock
+					myTitle={4}
+					sizeTitle={21}
 					title='Language'
 					content='English'
 					typographyText='Выбор языка'

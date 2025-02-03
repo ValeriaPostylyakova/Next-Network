@@ -3,16 +3,18 @@
 import Box from '@mui/material/Box'
 
 import { useSubmitFormData } from '@/hooks/use-submit-form-data'
+import { RootState } from '@/redux/store'
 import Link from 'next/link'
 import { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { UserInfoName } from './user-info-name'
 
-export interface Props {
-	className?: string
-}
-
-export const SidebarProfile: FC<Props> = () => {
+export const SidebarProfile: FC = () => {
 	const { user } = useSubmitFormData()
+	const profileInfo = useSelector(
+		(state: RootState) => state.profile.profileInfo
+	)
+
 	return (
 		<Link href={`/profile/${user?.id}`}>
 			<Box
@@ -28,15 +30,29 @@ export const SidebarProfile: FC<Props> = () => {
 					cursor: 'pointer',
 				}}
 			>
-				{user && (
+				{user ? (
 					<UserInfoName
 						text={`@${user?.identifier}`}
 						width={40}
 						height={40}
-						image='/images/user-profile.svg'
+						image={user?.imageUrl ? user?.imageUrl : '/images/user-profile.svg'}
 						sizeTitle={16}
 						sizeSubTitle={14}
-						name={user?.fullname}
+						name={user?.firstname + ' ' + user?.lastname}
+					/>
+				) : (
+					<UserInfoName
+						text={`@${profileInfo?.identifier}`}
+						width={40}
+						height={40}
+						image={
+							profileInfo?.imageUrl
+								? profileInfo?.imageUrl
+								: '/images/user-profile.svg'
+						}
+						sizeTitle={16}
+						sizeSubTitle={14}
+						name={profileInfo?.firstname + ' ' + profileInfo?.lastname}
 					/>
 				)}
 			</Box>

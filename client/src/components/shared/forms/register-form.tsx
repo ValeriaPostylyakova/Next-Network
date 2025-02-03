@@ -27,7 +27,8 @@ export const RegisterForm: FC = () => {
 		resolver: zodResolver(registerFormSchema),
 		defaultValues: {
 			email: '',
-			fullname: '',
+			firstname: '',
+			lastname: '',
 			password: '',
 			confirmPassword: '',
 		},
@@ -96,7 +97,12 @@ export const RegisterForm: FC = () => {
 								<FormItem
 									label='Введите свое имя'
 									placeholder='Введите имя'
-									name='fullname'
+									name='firstname'
+								/>
+								<FormItem
+									label='Введите свое имя'
+									placeholder='Введите имя'
+									name='lastname'
 								/>
 								<FormItem
 									label='Придумайте пароль'

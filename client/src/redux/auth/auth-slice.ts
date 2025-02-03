@@ -1,10 +1,11 @@
-import { TUser } from '@/services/auth-service'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Status } from '../../../@types/fetchStatus'
+import { TProfile } from '../../../@types/profile'
 import { FetchAuth } from './async-actions'
-import { InitiateState, Status } from './types'
+import { InitiateState } from './types'
 
 const initialState: InitiateState = {
-	user: undefined,
+	user: null,
 	isAuth: false,
 	status: Status.LOADIND,
 }
@@ -19,7 +20,7 @@ export const authSlice = createSlice({
 			state.isAuth = action.payload
 		},
 
-		setUser: (state, action: PayloadAction<TUser>) => {
+		setUser: (state, action: PayloadAction<TProfile>) => {
 			state.user = action.payload
 		},
 	},
@@ -44,7 +45,7 @@ export const authSlice = createSlice({
 			.addCase(fetchAuth.login.fulfilled, (state, action) => {
 				state.isAuth = true
 				state.status = Status.SUCCESS
-				state.user = action.payload?.user
+				state.user = action.payload.user
 			})
 			.addCase(fetchAuth.login.rejected, state => {
 				state.status = Status.ERROR
@@ -54,7 +55,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(fetchAuth.logout.fulfilled, state => {
 				state.isAuth = false
-				state.user = undefined
+				state.user = null
 			})
 			.addCase(fetchAuth.logout.rejected, state => {
 				state.status = Status.ERROR

@@ -59,7 +59,7 @@ export const CreatePostModal: FC = () => {
 				bgcolor='#5145d6'
 				color='#fff'
 			>
-				Add New Post
+				Создать пост
 				<Plus style={{ color: '#fff' }} />
 			</ButtonUI>
 			<Dialog

@@ -1,13 +1,8 @@
-import { TUser } from '@/services/auth-service'
+import { Status } from '../../../@types/fetchStatus'
+import { TProfile } from '../../../@types/profile'
 
 export interface InitiateState {
-	user: TUser | undefined
+	user: TProfile | null
 	isAuth: boolean
 	status: Status
-}
-
-export enum Status {
-	LOADIND = 'loading',
-	SUCCESS = 'success',
-	ERROR = 'error',
 }

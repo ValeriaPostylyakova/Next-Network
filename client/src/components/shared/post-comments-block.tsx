@@ -1,8 +1,8 @@
-import { Comments } from '@/redux/profile/types'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { MessageSquareText } from 'lucide-react'
-import { FC, useState } from 'react'
+import { FC } from 'react'
+import { Comments } from '../../../@types/post'
 
 export interface Props {
 	comments?: Comments[]
@@ -10,7 +10,11 @@ export interface Props {
 	openComments: boolean
 }
 
-export const PostCommentsBlock: FC<Props> = ({ comments, setOpenComments, openComments }) => {
+export const PostCommentsBlock: FC<Props> = ({
+	comments,
+	setOpenComments,
+	openComments,
+}) => {
 	return (
 		<Box
 			sx={{

@@ -3,23 +3,34 @@ import { AuthResponse, AuthService } from '@/services/auth-service'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-type TParams = {
+type TParamsRegistration = {
 	email: string
 	password: string
-	fullname?: string
+	firstname: string
+	lastname: string
+}
+
+type TParamsLogin = {
+	email: string
+	password: string
 }
 
 export class FetchAuth {
 	registration = createAsyncThunk(
 		'auth/fetchRegister',
-		async (params: TParams) => {
-			const { email, password, fullname } = params
-			const { data } = await AuthService.registration(email, password, fullname)
+		async (params: TParamsRegistration) => {
+			const { email, password, firstname, lastname } = params
+			const { data } = await AuthService.registration(
+				email,
+				password,
+				firstname,
+				lastname
+			)
 			localStorage.setItem('token', data.accessToken)
 			return data
 		}
 	)
-	login = createAsyncThunk('auth/fetchLogin', async (params: TParams) => {
+	login = createAsyncThunk('auth/fetchLogin', async (params: TParamsLogin) => {
 		const { email, password } = params
 		const { data } = await AuthService.login(email, password)
 		localStorage.setItem('token', data.accessToken)

@@ -9,7 +9,10 @@ export const registerFormSchema = z
 		confirmPassword: z
 			.string()
 			.min(4, { message: 'Пароль должен содержать не менее 4 символов' }),
-		fullname: z
+		firstname: z
+			.string()
+			.min(3, { message: 'Имя должно содержать не менее 3 символов' }),
+		lastname: z
 			.string()
 			.min(3, { message: 'Имя должно содержать не менее 3 символов' }),
 	})

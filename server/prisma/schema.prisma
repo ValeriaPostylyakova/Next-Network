@@ -16,7 +16,8 @@ model User {
   activationLink String?
   token          Token?
   imageUrl       String?
-  fullname       String
+  firstname      String
+  lastname       String
   identifier     String? @unique
   jobTitle       String?
 

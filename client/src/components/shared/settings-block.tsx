@@ -7,8 +7,11 @@ import { ButtonUI } from '../ui'
 export interface Props {
 	typographyText?: string
 	title?: string
+	sizeTitle?: number
 	content: string
 	children?: ReactNode
+	myTitle: number
+	mbTitle?: number
 }
 
 export const SettingsBlock: FC<Props> = ({
@@ -16,10 +19,13 @@ export const SettingsBlock: FC<Props> = ({
 	content,
 	children,
 	typographyText,
+	sizeTitle,
+	myTitle,
+	mbTitle,
 }) => {
 	return (
 		<Box>
-			<Typography sx={{ my: 3, fontSize: '1.3rem' }}>
+			<Typography sx={{ my: myTitle, fontSize: `${sizeTitle}px`, mb: mbTitle }}>
 				{typographyText}
 			</Typography>
 			<Box

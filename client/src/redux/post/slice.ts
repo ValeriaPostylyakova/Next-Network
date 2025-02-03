@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Status } from '../auth/types'
+import { Status } from '../../../@types/fetchStatus'
+import { Post } from '../../../@types/post'
 import { PostActions } from './async-action'
 import { InitialState } from './types'
 
@@ -70,7 +71,7 @@ const postSlice = createSlice({
 		builder.addCase(postActions.createComment.fulfilled, (state, actions) => {
 			state.statusComments = Status.SUCCESS
 			state.posts
-				.find(post => post.id === actions.payload.postId)
+				.find((post: Post) => post.id === actions.payload.postId)
 				?.comments.push(actions.payload)
 		})
 
@@ -84,7 +85,9 @@ const postSlice = createSlice({
 
 		builder.addCase(postActions.deletePost.fulfilled, (state, actions) => {
 			state.statusDeletePost = Status.SUCCESS
-			state.posts = state.posts.filter(post => post.id !== actions.payload.id)
+			state.posts = state.posts.filter(
+				(post: Post) => post.id !== actions.payload.id
+			)
 		})
 
 		builder.addCase(postActions.deletePost.rejected, state => {

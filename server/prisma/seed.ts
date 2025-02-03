@@ -10,9 +10,12 @@ async function up() {
 			password: bcrypt.hashSync('test', 7),
 			id: 1,
 			isActivated: false,
-			fullname: 'Валерия Постылякова',
+			firstname: 'Валерия',
+			lastname: 'Постылякова',
 			identifier: 'valeriapos',
 			jobTitle: 'Frontend Developer',
+			imageUrl:
+				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
 		},
 	})
 
@@ -32,13 +35,13 @@ async function up() {
 				fullname: 'Валерия Постылякова',
 				jobTitle: 'Frontend Developer',
 				userImageUrl:
-					'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
+					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
 				likes: 0,
 				userId: 1,
 			},
 			{
 				postImageUrl:
-					'https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg',
+					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
 				fullname: 'Валерия Постылякова',
 				jobTitle: 'Frontend Developer',
 				userImageUrl:

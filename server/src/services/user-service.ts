@@ -11,7 +11,12 @@ const tokenServise = new TokenService()
 const prisma = new PrismaClient()
 
 export class UserService {
-	async registration(email: string, password: string, fullname: string) {
+	async registration(
+		email: string,
+		password: string,
+		firstname: string,
+		lastname: string
+	) {
 		const findUser = await prisma.user.findFirst({
 			where: {
 				email: email,
@@ -29,7 +34,8 @@ export class UserService {
 			data: {
 				email: email,
 				password: bcrypt.hashSync(password, 5),
-				fullname: fullname,
+				firstname: firstname,
+				lastname: lastname,
 				activationLink: activationLink,
 				identifier: identifier,
 			},
