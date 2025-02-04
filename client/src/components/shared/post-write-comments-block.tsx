@@ -1,10 +1,12 @@
 'use client'
 
-import Box from '@mui/material/Box'
+import { RootState } from '@/redux/store'
 import TextField from '@mui/material/TextField'
 import { SendHorizonal, Smile } from 'lucide-react'
 import { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { ButtonUI, FlexContainer } from '../ui'
+import { Avatar } from '@mui/material'
 
 export interface Props {
 	handleWhiteComment: (e: any) => void
@@ -19,19 +21,16 @@ export const PostWriteCommentsBlock: FC<Props> = ({
 	setValue,
 	handleClickComment,
 }) => {
+	const user = useSelector((state: RootState) => state.auth.user)
 	return (
 		<FlexContainer content='space-between' pt={2.5}>
 			<FlexContainer>
-				<Box
+				<Avatar
+					alt='avatar'
+					src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
 					sx={{
-						borderRadius: '100%',
-						p: 0.25,
-						width: '45px',
-						height: '45px',
-						backgroundImage: 'url(/images/user-profile.svg)',
-						backgroundSize: 'cover',
-						backgroundRepeat: 'no-repeat',
-						mb: 1,
+						width: 45,
+						height: 45,
 					}}
 				/>
 				<TextField

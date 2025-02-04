@@ -81,4 +81,35 @@ export class UserControllers {
 			console.log(e)
 		}
 	}
+
+	async updateProfileInfo(req: any, res: any) {
+		try {
+			const {
+				id,
+				firstname,
+				lastname,
+				identifier,
+				jobTitle,
+				phone,
+				email,
+				imageUrl,
+			} = req.body
+			const response = await userService.update(
+				id,
+				firstname,
+				lastname,
+				jobTitle,
+				identifier,
+				phone,
+				email,
+				imageUrl
+			)
+			return res.status(200).json(response)
+		} catch (e) {
+			res
+				.status(400)
+				.json({ message: 'Ошибка при получении информации о профиле' })
+			console.log(e)
+		}
+	}
 }

@@ -7,8 +7,7 @@ interface Props {
 	params: { id: string }
 }
 
-const Page: FC<Props> = async ({params}) => {
-	const {id} = params
+const Page: FC<Props> = () => {
 	return (
 		<MainWrapper mt={0} pt={3}>
 			<Box
@@ -19,7 +18,7 @@ const Page: FC<Props> = async ({params}) => {
 					flexDirection: 'column',
 				}}
 			>
-				<EditProfileContent id={id}/>
+				<EditProfileContent />
 			</Box>
 		</MainWrapper>
 	)

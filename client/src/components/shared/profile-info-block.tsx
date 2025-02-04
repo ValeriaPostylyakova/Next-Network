@@ -7,7 +7,7 @@ import { ButtonUI } from '../ui'
 import { UserInfoName } from './user-info-name'
 
 export interface Props {
-	profileInfo: TProfile | null
+	profileInfo: TProfile
 }
 
 export const ProfileInfoBlock: FC<Props> = ({ profileInfo }) => {
@@ -27,15 +27,15 @@ export const ProfileInfoBlock: FC<Props> = ({ profileInfo }) => {
 					width={80}
 					height={80}
 					image={
-						profileInfo?.imageUrl
-							? profileInfo?.imageUrl
+						profileInfo.imageUrl
+							? profileInfo.imageUrl
 							: '/images/user-profile.svg'
 					}
 					sizeTitle={20}
 					sizeSubTitle={16}
 					name={profileInfo?.firstname + ' ' + profileInfo?.lastname}
 				/>
-				<Link href={`/editProfile/${profileInfo?.id}`}>
+				<Link href={`/editProfile`}>
 					<ButtonUI variant='outlined'>Редактировать профиль</ButtonUI>
 				</Link>
 			</Box>

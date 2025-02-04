@@ -1,7 +1,7 @@
 'use client'
 
-import { FetchAuth } from '@/redux/auth/async-actions'
 import { AppDispatch, RootState } from '@/redux/store'
+import { FetchAuth } from '@/redux/user/async-actions'
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 

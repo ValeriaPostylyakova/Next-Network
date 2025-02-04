@@ -1,4 +1,4 @@
-import { AuthResponse } from '@/services/auth-service'
+import { AuthResponse } from '@/services/user-service'
 import axios from 'axios'
 
 export const API_URL = 'http://localhost:4200/api'

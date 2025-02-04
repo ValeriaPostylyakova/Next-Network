@@ -5,9 +5,10 @@ import { FetchAuth } from './async-actions'
 import { InitiateState } from './types'
 
 const initialState: InitiateState = {
-	user: null,
+	user: {} as TProfile,
 	isAuth: false,
 	status: Status.LOADIND,
+	updateUser: Status.LOADIND,
 }
 
 const fetchAuth = new FetchAuth()
@@ -55,7 +56,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(fetchAuth.logout.fulfilled, state => {
 				state.isAuth = false
-				state.user = null
+				state.user = {} as TProfile
 			})
 			.addCase(fetchAuth.logout.rejected, state => {
 				state.status = Status.ERROR
@@ -71,6 +72,17 @@ export const authSlice = createSlice({
 			.addCase(fetchAuth.checkAuth.rejected, state => {
 				state.status = Status.ERROR
 			})
+
+		builder.addCase(fetchAuth.updateProfile.pending, state => {
+			state.updateUser = Status.LOADIND
+		})
+		builder.addCase(fetchAuth.updateProfile.fulfilled, (state, actions) => {
+			state.updateUser = Status.SUCCESS
+			state.user = actions.payload
+		})
+		builder.addCase(fetchAuth.updateProfile.rejected, state => {
+			state.updateUser = Status.ERROR
+		})
 	},
 })
 

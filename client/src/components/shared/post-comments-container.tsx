@@ -9,7 +9,7 @@ export interface Props {
 
 export const PostCommentsContainer: FC<Props> = ({ comments }) => {
 	return (
-		<Box sx={{ py: 2 }}>
+		<Box sx={{ px: 2 }}>
 			<Box>
 				{comments?.map(comment => (
 					<CommentsBlock key={comment.id} {...comment} />

@@ -7,7 +7,7 @@ export interface AuthResponse {
 	user: TProfile
 }
 
-export class AuthService {
+export class UserService {
 	static async login(email: string, password: string) {
 		return api.post<AuthResponse>('/login', { email, password })
 	}
@@ -28,5 +28,21 @@ export class AuthService {
 
 	static async logout() {
 		return api.post('/logout')
+	}
+
+	static async updateProfileInfo(
+		id: number,
+		firstname: string,
+		lastname: string,
+		jobTitle: string,
+		identifier: string
+	) {
+		return api.patch<TProfile>(`/updateProfile`, {
+			id: id,
+			firstname: firstname,
+			lastname,
+			jobTitle,
+			identifier,
+		})
 	}
 }

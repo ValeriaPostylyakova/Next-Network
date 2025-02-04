@@ -1,27 +1,27 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
+import Button from '@mui/material/Button'
 import { FC, ReactNode } from 'react'
-import { ButtonUI } from '../ui'
 
 export interface Props {
 	typographyText?: string
 	title?: string
 	sizeTitle?: number
-	content: string
 	children?: ReactNode
 	myTitle: number
 	mbTitle?: number
+	setClick: (value: boolean) => void
 }
 
 export const SettingsBlock: FC<Props> = ({
 	title,
-	content,
 	children,
 	typographyText,
 	sizeTitle,
 	myTitle,
 	mbTitle,
+	setClick,
 }) => {
 	return (
 		<Box>
@@ -42,10 +42,17 @@ export const SettingsBlock: FC<Props> = ({
 						{title}
 					</Typography>
 				)}
-				<Typography>{content}</Typography>
-				<ButtonUI variant='outlined'>Изменить</ButtonUI>
+				{children}
+				<Button
+					sx={{
+						borderRadius: '1rem',
+					}}
+					onClick={() => setClick(true)}
+					variant='outlined'
+				>
+					Изменить
+				</Button>
 			</Box>
-			{children}
 		</Box>
 	)
 }

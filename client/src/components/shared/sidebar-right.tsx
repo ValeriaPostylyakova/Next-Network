@@ -19,17 +19,14 @@ export interface Props {
 }
 
 export const SidebarRight: FC<Props> = () => {
-	const profileInfo = useSelector(
-		(state: RootState) => state.profile.profileInfo
-	)
-	const drawerWidth = 360
+	const user = useSelector((state: RootState) => state.auth.user)
 	return (
 		<Drawer
 			sx={{
-				width: drawerWidth,
+				width: 360,
 				flexShrink: 0,
 				'& .MuiDrawer-paper': {
-					width: drawerWidth,
+					width: 360,
 					boxSizing: 'border-box',
 				},
 			}}
@@ -44,13 +41,9 @@ export const SidebarRight: FC<Props> = () => {
 					justifyContent: 'space-between',
 				}}
 			>
-				<Link href={`/profile/${profileInfo?.id}`}>
+				<Link href={`/profile/${user.id}`}>
 					<img
-						src={
-							profileInfo?.imageUrl
-								? profileInfo.imageUrl
-								: '/images/user-profile.svg'
-						}
+						src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
 						alt='avatar'
 						width={40}
 						height={40}

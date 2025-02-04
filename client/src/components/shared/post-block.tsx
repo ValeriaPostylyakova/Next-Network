@@ -44,18 +44,16 @@ export const PostBlock: FC<Props> = ({
 	const [openComments, setOpenComments] = useState<boolean>(false)
 	const [value, setValue] = useState<string>('')
 
-	const profileInfo = useSelector(
-		(state: RootState) => state.profile.profileInfo
-	)
+	const user = useSelector((state: RootState) => state.auth.user)
 	const postActions = new PostActions()
 
 	const handleWhiteComment = (e: KeyboardEvent) => {
-		if (e.code === 'Enter' && profileInfo) {
+		if (e.code === 'Enter') {
 			dispatch(
 				postActions.createComment({
 					id: id,
-					username: profileInfo.firstname + ' ' + profileInfo.lastname,
-					userImgUrl: profileInfo.imageUrl,
+					username: user.firstname + ' ' + user.lastname,
+					userImgUrl: user.imageUrl,
 					text: value,
 				})
 			)
@@ -74,12 +72,12 @@ export const PostBlock: FC<Props> = ({
 	}
 
 	const handleClickComment = () => {
-		if (profileInfo) {
+		if (user) {
 			dispatch(
 				postActions.createComment({
 					id: id,
-					username: profileInfo.firstname + ' ' + profileInfo.lastname,
-					userImgUrl: profileInfo.imageUrl,
+					username: user.firstname + ' ' + user.lastname,
+					userImgUrl: user.imageUrl,
 					text: value,
 				})
 			)

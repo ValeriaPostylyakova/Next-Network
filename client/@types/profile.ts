@@ -9,4 +9,5 @@ export type TProfile = {
 	lastname: string
 	identifier: string
 	jobTitle?: string
+	phone: string
 }

@@ -3,7 +3,6 @@
 import Box from '@mui/material/Box'
 
 import { PostActions } from '@/redux/post/async-action'
-import { ProfileActions } from '@/redux/profile/async-actions'
 import { AppDispatch, RootState } from '@/redux/store'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,23 +17,17 @@ export interface Props {
 }
 
 export const ProfileContent: FC<Props> = ({ id }) => {
-	const profileActions = new ProfileActions()
 	const postActions = new PostActions()
 
 	const dispatch: AppDispatch = useDispatch()
-	const profileIfo = useSelector(
-		(state: RootState) => state.profile.profileInfo
-	)
+	const user = useSelector((state: RootState) => state.auth.user)
 	const posts = useSelector((state: RootState) => state.post.posts)
 	const postsStatus = useSelector((state: RootState) => state.post.statusPosts)
-	const profileStatus = useSelector(
-		(state: RootState) => state.profile.statusProfileInfo
-	)
+	const userStatus = useSelector((state: RootState) => state.auth.status)
 
 	useEffect(() => {
 		async function fetchProfileData() {
-			await dispatch(profileActions.profile(id))
-			await dispatch(postActions.posts(id))
+			dispatch(postActions.posts(id))
 		}
 
 		fetchProfileData()
@@ -42,10 +35,10 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 
 	return (
 		<>
-			{profileStatus === 'loading' ? (
+			{userStatus === 'loading' ? (
 				<ProfileSkeleton />
 			) : (
-				<ProfileInfoBlock profileInfo={profileIfo} />
+				<ProfileInfoBlock profileInfo={user} />
 			)}
 			{postsStatus === 'loading' ? (
 				[...new Array(2)].map((_, index) => <PostSkeleton key={index} />)

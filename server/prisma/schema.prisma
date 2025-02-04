@@ -15,6 +15,7 @@ model User {
   isActivated    Boolean @default(false)
   activationLink String?
   token          Token?
+  phone          String?
   imageUrl       String?
   firstname      String
   lastname       String

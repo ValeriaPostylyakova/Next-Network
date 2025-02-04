@@ -1,8 +1,8 @@
 'use client'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
-import { ProfileActions } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
+import { FetchAuth } from '@/redux/user/async-actions'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -15,29 +15,29 @@ import { TProfile } from '../../../@types/profile'
 import { ButtonUI, InputFormUI } from '../ui'
 
 export interface Props {
-	profileInfo: TProfile | null
+	user: TProfile
 }
 
-export const EditProfileModal: FC<Props> = ({ profileInfo }) => {
+export const EditProfileModal: FC<Props> = ({ user }) => {
 	const { open, setOpen, handleClose } = useOpenModal()
-	const profileActions = new ProfileActions()
+	const userActions = new FetchAuth()
 	const dispatch: AppDispatch = useDispatch()
-	const [firstname, setFirstname] = useState(profileInfo?.firstname || '')
-	const [lastname, setLastname] = useState(profileInfo?.lastname || '')
-	const [jobTitle, setJobTitle] = useState(profileInfo?.jobTitle || '')
-	const [identifier, setIdentifier] = useState(profileInfo?.identifier || '')
+	const [firstname, setFirstname] = useState(user.firstname)
+	const [lastname, setLastname] = useState(user.lastname)
+	const [jobTitle, setJobTitle] = useState(user.jobTitle || '')
+	const [identifier, setIdentifier] = useState(user.identifier)
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault()
 		try {
 			const obj = {
-				id: profileInfo?.id as number,
+				id: user.id,
 				firstname,
 				lastname,
 				jobTitle,
 				identifier,
 			}
-			const res = await dispatch(profileActions.updateProfile(obj))
+			const res = await dispatch(userActions.updateProfile(obj))
 
 			if (res.payload == null) {
 				return toast.error('Изменений нет')

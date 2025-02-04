@@ -36,6 +36,9 @@ export class UserService {
 				password: bcrypt.hashSync(password, 5),
 				firstname: firstname,
 				lastname: lastname,
+				imageUrl: null,
+				jobTitle: null,
+				phone: null,
 				activationLink: activationLink,
 				identifier: identifier,
 			},
@@ -144,5 +147,55 @@ export class UserService {
 			...tokens,
 			user: userDTO,
 		}
+	}
+
+	async update(
+		id: string,
+		firstname: string,
+		lastname: string,
+		jobTitle: string,
+		identifier: string,
+		phone: string,
+		email: string,
+		imageUrl: string
+	) {
+		const profile = await prisma.user.findFirst({
+			where: {
+				id: Number(id),
+			},
+		})
+
+		if (!profile) {
+			throw new Error('Такого профиля не существует')
+		}
+
+		if (
+			firstname === profile.firstname &&
+			lastname === profile.lastname &&
+			jobTitle === profile.jobTitle &&
+			identifier === profile.identifier &&
+			phone === profile.phone &&
+			email === profile.email &&
+			imageUrl === profile.imageUrl
+		) {
+			return null
+		}
+
+		const newProfile = await prisma.user.update({
+			where: {
+				id: profile.id,
+			},
+			data: {
+				firstname,
+				lastname,
+				jobTitle,
+				identifier,
+				phone,
+				email,
+				imageUrl,
+			},
+		})
+
+		return newProfile
 	}
 }

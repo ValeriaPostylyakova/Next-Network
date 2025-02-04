@@ -7,6 +7,9 @@ export class UserDTO {
 	firstname
 	identifier
 	lastname
+	imageUrl
+	jobTitle
+	phone
 
 	constructor(user: User) {
 		this.email = user.email
@@ -15,5 +18,8 @@ export class UserDTO {
 		this.firstname = user.firstname
 		this.lastname = user.lastname
 		this.identifier = user.identifier
+		this.imageUrl = user.imageUrl || null
+		this.jobTitle = user.jobTitle || null
+		this.phone = user.phone || null
 	}
 }

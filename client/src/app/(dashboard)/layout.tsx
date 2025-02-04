@@ -1,8 +1,8 @@
-import { SidebarLeft, SidebarRight } from '@/components/shared'
 import theme from '@/theme'
-import { Box, ThemeProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
+import DashboardPage from './page'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -17,11 +17,7 @@ export default function DashboardLayout({
 	return (
 		<AppRouterCacheProvider>
 			<ThemeProvider theme={theme}>
-				<Box sx={{ display: 'flex', color: 'text.primary' }}>
-					<SidebarLeft />
-					{children}
-					<SidebarRight />
-				</Box>
+				<DashboardPage children={children} />
 			</ThemeProvider>
 		</AppRouterCacheProvider>
 	)

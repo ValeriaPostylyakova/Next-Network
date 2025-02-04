@@ -1,3 +1,4 @@
+import { Avatar } from '@mui/material'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
@@ -28,24 +29,22 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 			>
 				<Box sx={{ display: 'flex', gap: '1rem' }}>
 					{userImgUrl ? (
-						<Box
+						<Avatar
+							alt='avatar'
+							src={userImgUrl}
 							sx={{
-								borderRadius: '100%',
-								p: 0.25,
-								width: `40px`,
-								height: `40px`,
-								backgroundImage: `url(${userImgUrl})`,
-								backgroundSize: 'cover',
-								backgroundRepeat: 'no-repeat',
-								mb: 1,
+								width: 40,
+								height: 40,
 							}}
 						/>
 					) : (
-						<img
-							src='/images/user-profile.svg'
+						<Avatar
 							alt='avatar'
-							width={40}
-							height={40}
+							src='/images/user-profile.svg'
+							sx={{
+								width: 40,
+								height: 40,
+							}}
 						/>
 					)}
 					<Box
