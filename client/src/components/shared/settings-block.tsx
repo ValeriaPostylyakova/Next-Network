@@ -11,7 +11,8 @@ export interface Props {
 	children?: ReactNode
 	myTitle: number
 	mbTitle?: number
-	setClick: (value: boolean) => void
+	setStateOpen?: (value: boolean) => void
+	open?: boolean
 }
 
 export const SettingsBlock: FC<Props> = ({
@@ -21,8 +22,15 @@ export const SettingsBlock: FC<Props> = ({
 	sizeTitle,
 	myTitle,
 	mbTitle,
-	setClick,
+	setStateOpen,
+	open,
 }) => {
+	const handleButtonClick = () => {
+		if (setStateOpen) {
+			setStateOpen(!open)
+		}
+	}
+
 	return (
 		<Box>
 			<Typography sx={{ my: myTitle, fontSize: `${sizeTitle}px`, mb: mbTitle }}>
@@ -44,13 +52,13 @@ export const SettingsBlock: FC<Props> = ({
 				)}
 				{children}
 				<Button
+					onClick={handleButtonClick}
 					sx={{
 						borderRadius: '1rem',
 					}}
-					onClick={() => setClick(true)}
 					variant='outlined'
 				>
-					Изменить
+					{open ? 'Отмена' : 'Изменить'}
 				</Button>
 			</Box>
 		</Box>

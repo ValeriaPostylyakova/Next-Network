@@ -53,7 +53,7 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 					) : (
 						<BlockEmpty
 							text='Список постов пока пуст'
-							imageName='posts-empty.png'
+							imageName='posts-empty.svg'
 						/>
 					)}
 				</>

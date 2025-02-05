@@ -8,7 +8,9 @@ const initialState: InitiateState = {
 	user: {} as TProfile,
 	isAuth: false,
 	status: Status.LOADIND,
-	updateUser: Status.LOADIND,
+	statusUpdateUserInfo: Status.LOADIND,
+	statusUpdateUserEmail: Status.LOADIND,
+	statusUpdateUserPhone: Status.LOADIND,
 }
 
 const fetchAuth = new FetchAuth()
@@ -74,14 +76,42 @@ export const authSlice = createSlice({
 			})
 
 		builder.addCase(fetchAuth.updateProfile.pending, state => {
-			state.updateUser = Status.LOADIND
+			state.statusUpdateUserInfo = Status.LOADIND
 		})
 		builder.addCase(fetchAuth.updateProfile.fulfilled, (state, actions) => {
-			state.updateUser = Status.SUCCESS
+			state.statusUpdateUserInfo = Status.SUCCESS
 			state.user = actions.payload
 		})
 		builder.addCase(fetchAuth.updateProfile.rejected, state => {
-			state.updateUser = Status.ERROR
+			state.statusUpdateUserInfo = Status.ERROR
+		})
+
+		builder.addCase(fetchAuth.updateProfileEmail.pending, state => {
+			state.statusUpdateUserEmail = Status.LOADIND
+		})
+		builder.addCase(
+			fetchAuth.updateProfileEmail.fulfilled,
+			(state, actions) => {
+				state.statusUpdateUserEmail = Status.SUCCESS
+				state.user = actions.payload
+			}
+		)
+		builder.addCase(fetchAuth.updateProfileEmail.rejected, state => {
+			state.statusUpdateUserEmail = Status.ERROR
+		})
+
+		builder.addCase(fetchAuth.updateProfilePhone.pending, state => {
+			state.statusUpdateUserPhone = Status.LOADIND
+		})
+		builder.addCase(
+			fetchAuth.updateProfilePhone.fulfilled,
+			(state, actions) => {
+				state.statusUpdateUserPhone = Status.SUCCESS
+				state.user = actions.payload
+			}
+		)
+		builder.addCase(fetchAuth.updateProfilePhone.rejected, state => {
+			state.statusUpdateUserPhone = Status.ERROR
 		})
 	},
 })

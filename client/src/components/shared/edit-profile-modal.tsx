@@ -30,14 +30,15 @@ export const EditProfileModal: FC<Props> = ({ user }) => {
 	const handleSubmit = async (e: any) => {
 		e.preventDefault()
 		try {
-			const obj = {
-				id: user.id,
-				firstname,
-				lastname,
-				jobTitle,
-				identifier,
-			}
-			const res = await dispatch(userActions.updateProfile(obj))
+			const res = await dispatch(
+				userActions.updateProfile({
+					id: user.id,
+					firstname,
+					lastname,
+					jobTitle,
+					identifier,
+				})
+			)
 
 			if (res.payload == null) {
 				return toast.error('Изменений нет')
@@ -87,6 +88,7 @@ export const EditProfileModal: FC<Props> = ({ user }) => {
 						/>
 					</DialogContent>
 					<DialogActions>
+						<Button onClick={handleClose}>Отмена</Button>
 						<Button type='submit' onClick={e => handleSubmit(e)}>
 							Сохранить
 						</Button>

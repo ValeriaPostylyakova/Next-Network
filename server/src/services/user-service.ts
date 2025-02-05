@@ -154,10 +154,7 @@ export class UserService {
 		firstname: string,
 		lastname: string,
 		jobTitle: string,
-		identifier: string,
-		phone: string,
-		email: string,
-		imageUrl: string
+		identifier: string
 	) {
 		const profile = await prisma.user.findFirst({
 			where: {
@@ -173,10 +170,7 @@ export class UserService {
 			firstname === profile.firstname &&
 			lastname === profile.lastname &&
 			jobTitle === profile.jobTitle &&
-			identifier === profile.identifier &&
-			phone === profile.phone &&
-			email === profile.email &&
-			imageUrl === profile.imageUrl
+			identifier === profile.identifier
 		) {
 			return null
 		}
@@ -190,12 +184,90 @@ export class UserService {
 				lastname,
 				jobTitle,
 				identifier,
-				phone,
-				email,
-				imageUrl,
 			},
 		})
 
 		return newProfile
+	}
+
+	async updateProfileInfoPhone(id: number, phone: string) {
+		const profile = await prisma.user.findFirst({
+			where: {
+				id: id,
+			},
+		})
+
+		if (!profile) {
+			throw new Error('Такого профиля не существует')
+		}
+
+		if (!phone) {
+			throw new Error('Необходимо указать телефон')
+		}
+
+		const updatedProfile = await prisma.user.update({
+			where: {
+				id: profile.id,
+			},
+			data: {
+				phone: phone,
+			},
+		})
+
+		return updatedProfile
+	}
+
+	async updateProfileInfoEmail(id: number, email: string) {
+		const profile = await prisma.user.findFirst({
+			where: {
+				id: id,
+			},
+		})
+
+		if (!profile) {
+			throw new Error('Такого профиля не существует')
+		}
+
+		if (!email) {
+			throw new Error('Необходимо указать почту')
+		}
+
+		const updatedProfile = await prisma.user.update({
+			where: {
+				id: profile.id,
+			},
+			data: {
+				email: email,
+			},
+		})
+
+		return updatedProfile
+	}
+
+	async updateProfileInfoImageUrl(id: number, imageUrl: string) {
+		const profile = await prisma.user.findFirst({
+			where: {
+				id: id,
+			},
+		})
+
+		if (!profile) {
+			throw new Error('Такого профиля не существует')
+		}
+
+		if (!imageUrl) {
+			throw new Error('Необходимо загрузить фотографию')
+		}
+
+		const updatedProfile = await prisma.user.update({
+			where: {
+				id: profile.id,
+			},
+			data: {
+				imageUrl,
+			},
+		})
+
+		return updatedProfile
 	}
 }

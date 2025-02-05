@@ -2,6 +2,7 @@ import { ButtonGroupTheme, SettingsBlock } from '@/components/shared'
 import { MainWrapper } from '@/components/ui/main-wrapper'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
 
 import { FC } from 'react'
 
@@ -27,9 +28,10 @@ const Page: FC<Props> = () => {
 					myTitle={4}
 					sizeTitle={21}
 					title='Language'
-					content='English'
 					typographyText='Выбор языка'
-				/>
+				>
+					<Typography>Русский</Typography>
+				</SettingsBlock>
 			</Box>
 		</MainWrapper>
 	)

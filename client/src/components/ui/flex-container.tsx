@@ -7,6 +7,7 @@ export interface Props {
 	durection?: string
 	content?: string
 	pt?: number
+	cursor?: string
 }
 
 export const FlexContainer: FC<Props> = ({
@@ -15,6 +16,7 @@ export const FlexContainer: FC<Props> = ({
 	durection,
 	content,
 	pt,
+	cursor,
 }) => {
 	return (
 		<Box
@@ -26,6 +28,7 @@ export const FlexContainer: FC<Props> = ({
 				justifyContent: content,
 				mb: mb,
 				pt: pt,
+				cursor: cursor,
 			}}
 		>
 			{children}

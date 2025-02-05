@@ -38,11 +38,24 @@ export class UserService {
 		identifier: string
 	) {
 		return api.patch<TProfile>(`/updateProfile`, {
-			id: id,
-			firstname: firstname,
+			id,
+			firstname,
 			lastname,
 			jobTitle,
 			identifier,
+		})
+	}
+
+	static async updateProfileInfoEMail(id: number, email: string) {
+		return api.patch<TProfile>(`/updateProfileEmail`, {
+			id,
+			email,
+		})
+	}
+	static async updateProfileInfoPhone(id: number, phone: string) {
+		return api.patch<TProfile>(`/updateProfilePhone`, {
+			id,
+			phone,
 		})
 	}
 }

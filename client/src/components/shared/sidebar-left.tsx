@@ -4,14 +4,7 @@ import TextField from '@mui/material/TextField'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
-import {
-	House,
-	MessageSquareShare,
-	MessagesSquare,
-	Search,
-	Settings,
-	Users,
-} from 'lucide-react'
+import { House, MessagesSquare, Search, Settings, Users } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
 import { DrawerUI, FlexContainer } from '../ui'
@@ -30,8 +23,13 @@ export const SidebarLeft: FC = () => {
 					alignItems: 'start',
 				}}
 			>
-				<FlexContainer mb='2rem'>
-					<MessageSquareShare size={23} />
+				<FlexContainer mb='2rem' cursor='pointer'>
+					<img
+						src='/images/logo2.svg'
+						alt='dashboard-logo'
+						width={24}
+						height={24}
+					/>
 					<Link href='/feed'>
 						<Typography
 							sx={{

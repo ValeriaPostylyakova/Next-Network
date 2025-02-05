@@ -84,31 +84,58 @@ export class UserControllers {
 
 	async updateProfileInfo(req: any, res: any) {
 		try {
-			const {
-				id,
-				firstname,
-				lastname,
-				identifier,
-				jobTitle,
-				phone,
-				email,
-				imageUrl,
-			} = req.body
+			const { id, firstname, lastname, identifier, jobTitle } = req.body
 			const response = await userService.update(
 				id,
 				firstname,
 				lastname,
 				jobTitle,
-				identifier,
-				phone,
-				email,
-				imageUrl
+				identifier
 			)
 			return res.status(200).json(response)
 		} catch (e) {
 			res
 				.status(400)
 				.json({ message: 'Ошибка при получении информации о профиле' })
+			console.log(e)
+		}
+	}
+
+	async updateProfileInfoPhone(req: any, res: any) {
+		try {
+			const { id, phone } = req.body
+			const response = await userService.updateProfileInfoPhone(id, phone)
+			return res.status(200).json(response)
+		} catch (e) {
+			res
+				.status(400)
+				.json({ message: 'Ошибка при получении информации о номере телефона' })
+			console.log(e)
+		}
+	}
+
+	async updateProfileInfoEmail(req: any, res: any) {
+		try {
+			const { id, email } = req.body
+			const response = await userService.updateProfileInfoEmail(id, email)
+			return res.status(200).json(response)
+		} catch (e) {
+			res
+				.status(400)
+				.json({ message: 'Ошибка при получении информации о email' })
+			console.log(e)
+		}
+	}
+
+	async updateProfileInfoImageUrl(req: any, res: any) {
+		try {
+			const { id, imageUrl } = req.body
+			const response = await userService.updateProfileInfoImageUrl(id, imageUrl)
+			return res.status(200).json(response)
+		} catch (e) {
+			res
+				.status(400)
+				.json({ message: 'Ошибка при получении информации о изображении' })
 			console.log(e)
 		}
 	}

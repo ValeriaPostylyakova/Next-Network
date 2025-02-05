@@ -20,7 +20,11 @@ router.post('/login', userControllers.login)
 router.post('/logout', userControllers.logout)
 router.get('/activate/:link', userControllers.activate)
 router.get('/refresh', userControllers.refresh)
+
 router.patch('/updateProfile', userControllers.updateProfileInfo)
+router.patch('/updateProfilePhone', userControllers.updateProfileInfoPhone)
+router.patch('/updateProfileEmail', userControllers.updateProfileInfoEmail)
+router.patch('/updateProfileImageUrl', userControllers.updateProfileInfo)
 
 router.post('/post', multersFile.single('post'), postControllers.createPost)
 router.get('/posts/:id', postControllers.posts)
