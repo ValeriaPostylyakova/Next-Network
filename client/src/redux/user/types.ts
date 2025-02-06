@@ -32,7 +32,6 @@ export type TParamsPhone = {
 }
 
 export type TParamsImage = {
-	id: number
 	image: File
 }
 
@@ -43,5 +42,6 @@ export interface InitiateState {
 	statusUpdateUserEmail: Status
 	statusUpdateUserPhone: Status
 	statusUpdateUserImageUrl: Status
+	statusDeleteAvatar: Status
 	isAuth: boolean
 }

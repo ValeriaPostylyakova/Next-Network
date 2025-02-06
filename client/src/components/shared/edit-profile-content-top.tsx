@@ -16,7 +16,7 @@ export const EditProfileContentTop: FC<Props> = ({ user }) => {
 		<>
 			<FlexContainer mb='2rem' content='space-between'>
 				<FlexContainer>
-					<EditorProfileAvatar user={user} />
+					<EditorProfileAvatar width={100} height={100} user={user} />
 					<Box>
 						<Typography>{user.firstname + ' ' + user.lastname}</Typography>
 						<Typography sx={{ color: '#929292', mb: 2 }}>

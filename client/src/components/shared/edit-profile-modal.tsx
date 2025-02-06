@@ -77,7 +77,7 @@ export const EditProfileModal: FC<Props> = ({ user }) => {
 							setValue={setLastname}
 						/>
 						<InputFormUI
-							labelText='Ваша должность'
+							labelText='Ваша деятельность'
 							value={jobTitle}
 							setValue={setJobTitle}
 						/>

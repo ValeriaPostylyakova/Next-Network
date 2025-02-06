@@ -59,10 +59,15 @@ export class UserService {
 		})
 	}
 
-	static async updateProfileImageUrl(id: number, image: File) {
-		return api.patch<TProfile>(`/updateProfileImageUrl`, {
-			id,
-			image,
+	static async updateProfileImageUrl(formData: FormData) {
+		return api.patch<TProfile>(`/updateProfileImageUrl`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
 		})
+	}
+
+	static async deleteAvatar(id: number) {
+		return api.patch<TProfile>(`/avatar/${id}`)
 	}
 }

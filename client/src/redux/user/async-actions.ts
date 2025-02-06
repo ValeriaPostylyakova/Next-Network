@@ -5,7 +5,6 @@ import axios from 'axios'
 import {
 	TParams,
 	TParamsEmail,
-	TParamsImage,
 	TParamsLogin,
 	TParamsPhone,
 	TParamsRegistration,
@@ -80,9 +79,16 @@ export class FetchAuth {
 
 	updateProfileImageUrl = createAsyncThunk(
 		'user/fetchUpdateUserImage',
-		async (params: TParamsImage) => {
-			const { id, image } = params
-			const { data } = await UserService.updateProfileImageUrl(id, image)
+		async (formData: FormData) => {
+			const { data } = await UserService.updateProfileImageUrl(formData)
+			return data
+		}
+	)
+
+	deleteAvatar = createAsyncThunk(
+		'user/fetchDeleteAvatar',
+		async (id: number) => {
+			const { data } = await UserService.deleteAvatar(id)
 			return data
 		}
 	)

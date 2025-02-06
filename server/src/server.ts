@@ -9,7 +9,11 @@ const app = express()
 dotenv.config()
 
 app.use(express.json())
+
 app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use('/images/posts', express.static(path.join(__dirname, 'posts')))
+app.use('/images/avatar', express.static(path.join(__dirname, 'avatar')))
+
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(

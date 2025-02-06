@@ -2,8 +2,8 @@
 
 import { useOpenModal } from '@/hooks/use-open-modal'
 import { AppDispatch } from '@/redux/store'
-import { setUserImageUrl } from '@/redux/user/auth-slice'
-import { Button, DialogContent } from '@mui/material'
+import { FetchAuth } from '@/redux/user/async-actions'
+import { Button, DialogActions, DialogContent } from '@mui/material'
 import Avatar from '@mui/material/Avatar/Avatar'
 import Dialog from '@mui/material/Dialog/Dialog'
 import Tooltip from '@mui/material/Tooltip'
@@ -22,9 +22,11 @@ export interface Props {
 
 export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
 	const { open, setOpen, handleClose } = useOpenModal()
+	const userActions = new FetchAuth()
 	const dispatch: AppDispatch = useDispatch()
 
-	const [image, setImage] = useState<File | undefined>()
+	const [image, setImage] = useState<any | undefined>()
+	const [selectedImages, setSelectedImages] = useState<any | null>(null)
 
 	function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
 		const file = event.target.files?.[0]
@@ -33,19 +35,39 @@ export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
 		if (file) {
 			const reader = new FileReader()
 			reader.onload = e => {
-				dispatch(setUserImageUrl(e.target?.result as string))
+				setSelectedImages(e.target?.result as string)
 			}
 			reader.readAsDataURL(file)
 		}
-
-		handleClose()
-		toast.success('Изменения успешно сохранены')
 	}
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement> | undefined) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement> | undefined) => {
 		e?.preventDefault()
-		const formData = new FormData()
-		formData.append('imageUrl', image)
+		try {
+			const formData = new FormData()
+			formData.append('avatar', image)
+			await dispatch(userActions.updateProfileImageUrl(formData)).then(() => {
+				handleClose()
+				toast.success('Фотография успешно обновлена')
+			})
+		} catch (e) {
+			console.error(e)
+		}
+	}
+
+	const onClickClose = () => {
+		setSelectedImages(null)
+		handleClose()
+	}
+
+	const deleteAvatar = async () => {
+		try {
+			await dispatch(userActions.deleteAvatar(user.id)).then(() => {
+				toast.success('Фотография успешно удалена')
+			})
+		} catch (e) {
+			console.error(e)
+		}
 	}
 
 	return (
@@ -75,6 +97,7 @@ export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
 								gap: '1rem',
 								cursor: 'pointer',
 							}}
+							onClick={deleteAvatar}
 						>
 							<OctagonX color='#898989' size={13} />
 							<Typography fontSize={13}>Удалить аватар</Typography>
@@ -95,40 +118,32 @@ export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
 
 			<Dialog open={open}>
 				<form onSubmit={e => handleSubmit(e)}>
-					<DialogContent>
-						<input
-							type='file'
-							accept='image/*'
-							onChange={handleImageChange}
-							style={{
-								marginBottom: '2rem',
-							}}
-						/>
-						<Button
-							size='small'
-							onClick={handleClose}
-							sx={{
-								display: 'block',
-								borderRadius: '0.6rem',
-								marginLeft: 'auto',
-							}}
-							variant='outlined'
-						>
+					<DialogContent
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							gap: '2rem',
+							alignItems: 'center',
+						}}
+					>
+						<input type='file' onChange={handleImageChange} name='avatar' />
+						{selectedImages !== null && (
+							<img
+								src={selectedImages}
+								width={'100%'}
+								height={200}
+								alt='avatar'
+							/>
+						)}
+					</DialogContent>
+					<DialogActions>
+						<Button size='small' onClick={onClickClose} variant='outlined'>
 							Отмена
 						</Button>
-						<Button
-							size='small'
-							type='submit'
-							sx={{
-								display: 'block',
-								borderRadius: '0.6rem',
-								marginLeft: 'auto',
-							}}
-							variant='outlined'
-						>
+						<Button size='small' type='submit' variant='outlined'>
 							Сохранить
 						</Button>
-					</DialogContent>
+					</DialogActions>
 				</form>
 			</Dialog>
 		</>

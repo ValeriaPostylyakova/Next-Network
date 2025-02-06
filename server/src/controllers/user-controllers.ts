@@ -129,17 +129,26 @@ export class UserControllers {
 
 	async updateProfileInfoImageUrl(req: any, res: any) {
 		try {
-			if (req.file) {
-				const token = req.cookies.refreshToken
-				const response = await userService.updateProfileInfoImageUrl(
-					token,
-					req.file.path
-				)
-
-				return res.status(200).json(response)
-			}
+			const token = req.cookies.refreshToken
+			const response = await userService.updateProfileInfoImageUrl(
+				token,
+				req.file?.path
+			)
+			return res.status(200).json(response)
 		} catch (e) {
 			res.status(400).json({ message: 'Ошибка при обновлении аватара' })
+			console.log(e)
+		}
+	}
+
+	async deleteAvatar(req: any, res: any) {
+		try {
+			const { id } = req.params
+
+			const response = await userService.deleteAvatar(id)
+			return res.status(200).json(response)
+		} catch (e) {
+			res.status(400).json({ message: 'Ошибка при удалении аватара' })
 			console.log(e)
 		}
 	}

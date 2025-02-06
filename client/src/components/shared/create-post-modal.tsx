@@ -39,7 +39,7 @@ export const CreatePostModal: FC = () => {
 			formData.append('text', text)
 			formData.append('post', imgUrl)
 
-			dispatch(postActions.createPost(formData)).then(data => {
+			await dispatch(postActions.createPost(formData)).then(() => {
 				handleClose()
 				setSelectedImage(null)
 				setText('')

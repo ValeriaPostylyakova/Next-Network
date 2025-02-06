@@ -277,6 +277,29 @@ export class UserService {
 		return updatedProfile
 	}
 
+	async deleteAvatar(id: string) {
+		const profile = await prisma.user.findFirst({
+			where: {
+				id: Number(id),
+			},
+		})
+
+		if (!profile) {
+			throw new Error('Такого профиля не существует')
+		}
+
+		const updatedProfile = await prisma.user.update({
+			where: {
+				id: profile.id,
+			},
+			data: {
+				imageUrl: null,
+			},
+		})
+
+		return updatedProfile
+	}
+
 	async getFriendsSuggetion() {
 		const friendsSuggetion = await prisma.user.findMany({
 			take: 4,

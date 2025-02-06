@@ -31,6 +31,8 @@ router.patch(
 	userControllers.updateProfileInfoImageUrl
 )
 
+router.patch('/avatar/:id', userControllers.deleteAvatar)
+
 router.post('/post', multersFile.single('post'), postControllers.createPost)
 router.get('/posts/:id', postControllers.posts)
 router.delete('/postDelete/:id', postControllers.deletePost)

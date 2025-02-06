@@ -12,6 +12,7 @@ const initialState: InitiateState = {
 	statusUpdateUserEmail: Status.LOADIND,
 	statusUpdateUserPhone: Status.LOADIND,
 	statusUpdateUserImageUrl: Status.LOADIND,
+	statusDeleteAvatar: Status.LOADIND,
 }
 
 const fetchAuth = new FetchAuth()
@@ -132,6 +133,19 @@ export const authSlice = createSlice({
 
 		builder.addCase(fetchAuth.updateProfileImageUrl.rejected, state => {
 			state.statusUpdateUserImageUrl = Status.ERROR
+		})
+
+		builder.addCase(fetchAuth.deleteAvatar.pending, state => {
+			state.statusDeleteAvatar = Status.LOADIND
+		})
+
+		builder.addCase(fetchAuth.deleteAvatar.fulfilled, (state, action) => {
+			state.statusDeleteAvatar = Status.SUCCESS
+			state.user = action.payload
+		})
+
+		builder.addCase(fetchAuth.deleteAvatar.rejected, state => {
+			state.statusDeleteAvatar = Status.ERROR
 		})
 	},
 })
