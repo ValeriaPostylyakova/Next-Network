@@ -3,6 +3,7 @@ import { body } from 'express-validator'
 import { CommentsController } from '../controllers/comments-controller'
 import { PostControllers } from '../controllers/post-controllers'
 import { UserControllers } from '../controllers/user-controllers'
+import { multersAvatar } from '../middleware/avatar'
 import { multersFile } from '../middleware/file'
 
 const router = Router()
@@ -24,7 +25,11 @@ router.get('/refresh', userControllers.refresh)
 router.patch('/updateProfile', userControllers.updateProfileInfo)
 router.patch('/updateProfilePhone', userControllers.updateProfileInfoPhone)
 router.patch('/updateProfileEmail', userControllers.updateProfileInfoEmail)
-router.patch('/updateProfileImageUrl', userControllers.updateProfileInfo)
+router.patch(
+	'/updateProfileImageUrl',
+	multersAvatar.single('avatar'),
+	userControllers.updateProfileInfoImageUrl
+)
 
 router.post('/post', multersFile.single('post'), postControllers.createPost)
 router.get('/posts/:id', postControllers.posts)
@@ -34,5 +39,7 @@ router.patch('/addPostLike/:id', postControllers.addPostLike)
 router.patch('/removePostLike/:id', postControllers.removePostLike)
 
 router.post('/comment', commentsController.createCommentPost)
+
+router.get('/friendsSuggestions', userControllers.getFriendsSuggetion)
 
 export const routers = router

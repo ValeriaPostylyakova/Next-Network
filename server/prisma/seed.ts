@@ -4,19 +4,56 @@ import bcrypt from 'bcrypt'
 const prisma = new PrismaClient()
 
 async function up() {
-	await prisma.user.create({
-		data: {
-			email: 'test@mail.ru',
-			password: bcrypt.hashSync('test', 7),
-			id: 1,
-			isActivated: false,
-			firstname: 'Валерия',
-			lastname: 'Постылякова',
-			identifier: 'valeriapos',
-			jobTitle: 'Frontend Developer',
-			imageUrl:
-				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-		},
+	await prisma.user.createMany({
+		data: [
+			{
+				email: 'valeria.postylyakova@yandex.ru',
+				password: bcrypt.hashSync('postylyakovavs107', 7),
+				id: 3,
+				isActivated: false,
+				firstname: 'Валерия',
+				lastname: 'Постылякова',
+				identifier: 'valeriapostylyakova',
+				jobTitle: 'Frontend Developer',
+				imageUrl:
+					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+			},
+			{
+				email: 'ivanov@gmail.com',
+				password: bcrypt.hashSync('ivanov53465346', 7),
+				id: 1,
+				isActivated: true,
+				firstname: 'Иванов',
+				lastname: 'Даниил',
+				identifier: 'ivanov11',
+				jobTitle: 'Web Developer',
+				imageUrl:
+					'https://img.freepik.com/free-vector/hand-drawn-clothes-person_79603-614.jpg',
+			},
+			{
+				email: 'postj886@mail.ru',
+				password: bcrypt.hashSync('gh43j5kg4hgk', 7),
+				id: 2,
+				isActivated: true,
+				firstname: 'Кристина',
+				lastname: 'Разина',
+				identifier: 'yourname123',
+				jobTitle: 'Designer',
+				imageUrl: null,
+			},
+			{
+				email: 'romanov8785@gmail.com',
+				password: bcrypt.hashSync('fj5vldsqv2blfutr464', 7),
+				id: 4,
+				isActivated: false,
+				firstname: 'Егор',
+				lastname: 'Романов',
+				identifier: 'romanov8785',
+				jobTitle: 'Chief Information Security Officer',
+				imageUrl:
+					'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676296366191520185.pngm',
+			},
+		],
 	})
 
 	await prisma.token.create({

@@ -20,6 +20,11 @@ export interface Props {
 
 export const SidebarRight: FC<Props> = () => {
 	const user = useSelector((state: RootState) => state.auth.user)
+
+	const friendsSuggestion = useSelector(
+		(state: RootState) => state.friendsSuggestion.friendsSuggestion
+	)
+
 	return (
 		<Drawer
 			sx={{
@@ -67,10 +72,9 @@ export const SidebarRight: FC<Props> = () => {
 			</Box>
 			<Divider />
 			<List>
-				<SidebarRightItem />
-				<SidebarRightItem />
-				<SidebarRightItem />
-				<SidebarRightItem />
+				{friendsSuggestion.map(friend => (
+					<SidebarRightItem key={friend.id} {...friend} />
+				))}
 			</List>
 		</Drawer>
 	)

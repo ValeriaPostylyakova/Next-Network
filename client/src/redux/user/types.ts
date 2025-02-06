@@ -31,11 +31,17 @@ export type TParamsPhone = {
 	phone: string
 }
 
+export type TParamsImage = {
+	id: number
+	image: File
+}
+
 export interface InitiateState {
 	user: TProfile
 	statusUpdateUserInfo: Status
 	status: Status
 	statusUpdateUserEmail: Status
 	statusUpdateUserPhone: Status
+	statusUpdateUserImageUrl: Status
 	isAuth: boolean
 }

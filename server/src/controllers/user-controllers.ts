@@ -129,14 +129,28 @@ export class UserControllers {
 
 	async updateProfileInfoImageUrl(req: any, res: any) {
 		try {
-			const { id, imageUrl } = req.body
-			const response = await userService.updateProfileInfoImageUrl(id, imageUrl)
+			if (req.file) {
+				const token = req.cookies.refreshToken
+				const response = await userService.updateProfileInfoImageUrl(
+					token,
+					req.file.path
+				)
+
+				return res.status(200).json(response)
+			}
+		} catch (e) {
+			res.status(400).json({ message: 'Ошибка при обновлении аватара' })
+			console.log(e)
+		}
+	}
+
+	async getFriendsSuggetion(req: any, res: any) {
+		try {
+			const response = await userService.getFriendsSuggetion()
 			return res.status(200).json(response)
 		} catch (e) {
-			res
-				.status(400)
-				.json({ message: 'Ошибка при получении информации о изображении' })
-			console.log(e)
+			res.status(400)
+			console.error(e)
 		}
 	}
 }

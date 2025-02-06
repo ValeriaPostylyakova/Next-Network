@@ -11,6 +11,7 @@ const initialState: InitiateState = {
 	statusUpdateUserInfo: Status.LOADIND,
 	statusUpdateUserEmail: Status.LOADIND,
 	statusUpdateUserPhone: Status.LOADIND,
+	statusUpdateUserImageUrl: Status.LOADIND,
 }
 
 const fetchAuth = new FetchAuth()
@@ -25,6 +26,9 @@ export const authSlice = createSlice({
 
 		setUser: (state, action: PayloadAction<TProfile>) => {
 			state.user = action.payload
+		},
+		setUserImageUrl: (state, action: PayloadAction<string>) => {
+			state.user.imageUrl = action.payload
 		},
 	},
 
@@ -113,8 +117,24 @@ export const authSlice = createSlice({
 		builder.addCase(fetchAuth.updateProfilePhone.rejected, state => {
 			state.statusUpdateUserPhone = Status.ERROR
 		})
+
+		builder.addCase(fetchAuth.updateProfileImageUrl.pending, state => {
+			state.statusUpdateUserImageUrl = Status.LOADIND
+		})
+
+		builder.addCase(
+			fetchAuth.updateProfileImageUrl.fulfilled,
+			(state, action) => {
+				state.statusUpdateUserImageUrl = Status.SUCCESS
+				state.user = action.payload
+			}
+		)
+
+		builder.addCase(fetchAuth.updateProfileImageUrl.rejected, state => {
+			state.statusUpdateUserImageUrl = Status.ERROR
+		})
 	},
 })
 
-export const { setAth, setUser } = authSlice.actions
+export const { setAth, setUser, setUserImageUrl } = authSlice.actions
 export default authSlice.reducer

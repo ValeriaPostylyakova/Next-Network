@@ -244,19 +244,25 @@ export class UserService {
 		return updatedProfile
 	}
 
-	async updateProfileInfoImageUrl(id: number, imageUrl: string) {
+	async updateProfileInfoImageUrl(token: string, imageUrl: string) {
+		const tokenData = await prisma.token.findFirst({
+			where: {
+				refreshToken: token,
+			},
+		})
+
+		if (!tokenData) {
+			throw new Error('Пользователь не зарегистрирован')
+		}
+
 		const profile = await prisma.user.findFirst({
 			where: {
-				id: id,
+				id: tokenData.userId,
 			},
 		})
 
 		if (!profile) {
-			throw new Error('Такого профиля не существует')
-		}
-
-		if (!imageUrl) {
-			throw new Error('Необходимо загрузить фотографию')
+			throw new Error('Такого пользователя не существует')
 		}
 
 		const updatedProfile = await prisma.user.update({
@@ -269,5 +275,17 @@ export class UserService {
 		})
 
 		return updatedProfile
+	}
+
+	async getFriendsSuggetion() {
+		const friendsSuggetion = await prisma.user.findMany({
+			take: 4,
+		})
+
+		if (!friendsSuggetion) {
+			throw new Error('Не удалось получить возможных друзей')
+		}
+
+		return friendsSuggetion
 	}
 }

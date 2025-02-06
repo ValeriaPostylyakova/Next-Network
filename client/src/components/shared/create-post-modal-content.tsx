@@ -19,19 +19,15 @@ export const CreatePostModalContent: FC<Props> = ({
 	setText,
 	selectedImage,
 }) => {
-	const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
-		try {
-			const file = event.target.files?.[0]
-			setImgUrl(file)
-			if (file) {
-				const reader = new FileReader()
-				reader.onload = e => {
-					setSelectedImage(e.target?.result as string)
-				}
-				reader.readAsDataURL(file)
+	const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0]
+		setImgUrl(file)
+		if (file) {
+			const reader = new FileReader()
+			reader.onload = e => {
+				setSelectedImage(e.target?.result as string)
 			}
-		} catch (error) {
-			console.log(error)
+			reader.readAsDataURL(file)
 		}
 	}
 

@@ -6,9 +6,20 @@ import { Plus } from 'lucide-react'
 import { FC } from 'react'
 import { UserInfoName } from './user-info-name'
 
-export interface Props {}
+export interface Props {
+	id: number
+	imageUrl?: string
+	firstname: string
+	lastname: string
+	identifier: string
+}
 
-export const SidebarRightItem: FC<Props> = () => {
+export const SidebarRightItem: FC<Props> = ({
+	imageUrl,
+	firstname,
+	lastname,
+	identifier,
+}) => {
 	return (
 		<>
 			<ListItem disablePadding>
@@ -18,11 +29,11 @@ export const SidebarRightItem: FC<Props> = () => {
 					<UserInfoName
 						width={40}
 						height={40}
-						image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
+						image={imageUrl ? imageUrl : '/images/user-profile.svg'}
 						sizeTitle={16}
 						sizeSubTitle={14}
-						text='@valera'
-						name='X_AE_A-13'
+						text={`@${identifier}`}
+						name={firstname + ' ' + lastname}
 					/>
 					<ListItemIcon sx={{ color: '#a6a6a6' }}>
 						<Plus />

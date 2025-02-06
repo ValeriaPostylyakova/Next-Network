@@ -58,4 +58,11 @@ export class UserService {
 			phone,
 		})
 	}
+
+	static async updateProfileImageUrl(id: number, image: File) {
+		return api.patch<TProfile>(`/updateProfileImageUrl`, {
+			id,
+			image,
+		})
+	}
 }
