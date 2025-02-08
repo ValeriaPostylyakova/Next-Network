@@ -1,3 +1,4 @@
+import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC, ReactNode } from 'react'
@@ -28,16 +29,12 @@ export const UserInfoName: FC<Props> = ({
 }) => {
 	return (
 		<FlexContainer>
-			<img
+			<Avatar
+				alt='avatar'
 				src={image ? image : '/images/user-profile.svg'}
-				style={{
-					borderRadius: '50%',
-					padding: 0.25,
+				sx={{
 					width: `${width}px`,
 					height: `${height}px`,
-					objectFit: 'cover',
-					objectPosition: 'center',
-					cursor: cursor,
 				}}
 			/>
 			<Box

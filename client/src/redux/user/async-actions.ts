@@ -1,7 +1,8 @@
-import { API_URL } from '@/http/axios'
-import { AuthResponse, UserService } from '@/services/user-service'
+import { api, API_URL } from '@/http/axios'
+import { AuthResponse } from '@/services/user-service'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { TProfile } from '../../../@types/profile'
 import {
 	TParams,
 	TParamsEmail,
@@ -15,24 +16,25 @@ export class FetchAuth {
 		'auth/fetchRegister',
 		async (params: TParamsRegistration) => {
 			const { email, password, firstname, lastname } = params
-			const { data } = await UserService.registration(
+			const { data } = await api.post<AuthResponse>('/registration', {
 				email,
 				password,
 				firstname,
-				lastname
-			)
+				lastname,
+			})
+
 			localStorage.setItem('token', data.accessToken)
 			return data
 		}
 	)
 	login = createAsyncThunk('user/fetchLogin', async (params: TParamsLogin) => {
 		const { email, password } = params
-		const { data } = await UserService.login(email, password)
+		const { data } = await api.post<AuthResponse>('/login', { email, password })
 		localStorage.setItem('token', data.accessToken)
 		return data
 	})
 	logout = createAsyncThunk('user/fetchLogout', async () => {
-		await UserService.logout()
+		await api.post('/logout')
 		localStorage.removeItem('token')
 	})
 
@@ -48,13 +50,13 @@ export class FetchAuth {
 		'user/fetchUpdateUser',
 		async (params: TParams) => {
 			const { id, firstname, lastname, identifier, jobTitle } = params
-			const { data } = await UserService.updateProfileInfo(
+			const { data } = await api.patch<TProfile>(`/updateProfile`, {
 				id,
 				firstname,
 				lastname,
 				jobTitle,
-				identifier
-			)
+				identifier,
+			})
 			return data
 		}
 	)
@@ -63,7 +65,10 @@ export class FetchAuth {
 		'user/fetchUpdateUserEmail',
 		async (params: TParamsEmail) => {
 			const { id, email } = params
-			const { data } = await UserService.updateProfileInfoEMail(id, email)
+			const { data } = await api.patch<TProfile>(`/updateProfileEmail`, {
+				id,
+				email,
+			})
 			return data
 		}
 	)
@@ -72,7 +77,10 @@ export class FetchAuth {
 		'user/fetchUpdateUserPhone',
 		async (params: TParamsPhone) => {
 			const { id, phone } = params
-			const { data } = await UserService.updateProfileInfoPhone(id, phone)
+			const { data } = await api.patch<TProfile>(`/updateProfilePhone`, {
+				id,
+				phone,
+			})
 			return data
 		}
 	)
@@ -80,7 +88,15 @@ export class FetchAuth {
 	updateProfileImageUrl = createAsyncThunk(
 		'user/fetchUpdateUserImage',
 		async (formData: FormData) => {
-			const { data } = await UserService.updateProfileImageUrl(formData)
+			const { data } = await api.patch<TProfile>(
+				`/updateProfileImageUrl`,
+				formData,
+				{
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+				}
+			)
 			return data
 		}
 	)
@@ -88,7 +104,7 @@ export class FetchAuth {
 	deleteAvatar = createAsyncThunk(
 		'user/fetchDeleteAvatar',
 		async (id: number) => {
-			const { data } = await UserService.deleteAvatar(id)
+			const { data } = await api.patch<TProfile>(`/avatar/${id}`)
 			return data
 		}
 	)

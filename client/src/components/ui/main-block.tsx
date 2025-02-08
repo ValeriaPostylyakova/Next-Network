@@ -13,7 +13,6 @@ export const MainBlock: FC<Props> = ({ children, mt }) => {
 		<Box
 			sx={[
 				theme => ({
-					p: 2,
 					position: 'relative',
 					boxShadow: '0px 5px 10px 0px rgba(34, 60, 80, 0.2)',
 					borderRadius: 4,

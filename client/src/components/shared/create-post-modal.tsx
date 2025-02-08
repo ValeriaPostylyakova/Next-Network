@@ -3,18 +3,12 @@
 import { useOpenModal } from '@/hooks/use-open-modal'
 import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch } from '@/redux/store'
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	Typography,
-} from '@mui/material'
+import { Typography } from '@mui/material'
 import { Plus } from 'lucide-react'
 import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
-import { ButtonUI } from '../ui'
+import { ButtonUI, ModalFormUI } from '../ui'
 import { CreatePostModalContent } from './create-post-modal-content'
 
 export const CreatePostModal: FC = () => {
@@ -25,12 +19,6 @@ export const CreatePostModal: FC = () => {
 	const [selectedImage, setSelectedImage] = useState<string | null>(null)
 	const [text, setText] = useState<string>('')
 	const [imgUrl, setImgUrl] = useState<any | null>(null)
-
-	const handleClose = () => {
-		setOpen(false)
-		setSelectedImage(null)
-		setText('')
-	}
 
 	const onClickButtonSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		try {
@@ -51,6 +39,12 @@ export const CreatePostModal: FC = () => {
 		}
 	}
 
+	const handleClose = () => {
+		setOpen(false)
+		setSelectedImage(null)
+		setText('')
+	}
+
 	return (
 		<>
 			<ButtonUI
@@ -62,43 +56,32 @@ export const CreatePostModal: FC = () => {
 				Создать пост
 				<Plus style={{ color: '#fff' }} />
 			</ButtonUI>
-			<Dialog
-				sx={{
-					'& .MuiDialog-paper': {
-						borderRadius: '1rem',
-						width: `500px`,
-						bgcolor: '#000',
-					},
-				}}
+			<ModalFormUI
 				open={open}
-				onClose={handleClose}
+				handleCloseModal={handleClose}
+				onClickButtonSubmit={onClickButtonSubmit}
+				width={500}
+				buttonTextSubmit='Создать'
 			>
-				<form onSubmit={e => onClickButtonSubmit(e)}>
-					<DialogContent>
-						<Typography
-							sx={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-							}}
-							fontSize='15px'
-							mb={2}
-						>
-							Новый пост
-						</Typography>
-						<CreatePostModalContent
-							selectedImage={selectedImage}
-							text={text}
-							setText={setText}
-							setImgUrl={setImgUrl}
-							setSelectedImage={setSelectedImage}
-						/>
-					</DialogContent>
-					<DialogActions>
-						<Button type='submit'>Создать</Button>
-					</DialogActions>
-				</form>
-			</Dialog>
+				<Typography
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+					fontSize='15px'
+					mb={2}
+				>
+					Новый пост
+				</Typography>
+				<CreatePostModalContent
+					selectedImage={selectedImage}
+					text={text}
+					setText={setText}
+					setImgUrl={setImgUrl}
+					setSelectedImage={setSelectedImage}
+				/>
+			</ModalFormUI>
 		</>
 	)
 }

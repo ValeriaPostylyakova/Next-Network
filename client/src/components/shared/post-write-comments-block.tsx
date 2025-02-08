@@ -1,25 +1,27 @@
 'use client'
 
 import { RootState } from '@/redux/store'
+import { Avatar } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { SendHorizonal, Smile } from 'lucide-react'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { ButtonUI, FlexContainer } from '../ui'
-import { Avatar } from '@mui/material'
 
 export interface Props {
-	handleWhiteComment: (e: any) => void
+	handleInputComment: (e: any) => void
 	value: string
 	setValue: (value: string) => void
-	handleClickComment: () => void
+	showEmoji: boolean
+	setShowEmoji: (value: boolean) => void
 }
 
 export const PostWriteCommentsBlock: FC<Props> = ({
-	handleWhiteComment,
+	handleInputComment,
 	value,
 	setValue,
-	handleClickComment,
+	showEmoji,
+	setShowEmoji,
 }) => {
 	const user = useSelector((state: RootState) => state.auth.user)
 	return (
@@ -44,17 +46,18 @@ export const PostWriteCommentsBlock: FC<Props> = ({
 					}}
 					placeholder='Write your comment..'
 					onKeyDown={e => {
-						handleWhiteComment(e)
+						handleInputComment(e)
 					}}
 					onChange={e => setValue(e.target.value)}
 					value={value}
 				/>
 			</FlexContainer>
 			<FlexContainer>
-				<ButtonUI variant='outlined'>
+				<ButtonUI click={() => setShowEmoji(!showEmoji)} variant='outlined'>
 					<Smile />
 				</ButtonUI>
-				<ButtonUI variant='outlined' click={handleClickComment}>
+
+				<ButtonUI variant='outlined' click={e => handleInputComment(e)}>
 					<SendHorizonal />
 				</ButtonUI>
 			</FlexContainer>

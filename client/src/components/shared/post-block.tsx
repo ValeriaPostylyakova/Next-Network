@@ -1,16 +1,17 @@
 'use client'
+import { FC, useState } from 'react'
+import toast from 'react-hot-toast'
 
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
-import Typography from '@mui/material/Typography'
 
 import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch, RootState } from '@/redux/store'
-import { FC, useState } from 'react'
-import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { Comments } from '../../../@types/post'
 import { MainBlock } from '../ui'
+import { EmojiBlock } from './emoji-block'
+import { PostBlockContent } from './post-block-content'
 import { PostBlockHeader } from './post-block-header'
 import { PostCommentsBlock } from './post-comments-block'
 import { PostCommentsContainer } from './post-comments-container'
@@ -40,24 +41,25 @@ export const PostBlock: FC<Props> = ({
 	jobTitle,
 	userImageUrl,
 }) => {
-	const dispatch: AppDispatch = useDispatch()
 	const [openComments, setOpenComments] = useState<boolean>(false)
-	const [value, setValue] = useState<string>('')
+	const [showEmoji, setShowEmoji] = useState<boolean>(false)
+	const [valueInput, setValueInput] = useState<string>('')
 
+	const dispatch: AppDispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.auth.user)
 	const postActions = new PostActions()
 
-	const handleWhiteComment = (e: KeyboardEvent) => {
-		if (e.code === 'Enter') {
-			dispatch(
-				postActions.createComment({
-					id: id,
-					username: user.firstname + ' ' + user.lastname,
-					userImgUrl: user.imageUrl,
-					text: value,
-				})
-			)
-			setValue('')
+	const handleInputComment = (e: KeyboardEvent) => {
+		const userObj = {
+			id: id,
+			username: user.firstname + ' ' + user.lastname,
+			userImgUrl: user.imageUrl,
+			text: valueInput,
+		}
+
+		if (e.code === 'Enter' || e.type === 'click') {
+			dispatch(postActions.createComment(userObj))
+			setValueInput('')
 		}
 	}
 
@@ -71,71 +73,55 @@ export const PostBlock: FC<Props> = ({
 		}
 	}
 
-	const handleClickComment = () => {
-		if (user) {
-			dispatch(
-				postActions.createComment({
-					id: id,
-					username: user.firstname + ' ' + user.lastname,
-					userImgUrl: user.imageUrl,
-					text: value,
-				})
-			)
-			setValue('')
-		}
-	}
-
 	return (
-		<MainBlock>
-			<PostBlockHeader
-				fullname={fullname}
-				jobTitle={jobTitle}
-				userImageUrl={userImageUrl}
-				deletePost={deletePost}
-			/>
-			<Divider />
-			<Box>
-				<Typography sx={{ fontSize: '16px', pt: 2, mb: 2 }}>{text}</Typography>
-				{postImageUrl && (
-					<img
-						src={postImageUrl}
-						style={{
-							width: '100%',
-							height: '450px',
-							borderRadius: '7px',
-							marginBottom: 2,
-							objectFit: 'cover',
-							objectPosition: 'center',
-						}}
-					/>
-				)}
+		<Box position='relative' sx={{ flexGrow: 0, maxWidth: '90vw' }}>
+			<MainBlock>
 				<Box
 					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						gap: '3rem',
-						ml: -2,
-						mb: 2,
+						maxWidth: '98%',
+						m: '0 auto',
+						py: 2,
+						wordWrap: 'break-word',
 					}}
 				>
-					<PostLikesBlock id={id} likes={likes} like={like} />
-					<PostCommentsBlock
-						setOpenComments={setOpenComments}
-						openComments={openComments}
-						comments={comments}
+					<PostBlockHeader
+						fullname={fullname}
+						jobTitle={jobTitle}
+						userImageUrl={userImageUrl}
+						deletePost={deletePost}
+					/>
+					<Divider />
+					<PostBlockContent text={text} postImageUrl={postImageUrl} />
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							gap: '3rem',
+							ml: -2,
+							mb: 2,
+						}}
+					>
+						<PostLikesBlock id={id} likes={likes} like={like} />
+						<PostCommentsBlock
+							setOpenComments={setOpenComments}
+							openComments={openComments}
+							comments={comments}
+						/>
+					</Box>
+					<Divider />
+					<PostCommentsContainer
+						comments={openComments ? comments : comments?.slice(0, 1)}
+					/>
+					<PostWriteCommentsBlock
+						value={valueInput}
+						setValue={setValueInput}
+						handleInputComment={handleInputComment}
+						showEmoji={showEmoji}
+						setShowEmoji={setShowEmoji}
 					/>
 				</Box>
-				<Divider />
-				<PostCommentsContainer
-					comments={openComments ? comments : comments?.slice(0, 1)}
-				/>
-				<PostWriteCommentsBlock
-					value={value}
-					setValue={setValue}
-					handleWhiteComment={handleWhiteComment}
-					handleClickComment={handleClickComment}
-				/>
-			</Box>
-		</MainBlock>
+			</MainBlock>
+			{showEmoji && <EmojiBlock setValue={setValueInput} />}
+		</Box>
 	)
 }

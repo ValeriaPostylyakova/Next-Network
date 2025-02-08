@@ -1,5 +1,6 @@
-import { PostService } from '@/services/post-service'
+import { api } from '@/http/axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { Post } from '../../../@types/post'
 
 type TParams = {
 	id: number
@@ -12,34 +13,38 @@ export class PostActions {
 	createPost = createAsyncThunk(
 		'post/fetchCreatePost',
 		async (formData: FormData) => {
-			const { data } = await PostService.createPost(formData)
+			const { data } = await api.post<Post>('/post', formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			})
 			return data
 		}
 	)
 
 	posts = createAsyncThunk('post/fetchPosts', async (id: string) => {
-		const { data } = await PostService.posts(id)
+		const { data } = await api.get<Post[]>(`/posts/${id}`)
 		return data
 	})
 
 	deletePost = createAsyncThunk('post/deletePost', async (id: number) => {
-		const { data } = await PostService.deletePost(id)
+		const { data } = await api.delete(`/postDelete/${id}`)
 		return data
 	})
 
 	addLikes = createAsyncThunk('post/addPostLike', async (id: string) => {
-		const { data } = await PostService.addLikes(id)
+		const { data } = await api.patch(`/addPostLike/${id}`)
 		return data
 	})
 
 	removeLikes = createAsyncThunk('post/removePostLike', async (id: string) => {
-		const { data } = await PostService.removeLikes(id)
+		const { data } = await api.patch(`/removePostLike/${id}`)
 		console.log(data)
 		return data
 	})
 
 	comments = createAsyncThunk('post/fetchComments', async (id: string) => {
-		const { data } = await PostService.comments(id)
+		const { data } = await api.get(`/postComments/${id}`)
 		return data
 	})
 
@@ -48,12 +53,12 @@ export class PostActions {
 		async (params: TParams) => {
 			const { id, username, userImgUrl, text } = params
 
-			const { data } = await PostService.createComment(
+			const { data } = await api.post('/comment', {
 				id,
 				username,
 				userImgUrl,
-				text
-			)
+				text,
+			})
 
 			return data
 		}

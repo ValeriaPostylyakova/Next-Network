@@ -1,18 +1,19 @@
 'use client'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
+import { renderFileImage } from '@/libs/render-file-image'
 import { AppDispatch } from '@/redux/store'
 import { FetchAuth } from '@/redux/user/async-actions'
-import { Button, DialogActions, DialogContent } from '@mui/material'
+import { Box } from '@mui/material'
 import Avatar from '@mui/material/Avatar/Avatar'
-import Dialog from '@mui/material/Dialog/Dialog'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { OctagonX, Pen } from 'lucide-react'
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TProfile } from '../../../@types/profile'
+import { ModalFormUI } from '../ui'
 
 export interface Props {
 	user: TProfile
@@ -21,25 +22,12 @@ export interface Props {
 }
 
 export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
+	const [image, setImage] = useState<any | null>(null)
+	const [selectedImages, setSelectedImages] = useState<any | null>(null)
+
 	const { open, setOpen, handleClose } = useOpenModal()
 	const userActions = new FetchAuth()
 	const dispatch: AppDispatch = useDispatch()
-
-	const [image, setImage] = useState<any | undefined>()
-	const [selectedImages, setSelectedImages] = useState<any | null>(null)
-
-	function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
-		const file = event.target.files?.[0]
-		setImage(file)
-
-		if (file) {
-			const reader = new FileReader()
-			reader.onload = e => {
-				setSelectedImages(e.target?.result as string)
-			}
-			reader.readAsDataURL(file)
-		}
-	}
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement> | undefined) => {
 		e?.preventDefault()
@@ -116,36 +104,36 @@ export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
 				/>
 			</Tooltip>
 
-			<Dialog open={open}>
-				<form onSubmit={e => handleSubmit(e)}>
-					<DialogContent
-						sx={{
-							display: 'flex',
-							flexDirection: 'column',
-							gap: '2rem',
-							alignItems: 'center',
-						}}
-					>
-						<input type='file' onChange={handleImageChange} name='avatar' />
-						{selectedImages !== null && (
-							<img
-								src={selectedImages}
-								width={'100%'}
-								height={200}
-								alt='avatar'
-							/>
-						)}
-					</DialogContent>
-					<DialogActions>
-						<Button size='small' onClick={onClickClose} variant='outlined'>
-							Отмена
-						</Button>
-						<Button size='small' type='submit' variant='outlined'>
-							Сохранить
-						</Button>
-					</DialogActions>
-				</form>
-			</Dialog>
+			<ModalFormUI
+				width={300}
+				open={open}
+				handleCloseModal={onClickClose}
+				onClickButtonSubmit={handleSubmit}
+				buttonTextSubmit='Сохранить'
+			>
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '2rem',
+						alignItems: 'center',
+					}}
+				>
+					<input
+						type='file'
+						onChange={e => renderFileImage(e, setImage, setSelectedImages)}
+						name='avatar'
+					/>
+					{selectedImages !== null && (
+						<img
+							src={selectedImages}
+							width={'100%'}
+							height={200}
+							alt='avatar'
+						/>
+					)}
+				</Box>
+			</ModalFormUI>
 		</>
 	)
 }

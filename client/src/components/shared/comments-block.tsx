@@ -28,25 +28,15 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 				}}
 			>
 				<Box sx={{ display: 'flex', gap: '1rem' }}>
-					{userImgUrl ? (
-						<Avatar
-							alt='avatar'
-							src={userImgUrl}
-							sx={{
-								width: 40,
-								height: 40,
-							}}
-						/>
-					) : (
-						<Avatar
-							alt='avatar'
-							src='/images/user-profile.svg'
-							sx={{
-								width: 40,
-								height: 40,
-							}}
-						/>
-					)}
+					<Avatar
+						alt='avatar'
+						src={userImgUrl ? userImgUrl : '/images/user-profile.svg'}
+						sx={{
+							width: 40,
+							height: 40,
+						}}
+					/>
+
 					<Box
 						sx={{
 							display: 'flex',

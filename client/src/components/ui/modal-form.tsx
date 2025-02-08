@@ -1,44 +1,51 @@
+'use client'
+
+import { DialogTitle } from '@mui/material'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import DialogTitle from '@mui/material/DialogTitle'
 
-import { FC, ReactNode } from 'react'
+import { FC, FormEvent, ReactNode } from 'react'
 
 export interface Props {
 	children: ReactNode
 	open: boolean
-	handleClose: () => void
-	buttonText: string
-	dialogTitle: string
+	width?: number
+	buttonTextSubmit: string
+	handleCloseModal?: () => void
+	onClickButtonSubmit: (e: FormEvent<HTMLFormElement>) => void
+	titleText?: string
 }
 
 export const ModalFormUI: FC<Props> = ({
 	children,
 	open,
-	buttonText,
-	dialogTitle,
-	handleClose,
+	buttonTextSubmit,
+	onClickButtonSubmit,
+	handleCloseModal,
+	width,
+	titleText,
 }) => {
 	return (
 		<Dialog
 			sx={{
 				'& .MuiDialog-paper': {
 					borderRadius: '1rem',
-					width: '500px',
-					bgcolor: '#000',
+					width: `${width}px`,
 				},
 			}}
 			open={open}
-			onClose={handleClose}
+			onClose={handleCloseModal}
 		>
-			<DialogTitle>{dialogTitle}</DialogTitle>
-			<DialogContent>{children}</DialogContent>
-			<DialogActions>
-				<Button onClick={handleClose}>Отмена</Button>
-				<Button type='submit'>{buttonText}</Button>
-			</DialogActions>
+			<form onSubmit={e => onClickButtonSubmit(e)}>
+				{titleText && <DialogTitle>{titleText}</DialogTitle>}
+				<DialogContent>{children}</DialogContent>
+				<DialogActions>
+					<Button onClick={handleCloseModal}>Отмена</Button>
+					<Button type='submit'>{buttonTextSubmit}</Button>
+				</DialogActions>
+			</form>
 		</Dialog>
 	)
 }

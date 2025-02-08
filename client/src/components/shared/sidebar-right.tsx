@@ -8,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
 import { RootState } from '@/redux/store'
+import Avatar from '@mui/material/Avatar'
 import Link from 'next/link'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
@@ -47,15 +48,12 @@ export const SidebarRight: FC<Props> = () => {
 				}}
 			>
 				<Link href={`/profile/${user.id}`}>
-					<img
-						src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+					<Avatar
 						alt='avatar'
-						width={40}
-						height={40}
-						style={{
-							borderRadius: '50%',
-							objectFit: 'cover',
-							objectPosition: 'center',
+						src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+						sx={{
+							width: 40,
+							height: 40,
 						}}
 					/>
 				</Link>

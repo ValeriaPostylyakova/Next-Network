@@ -1,12 +1,11 @@
-'use client'
-
+import { renderFileImage } from '@/libs/render-file-image'
 import Box from '@mui/material/Box'
-import { ChangeEvent, FC } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { CreatePostModalImageEmpty } from './create-post-modal-image-empty'
 
 interface Props {
-	setImgUrl: (file: File | undefined) => void
-	setSelectedImage: (value: string | null) => void
+	setImgUrl: Dispatch<SetStateAction<File | undefined>>
+	setSelectedImage: Dispatch<SetStateAction<string | null>>
 	text: string
 	setText: (value: string) => void
 	selectedImage: string | null
@@ -19,18 +18,6 @@ export const CreatePostModalContent: FC<Props> = ({
 	setText,
 	selectedImage,
 }) => {
-	const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0]
-		setImgUrl(file)
-		if (file) {
-			const reader = new FileReader()
-			reader.onload = e => {
-				setSelectedImage(e.target?.result as string)
-			}
-			reader.readAsDataURL(file)
-		}
-	}
-
 	return (
 		<Box
 			sx={{
@@ -39,14 +26,14 @@ export const CreatePostModalContent: FC<Props> = ({
 			}}
 		>
 			{!selectedImage ? (
-				<CreatePostModalImageEmpty handleImageChange={handleImageChange} />
+				<CreatePostModalImageEmpty
+					handleImageChange={e =>
+						renderFileImage(e, setImgUrl, setSelectedImage)
+					}
+				/>
 			) : (
 				<Box>
-					<img
-						src={selectedImage}
-						alt='Uploaded'
-						style={{ maxWidth: '400px' }}
-					/>
+					<img src={selectedImage} alt='Uploaded' style={{ width: '100%' }} />
 				</Box>
 			)}
 			<textarea

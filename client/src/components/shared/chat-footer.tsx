@@ -5,7 +5,6 @@ import { Button, TextField } from '@mui/material'
 import Box from '@mui/material/Box'
 import { Paperclip, SendHorizontal, Smile } from 'lucide-react'
 
-import EmojiPicker from 'emoji-picker-react'
 import { FC, useState } from 'react'
 
 export interface Props {
@@ -28,20 +27,8 @@ export const ChatFooter: FC<Props> = ({ messages, setMessages }) => {
 		}
 	}
 
-	const handleClickEmoji = (emoji: string) => {
-		setValue(prev => prev + emoji)
-		setSmileOpen(false)
-	}
-
 	return (
 		<Box>
-			{smileOpen && (
-				<Box
-					sx={{ position: 'absolute', left: '7%', bottom: '9%', zIndex: 100 }}
-				>
-					<EmojiPicker onEmojiClick={e => handleClickEmoji(e.emoji)} />
-				</Box>
-			)}
 			<Box
 				sx={[
 					theme => ({
