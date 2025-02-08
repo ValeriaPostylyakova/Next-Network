@@ -15,6 +15,13 @@ export type StoryItem = {
 	storyId?: number
 }
 
+export type Story = {
+	id: number
+	imageUrl: string
+	items: StoryItem[]
+	storyId?: number
+}
+
 export type Post = {
 	id: number
 	userId: number

@@ -21,6 +21,7 @@ router.post('/login', userControllers.login)
 router.post('/logout', userControllers.logout)
 router.get('/activate/:link', userControllers.activate)
 router.get('/refresh', userControllers.refresh)
+router.get('/user/:id', userControllers.getUser)
 
 router.patch('/updateProfile', userControllers.updateProfileInfo)
 router.patch('/updateProfilePhone', userControllers.updateProfileInfoPhone)
@@ -30,7 +31,6 @@ router.patch(
 	multersAvatar.single('avatar'),
 	userControllers.updateProfileInfoImageUrl
 )
-
 router.patch('/avatar/:id', userControllers.deleteAvatar)
 
 router.post('/post', multersFile.single('post'), postControllers.createPost)

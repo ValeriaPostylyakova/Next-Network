@@ -2,8 +2,8 @@
 
 import { useOpenModal } from '@/hooks/use-open-modal'
 import { renderFileImage } from '@/libs/render-file-image'
+import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
-import { FetchAuth } from '@/redux/user/async-actions'
 import { Box } from '@mui/material'
 import Avatar from '@mui/material/Avatar/Avatar'
 import Tooltip from '@mui/material/Tooltip'

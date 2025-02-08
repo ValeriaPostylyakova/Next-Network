@@ -1,8 +1,8 @@
 'use client'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
+import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
-import { FetchAuth } from '@/redux/user/async-actions'
 import Box from '@mui/material/Box'
 import { FC, useState } from 'react'
 import toast from 'react-hot-toast'

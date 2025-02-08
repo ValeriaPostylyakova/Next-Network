@@ -1,7 +1,7 @@
 'use client'
 
 import { RootState } from '@/redux/store'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { EditUserInfoSkeleton, EditUserSkeleton, MainBlock } from '../ui'
@@ -20,17 +20,25 @@ export const EditProfileContent: FC = () => {
 	return (
 		<>
 			<MainBlock>
-				<Typography marginBottom={4}>Профиль</Typography>
-				{statusUser === 'loading' ? (
-					<EditUserSkeleton />
-				) : (
-					<EditProfileContentTop user={user} />
-				)}
-				{statusUser === 'loading' ? (
-					<EditUserInfoSkeleton />
-				) : (
-					<EditProfileContentBottom user={user} />
-				)}
+				<Box
+					sx={{
+						width: '95%',
+						m: '0 auto',
+						py: 2,
+					}}
+				>
+					<Typography marginBottom={4}>Профиль</Typography>
+					{statusUser === 'loading' ? (
+						<EditUserSkeleton />
+					) : (
+						<EditProfileContentTop user={user} />
+					)}
+					{statusUser === 'loading' ? (
+						<EditUserInfoSkeleton />
+					) : (
+						<EditProfileContentBottom user={user} />
+					)}
+				</Box>
 			</MainBlock>
 		</>
 	)

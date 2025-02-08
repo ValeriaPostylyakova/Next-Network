@@ -24,7 +24,7 @@ export class UserService {
 		})
 
 		if (findUser) {
-			throw new Error('Пользователь с такой почтой уже существует')
+			throw new Error('Пользователь с такой почтой уже зарегистрирован')
 		}
 
 		const activationLink = uuidv4()
@@ -310,5 +310,27 @@ export class UserService {
 		}
 
 		return friendsSuggetion
+	}
+
+	async getUser(id: string) {
+		const user = await prisma.user.findFirst({
+			where: {
+				id: Number(id),
+			},
+			include: {
+				posts: {
+					include: {
+						comments: true,
+					},
+				},
+				stories: true,
+			},
+		})
+
+		if (!user) {
+			throw new Error('Пользователя не существует')
+		}
+
+		return user
 	}
 }

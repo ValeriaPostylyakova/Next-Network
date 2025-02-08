@@ -1,7 +1,7 @@
 'use client'
 
+import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
-import { FetchAuth } from '@/redux/user/async-actions'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { FC, useState } from 'react'

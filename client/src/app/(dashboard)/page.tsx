@@ -2,9 +2,10 @@
 
 import { SidebarLeft, SidebarRight } from '@/components/shared'
 import { FriendsSuggestionActions } from '@/redux/friends/async-actions'
+import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
-import { FetchAuth } from '@/redux/user/async-actions'
 import Box from '@mui/material/Box'
+import { PagesTopLoader } from 'nextjs-toploader/pages'
 import { FC, ReactNode, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -27,6 +28,7 @@ const DashboardPage: FC<Props> = ({ children }) => {
 
 	return (
 		<Box sx={{ display: 'flex', color: 'text.primary' }}>
+			<PagesTopLoader color='#0d80c2' />
 			<SidebarLeft />
 			{children}
 			<SidebarRight />

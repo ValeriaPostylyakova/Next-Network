@@ -162,4 +162,15 @@ export class UserControllers {
 			console.error(e)
 		}
 	}
+
+	async getUser(req: any, res: any) {
+		try {
+			const { id } = req.params
+			const response = await userService.getUser(id)
+			return res.status(200).json(response)
+		} catch (e) {
+			res.status(400)
+			console.error(e)
+		}
+	}
 }

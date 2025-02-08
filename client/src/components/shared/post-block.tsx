@@ -28,6 +28,7 @@ export interface Props {
 	likes: number
 	like: boolean
 	comments?: Comments[]
+	visibleMenu?: boolean
 }
 
 export const PostBlock: FC<Props> = ({

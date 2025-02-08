@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
 import { useSubmitFormData } from '@/hooks/use-submit-form-data'
+import { RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -12,13 +13,15 @@ import DialogTitle from '@mui/material/DialogTitle'
 import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { useSelector } from 'react-redux'
 import { ButtonUI } from '../../ui'
 import { FormItem } from '../form-item'
 import { loginFormSchema, TLoginFormSchema } from './schema'
 
 export const AuthForm: FC = () => {
 	const { open, handleClose, handleOpen, setOpen } = useOpenModal()
-	const { dispatch, user, fetchAuth, router } = useSubmitFormData()
+	const { dispatch, user, fetchAuth, router, status } = useSubmitFormData()
+	const error = useSelector((state: RootState) => state.auth.error)
 
 	const form = useForm({
 		resolver: zodResolver(loginFormSchema),
@@ -30,14 +33,13 @@ export const AuthForm: FC = () => {
 	})
 
 	const onSubmit = async (data: TLoginFormSchema) => {
-		dispatch(fetchAuth.login(data))
+		await dispatch(fetchAuth.login(data))
 
-		if (!user) {
-			toast.error('Пользователь не найден')
+		if (error) {
+			toast.error(error)
 		} else {
-			toast.success('Вы успешно авторизовались')
-			setOpen(false)
 			router.push('/feed')
+			toast.success('Вы успешно авторизовались')
 		}
 	}
 
