@@ -2,6 +2,7 @@ import Router from 'express'
 import { body } from 'express-validator'
 import { CommentsController } from '../controllers/comments-controller'
 import { PostControllers } from '../controllers/post-controllers'
+import { SearchController } from '../controllers/search-controller'
 import { UserControllers } from '../controllers/user-controllers'
 import { multersAvatar } from '../middleware/avatar'
 import { multersFile } from '../middleware/file'
@@ -10,6 +11,7 @@ const router = Router()
 const userControllers = new UserControllers()
 const postControllers = new PostControllers()
 const commentsController = new CommentsController()
+const searchController = new SearchController()
 
 router.post(
 	'/registration',
@@ -32,6 +34,9 @@ router.patch(
 	userControllers.updateProfileInfoImageUrl
 )
 router.patch('/avatar/:id', userControllers.deleteAvatar)
+
+// router.get('/users', userControllers.getUsers)
+router.get('/', searchController.search)
 
 router.post('/post', multersFile.single('post'), postControllers.createPost)
 router.get('/posts/:id', postControllers.posts)

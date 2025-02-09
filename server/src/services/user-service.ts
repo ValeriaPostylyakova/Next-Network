@@ -317,14 +317,6 @@ export class UserService {
 			where: {
 				id: Number(id),
 			},
-			include: {
-				posts: {
-					include: {
-						comments: true,
-					},
-				},
-				stories: true,
-			},
 		})
 
 		if (!user) {
@@ -332,5 +324,19 @@ export class UserService {
 		}
 
 		return user
+	}
+
+	async getUsers(refreshToken: string) {
+		if (!refreshToken) {
+			throw new Error('Пользователь не зарегистрирован')
+		}
+
+		const users = await prisma.user.findMany({
+			take: 5,
+			orderBy: {
+				createdAt: 'desc',
+			},
+		})
+		return users
 	}
 }

@@ -4,8 +4,10 @@ import Box from '@mui/material/Box'
 
 import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch, RootState } from '@/redux/store'
+import Link from 'next/link'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { ButtonUI } from '../ui'
 import { PostSkeleton } from '../ui/post-skeleton'
 import { ProfileSkeleton } from '../ui/profile-skeleton'
 import { BlockEmpty } from './block-empty'
@@ -38,7 +40,14 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 			{userStatus === 'loading' ? (
 				<ProfileSkeleton />
 			) : (
-				<ProfileInfoBlock profileInfo={user} />
+				<ProfileInfoBlock
+					profileInfo={user}
+					children={
+						<Link href={`/editProfile`}>
+							<ButtonUI variant='outlined'>Редактировать профиль</ButtonUI>
+						</Link>
+					}
+				/>
 			)}
 			{postsStatus === 'loading' ? (
 				[...new Array(2)].map((_, index) => <PostSkeleton key={index} />)
@@ -47,7 +56,7 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 					{posts.length > 0 ? (
 						<Box sx={{ width: '100%', mt: 5 }}>
 							{posts?.map(post => (
-								<PostBlock key={post.id} {...post} />
+								<PostBlock visibleMenu={true} key={post.id} {...post} />
 							))}
 						</Box>
 					) : (

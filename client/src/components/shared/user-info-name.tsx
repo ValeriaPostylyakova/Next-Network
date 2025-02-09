@@ -14,6 +14,7 @@ export interface Props {
 	messageBlock?: ReactNode
 	cursor?: string
 	name?: string
+	mb?: number
 }
 
 export const UserInfoName: FC<Props> = ({
@@ -26,9 +27,10 @@ export const UserInfoName: FC<Props> = ({
 	messageBlock,
 	cursor,
 	name,
+	mb,
 }) => {
 	return (
-		<FlexContainer>
+		<FlexContainer mb={mb}>
 			<Avatar
 				alt='avatar'
 				src={image ? image : '/images/user-profile.svg'}

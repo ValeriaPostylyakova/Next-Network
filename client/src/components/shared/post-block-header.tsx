@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 
 import { Trash } from 'lucide-react'
-import { FC } from 'react'
+import { FC, RefObject } from 'react'
 import { MenuBlockButton } from './menu-block-button'
 import { UserInfoName } from './user-info-name'
 
@@ -10,6 +10,7 @@ export interface Props {
 	jobTitle?: string
 	userImageUrl?: string
 	deletePost: () => void
+	visibleMenu: RefObject<boolean>
 }
 
 export const PostBlockHeader: FC<Props> = ({
@@ -17,6 +18,7 @@ export const PostBlockHeader: FC<Props> = ({
 	jobTitle,
 	userImageUrl,
 	deletePost,
+	visibleMenu,
 }) => {
 	return (
 		<Box
@@ -38,12 +40,14 @@ export const PostBlockHeader: FC<Props> = ({
 				sizeSubTitle={15}
 				name={fullname}
 			/>
-			<MenuBlockButton
-				ml={-9}
-				icon={<Trash size={20} />}
-				title='Удалить пост'
-				handleClickItem={deletePost}
-			/>
+			{visibleMenu.current === true && (
+				<MenuBlockButton
+					ml={-9}
+					icon={<Trash size={20} />}
+					title='Удалить пост'
+					handleClickItem={deletePost}
+				/>
+			)}
 		</Box>
 	)
 }

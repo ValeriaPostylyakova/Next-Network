@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import friendsSuggestionSlice from './friends/slice'
 import authSlice from './profile/auth-slice'
+import searhSlice from './search/slice'
 import profileSlice from './user/slice'
 
 import postSlice from './post/slice'
@@ -12,6 +13,7 @@ export const makeStore = () => {
 			post: postSlice,
 			friendsSuggestion: friendsSuggestionSlice,
 			user: profileSlice,
+			search: searhSlice,
 		},
 	})
 }

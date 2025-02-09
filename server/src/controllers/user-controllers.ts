@@ -173,4 +173,15 @@ export class UserControllers {
 			console.error(e)
 		}
 	}
+
+	async getUsers(req: any, res: any) {
+		try {
+			const { refreshToken } = req.cookies
+			const response = await userService.getUsers(refreshToken)
+			return res.status(200).json(response)
+		} catch (e) {
+			res.status(400)
+			console.error(e)
+		}
+	}
 }

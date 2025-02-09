@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react'
 
 export interface Props {
 	children: ReactNode
-	mb?: string
+	mb?: number
 	durection?: string
 	content?: string
 	pt?: number

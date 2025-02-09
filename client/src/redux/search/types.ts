@@ -2,7 +2,7 @@ import { Status } from '../../../@types/fetchStatus'
 import { TProfile } from '../../../@types/profile'
 
 export interface InitialState {
-	profile: TProfile
-	statusProfile: Status
+	users: TProfile[]
+	status: Status
 	error: unknown | null
 }

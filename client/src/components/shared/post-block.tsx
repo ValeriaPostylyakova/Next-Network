@@ -1,5 +1,5 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import Box from '@mui/material/Box'
@@ -28,7 +28,7 @@ export interface Props {
 	likes: number
 	like: boolean
 	comments?: Comments[]
-	visibleMenu?: boolean
+	visibleMenu: boolean
 }
 
 export const PostBlock: FC<Props> = ({
@@ -41,10 +41,12 @@ export const PostBlock: FC<Props> = ({
 	comments,
 	jobTitle,
 	userImageUrl,
+	visibleMenu,
 }) => {
 	const [openComments, setOpenComments] = useState<boolean>(false)
 	const [showEmoji, setShowEmoji] = useState<boolean>(false)
 	const [valueInput, setValueInput] = useState<string>('')
+	const menuRef = useRef<boolean>(visibleMenu)
 
 	const dispatch: AppDispatch = useDispatch()
 	const user = useSelector((state: RootState) => state.auth.user)
@@ -86,6 +88,7 @@ export const PostBlock: FC<Props> = ({
 					}}
 				>
 					<PostBlockHeader
+						visibleMenu={menuRef}
 						fullname={fullname}
 						jobTitle={jobTitle}
 						userImageUrl={userImageUrl}

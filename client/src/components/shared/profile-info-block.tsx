@@ -2,16 +2,17 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { TProfile } from '../../../@types/profile'
 import { ButtonUI, FlexContainer } from '../ui'
 import { EditorProfileAvatar } from './editor-profile-avatar'
 
 export interface Props {
 	profileInfo: TProfile
+	children?: ReactNode
 }
 
-export const ProfileInfoBlock: FC<Props> = ({ profileInfo }) => {
+export const ProfileInfoBlock: FC<Props> = ({ profileInfo, children }) => {
 	return (
 		<>
 			<Box
@@ -47,9 +48,7 @@ export const ProfileInfoBlock: FC<Props> = ({ profileInfo }) => {
 						</Typography>
 					</Box>
 				</FlexContainer>
-				<Link href={`/editProfile`}>
-					<ButtonUI variant='outlined'>Редактировать профиль</ButtonUI>
-				</Link>
+				{children}
 			</Box>
 			<Divider />
 		</>

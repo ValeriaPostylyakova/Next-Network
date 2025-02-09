@@ -2,14 +2,16 @@ import AppBar from '@mui/material/AppBar'
 import Divider from '@mui/material/Divider'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import Link from 'next/link'
 import { FC } from 'react'
+import { TProfile } from '../../../@types/profile'
 import { UserInfoName } from './user-info-name'
 
 export interface Props {
-	className?: string
+	user: TProfile
 }
 
-export const ChatHeader: FC<Props> = () => {
+export const ChatHeader: FC<Props> = ({ user }) => {
 	return (
 		<>
 			<AppBar
@@ -23,15 +25,19 @@ export const ChatHeader: FC<Props> = () => {
 				}}
 			>
 				<Toolbar>
-					<UserInfoName
-						width={50}
-						height={50}
-						image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
-						sizeTitle={18}
-						cursor='pointer'
-						name='X_AE_A-13'
-						messageBlock={<Typography>был в сети 3 минуты назад</Typography>}
-					/>
+					<Link href={`/user/${user.id}`}>
+						<UserInfoName
+							width={50}
+							height={50}
+							image={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+							sizeTitle={18}
+							cursor='pointer'
+							name={user.firstname + ' ' + user.lastname}
+							messageBlock={
+								<Typography>был(a) в сети 3 минуты назад</Typography>
+							}
+						/>
+					</Link>
 				</Toolbar>
 			</AppBar>
 			<Divider />
