@@ -125,7 +125,9 @@ export const PostBlock: FC<Props> = ({
 					/>
 				</Box>
 			</MainBlock>
-			{showEmoji && <EmojiBlock setValue={setValueInput} />}
+			{showEmoji && (
+				<EmojiBlock setValue={setValueInput} top='100%' right={0} />
+			)}
 		</Box>
 	)
 }

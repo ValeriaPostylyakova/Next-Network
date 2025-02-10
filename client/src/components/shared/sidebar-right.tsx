@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography'
 
 import { RootState } from '@/redux/store'
 import Avatar from '@mui/material/Avatar'
+import Skeleton from '@mui/material/Skeleton'
 import Link from 'next/link'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
@@ -21,6 +22,7 @@ export interface Props {
 
 export const SidebarRight: FC<Props> = () => {
 	const user = useSelector((state: RootState) => state.auth.user)
+	const status = useSelector((state: RootState) => state.auth.status)
 
 	const friendsSuggestion = useSelector(
 		(state: RootState) => state.friendsSuggestion.friendsSuggestion
@@ -47,16 +49,20 @@ export const SidebarRight: FC<Props> = () => {
 					justifyContent: 'space-between',
 				}}
 			>
-				<Link href={`/profile/${user.id}`}>
-					<Avatar
-						alt='avatar'
-						src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
-						sx={{
-							width: 40,
-							height: 40,
-						}}
-					/>
-				</Link>
+				{status === 'loading' ? (
+					<Skeleton variant='circular' width={40} height={40} />
+				) : (
+					<Link href={`/profile/${user.id}`}>
+						<Avatar
+							alt='avatar'
+							src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+							sx={{
+								width: 40,
+								height: 40,
+							}}
+						/>
+					</Link>
+				)}
 
 				<SidebarRightButtonGroup />
 			</Toolbar>
@@ -68,6 +74,7 @@ export const SidebarRight: FC<Props> = () => {
 			>
 				<Typography variant='h6'>Возможные друзья</Typography>
 			</Box>
+
 			<Divider />
 			<List>
 				{friendsSuggestion.map(friend => (

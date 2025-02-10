@@ -21,6 +21,7 @@ export const ChatHeader: FC<Props> = ({ user }) => {
 					width: `calc(100% - 660px)`,
 					boxShadow: 'none',
 					mx: `360px`,
+					flexShrink: 0,
 					py: 1,
 				}}
 			>

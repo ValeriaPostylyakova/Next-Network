@@ -6,10 +6,12 @@ import { RootState } from '@/redux/store'
 import Link from 'next/link'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
+import { ProfileSkeleton } from '../ui/profile-skeleton'
 import { UserInfoName } from './user-info-name'
 
 export const SidebarProfile: FC = () => {
 	const user = useSelector((state: RootState) => state.auth.user)
+	const status = useSelector((state: RootState) => state.auth.status)
 
 	return (
 		<Link href={`/profile/${user.id}`}>
@@ -26,15 +28,26 @@ export const SidebarProfile: FC = () => {
 					cursor: 'pointer',
 				}}
 			>
-				<UserInfoName
-					text={`@${user.identifier}`}
-					width={40}
-					height={40}
-					image={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
-					sizeTitle={16}
-					sizeSubTitle={14}
-					name={user?.firstname + ' ' + user?.lastname}
-				/>
+				{status === 'loading' ? (
+					<ProfileSkeleton
+						width={40}
+						heightLineTop={14}
+						widthLineTop={200}
+						heightLineBottom={12}
+						widthLineBottom={140}
+						widthContainer='auto'
+					/>
+				) : (
+					<UserInfoName
+						text={`@${user.identifier}`}
+						width={40}
+						height={40}
+						image={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+						sizeTitle={16}
+						sizeSubTitle={14}
+						name={user?.firstname + ' ' + user?.lastname}
+					/>
+				)}
 			</Box>
 		</Link>
 	)

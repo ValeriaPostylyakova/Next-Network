@@ -22,7 +22,7 @@ export const ChatBlock: FC<Props> = () => {
 					cursor: 'pointer',
 				}}
 			>
-				<Box sx={{ display: 'flex', gap: '1.5rem' }}>
+				<Box sx={{ display: 'flex', gap: '1rem' }}>
 					<Box
 						sx={{
 							borderRadius: '100%',
@@ -40,7 +40,7 @@ export const ChatBlock: FC<Props> = () => {
 							display: 'flex',
 							height: '100%',
 							flexDirection: 'column',
-							gap: '1rem',
+							gap: '0.7crem',
 						}}
 					>
 						<Typography sx={{ fontSize: `20px`, fontWeight: 600 }}>

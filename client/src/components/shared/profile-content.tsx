@@ -38,7 +38,14 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 	return (
 		<>
 			{userStatus === 'loading' ? (
-				<ProfileSkeleton />
+				<ProfileSkeleton
+					width={80}
+					heightLineTop={25}
+					widthLineTop={500}
+					heightLineBottom={21}
+					widthLineBottom={400}
+					widthContainer='100vh'
+				/>
 			) : (
 				<ProfileInfoBlock
 					profileInfo={user}

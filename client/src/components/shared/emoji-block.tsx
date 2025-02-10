@@ -7,9 +7,12 @@ import { Dispatch, FC, SetStateAction } from 'react'
 
 export interface Props {
 	setValue: Dispatch<SetStateAction<string>>
+	top: string
+	left?: string | number
+	right?: string | number
 }
 
-export const EmojiBlock: FC<Props> = ({ setValue }) => {
+export const EmojiBlock: FC<Props> = ({ setValue, top, left, right }) => {
 	const addEmoji = (emoji: Emoji) => {
 		setValue((value: string) => value + emoji.native)
 	}
@@ -18,8 +21,9 @@ export const EmojiBlock: FC<Props> = ({ setValue }) => {
 		<Box
 			sx={{
 				position: 'absolute',
-				top: '100%',
-				right: 0,
+				top: top,
+				left: left,
+				right: right,
 				zIndex: 1000,
 			}}
 		>

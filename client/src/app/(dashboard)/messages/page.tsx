@@ -12,8 +12,6 @@ const Page: FC<Props> = () => {
 		<MainWrapper mt={0}>
 			<Box sx={{ width: '100%', m: '0 auto' }}>
 				<ChatBlock />
-				<ChatBlock />
-				<ChatBlock />
 			</Box>
 		</MainWrapper>
 	)

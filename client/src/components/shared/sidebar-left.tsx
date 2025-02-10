@@ -23,7 +23,7 @@ export const SidebarLeft: FC = () => {
 					alignItems: 'start',
 				}}
 			>
-				<FlexContainer mb='2rem' cursor='pointer'>
+				<FlexContainer mb={4} cursor='pointer'>
 					<img
 						src='/images/logo2.svg'
 						alt='dashboard-logo'

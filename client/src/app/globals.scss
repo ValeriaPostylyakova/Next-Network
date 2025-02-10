@@ -20,6 +20,7 @@ a {
 button {
 	background-color: inherit;
 	border: none;
+	cursor: pointer;
 }
 
 ul,
@@ -130,4 +131,21 @@ li {
 	height: 40px;
 	border-radius: 10px;
 	background-color: #737373;
+}
+
+.message {
+	margin-bottom: 10px;
+	max-width: 70%;
+	padding: 8px 12px;
+	border-radius: 15px;
+}
+.received {
+	background-color: #6c6c6c;
+	align-self: flex-start;
+}
+
+.sent {
+	background-color: #d6ebff;
+	color: #000;
+	align-self: flex-end;
 }

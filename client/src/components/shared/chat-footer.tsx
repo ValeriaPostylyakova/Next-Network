@@ -1,63 +1,56 @@
 'use client'
 
-import { TMessages } from '@/app/(dashboard)/chat/[id]/page'
 import { Button, TextField } from '@mui/material'
 import Box from '@mui/material/Box'
 import { Paperclip, SendHorizontal, Smile } from 'lucide-react'
 
-import { FC, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { FlexContainer } from '../ui'
+import { EmojiBlock } from './emoji-block'
 
 export interface Props {
-	messages: TMessages[]
-	setMessages: (value: TMessages[]) => void
+	value: string
+	setValue: Dispatch<SetStateAction<string>>
+	handleInputValue: (e: any) => void
 }
 
-export const ChatFooter: FC<Props> = ({ messages, setMessages }) => {
+export const ChatFooter: FC<Props> = ({
+	value,
+	setValue,
+	handleInputValue,
+}) => {
 	const [smileOpen, setSmileOpen] = useState<boolean>(false)
-	const [value, setValue] = useState<string>('')
-
-	const handleInputValue = (e: any) => {
-		if (e.code === 'Enter') {
-			const obj: TMessages = {
-				sender: 'right',
-				text: e.target.value,
-			}
-			setMessages([...messages, obj])
-			setValue('')
-		}
-	}
 
 	return (
-		<Box>
+		<>
 			<Box
-				sx={[
-					theme => ({
-						position: 'absolute',
-						bottom: '2%',
-						left: '7%',
-						zIndex: 100,
-						width: '80%',
-						m: '0 auto',
-						bgcolor: '#101010',
-						borderRadius: '10px 10px 0px 10px',
-					}),
-					theme =>
-						theme.applyStyles('light', {
-							backgroundColor: '#eee',
-						}),
-					theme =>
-						theme.applyStyles('dark', {
-							backgroundColor: '#272727',
-						}),
-				]}
+				sx={{
+					width: '50%',
+					m: '0 auto',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'space-between',
+				}}
 			>
 				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'space-between',
-						px: 2,
-					}}
+					sx={[
+						theme => ({
+							bgcolor: '#101010',
+							borderRadius: '10px 10px 0px 10px',
+							pr: 2,
+							display: 'flex',
+							alignItems: 'center',
+							width: '100%',
+						}),
+						theme =>
+							theme.applyStyles('light', {
+								backgroundColor: '#eee',
+							}),
+						theme =>
+							theme.applyStyles('dark', {
+								backgroundColor: '#272727',
+							}),
+					]}
 				>
 					<Button onClick={() => setSmileOpen(!smileOpen)}>
 						<Smile />
@@ -65,30 +58,34 @@ export const ChatFooter: FC<Props> = ({ messages, setMessages }) => {
 					<TextField
 						placeholder='Message'
 						sx={{
-							width: '90%',
+							width: '100%',
 							'& fieldset': { border: 'none' },
 						}}
 						value={value}
-						onKeyDown={handleInputValue}
 						onChange={e => setValue(e.target.value)}
+						onKeyDown={e => handleInputValue(e)}
 					/>
-					<Paperclip />
+					<FlexContainer>
+						<button
+							style={{
+								color: '#fff',
+							}}
+						>
+							<Paperclip size={21} />
+						</button>
+						<button
+							onClick={e => handleInputValue(e)}
+							style={{
+								color: '#2a5de9',
+							}}
+						>
+							<SendHorizontal />
+						</button>
+					</FlexContainer>
 				</Box>
-				<Button
-					sx={{
-						position: 'absolute',
-						bottom: '10%',
-						right: '-8%',
-						color: theme => theme.palette.text.primary,
-						width: '50px',
-						height: '50px',
-						borderRadius: '50%',
-						bgcolor: '#2d7196',
-					}}
-				>
-					<SendHorizontal />
-				</Button>
 			</Box>
-		</Box>
+
+			{smileOpen && <EmojiBlock setValue={setValue} top='59.5%' left='0%' />}
+		</>
 	)
 }

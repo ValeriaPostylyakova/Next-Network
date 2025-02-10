@@ -3,22 +3,16 @@ import { FC } from 'react'
 
 export interface Props {
 	text: string
-	align: string
+	className: string
 }
 
-export const Message: FC<Props> = ({ text, align }) => {
+export const Message: FC<Props> = ({ text, className }) => {
 	return (
-		<>
-			<Typography
-				sx={{
-					p: '6px 10px',
-					borderRadius: '10px 10px 0 10px',
-					fontSize: '20px',
-					textAlign: `${align}`,
-				}}
-			>
-				{text}
-			</Typography>
-		</>
+		<div className={className}>
+			<Typography>{text}</Typography>
+		</div>
 	)
 }
+
+// received
+// sent
