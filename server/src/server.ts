@@ -2,9 +2,10 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
+import { createServer } from 'http'
 import path from 'path'
+import { Server } from 'socket.io'
 import { routers } from './router/index'
-
 const app = express()
 dotenv.config()
 
@@ -24,9 +25,29 @@ app.use(
 )
 app.use('/api', routers)
 
+const https = createServer(app)
+const io = new Server(https, {
+	cors: {
+		origin: process.env.CLIENT_URL,
+		credentials: true,
+	},
+})
+
+io.on('connection', socket => {
+	console.log(`User connected ${socket.id}`)
+
+	io.on('message', data => {
+		console.log('message', data)
+	})
+
+	io.on('disconnect', socket => {
+		console.log(`User disconnected ${socket.id}`)
+	})
+})
+
 const start = () => {
 	try {
-		app.listen(process.env.PORT || 5000, () => {
+		https.listen(process.env.PORT || 5000, () => {
 			console.log(`Server started on ${process.env.PORT} port`)
 		})
 	} catch (e) {

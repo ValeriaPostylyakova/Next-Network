@@ -9,14 +9,8 @@ interface Props {
 	params: Params
 }
 
-export type TMessages = {
-	sender: string
-	text: string
-}
-
 const Page: FC<Props> = async ({ params }) => {
 	const { id } = await params
-
 	return (
 		<MainWrapper mt={0}>
 			<ChatContent id={id} />

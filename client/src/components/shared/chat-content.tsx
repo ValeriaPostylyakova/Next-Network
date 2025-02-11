@@ -5,17 +5,13 @@ import { UserActions } from '@/redux/user/async-actions'
 import Box from '@mui/material/Box'
 import { FC, KeyboardEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { TMessage } from '../../../@types/chat'
+import { socket } from '../../socket'
 import { ChatFooter } from './chat-footer'
 import { ChatHeader } from './chat-header'
 import { Message } from './message'
-
 export interface Props {
 	id: string
-}
-
-export type TMessage = {
-	text: string
-	resend: string
 }
 
 export const ChatContent: FC<Props> = ({ id }) => {
@@ -26,23 +22,22 @@ export const ChatContent: FC<Props> = ({ id }) => {
 
 	const [value, setValue] = useState<string>('')
 
+	useEffect(() => {
+		dispatch(profileActions.getUser(id))
+	}, [])
+
 	const handleInputValue = (e: KeyboardEvent) => {
 		if (e.code === 'Enter' || e.type === 'click') {
-			setMessageArray([
-				...messageArray,
-				{
-					text: value,
-					resend: 'me',
-				},
-			])
+			socket.emit('message', {
+				id: `${socket.id}`,
+				socketId: socket.id,
+				sender: 'me',
+				text: value,
+			})
 
 			setValue('')
 		}
 	}
-
-	useEffect(() => {
-		dispatch(profileActions.getUser(id))
-	}, [])
 
 	return (
 		<Box
@@ -72,7 +67,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 						key={index}
 						text={message.text}
 						className={
-							message.resend === 'me' ? 'message sent' : 'message received'
+							message.sender === 'me' ? 'message sent' : 'message received'
 						}
 					/>
 				))}
