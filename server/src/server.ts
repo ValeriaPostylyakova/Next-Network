@@ -6,11 +6,10 @@ import { createServer } from 'http'
 import path from 'path'
 import { Server } from 'socket.io'
 import { routers } from './router/index'
+
 const app = express()
 dotenv.config()
-
 app.use(express.json())
-
 app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use('/images/posts', express.static(path.join(__dirname, 'posts')))
 app.use('/images/avatar', express.static(path.join(__dirname, 'avatar')))
@@ -28,26 +27,27 @@ app.use('/api', routers)
 const https = createServer(app)
 const io = new Server(https, {
 	cors: {
-		origin: process.env.CLIENT_URL,
-		credentials: true,
+		origin: 'http://localhost:3000',
+		methods: ['GET', 'POST'],
 	},
 })
 
 io.on('connection', socket => {
-	console.log(`User connected ${socket.id}`)
+	console.log(`User connected ${socket.id}, socket.io`)
 
-	io.on('message', data => {
-		console.log('message', data)
+	socket.on('chat_message', data => {
+		console.log(data)
+		socket.broadcast.emit('response', data)
 	})
 
-	io.on('disconnect', socket => {
+	socket.on('disconnect', () => {
 		console.log(`User disconnected ${socket.id}`)
 	})
 })
 
 const start = () => {
 	try {
-		https.listen(process.env.PORT || 5000, () => {
+		https.listen(process.env.PORT || 4200, () => {
 			console.log(`Server started on ${process.env.PORT} port`)
 		})
 	} catch (e) {

@@ -3,10 +3,10 @@
 import { AppDispatch, RootState } from '@/redux/store'
 import { UserActions } from '@/redux/user/async-actions'
 import Box from '@mui/material/Box'
-import { FC, KeyboardEvent, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Socket, io } from 'socket.io-client'
 import { TMessage } from '../../../@types/chat'
-import { socket } from '../../socket'
 import { ChatFooter } from './chat-footer'
 import { ChatHeader } from './chat-header'
 import { Message } from './message'
@@ -15,28 +15,42 @@ export interface Props {
 }
 
 export const ChatContent: FC<Props> = ({ id }) => {
-	const profile = useSelector((state: RootState) => state.user.profile)
+	const user = useSelector((state: RootState) => state.user.profile)
+	const profile = useSelector((state: RootState) => state.auth.user)
 	const dispatch: AppDispatch = useDispatch()
 	const profileActions = new UserActions()
 	const [messageArray, setMessageArray] = useState<TMessage[]>([])
+	const [socket, setSocket] = useState<Socket | null>(null)
 
 	const [value, setValue] = useState<string>('')
 
 	useEffect(() => {
 		dispatch(profileActions.getUser(id))
-	}, [])
+		localStorage.setItem('userId', profile.id.toString())
+		const newSocket = io('http://localhost:4200')
+		setSocket(newSocket)
 
-	const handleInputValue = (e: KeyboardEvent) => {
-		if (e.code === 'Enter' || e.type === 'click') {
-			socket.emit('message', {
-				id: `${socket.id}`,
-				socketId: socket.id,
-				sender: 'me',
-				text: value,
-			})
+		newSocket.on('response', data => {
+			console.log(data)
+			setMessageArray(prev => [...prev, data])
+		})
 
-			setValue('')
-		}
+		// return () => {
+		// 	if (newSocket) {
+		// 		newSocket.off('response')
+		// 		newSocket.disconnect()
+		// 	}
+		// }
+	}, [messageArray])
+
+	const handleInputValue = () => {
+		socket?.emit('chat_message', {
+			id: socket.id,
+			text: value,
+			userId: profile.id,
+		})
+
+		setValue('')
 	}
 
 	return (
@@ -48,7 +62,8 @@ export const ChatContent: FC<Props> = ({ id }) => {
 				flexDirection: 'column',
 			}}
 		>
-			<ChatHeader user={profile} />
+			<ChatHeader user={user} />
+
 			<Box
 				sx={{
 					flexGrow: 1,
@@ -62,12 +77,14 @@ export const ChatContent: FC<Props> = ({ id }) => {
 					scrollbarWidth: 'thin',
 				}}
 			>
-				{messageArray.map((message: TMessage, index: number) => (
+				{messageArray?.map((message: any, index: number) => (
 					<Message
 						key={index}
 						text={message.text}
 						className={
-							message.sender === 'me' ? 'message sent' : 'message received'
+							Number(localStorage.getItem('userId')) === message.userId.id
+								? 'message sent'
+								: 'message received'
 						}
 					/>
 				))}

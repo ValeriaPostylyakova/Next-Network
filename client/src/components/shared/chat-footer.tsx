@@ -11,7 +11,7 @@ import { EmojiBlock } from './emoji-block'
 export interface Props {
 	value: string
 	setValue: Dispatch<SetStateAction<string>>
-	handleInputValue: (e: any) => void
+	handleInputValue: () => void
 }
 
 export const ChatFooter: FC<Props> = ({
@@ -63,7 +63,6 @@ export const ChatFooter: FC<Props> = ({
 						}}
 						value={value}
 						onChange={e => setValue(e.target.value)}
-						onKeyDown={e => handleInputValue(e)}
 					/>
 					<FlexContainer>
 						<button
@@ -74,7 +73,7 @@ export const ChatFooter: FC<Props> = ({
 							<Paperclip size={21} />
 						</button>
 						<button
-							onClick={e => handleInputValue(e)}
+							onClick={handleInputValue}
 							style={{
 								color: '#2a5de9',
 							}}
