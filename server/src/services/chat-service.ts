@@ -31,13 +31,19 @@ export class ChatService {
 		return chats
 	}
 
-	async getChat(id: string) {
+	async getChat(id: string, userId: string) {
 		const chat = await prisma.chat.findUnique({
 			where: {
 				id: Number(id),
 			},
 			include: {
-				messages: true,
+				users: {
+					where: {
+						id: {
+							not: Number(userId),
+						},
+					},
+				},
 			},
 		})
 

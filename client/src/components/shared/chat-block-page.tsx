@@ -13,28 +13,34 @@ export const ChatBlockPage: FC<Props> = ({ profile, messages }) => {
 	return (
 		<Box
 			sx={{
-				flexGrow: 1,
+				width: '100%',
 				overflowY: 'auto',
-				padding: '10px',
-				width: '50%',
-				m: '0 auto',
-				mt: 12,
-				display: 'flex',
-				flexDirection: 'column',
 				scrollbarWidth: 'thin',
 			}}
 		>
-			{messages?.map((message: TMessage, index: number) => (
-				<Message
-					key={index}
-					text={message.text}
-					className={
-						localStorage.getItem('userEmail') !== undefined
-							? 'message sent'
-							: 'message received'
-					}
-				/>
-			))}
+			<Box
+				sx={{
+					flexGrow: 1,
+					padding: '10px',
+					width: '50%',
+					m: '0 auto',
+					mt: 12,
+					display: 'flex',
+					flexDirection: 'column',
+				}}
+			>
+				{messages?.map((message: TMessage, index: number) =>
+					message.sender === profile.email ? (
+						<Message key={index} text={message.text} className='message sent' />
+					) : (
+						<Message
+							key={index}
+							text={message.text}
+							className='message received'
+						/>
+					)
+				)}
+			</Box>
 		</Box>
 	)
 }

@@ -53,7 +53,7 @@ router.post('/comment', commentsController.createCommentPost)
 router.get('/friendsSuggestions', friendsController.getFriendsSuggetion)
 
 router.get('/chats/:id', chatController.getChats)
-router.get('/chat/:id', chatController.getChat)
+router.get('/chat', chatController.getChat)
 router.get('/messages/:id', chatController.getMessages)
 
 export const routers = router

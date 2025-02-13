@@ -1,8 +1,8 @@
 'use client'
 
+import { ChatActions } from '@/redux/chats/async-actions'
 import { MessagesActions } from '@/redux/messages/async-actions'
 import { AppDispatch, RootState } from '@/redux/store'
-import { UserActions } from '@/redux/user/async-actions'
 import Box from '@mui/material/Box'
 import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,24 +16,28 @@ export interface Props {
 }
 
 export const ChatContent: FC<Props> = ({ id }) => {
-	const user = useSelector((state: RootState) => state.user.profile)
 	const profile = useSelector((state: RootState) => state.auth.user)
-
 	const messages = useSelector((state: RootState) => state.messages.messages)
+	const chat = useSelector((state: RootState) => state.chats.chat)
 
 	const dispatch: AppDispatch = useDispatch()
 
-	const profileActions = new UserActions()
 	const messagesActions = new MessagesActions()
+	const chatsActions = new ChatActions()
+	const chatStatus = useSelector((state: RootState) => state.chats.statusChat)
 	const [messageArray, setMessageArray] = useState<TMessage[]>([])
 	const [socket, setSocket] = useState<Socket | null>(null)
 
 	const [value, setValue] = useState<string>('')
 
 	useEffect(() => {
-		dispatch(profileActions.getUser(id))
 		dispatch(messagesActions.getMessages(id))
-		localStorage.setItem('email', profile.email)
+		dispatch(
+			chatsActions.getChat({
+				chatId: id,
+				userId: localStorage.getItem('userId') as string,
+			})
+		)
 		const newSocket = io('http://localhost:4200')
 		setSocket(newSocket)
 
@@ -69,8 +73,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 				flexDirection: 'column',
 			}}
 		>
-			<ChatHeader user={user} />
-
+			{chatStatus === 'success' && <ChatHeader user={chat.users[0]} />}
 			<ChatBlockPage messages={messages} profile={profile} />
 
 			<ChatFooter
