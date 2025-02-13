@@ -153,16 +153,6 @@ export class UserControllers {
 		}
 	}
 
-	async getFriendsSuggetion(req: any, res: any) {
-		try {
-			const response = await userService.getFriendsSuggetion()
-			return res.status(200).json(response)
-		} catch (e) {
-			res.status(400)
-			console.error(e)
-		}
-	}
-
 	async getUser(req: any, res: any) {
 		try {
 			const { id } = req.params

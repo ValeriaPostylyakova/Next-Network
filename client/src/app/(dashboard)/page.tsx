@@ -1,6 +1,7 @@
 'use client'
 
 import { SidebarLeft, SidebarRight } from '@/components/shared'
+import { ChatActions } from '@/redux/chats/async-actions'
 import { FriendsSuggestionActions } from '@/redux/friends/async-actions'
 import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
@@ -17,12 +18,12 @@ const DashboardPage: FC<Props> = ({ children }) => {
 	const dispatch: AppDispatch = useDispatch()
 	const fetchAuth = new FetchAuth()
 	const friendsSuggestion = new FriendsSuggestionActions()
+	const chatsActions = new ChatActions()
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
 			dispatch(fetchAuth.checkAuth())
 		}
-
 		dispatch(friendsSuggestion.getFriendsSuggestion())
 	}, [])
 

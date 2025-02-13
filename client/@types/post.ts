@@ -1,9 +1,3 @@
-export type Chat = {
-	id: number
-	userId?: number
-	friendId: number
-}
-
 export type Friend = {
 	id: number
 	userId?: number

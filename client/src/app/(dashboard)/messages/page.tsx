@@ -1,17 +1,38 @@
+'use client'
+
 import { ChatBlock } from '@/components/shared'
 import { MainWrapper } from '@/components/ui/main-wrapper'
+import { ChatActions } from '@/redux/chats/async-actions'
+import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface Props {
 	className?: string
 }
 
 const Page: FC<Props> = () => {
+	const chatsActions = new ChatActions()
+	const dispatch: AppDispatch = useDispatch()
+	const profile = useSelector((state: RootState) => state.auth.user)
+	const chats = useSelector((state: RootState) => state.chats.chats)
+
+	useEffect(() => {
+		dispatch(chatsActions.getChats(String(profile.id)))
+	}, [])
+
 	return (
 		<MainWrapper mt={0}>
 			<Box sx={{ width: '100%', m: '0 auto' }}>
-				<ChatBlock />
+				{chats.map(chat => (
+					<ChatBlock
+						key={chat.id}
+						chatId={chat.id}
+						user={chat.users[0]}
+						lastMessage={chat.messages.at(-1)}
+					/>
+				))}
 			</Box>
 		</MainWrapper>
 	)

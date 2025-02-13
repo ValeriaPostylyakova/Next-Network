@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
+import chatsSlice from './chats/slice'
 import friendsSuggestionSlice from './friends/slice'
+import messagesSlice from './messages/slice'
 import authSlice from './profile/auth-slice'
 import searhSlice from './search/slice'
 import profileSlice from './user/slice'
@@ -14,6 +16,8 @@ export const makeStore = () => {
 			friendsSuggestion: friendsSuggestionSlice,
 			user: profileSlice,
 			search: searhSlice,
+			chats: chatsSlice,
+			messages: messagesSlice,
 		},
 	})
 }

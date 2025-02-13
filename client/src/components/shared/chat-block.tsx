@@ -1,15 +1,18 @@
-import { Box, Divider, Typography } from '@mui/material'
+import { Avatar, Box, Divider, Typography } from '@mui/material'
 import Link from 'next/link'
 import { FC } from 'react'
+import { TMessage } from '../../../@types/chat'
+import { TProfile } from '../../../@types/profile'
 
 export interface Props {
-	className?: string
+	lastMessage?: TMessage
+	user: TProfile
+	chatId: number
 }
 
-export const ChatBlock: FC<Props> = () => {
-	const id = 1
+export const ChatBlock: FC<Props> = ({ user, lastMessage, chatId }) => {
 	return (
-		<Link href={`/chat/${id}`}>
+		<Link href={`/chat/${chatId}`}>
 			<Box
 				sx={{
 					width: '97%',
@@ -23,28 +26,25 @@ export const ChatBlock: FC<Props> = () => {
 				}}
 			>
 				<Box sx={{ display: 'flex', gap: '1rem' }}>
-					<Box
+					<Avatar
+						alt='avatar'
+						src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
 						sx={{
-							borderRadius: '100%',
-							p: 0.25,
-							width: `80px`,
-							height: `80px`,
-							backgroundImage: `url(https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg)`,
-							backgroundSize: 'cover',
-							backgroundRepeat: 'no-repeat',
-							mb: 1,
+							width: 70,
+							height: 70,
 						}}
 					/>
+
 					<Box
 						sx={{
 							display: 'flex',
 							height: '100%',
 							flexDirection: 'column',
-							gap: '0.7crem',
+							gap: '0.4rem',
 						}}
 					>
 						<Typography sx={{ fontSize: `20px`, fontWeight: 600 }}>
-							X_AE_A-13
+							{user.firstname + ' ' + user.lastname}
 						</Typography>
 						<Typography
 							sx={{
@@ -53,12 +53,11 @@ export const ChatBlock: FC<Props> = () => {
 								color: '#b5b5b5',
 							}}
 						>
-							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta,
-							nobis.
+							{lastMessage?.text}
 						</Typography>
 					</Box>
 				</Box>
-				<Typography>16:55</Typography>
+				<Typography>16.44</Typography>
 			</Box>
 			<Divider />
 		</Link>

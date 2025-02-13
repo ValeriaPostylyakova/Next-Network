@@ -1,6 +1,8 @@
 import Router from 'express'
 import { body } from 'express-validator'
+import { ChatController } from '../controllers/chat-controller'
 import { CommentsController } from '../controllers/comments-controller'
+import { FriendsController } from '../controllers/friends-controller'
 import { PostControllers } from '../controllers/post-controllers'
 import { SearchController } from '../controllers/search-controller'
 import { UserControllers } from '../controllers/user-controllers'
@@ -12,6 +14,8 @@ const userControllers = new UserControllers()
 const postControllers = new PostControllers()
 const commentsController = new CommentsController()
 const searchController = new SearchController()
+const friendsController = new FriendsController()
+const chatController = new ChatController()
 
 router.post(
 	'/registration',
@@ -35,7 +39,6 @@ router.patch(
 )
 router.patch('/avatar/:id', userControllers.deleteAvatar)
 
-// router.get('/users', userControllers.getUsers)
 router.get('/', searchController.search)
 
 router.post('/post', multersFile.single('post'), postControllers.createPost)
@@ -47,6 +50,10 @@ router.patch('/removePostLike/:id', postControllers.removePostLike)
 
 router.post('/comment', commentsController.createCommentPost)
 
-router.get('/friendsSuggestions', userControllers.getFriendsSuggetion)
+router.get('/friendsSuggestions', friendsController.getFriendsSuggetion)
+
+router.get('/chats/:id', chatController.getChats)
+router.get('/chat/:id', chatController.getChat)
+router.get('/messages/:id', chatController.getMessages)
 
 export const routers = router

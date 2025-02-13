@@ -29,7 +29,7 @@ export const ChatBlockPage: FC<Props> = ({ profile, messages }) => {
 					key={index}
 					text={message.text}
 					className={
-						localStorage.getItem('userEmail') == profile.email
+						localStorage.getItem('userEmail') !== undefined
 							? 'message sent'
 							: 'message received'
 					}
