@@ -1,19 +1,19 @@
 import Box from '@mui/material/Box'
 import { FC } from 'react'
 import { TMessage } from '../../../@types/chat'
-import { TProfile } from '../../../@types/profile'
 import { Message } from './message'
 
 export interface Props {
-	profile: TProfile
+	profileId: number
 	messages: TMessage[]
 }
 
-export const ChatBlockPage: FC<Props> = ({ profile, messages }) => {
+export const ChatMessagesContainer: FC<Props> = ({ profileId, messages }) => {
 	return (
 		<Box
 			sx={{
 				width: '100%',
+				height: '92vh',
 				overflowY: 'auto',
 				scrollbarWidth: 'thin',
 			}}
@@ -30,7 +30,7 @@ export const ChatBlockPage: FC<Props> = ({ profile, messages }) => {
 				}}
 			>
 				{messages?.map((message: TMessage, index: number) =>
-					message.sender === profile.email ? (
+					message.sender == String(profileId) ? (
 						<Message key={index} text={message.text} className='message sent' />
 					) : (
 						<Message

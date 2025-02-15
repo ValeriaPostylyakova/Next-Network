@@ -50,8 +50,7 @@ async function up() {
 				lastname: 'Романов',
 				identifier: 'romanov8785',
 				jobTitle: 'Chief Information Security Officer',
-				imageUrl:
-					'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676296366191520185.pngm',
+				imageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
 			},
 		],
 	})
@@ -113,58 +112,50 @@ async function up() {
 		},
 	})
 
-	await prisma.message.createMany({
-		data: [
-			{
-				id: 1,
-				text: 'test message',
-				sender: 'valeria.postylyakova@yandex.ru',
-				chatId: 1,
-			},
-			{
-				id: 2,
-				text: 'tLorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil citationem?',
-				sender: 'anastasiabatrova@mail.ru',
-				chatId: 1,
-			},
-			{
-				id: 3,
-				text: 'Lorem ipsum dolor sit ',
-				sender: 'anastasiabatrova@mail.ru',
-				chatId: 1,
-			},
-			{
-				id: 4,
-				text: 'test message Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
-				sender: 'anastasiabatrova@mail.ru',
-				chatId: 1,
-			},
-			{
-				id: 5,
-				text: 'LAST MESSAGE Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
-				sender: 'anastasiabatrova@mail.ru',
-				chatId: 1,
-			},
-			{
-				id: 6,
-				text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
-				sender: 'valeria.postylyakova@yandex.ru',
-				chatId: 1,
-			},
-			{
-				id: 7,
-				text: 'LAST MESSAGE Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
-				sender: 'anastasiabatrova@mail.ru',
-				chatId: 1,
-			},
-			{
-				id: 8,
-				text: 'LAST MESSAGE Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
-				sender: 'valeria.postylyakova@yandex.ru',
-				chatId: 1,
-			},
-		],
-	})
+	// await prisma.message.createMany({
+	// 	data: [
+	// 		{
+	// 			text: 'test message',
+	// 			sender: '3',
+	// 			chatId: 1,
+	// 		},
+	// 		{
+	// 			text: 'tLorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil citationem?',
+	// 			sender: '4',
+	// 			chatId: 1,
+	// 		},
+	// 		{
+	// 			text: 'Lorem ipsum dolor sit ',
+	// 			sender: '4',
+	// 			chatId: 1,
+	// 		},
+	// 		{
+	// 			text: 'test message Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
+	// 			sender: '4',
+	// 			chatId: 1,
+	// 		},
+	// 		{
+	// 			text: 'LAST MESSAGE Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
+	// 			sender: '4',
+	// 			chatId: 1,
+	// 		},
+	// 		{
+	// 			text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
+	// 			sender: '3',
+	// 			chatId: 1,
+	// 		},
+	// 		{
+	// 			text: 'LAST MESSAGE Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
+	// 			sender: '4',
+	// 			chatId: 1,
+	// 		},
+	// 		{
+	// 			text: 'LAST MESSAGE Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, unde voluptatibus nihil saepe quaerat esse ipsam voluptates itaque adipisci at, sed reprehenderit ad necessitatibus officiis. Sapiente provident aliquid maxime exercitationem?',
+	// 			sender: '3',
+	// 			chatId: 1,
+	// 		},
+	// 	],
+	// })
 }
 
 async function down() {

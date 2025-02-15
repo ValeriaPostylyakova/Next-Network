@@ -7,8 +7,8 @@ export type TChat = {
 }
 
 export type TMessage = {
-	id: number
-	createAt: Date
+	id?: number
 	sender: string
 	text: string
+	chatId: number | string
 }

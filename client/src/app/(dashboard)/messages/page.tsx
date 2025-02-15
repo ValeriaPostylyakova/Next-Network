@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { profileId } from '../../../../constants/profile'
 
 interface Props {
 	className?: string
@@ -15,11 +16,10 @@ interface Props {
 const Page: FC<Props> = () => {
 	const chatsActions = new ChatActions()
 	const dispatch: AppDispatch = useDispatch()
-	const profile = useSelector((state: RootState) => state.auth.user)
 	const chats = useSelector((state: RootState) => state.chats.chats)
 
 	useEffect(() => {
-		dispatch(chatsActions.getChats(String(profile.id)))
+		dispatch(chatsActions.getChats(profileId))
 	}, [])
 
 	return (

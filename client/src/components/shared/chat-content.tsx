@@ -1,65 +1,62 @@
 'use client'
 
+import useSocket from '@/hooks/use-socket'
 import { ChatActions } from '@/redux/chats/async-actions'
 import { MessagesActions } from '@/redux/messages/async-actions'
+import { setMessages } from '@/redux/messages/slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Socket, io } from 'socket.io-client'
-import { TMessage } from '../../../@types/chat'
-import { ChatBlockPage } from './chat-block-page'
+import { profileId } from '../../../constants/profile'
 import { ChatFooter } from './chat-footer'
 import { ChatHeader } from './chat-header'
+import { ChatMessagesContainer } from './chat-messages-container'
 export interface Props {
 	id: string
 }
 
+const messagesActions = new MessagesActions()
+const chatsActions = new ChatActions()
+
 export const ChatContent: FC<Props> = ({ id }) => {
 	const profile = useSelector((state: RootState) => state.auth.user)
 	const messages = useSelector((state: RootState) => state.messages.messages)
-	const chat = useSelector((state: RootState) => state.chats.chat)
-
-	const dispatch: AppDispatch = useDispatch()
-
-	const messagesActions = new MessagesActions()
-	const chatsActions = new ChatActions()
 	const chatStatus = useSelector((state: RootState) => state.chats.statusChat)
-	const [messageArray, setMessageArray] = useState<TMessage[]>([])
-	const [socket, setSocket] = useState<Socket | null>(null)
-
+	const chat = useSelector((state: RootState) => state.chats.chat)
+	const dispatch: AppDispatch = useDispatch()
 	const [value, setValue] = useState<string>('')
+	const socket = useSocket('http://localhost:4200')
 
 	useEffect(() => {
 		dispatch(messagesActions.getMessages(id))
 		dispatch(
 			chatsActions.getChat({
 				chatId: id,
-				userId: localStorage.getItem('userId') as string,
+				userId: String(profileId),
 			})
 		)
-		const newSocket = io('http://localhost:4200')
-		setSocket(newSocket)
 
-		newSocket.on('response', data => {
-			console.log(data)
-			setMessageArray(prev => [...prev, data])
+		socket?.on('new_message', data => {
+			dispatch(setMessages(data))
 		})
 
-		// return () => {
-		// 	if (newSocket) {
-		// 		newSocket.off('response')
-		// 		newSocket.disconnect()
-		// 	}
-		// }
-	}, [])
+		return () => {
+			if (socket) {
+				socket.off('new_message')
+				socket.disconnect()
+			}
+		}
+	}, [socket, dispatch])
 
-	const handleInputValue = () => {
-		socket?.emit('chat_message', {
-			id: socket.id,
+	const handleInputValue = async () => {
+		const message = {
 			text: value,
-			userId: profile.id,
-		})
+			sender: profileId,
+			chatId: id,
+		}
+
+		socket?.emit('chat_message', message)
 
 		setValue('')
 	}
@@ -74,7 +71,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			}}
 		>
 			{chatStatus === 'success' && <ChatHeader user={chat.users[0]} />}
-			<ChatBlockPage messages={messages} profile={profile} />
+			<ChatMessagesContainer messages={messages} profileId={profile.id} />
 
 			<ChatFooter
 				value={value}

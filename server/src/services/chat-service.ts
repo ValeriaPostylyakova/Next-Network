@@ -54,13 +54,37 @@ export class ChatService {
 		return chat
 	}
 
+	async createMessage(data: { text: string; sender: string; chatId: string }) {
+		const message = await prisma.message.create({
+			data: {
+				text: data.text,
+				sender: data.sender,
+				chatId: Number(data.chatId),
+			},
+		})
+
+		if (!data.chatId) {
+			throw new Error('Такого чата не существует')
+		}
+
+		if (!data.sender) {
+			throw new Error('Такого пользователя не существует')
+		}
+
+		if (!message) {
+			throw new Error('Ошибка при создании сообщения')
+		}
+
+		return message
+	}
+
 	async getMessages(id: string) {
 		const messages = await prisma.message.findMany({
 			where: {
 				chatId: Number(id),
 			},
 			orderBy: {
-				createdAt: 'desc',
+				createdAt: 'asc',
 			},
 		})
 

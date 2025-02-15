@@ -6,8 +6,10 @@ import { createServer } from 'http'
 import path from 'path'
 import { Server } from 'socket.io'
 import { routers } from './router/index'
+import { ChatService } from './services/chat-service'
 
 const app = express()
+
 dotenv.config()
 app.use(express.json())
 app.use('/images', express.static(path.join(__dirname, 'images')))
@@ -32,12 +34,19 @@ const io = new Server(https, {
 	},
 })
 
+const chatService = new ChatService()
+
 io.on('connection', socket => {
 	console.log(`User connected ${socket.id}, socket.io`)
 
-	socket.on('chat_message', data => {
-		console.log(data)
-		socket.broadcast.emit('response', data)
+	socket.on('chat_message', async data => {
+		try {
+			const message = await chatService.createMessage(data)
+			socket.emit('new_message', message)
+			socket.broadcast.emit('new_message', message)
+		} catch (e) {
+			console.error(e)
+		}
 	})
 
 	socket.on('disconnect', () => {

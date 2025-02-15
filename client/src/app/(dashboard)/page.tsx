@@ -1,14 +1,13 @@
 'use client'
 
 import { SidebarLeft, SidebarRight } from '@/components/shared'
-import { ChatActions } from '@/redux/chats/async-actions'
 import { FriendsSuggestionActions } from '@/redux/friends/async-actions'
 import { FetchAuth } from '@/redux/profile/async-actions'
-import { AppDispatch } from '@/redux/store'
+import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import { PagesTopLoader } from 'nextjs-toploader/pages'
 import { FC, ReactNode, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface Props {
 	children: ReactNode
@@ -16,14 +15,16 @@ interface Props {
 
 const DashboardPage: FC<Props> = ({ children }) => {
 	const dispatch: AppDispatch = useDispatch()
+	const profile = useSelector((state: RootState) => state.auth.user)
+	const status = useSelector((state: RootState) => state.auth.status)
 	const fetchAuth = new FetchAuth()
 	const friendsSuggestion = new FriendsSuggestionActions()
-	const chatsActions = new ChatActions()
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
 			dispatch(fetchAuth.checkAuth())
 		}
+		status === 'success' && localStorage.setItem('userId', String(profile.id))
 		dispatch(friendsSuggestion.getFriendsSuggestion())
 	}, [])
 

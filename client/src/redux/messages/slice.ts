@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { TMessage } from '../../../@types/chat'
 import { Status } from '../../../@types/fetchStatus'
 import { MessagesActions } from './async-actions'
 import { InitialState } from './types'
@@ -13,7 +14,11 @@ const initialState: InitialState = {
 export const messagesSlice = createSlice({
 	name: 'messages',
 	initialState,
-	reducers: {},
+	reducers: {
+		setMessages(state, action: PayloadAction<TMessage>) {
+			state.messages.push(action.payload)
+		},
+	},
 	extraReducers: builder => {
 		builder
 			.addCase(messagesAction.getMessages.pending, state => {
@@ -28,5 +33,7 @@ export const messagesSlice = createSlice({
 			})
 	},
 })
+
+export const { setMessages } = messagesSlice.actions
 
 export default messagesSlice.reducer
