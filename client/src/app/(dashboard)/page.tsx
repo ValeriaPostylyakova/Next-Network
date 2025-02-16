@@ -1,9 +1,11 @@
 'use client'
 
 import { SidebarLeft, SidebarRight } from '@/components/shared'
+import { FeedActions } from '@/redux/feed/async-actions'
 import { FriendsSuggestionActions } from '@/redux/friends/async-actions'
 import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch, RootState } from '@/redux/store'
+import { StoriesActions } from '@/redux/stories/async-actions'
 import Box from '@mui/material/Box'
 import { PagesTopLoader } from 'nextjs-toploader/pages'
 import { FC, ReactNode, useEffect } from 'react'
@@ -19,6 +21,8 @@ const DashboardPage: FC<Props> = ({ children }) => {
 	const status = useSelector((state: RootState) => state.auth.status)
 	const fetchAuth = new FetchAuth()
 	const friendsSuggestion = new FriendsSuggestionActions()
+	const feedActions = new FeedActions()
+	const storiesActions = new StoriesActions()
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
@@ -26,6 +30,8 @@ const DashboardPage: FC<Props> = ({ children }) => {
 		}
 		status === 'success' && localStorage.setItem('userId', String(profile.id))
 		dispatch(friendsSuggestion.getFriendsSuggestion())
+		dispatch(feedActions.getFeed())
+		dispatch(storiesActions.getStories())
 	}, [])
 
 	return (

@@ -1,4 +1,4 @@
-import { FriendsService } from '../services/friends-controller'
+import { FriendsService } from '../services/friends-service'
 
 const friendsService = new FriendsService()
 

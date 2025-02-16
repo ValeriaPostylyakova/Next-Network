@@ -2,9 +2,11 @@ import Router from 'express'
 import { body } from 'express-validator'
 import { ChatController } from '../controllers/chat-controller'
 import { CommentsController } from '../controllers/comments-controller'
+import { FeedController } from '../controllers/feed-controller'
 import { FriendsController } from '../controllers/friends-controller'
 import { PostControllers } from '../controllers/post-controllers'
 import { SearchController } from '../controllers/search-controller'
+import { StoriesController } from '../controllers/stories-controller'
 import { UserControllers } from '../controllers/user-controllers'
 import { multersAvatar } from '../middleware/avatar'
 import { multersFile } from '../middleware/file'
@@ -16,6 +18,8 @@ const commentsController = new CommentsController()
 const searchController = new SearchController()
 const friendsController = new FriendsController()
 const chatController = new ChatController()
+const feedController = new FeedController()
+const storiesController = new StoriesController()
 
 router.post(
 	'/registration',
@@ -55,5 +59,9 @@ router.get('/friendsSuggestions', friendsController.getFriendsSuggetion)
 router.get('/chats/:id', chatController.getChats)
 router.get('/chat', chatController.getChat)
 router.get('/messages/:id', chatController.getMessages)
+
+router.get('/feed', feedController.getFeed)
+
+router.get('/stories', storiesController.getStories)
 
 export const routers = router

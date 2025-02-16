@@ -61,6 +61,8 @@ model Post {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  feed      Feed?    @relation(fields: [feedId], references: [id])
+  feedId    Int?
 }
 
 model Comment {
@@ -91,8 +93,9 @@ model StoryItem {
 model Story {
   id Int @id @default(autoincrement())
 
-  imageUrl String
+  imageUrl String?
   items    StoryItem[]
+  fullname String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -144,6 +147,15 @@ model FriendsSuggestions {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User[]
+}
+
+model Feed {
+  id Int @id @default(autoincrement())
+
+  posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum UserRole {

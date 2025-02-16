@@ -1,17 +1,13 @@
 'use client'
 
-import Box from '@mui/material/Box'
-
 import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch, RootState } from '@/redux/store'
 import Link from 'next/link'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ButtonUI } from '../ui'
-import { PostSkeleton } from '../ui/post-skeleton'
 import { ProfileSkeleton } from '../ui/profile-skeleton'
-import { BlockEmpty } from './block-empty'
-import { PostBlock } from './post-block'
+import { PostState } from './post-state'
 import { ProfileInfoBlock } from './profile-info-block'
 
 export interface Props {
@@ -56,24 +52,7 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 					}
 				/>
 			)}
-			{postsStatus === 'loading' ? (
-				[...new Array(2)].map((_, index) => <PostSkeleton key={index} />)
-			) : (
-				<>
-					{posts.length > 0 ? (
-						<Box sx={{ width: '100%', mt: 5 }}>
-							{posts?.map(post => (
-								<PostBlock visibleMenu={true} key={post.id} {...post} />
-							))}
-						</Box>
-					) : (
-						<BlockEmpty
-							text='Список постов пока пуст'
-							imageName='posts-empty.svg'
-						/>
-					)}
-				</>
-			)}
+			<PostState status={postsStatus} posts={posts} visibleMenu={true} />
 		</>
 	)
 }

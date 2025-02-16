@@ -62,46 +62,56 @@ async function up() {
 			userId: 1,
 		},
 	})
-	await prisma.post.createMany({
-		data: [
-			{
-				postImageUrl:
-					'https://i.pinimg.com/736x/0c/44/96/0c4496f2ce6b09278171c80ba92046e5.jpg',
-				text: 'test text',
-				fullname: 'Валерия Постылякова',
-				jobTitle: 'Frontend Developer',
-				userImageUrl:
-					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-				likes: 0,
-				userId: 1,
-			},
-			{
-				postImageUrl:
-					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-				fullname: 'Валерия Постылякова',
-				jobTitle: 'Frontend Developer',
-				userImageUrl:
-					'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
-				likes: 0,
-				userId: 1,
-			},
-		],
-	})
+	// await prisma.post.createMany({
+	// 	data: [
+	// 		{
+	// 			postImageUrl:
+	// 				'https://i.pinimg.com/736x/0c/44/96/0c4496f2ce6b09278171c80ba92046e5.jpg',
+	// 			text: 'test text',
+	// 			fullname: 'Валерия Постылякова',
+	// 			jobTitle: 'Frontend Developer',
+	// 			userImageUrl:
+	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+	// 			likes: 0,
+	// 			userId: 3,
+	// 		},
+	// 		{
+	// 			postImageUrl:
+	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+	// 			fullname: 'Валерия Постылякова',
+	// 			jobTitle: 'Frontend Developer',
+	// 			userImageUrl:
+	// 				'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
+	// 			likes: 0,
+	// 			userId: 3,
+	// 		},
+	// 		{
+	// 			postImageUrl:
+	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+	// 			fullname: 'Валерия Постылякова',
+	// 			jobTitle: 'Frontend Developer',
+	// 			userImageUrl:
+	// 				'https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg',
+	// 			likes: 0,
+	// 			userId: 3,
+	// 		},
+	// 	],
+	// })
 
-	await prisma.comment.createMany({
-		data: [
-			{
-				text: 'test text',
-				username: 'test',
-				postId: 1,
-			},
-			{
-				text: 'test text',
-				username: 'test',
-				postId: 1,
-			},
-		],
-	})
+	// await prisma.comment.createMany({
+	// 	data: [
+	// 		{
+	// 			text: 'test text',
+	// 			username: 'test',
+	// 			postId: 1,
+	// 		},
+	// 		{
+	// 			text: 'test text',
+	// 			username: 'test',
+	// 			postId: 1,
+	// 		},
+	// 	],
+	// })
 
 	await prisma.chat.create({
 		data: {
@@ -156,6 +166,103 @@ async function up() {
 	// 		},
 	// 	],
 	// })
+
+	await prisma.feed.create({
+		data: {
+			id: 1,
+			posts: {
+				create: [
+					{
+						postImageUrl:
+							'https://i.pinimg.com/736x/49/37/c5/4937c54f77949adc477383c0d4c37542.jpg',
+						text: 'Вечерний кайф 😄',
+						fullname: 'Валерия Постылякова',
+						jobTitle: 'Frontend Developer',
+						userImageUrl:
+							'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+						likes: 4,
+						userId: 3,
+					},
+					{
+						postImageUrl:
+							'https://i.pinimg.com/736x/31/6c/1d/316c1de4fdbaed14fddc73833a18336d.jpg',
+						fullname: 'Кристина Разина',
+						jobTitle: 'Designer',
+						userImageUrl: null,
+						likes: 2,
+						userId: 2,
+					},
+					{
+						postImageUrl:
+							'https://i.pinimg.com/736x/02/a9/b3/02a9b3e654d849d82d73a72bea595993.jpg',
+						fullname: 'Егор Романов',
+						jobTitle: 'Chief Information Security Officer',
+						userImageUrl:
+							'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
+						likes: 0,
+						userId: 4,
+					},
+				],
+			},
+		},
+	})
+
+	await prisma.story.createMany({
+		data: [
+			{
+				imageUrl:
+					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+				fullname: 'Валерия',
+				userId: 3,
+			},
+			{
+				imageUrl:
+					'https://img.freepik.com/free-vector/hand-drawn-clothes-person_79603-614.jpg',
+				fullname: 'Кирилл',
+				userId: 1,
+			},
+			{
+				imageUrl: null,
+				fullname: 'Кристина',
+				userId: 2,
+			},
+		],
+	})
+
+	await prisma.storyItem.createMany({
+		data: [
+			{
+				imageUrl:
+					'https://i.pinimg.com/736x/14/d5/73/14d5735f4cd9c90fff1edb054cc6cbfb.jpg',
+				storyId: 1,
+			},
+			{
+				imageUrl:
+					'https://i.pinimg.com/736x/30/25/86/302586d8789577e220133514e3316f6b.jpg',
+				storyId: 1,
+			},
+			{
+				imageUrl:
+					'blob:https://web.telegram.org/2982611b-0bc5-4ea7-8317-41112371cc30',
+				storyId: 2,
+			},
+			{
+				imageUrl:
+					'https://i.pinimg.com/736x/aa/8d/02/aa8d02164803eb19b6727eaa3a1a3c4a.jpg',
+				storyId: 2,
+			},
+			{
+				imageUrl:
+					'https://i.pinimg.com/736x/81/30/6c/81306cc82e987fc640af2e9e5bdb142a.jpg',
+				storyId: 2,
+			},
+			{
+				imageUrl:
+					'https://i.pinimg.com/736x/6e/a5/65/6ea56593fdb1ff7850c0898fe406e85a.jpg',
+				storyId: 3,
+			},
+		],
+	})
 }
 
 async function down() {
@@ -165,6 +272,9 @@ async function down() {
 	await prisma.$executeRaw`TRUNCATE TABLE "Comment" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Chat" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Message" RESTART IDENTITY CASCADE`
+	await prisma.$executeRaw`TRUNCATE TABLE "Feed" RESTART IDENTITY CASCADE`
+	await prisma.$executeRaw`TRUNCATE TABLE "Story" RESTART IDENTITY CASCADE`
+	await prisma.$executeRaw`TRUNCATE TABLE "StoryItem" RESTART IDENTITY CASCADE`
 }
 
 async function main() {

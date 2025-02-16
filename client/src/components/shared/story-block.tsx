@@ -1,33 +1,54 @@
+'use client'
+
+import { Avatar } from '@mui/material'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
+import { StoryItem } from '../../../@types/post'
 
 export interface Props {
-	className?: string
+	imageUrl: string
+	fullname: string
+	items: StoryItem[]
+	setOpen: (value: boolean) => void
+	setSelectedStory: (value: StoryItem[]) => void
 }
 
-export const StoryBlock: FC<Props> = () => {
+export const StoryBlock: FC<Props> = ({
+	imageUrl,
+	items,
+	fullname,
+	setOpen,
+	setSelectedStory,
+}) => {
+	const onClickStory = (story: StoryItem[]) => {
+		setSelectedStory(story)
+
+		if (story.length > 0) {
+			setOpen(true)
+		}
+	}
+
 	return (
 		<Box
+			component='div'
 			sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
 		>
-			<Button
-				sx={{
-					borderRadius: '100%',
-					p: 0.25,
-					width: '80px',
-					height: '80px',
-					border: '2px solid #eee',
-					backgroundImage:
-						'url(https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg)',
-					backgroundSize: 'cover',
-					backgroundRepeat: 'no-repeat',
-					mb: 1,
-				}}
-			/>
+			<button onClick={() => onClickStory(items)}>
+				<Avatar
+					component='div'
+					alt='avatar'
+					src={imageUrl ? imageUrl : '/images/user-profile.svg'}
+					sx={{
+						width: 70,
+						height: 70,
+						mb: 1,
+						border: '2px solid #ffffff',
+					}}
+				/>
+			</button>
 			<Typography sx={{ fontSize: '13px', color: '#7e7e7e' }}>
-				X_AE_A-13
+				{fullname}
 			</Typography>
 		</Box>
 	)

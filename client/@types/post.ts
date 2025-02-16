@@ -9,9 +9,10 @@ export type StoryItem = {
 	storyId?: number
 }
 
-export type Story = {
+export type TStory = {
 	id: number
 	imageUrl: string
+	fullname: string
 	items: StoryItem[]
 	storyId?: number
 }

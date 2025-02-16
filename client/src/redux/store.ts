@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import chatsSlice from './chats/slice'
+import feedSlice from './feed/slice'
 import friendsSuggestionSlice from './friends/slice'
 import messagesSlice from './messages/slice'
+import postSlice from './post/slice'
 import authSlice from './profile/auth-slice'
 import searhSlice from './search/slice'
+import storiesSlice from './stories/slice'
 import profileSlice from './user/slice'
-
-import postSlice from './post/slice'
 
 export const makeStore = () => {
 	return configureStore({
@@ -18,6 +19,8 @@ export const makeStore = () => {
 			search: searhSlice,
 			chats: chatsSlice,
 			messages: messagesSlice,
+			feed: feedSlice,
+			stories: storiesSlice,
 		},
 	})
 }
