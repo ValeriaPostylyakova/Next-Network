@@ -16,12 +16,12 @@ import { TProfile } from '../../../@types/profile'
 import { ModalFormUI } from '../ui'
 
 export interface Props {
-	user: TProfile
+	profile: TProfile
 	width: number
 	height: number
 }
 
-export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
+export const EditorProfileAvatar: FC<Props> = ({ profile, width, height }) => {
 	const [image, setImage] = useState<any | null>(null)
 	const [selectedImages, setSelectedImages] = useState<any | null>(null)
 
@@ -50,7 +50,7 @@ export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
 
 	const deleteAvatar = async () => {
 		try {
-			await dispatch(userActions.deleteAvatar(user.id)).then(() => {
+			await dispatch(userActions.deleteAvatar(profile.id)).then(() => {
 				toast.success('Фотография успешно удалена')
 			})
 		} catch (e) {
@@ -95,7 +95,7 @@ export const EditorProfileAvatar: FC<Props> = ({ user, width, height }) => {
 			>
 				<Avatar
 					alt='avatar'
-					src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+					src={profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'}
 					sx={{
 						width: width,
 						height: height,

@@ -14,7 +14,7 @@ export type TEditInfo = {
 }
 
 export const EditProfileContent: FC = () => {
-	const user = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	const statusUser = useSelector((state: RootState) => state.auth.status)
 
 	return (
@@ -31,12 +31,12 @@ export const EditProfileContent: FC = () => {
 					{statusUser === 'loading' ? (
 						<EditUserSkeleton />
 					) : (
-						<EditProfileContentTop user={user} />
+						<EditProfileContentTop profile={profile} />
 					)}
 					{statusUser === 'loading' ? (
 						<EditUserInfoSkeleton />
 					) : (
-						<EditProfileContentBottom user={user} />
+						<EditProfileContentBottom profile={profile} />
 					)}
 				</Box>
 			</MainBlock>

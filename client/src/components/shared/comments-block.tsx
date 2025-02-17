@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import { Heart } from 'lucide-react'
-import Link from 'next/link'
 import { FC } from 'react'
 
 export interface Props {
@@ -14,7 +13,7 @@ export interface Props {
 
 export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 	return (
-		<Link href={``}>
+		<>
 			<Box
 				sx={{
 					width: '98%',
@@ -63,6 +62,6 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 				<Heart color='#d3d3d3' size={22} />
 			</Box>
 			<Divider />
-		</Link>
+		</>
 	)
 }

@@ -20,7 +20,7 @@ const messagesActions = new MessagesActions()
 const chatsActions = new ChatActions()
 
 export const ChatContent: FC<Props> = ({ id }) => {
-	const profile = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	const messages = useSelector((state: RootState) => state.messages.messages)
 	const chatStatus = useSelector((state: RootState) => state.chats.statusChat)
 	const chat = useSelector((state: RootState) => state.chats.chat)

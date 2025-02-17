@@ -20,12 +20,12 @@ export const FeedContent: FC<Props> = () => {
 
 	return (
 		<Box component='div'>
+			{statusStories === 'success' && <StoriesBlock stories={stories} />}
 			{statusFeed === 'loading'
 				? [...new Array(2)].map((_, index) => <PostSkeleton key={index} />)
 				: feed?.posts.map(post => (
 						<PostBlock key={post.id} {...post} visibleMenu={false} />
 				  ))}
-			{statusStories === 'success' && <StoriesBlock stories={stories} />}
 		</Box>
 	)
 }

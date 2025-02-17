@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { Status } from '../../../@types/fetchStatus'
-import { TUser } from '../../../@types/user'
+import { TProfile } from '../../../@types/profile'
 import { UserActions } from './async-actions'
 import { InitialState } from './types'
 
 const userActions = new UserActions()
 
 const initialState: InitialState = {
-	profile: {} as TUser,
+	profile: {} as TProfile,
 	statusProfile: Status.LOADIND,
 	error: null,
 }

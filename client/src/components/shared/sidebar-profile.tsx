@@ -10,11 +10,11 @@ import { ProfileSkeleton } from '../ui/profile-skeleton'
 import { UserInfoName } from './user-info-name'
 
 export const SidebarProfile: FC = () => {
-	const user = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
 
 	return (
-		<Link href={`/profile/${user.id}`}>
+		<Link href={`/profile/${profile.id}`}>
 			<Box
 				sx={{
 					position: 'absolute',
@@ -39,13 +39,17 @@ export const SidebarProfile: FC = () => {
 					/>
 				) : (
 					<UserInfoName
-						text={`@${user.identifier}`}
+						text={`@${profile.identifier}`}
 						width={40}
 						height={40}
-						image={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+						image={
+							profile.imageUrl
+								? profile.imageUrl
+								: '/images/profile-profile.svg'
+						}
 						sizeTitle={16}
 						sizeSubTitle={14}
-						name={user?.firstname + ' ' + user?.lastname}
+						name={profile?.firstname + ' ' + profile?.lastname}
 					/>
 				)}
 			</Box>

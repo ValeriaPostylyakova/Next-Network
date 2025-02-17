@@ -13,16 +13,16 @@ import { TEditInfo } from './edit-profile-content'
 import { SettingsBlock } from './settings-block'
 
 export interface Props {
-	user: TProfile
+	profile: TProfile
 }
 
-export const EditProfileContentBottom: FC<Props> = ({ user }) => {
+export const EditProfileContentBottom: FC<Props> = ({ profile }) => {
 	const userActions = new FetchAuth()
 	const dispatch: AppDispatch = useDispatch()
 
 	const [editMode, setEditMode] = useState<TEditInfo>({
-		email: user.email,
-		phone: user.phone,
+		email: profile.email,
+		phone: profile.phone,
 	})
 	const [openInput, setOpenInput] = useState<boolean>(false)
 	const [editedPhone, setEditedPhone] = useState<boolean>(false)
@@ -32,7 +32,7 @@ export const EditProfileContentBottom: FC<Props> = ({ user }) => {
 			try {
 				dispatch(
 					userActions.updateProfileEmail({
-						id: user.id,
+						id: profile.id,
 						email: editMode.email,
 					})
 				)
@@ -50,7 +50,7 @@ export const EditProfileContentBottom: FC<Props> = ({ user }) => {
 			try {
 				dispatch(
 					userActions.updateProfilePhone({
-						id: user.id,
+						id: profile.id,
 						phone: editMode.phone,
 					})
 				)
@@ -90,7 +90,7 @@ export const EditProfileContentBottom: FC<Props> = ({ user }) => {
 					/>
 				) : (
 					<Typography>
-						{user.phone === null ? 'Не указан' : user.phone}
+						{profile.phone === null ? 'Не указан' : profile.phone}
 					</Typography>
 				)}
 			</SettingsBlock>
@@ -114,7 +114,7 @@ export const EditProfileContentBottom: FC<Props> = ({ user }) => {
 						onChange={e => setEditMode({ ...editMode, email: e.target.value })}
 					/>
 				) : (
-					<Typography>{user.email}</Typography>
+					<Typography>{profile.email}</Typography>
 				)}
 			</SettingsBlock>
 		</>

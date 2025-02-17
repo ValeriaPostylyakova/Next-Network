@@ -23,13 +23,13 @@ export const PostWriteCommentsBlock: FC<Props> = ({
 	showEmoji,
 	setShowEmoji,
 }) => {
-	const user = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	return (
 		<FlexContainer content='space-between' pt={2.5}>
 			<FlexContainer>
 				<Avatar
 					alt='avatar'
-					src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+					src={profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'}
 					sx={{
 						width: 45,
 						height: 45,

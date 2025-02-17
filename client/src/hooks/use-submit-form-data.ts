@@ -8,14 +8,14 @@ import { useDispatch, useSelector } from 'react-redux'
 export const useSubmitFormData = () => {
 	const router = useRouter()
 	const dispatch: AppDispatch = useDispatch()
-	const user = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 
 	const status = useSelector((state: RootState) => state.auth.status)
 	const fetchAuth = new FetchAuth()
 
 	return {
 		dispatch,
-		user,
+		profile,
 		fetchAuth,
 		router,
 		status,

@@ -2,6 +2,7 @@
 
 import { UsersActions } from '@/redux/search/async-actions'
 import { AppDispatch, RootState } from '@/redux/store'
+import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { Search } from 'lucide-react'
@@ -47,6 +48,7 @@ export const HeaderSearch: FC<Props> = ({ width, placeholder }) => {
 		>
 			<TextField
 				size='small'
+				autoComplete='off'
 				sx={{
 					width: `${width}px`,
 					outline: 'none',
@@ -72,9 +74,10 @@ export const HeaderSearch: FC<Props> = ({ width, placeholder }) => {
 			<Box
 				sx={{
 					position: 'absolute',
-					top: focused ? '110%' : '120%',
+					top: focused ? '120%' : '130%',
 					left: '0',
 					width: '100%',
+					visibility: focused ? 'visible' : 'hidden',
 					background: '#313131ff',
 					transition: 'all 0.3s ease-in-out',
 					borderRadius: '0.8rem',
@@ -84,22 +87,27 @@ export const HeaderSearch: FC<Props> = ({ width, placeholder }) => {
 				}}
 			>
 				<Box>
-					{users.map((user: TProfile) => (
-						<Link href={`/user/${user.id}`} key={user.id}>
-							<UserInfoName
-								mb={1.3}
-								sizeTitle={14}
-								image={
-									user.imageUrl ? user.imageUrl : '/images/user-profile.svg'
-								}
-								sizeSubTitle={11}
-								height={30}
-								width={30}
-								name={user.firstname + ' ' + user.lastname}
-								text={`@${user.identifier}`}
-							/>
-						</Link>
-					))}
+					{users.length === 0 && (
+						<Typography>По данному запросу ничего не найдено</Typography>
+					)}
+					<>
+						{users.map((user: TProfile) => (
+							<Link href={`/user/${user.id}`} key={user.id}>
+								<UserInfoName
+									mb={1.3}
+									sizeTitle={14}
+									image={
+										user.imageUrl ? user.imageUrl : '/images/user-profile.svg'
+									}
+									sizeSubTitle={11}
+									height={30}
+									width={30}
+									name={user.firstname + ' ' + user.lastname}
+									text={`@${user.identifier}`}
+								/>
+							</Link>
+						))}
+					</>
 				</Box>
 			</Box>
 		</Box>

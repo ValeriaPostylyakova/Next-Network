@@ -1,3 +1,5 @@
+'use client'
+
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
@@ -42,7 +44,12 @@ export const FriendBlock: FC<Props> = () => {
 					</Box>
 				}
 			/>
-			<MenuBlockButton icon={<Trash2 />} ml={-17} title='Удалить из друзей' />
+			<MenuBlockButton
+				handleClickItem={() => console.log('click')}
+				icon={<Trash2 />}
+				ml={-17}
+				title='Удалить из друзей'
+			/>
 		</Box>
 	)
 }

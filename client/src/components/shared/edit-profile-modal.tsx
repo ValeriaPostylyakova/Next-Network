@@ -11,24 +11,24 @@ import { TProfile } from '../../../@types/profile'
 import { ButtonUI, InputFormUI, ModalFormUI } from '../ui'
 
 export interface Props {
-	user: TProfile
+	profile: TProfile
 }
 
-export const EditProfileModal: FC<Props> = ({ user }) => {
+export const EditProfileModal: FC<Props> = ({ profile }) => {
 	const { open, setOpen, handleClose } = useOpenModal()
 	const userActions = new FetchAuth()
 	const dispatch: AppDispatch = useDispatch()
-	const [firstname, setFirstname] = useState(user.firstname)
-	const [lastname, setLastname] = useState(user.lastname)
-	const [jobTitle, setJobTitle] = useState(user.jobTitle || '')
-	const [identifier, setIdentifier] = useState(user.identifier)
+	const [firstname, setFirstname] = useState(profile.firstname)
+	const [lastname, setLastname] = useState(profile.lastname)
+	const [jobTitle, setJobTitle] = useState(profile.jobTitle || '')
+	const [identifier, setIdentifier] = useState(profile.identifier)
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault()
 		try {
 			const res = await dispatch(
 				userActions.updateProfile({
-					id: user.id,
+					id: profile.id,
 					firstname,
 					lastname,
 					jobTitle,

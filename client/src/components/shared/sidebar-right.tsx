@@ -21,7 +21,7 @@ export interface Props {
 }
 
 export const SidebarRight: FC<Props> = () => {
-	const user = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
 
 	const friendsSuggestion = useSelector(
@@ -52,10 +52,12 @@ export const SidebarRight: FC<Props> = () => {
 				{status === 'loading' ? (
 					<Skeleton variant='circular' width={40} height={40} />
 				) : (
-					<Link href={`/profile/${user.id}`}>
+					<Link href={`/profile/${profile.id}`}>
 						<Avatar
 							alt='avatar'
-							src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+							src={
+								profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'
+							}
 							sx={{
 								width: 40,
 								height: 40,

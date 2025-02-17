@@ -8,24 +8,26 @@ import { EditProfileModal } from './edit-profile-modal'
 import { EditorProfileAvatar } from './editor-profile-avatar'
 
 export interface Props {
-	user: TProfile
+	profile: TProfile
 }
 
-export const EditProfileContentTop: FC<Props> = ({ user }) => {
+export const EditProfileContentTop: FC<Props> = ({ profile }) => {
 	return (
 		<>
-			<FlexContainer mb='2rem' content='space-between'>
+			<FlexContainer mb={4} content='space-between'>
 				<FlexContainer>
-					<EditorProfileAvatar width={100} height={100} user={user} />
+					<EditorProfileAvatar width={100} height={100} profile={profile} />
 					<Box>
-						<Typography>{user.firstname + ' ' + user.lastname}</Typography>
-						<Typography sx={{ color: '#929292', mb: 2 }}>
-							{user.jobTitle}
+						<Typography>
+							{profile.firstname + ' ' + profile.lastname}
 						</Typography>
-						<Typography>@{user.identifier}</Typography>
+						<Typography sx={{ color: '#929292', mb: 2 }}>
+							{profile.jobTitle}
+						</Typography>
+						<Typography>@{profile.identifier}</Typography>
 					</Box>
 				</FlexContainer>
-				<EditProfileModal user={user} />
+				<EditProfileModal profile={profile} />
 			</FlexContainer>
 			<Divider />
 		</>

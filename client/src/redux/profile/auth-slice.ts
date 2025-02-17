@@ -5,7 +5,7 @@ import { FetchAuth } from './async-actions'
 import { InitiateState } from './types'
 
 const initialState: InitiateState = {
-	user: {} as TProfile,
+	profile: {} as TProfile,
 	isAuth: false,
 	status: Status.LOADIND,
 	statusUpdateUserInfo: Status.LOADIND,
@@ -32,10 +32,10 @@ export const authSlice = createSlice({
 		},
 
 		setUser: (state, action: PayloadAction<TProfile>) => {
-			state.user = action.payload
+			state.profile = action.payload
 		},
 		setUserImageUrl: (state, action: PayloadAction<string>) => {
-			state.user.imageUrl = action.payload
+			state.profile.imageUrl = action.payload
 		},
 	},
 
@@ -47,7 +47,7 @@ export const authSlice = createSlice({
 			.addCase(fetchAuth.registration.fulfilled, (state, action) => {
 				state.isAuth = true
 				state.status = Status.SUCCESS
-				state.user = action.payload.user
+				state.profile = action.payload.user
 			})
 
 			.addCase(fetchAuth.registration.rejected, (state, action) => {
@@ -61,7 +61,7 @@ export const authSlice = createSlice({
 				state.isAuth = true
 				state.error = null
 				state.status = Status.SUCCESS
-				state.user = action.payload.user
+				state.profile = action.payload.user
 			})
 			.addCase(fetchAuth.login.rejected, (state, action) => {
 				state.error = action.payload
@@ -72,7 +72,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(fetchAuth.logout.fulfilled, state => {
 				state.isAuth = false
-				state.user = {} as TProfile
+				state.profile = {} as TProfile
 			})
 			.addCase(fetchAuth.logout.rejected, (state, action) => {
 				state.status = Status.ERROR
@@ -84,7 +84,7 @@ export const authSlice = createSlice({
 			.addCase(fetchAuth.checkAuth.fulfilled, (state, action) => {
 				state.status = Status.SUCCESS
 				state.isAuth = true
-				state.user = action.payload.user
+				state.profile = action.payload.user
 			})
 			.addCase(fetchAuth.checkAuth.rejected, (state, action) => {
 				state.status = Status.ERROR
@@ -96,7 +96,7 @@ export const authSlice = createSlice({
 		})
 		builder.addCase(fetchAuth.updateProfile.fulfilled, (state, actions) => {
 			state.statusUpdateUserInfo = Status.SUCCESS
-			state.user = actions.payload
+			state.profile = actions.payload
 		})
 		builder.addCase(fetchAuth.updateProfile.rejected, (state, action) => {
 			state.statusUpdateUserInfo = Status.ERROR
@@ -110,7 +110,7 @@ export const authSlice = createSlice({
 			fetchAuth.updateProfileEmail.fulfilled,
 			(state, actions) => {
 				state.statusUpdateUserEmail = Status.SUCCESS
-				state.user = actions.payload
+				state.profile = actions.payload
 			}
 		)
 		builder.addCase(fetchAuth.updateProfileEmail.rejected, (state, action) => {
@@ -125,7 +125,7 @@ export const authSlice = createSlice({
 			fetchAuth.updateProfilePhone.fulfilled,
 			(state, actions) => {
 				state.statusUpdateUserPhone = Status.SUCCESS
-				state.user = actions.payload
+				state.profile = actions.payload
 			}
 		)
 		builder.addCase(fetchAuth.updateProfilePhone.rejected, (state, action) => {
@@ -141,7 +141,7 @@ export const authSlice = createSlice({
 			fetchAuth.updateProfileImageUrl.fulfilled,
 			(state, action) => {
 				state.statusUpdateUserImageUrl = Status.SUCCESS
-				state.user = action.payload
+				state.profile = action.payload
 			}
 		)
 
@@ -159,7 +159,7 @@ export const authSlice = createSlice({
 
 		builder.addCase(fetchAuth.deleteAvatar.fulfilled, (state, action) => {
 			state.statusDeleteAvatar = Status.SUCCESS
-			state.user = action.payload
+			state.profile = action.payload
 		})
 
 		builder.addCase(fetchAuth.deleteAvatar.rejected, (state, action) => {

@@ -36,7 +36,7 @@ export type TParamsImage = {
 }
 
 export interface InitiateState {
-	user: TProfile
+	profile: TProfile
 	isAuth: boolean
 	statusUpdateUserInfo: Status
 	status: Status

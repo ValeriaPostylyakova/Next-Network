@@ -18,7 +18,7 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 	const postActions = new PostActions()
 
 	const dispatch: AppDispatch = useDispatch()
-	const user = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	const posts = useSelector((state: RootState) => state.post.posts)
 	const postsStatus = useSelector((state: RootState) => state.post.statusPosts)
 	const userStatus = useSelector((state: RootState) => state.auth.status)
@@ -44,7 +44,7 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 				/>
 			) : (
 				<ProfileInfoBlock
-					profileInfo={user}
+					profileInfo={profile}
 					children={
 						<Link href={`/editProfile`}>
 							<ButtonUI variant='outlined'>Редактировать профиль</ButtonUI>

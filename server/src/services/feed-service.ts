@@ -9,7 +9,12 @@ export class FeedService {
 				id: 1,
 			},
 			include: {
-				posts: true,
+				posts: {
+					include: {
+						comments: true,
+						user: true,
+					},
+				},
 			},
 		})
 

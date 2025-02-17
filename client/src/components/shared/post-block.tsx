@@ -49,14 +49,14 @@ export const PostBlock: FC<Props> = ({
 	const menuRef = useRef<boolean>(visibleMenu)
 
 	const dispatch: AppDispatch = useDispatch()
-	const user = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	const postActions = new PostActions()
 
 	const handleInputComment = (e: KeyboardEvent) => {
 		const userObj = {
 			id: id,
-			username: user.firstname + ' ' + user.lastname,
-			userImgUrl: user.imageUrl,
+			username: profile.firstname + ' ' + profile.lastname,
+			userImgUrl: profile.imageUrl,
 			text: valueInput,
 		}
 

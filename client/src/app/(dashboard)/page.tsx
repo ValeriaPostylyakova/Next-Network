@@ -17,7 +17,7 @@ interface Props {
 
 const DashboardPage: FC<Props> = ({ children }) => {
 	const dispatch: AppDispatch = useDispatch()
-	const profile = useSelector((state: RootState) => state.auth.user)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
 	const fetchAuth = new FetchAuth()
 	const friendsSuggestion = new FriendsSuggestionActions()
@@ -36,7 +36,7 @@ const DashboardPage: FC<Props> = ({ children }) => {
 
 	return (
 		<Box sx={{ display: 'flex', color: 'text.primary' }}>
-			<PagesTopLoader color='#0d80c2' />
+			<PagesTopLoader color='#00578a' />
 			<SidebarLeft />
 			{children}
 			<SidebarRight />

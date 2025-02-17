@@ -23,6 +23,7 @@ export class FetchAuth {
 			})
 
 			localStorage.setItem('token', data.accessToken)
+			localStorage.setItem('userId', data.id)
 			return data
 		}
 	)
@@ -38,7 +39,6 @@ export class FetchAuth {
 					throw new Error('Network response was not ok')
 				}
 
-				localStorage.setItem('token', response.data.accessToken)
 				return response.data
 			} catch (error: any) {
 				return rejectWithValue(error.response.data.message)
