@@ -132,7 +132,7 @@ export class UserControllers {
 			const token = req.cookies.refreshToken
 			const response = await userService.updateProfileInfoImageUrl(
 				token,
-				req.file?.path
+				req.file?.filename
 			)
 			return res.status(200).json(response)
 		} catch (e) {

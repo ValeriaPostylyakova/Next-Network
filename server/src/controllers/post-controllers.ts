@@ -40,7 +40,7 @@ export class PostControllers {
 		try {
 			const { refreshToken } = req.cookies
 			const textData = req.body.text
-			const fileData = req.file?.path
+			const fileData = req.file?.filename
 
 			const post = await postService.createPost(
 				refreshToken,

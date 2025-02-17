@@ -270,7 +270,7 @@ export class UserService {
 				id: profile.id,
 			},
 			data: {
-				imageUrl,
+				imageUrl: `http://localhost:4200/images/avatar/${imageUrl}`,
 			},
 		})
 
