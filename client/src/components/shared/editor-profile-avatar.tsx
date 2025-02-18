@@ -21,7 +21,7 @@ export interface Props {
 	height: number
 }
 
-export const EditorProfileAvatar: FC<Props> = ({ profile, width, height }) => {
+export const EditorProfileAvatar: FC<Props> = ({ width, height, profile }) => {
 	const [image, setImage] = useState<any | null>(null)
 	const [selectedImages, setSelectedImages] = useState<any | null>(null)
 

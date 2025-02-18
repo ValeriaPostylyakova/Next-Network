@@ -109,7 +109,7 @@ export const PostBlock: FC<Props> = ({
 						<PostCommentsBlock
 							setOpenComments={setOpenComments}
 							openComments={openComments}
-							comments={comments}
+							comments={comments ? comments : []}
 						/>
 					</Box>
 					<Divider />

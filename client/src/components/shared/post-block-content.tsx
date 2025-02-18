@@ -12,7 +12,7 @@ export const PostBlockContent: FC<Props> = ({ text, postImageUrl }) => {
 			<Typography component='p' sx={{ fontSize: '16px', my: 2 }}>
 				{text}
 			</Typography>
-			{postImageUrl && (
+			{postImageUrl !== null && (
 				<img
 					src={postImageUrl}
 					style={{

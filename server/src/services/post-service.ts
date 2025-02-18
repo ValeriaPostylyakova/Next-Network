@@ -97,7 +97,9 @@ export class PostService {
 				fullname: user.firstname + ' ' + user.lastname,
 				jobTitle: user.jobTitle,
 				userImageUrl: user.imageUrl,
-				postImageUrl: `http://localhost:4200/images/posts/${fileData}`,
+				postImageUrl: fileData
+					? `http://localhost:4200/images/posts/${fileData}`
+					: null,
 				text: textData,
 				userId: user.id,
 				likes: 0,

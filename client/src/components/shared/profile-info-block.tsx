@@ -25,7 +25,7 @@ export const ProfileInfoBlock: FC<Props> = ({ profileInfo, children }) => {
 				}}
 			>
 				<FlexContainer>
-					<EditorProfileAvatar width={80} height={80} user={profileInfo} />
+					<EditorProfileAvatar width={80} height={80} profile={profileInfo} />
 					<Box
 						sx={{
 							display: 'flex',

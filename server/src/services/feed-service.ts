@@ -4,18 +4,14 @@ const prisma = new PrismaClient()
 
 export class FeedService {
 	async getFeed() {
-		const feed = await prisma.feed.findFirst({
-			where: {
-				id: 1,
-			},
+		const feed = await prisma.post.findMany({
 			include: {
-				posts: {
-					include: {
-						comments: true,
-						user: true,
-					},
-				},
+				comments: true,
 			},
+			orderBy: {
+				createdAt: 'desc',
+			},
+			take: 10,
 		})
 
 		if (!feed) {

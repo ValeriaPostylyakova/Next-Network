@@ -13,17 +13,17 @@ export interface Props {
 }
 
 export const FeedContent: FC<Props> = () => {
-	const feed = useSelector((state: RootState) => state.feed.feed)
+	const posts = useSelector((state: RootState) => state.post.posts)
 	const stories = useSelector((state: RootState) => state.stories.stories)
 	const statusStories = useSelector((state: RootState) => state.stories.status)
-	const statusFeed = useSelector((state: RootState) => state.feed.status)
+	const statusPosts = useSelector((state: RootState) => state.post.statusPosts)
 
 	return (
 		<Box component='div'>
 			{statusStories === 'success' && <StoriesBlock stories={stories} />}
-			{statusFeed === 'loading'
+			{statusPosts === 'loading'
 				? [...new Array(2)].map((_, index) => <PostSkeleton key={index} />)
-				: feed?.posts.map(post => (
+				: posts?.map(post => (
 						<PostBlock key={post.id} {...post} visibleMenu={false} />
 				  ))}
 		</Box>
