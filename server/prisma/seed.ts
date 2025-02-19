@@ -73,6 +73,7 @@ async function up() {
 				userImageUrl:
 					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
 				likes: 4,
+				date: '10 февр. 2025 г., 19:27',
 				userId: 3,
 			},
 			{
@@ -83,6 +84,7 @@ async function up() {
 				userImageUrl: null,
 				likes: 2,
 				userId: 2,
+				date: '25 янв. 2025 г., 14:30',
 			},
 			{
 				postImageUrl:
@@ -92,6 +94,7 @@ async function up() {
 				userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
 				likes: 0,
 				userId: 4,
+				date: '20 дек. 2024 г., 10:15',
 			},
 		],
 	})
@@ -201,7 +204,7 @@ async function up() {
 			},
 			{
 				imageUrl:
-					'blob:https://web.telegram.org/2982611b-0bc5-4ea7-8317-41112371cc30',
+					'https://i.pinimg.com/736x/0a/17/a9/0a17a9bb2131e219f96da212b7f1de5d.jpg',
 				storyId: 2,
 			},
 			{

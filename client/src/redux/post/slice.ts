@@ -93,17 +93,6 @@ const postSlice = createSlice({
 		builder.addCase(postActions.deletePost.rejected, state => {
 			state.statusDeletePost = Status.ERROR
 		})
-
-		builder.addCase(postActions.getFeed.pending, state => {
-			state.statusPosts = Status.LOADIND
-		})
-		builder.addCase(postActions.getFeed.fulfilled, (state, action) => {
-			state.statusPosts = Status.SUCCESS
-			state.posts = action.payload
-		})
-		builder.addCase(postActions.getFeed.rejected, state => {
-			state.statusPosts = Status.ERROR
-		})
 	},
 })
 

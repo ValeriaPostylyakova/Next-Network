@@ -136,16 +136,17 @@ li {
 .message {
 	margin-bottom: 10px;
 	max-width: 70%;
-	padding: 8px 12px;
-	border-radius: 15px;
+	padding: 5px 12px;
 }
 .received {
 	background-color: #6c6c6c;
 	align-self: flex-start;
+	border-radius: 15px 15px 15px 0;
 }
 
 .sent {
 	background-color: #d6ebff;
 	color: #000;
 	align-self: flex-end;
+	border-radius: 15px 15px 0 15px;
 }

@@ -57,7 +57,7 @@ export const ChatBlock: FC<Props> = ({ user, lastMessage, chatId }) => {
 						</Typography>
 					</Box>
 				</Box>
-				<Typography>16.44</Typography>
+				<Typography>{lastMessage?.time}</Typography>
 			</Box>
 			<Divider />
 		</Link>

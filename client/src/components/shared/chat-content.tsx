@@ -56,6 +56,8 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			chatId: id,
 		}
 
+		console.log(message)
+
 		socket?.emit('chat_message', message)
 
 		setValue('')

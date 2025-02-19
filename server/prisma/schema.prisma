@@ -54,6 +54,7 @@ model Post {
   likes        Int
   like         Boolean   @default(false)
   comments     Comment[]
+  date         String?
 
   text   String?
   user   User    @relation(fields: [userId], references: [id])
@@ -117,6 +118,7 @@ model Message {
 
   text   String
   sender String
+  time   String?
 
   chat   Chat? @relation(fields: [chatId], references: [id])
   chatId Int?

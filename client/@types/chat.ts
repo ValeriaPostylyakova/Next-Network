@@ -11,4 +11,5 @@ export type TMessage = {
 	sender: string
 	text: string
 	chatId: number | string
+	time: string
 }

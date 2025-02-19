@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { MessageDTO } from '../dtos/message-dto'
 
 const prisma = new PrismaClient()
 
@@ -75,7 +76,18 @@ export class ChatService {
 			throw new Error('Ошибка при создании сообщения')
 		}
 
-		return message
+		const newMessage = new MessageDTO(message)
+
+		const messageData = await prisma.message.update({
+			where: {
+				id: newMessage.id,
+			},
+			data: {
+				time: newMessage.time,
+			},
+		})
+
+		return messageData
 	}
 
 	async getMessages(id: string) {

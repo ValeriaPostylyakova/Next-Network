@@ -28,6 +28,7 @@ export type Post = {
 	comments: Comments[]
 	like: boolean
 	text?: string
+	date: string
 }
 
 export type Comments = {

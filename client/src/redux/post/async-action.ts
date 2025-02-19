@@ -63,9 +63,4 @@ export class PostActions {
 			return data
 		}
 	)
-
-	getFeed = createAsyncThunk('feed/fetchFeed', async () => {
-		const { data } = await api.get('/feed')
-		return data
-	})
 }

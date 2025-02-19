@@ -31,11 +31,17 @@ export const ChatMessagesContainer: FC<Props> = ({ profileId, messages }) => {
 			>
 				{messages?.map((message: TMessage, index: number) =>
 					message.sender == String(profileId) ? (
-						<Message key={index} text={message.text} className='message sent' />
+						<Message
+							key={index}
+							text={message.text}
+							time={message.time}
+							className='message sent'
+						/>
 					) : (
 						<Message
 							key={index}
 							text={message.text}
+							time={message.time}
 							className='message received'
 						/>
 					)

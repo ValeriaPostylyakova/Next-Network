@@ -12,10 +12,9 @@ import { Comments } from '../../../@types/post'
 import { MainBlock } from '../ui'
 import { EmojiBlock } from './emoji-block'
 import { PostBlockContent } from './post-block-content'
+import { PostBlockFooter } from './post-block-footer'
 import { PostBlockHeader } from './post-block-header'
-import { PostCommentsBlock } from './post-comments-block'
 import { PostCommentsContainer } from './post-comments-container'
-import { PostLikesBlock } from './post-likes-block'
 import { PostWriteCommentsBlock } from './post-write-comments-block'
 
 export interface Props {
@@ -27,7 +26,8 @@ export interface Props {
 	userImageUrl?: string
 	likes: number
 	like: boolean
-	comments?: Comments[]
+	comments: Comments[]
+	date: string
 	visibleMenu: boolean
 }
 
@@ -41,6 +41,7 @@ export const PostBlock: FC<Props> = ({
 	comments,
 	jobTitle,
 	userImageUrl,
+	date,
 	visibleMenu,
 }) => {
 	const [openComments, setOpenComments] = useState<boolean>(false)
@@ -96,22 +97,15 @@ export const PostBlock: FC<Props> = ({
 					/>
 					<Divider />
 					<PostBlockContent text={text} postImageUrl={postImageUrl} />
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							gap: '3rem',
-							ml: -2,
-							mb: 2,
-						}}
-					>
-						<PostLikesBlock id={id} likes={likes} like={like} />
-						<PostCommentsBlock
-							setOpenComments={setOpenComments}
-							openComments={openComments}
-							comments={comments ? comments : []}
-						/>
-					</Box>
+					<PostBlockFooter
+						id={id}
+						comments={comments}
+						openComments={openComments}
+						date={date}
+						like={like}
+						likes={likes}
+						setOpenComments={setOpenComments}
+					/>
 					<Divider />
 					<PostCommentsContainer
 						comments={openComments ? comments : comments?.slice(0, 1)}

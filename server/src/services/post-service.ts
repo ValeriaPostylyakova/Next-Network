@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { PostDTO } from '../dtos/post-dto'
 
 const prisma = new PrismaClient()
 
@@ -106,7 +107,18 @@ export class PostService {
 			},
 		})
 
-		return post
+		const postDate = new PostDTO(post)
+
+		const postData = await prisma.post.update({
+			where: {
+				id: post.id,
+			},
+			data: {
+				date: postDate.date,
+			},
+		})
+
+		return postData
 	}
 
 	async comments(
