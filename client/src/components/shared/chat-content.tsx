@@ -32,8 +32,8 @@ export const ChatContent: FC<Props> = ({ id }) => {
 		dispatch(messagesActions.getMessages(id))
 		dispatch(
 			chatsActions.getChat({
-				chatId: id,
-				userId: String(profileId),
+				profileId: String(profileId),
+				userId: id,
 			})
 		)
 
@@ -56,8 +56,6 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			chatId: id,
 		}
 
-		console.log(message)
-
 		socket?.emit('chat_message', message)
 
 		setValue('')
@@ -72,7 +70,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 				flexDirection: 'column',
 			}}
 		>
-			{chatStatus === 'success' && <ChatHeader user={chat.users[0]} />}
+			{chatStatus === 'success' && <ChatHeader {...chat.chatUsers[0]} />}
 			<ChatMessagesContainer messages={messages} profileId={profile.id} />
 
 			<ChatFooter

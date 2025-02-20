@@ -25,7 +25,7 @@ model User {
   role               UserRole             @default(USER)
   posts              Post[]
   stories            Story[]
-  chats              Chat[]
+  chatUsers          ChatUser[]
   friends            Friend[]
   friendsSuggestions FriendsSuggestions[]
 
@@ -71,8 +71,9 @@ model Comment {
   userImgUrl String?
   text       String
 
-  Post   Post? @relation(fields: [postId], references: [id])
+  Post   Post?   @relation(fields: [postId], references: [id])
   postId Int?
+  date   String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -106,11 +107,21 @@ model Story {
 model Chat {
   id Int @id @default(autoincrement())
 
-  messages Message[]
-  users    User[]
+  messages  Message[]
+  chatUsers ChatUser[]
+  chatId    Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ChatUser {
+  chatId Int
+  userId Int
+  chat   Chat @relation(fields: [chatId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
+
+  @@id([chatId, userId])
 }
 
 model Message {

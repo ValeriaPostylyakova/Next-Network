@@ -9,9 +9,15 @@ export interface Props {
 	username: string
 	userImgUrl?: string
 	text: string
+	date: string
 }
 
-export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
+export const CommentsBlock: FC<Props> = ({
+	username,
+	text,
+	userImgUrl,
+	date,
+}) => {
 	return (
 		<>
 			<Box
@@ -22,23 +28,24 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 					alignItems: 'center',
 					justifyContent: 'space-between',
 					background: 'background.default',
-					py: 2,
 					cursor: 'pointer',
+					py: 2,
 				}}
 			>
-				<Box sx={{ display: 'flex', gap: '1rem' }}>
+				<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
 					<Avatar
 						alt='avatar'
 						src={userImgUrl ? userImgUrl : '/images/user-profile.svg'}
 						sx={{
-							width: 40,
-							height: 40,
+							width: 55,
+							height: 55,
 						}}
 					/>
 
 					<Box
 						sx={{
 							display: 'flex',
+							alignItems: 'start',
 							height: '100%',
 							flexDirection: 'column',
 							gap: ' 0.2rem',
@@ -53,9 +60,17 @@ export const CommentsBlock: FC<Props> = ({ username, text, userImgUrl }) => {
 								fontSize: `14px`,
 								fontWeight: 500,
 								color: '#b5b5b5',
+								mb: 1,
 							}}
 						>
 							{text}
+						</Typography>
+						<Typography
+							sx={{
+								fontSize: '12px',
+							}}
+						>
+							{date}
 						</Typography>
 					</Box>
 				</Box>

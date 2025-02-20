@@ -16,11 +16,24 @@ export class ChatController {
 		}
 	}
 
+	async createChat(req: any, res: any) {
+		try {
+			const { userId, profileId } = req.body
+
+			const response = await chatService.createChat(userId, profileId)
+
+			return res.status(200).json(response)
+		} catch (e) {
+			console.error(e)
+			res.status(500).json({ message: 'Ошибка при создании чата' })
+		}
+	}
+
 	async getChat(req: any, res: any) {
 		try {
-			const { chatId, id } = req.query
+			const { profileId, userId } = req.query
 
-			const response = await chatService.getChat(chatId, id)
+			const response = await chatService.getChat(profileId, userId)
 			return res.status(200).json(response)
 		} catch (e) {
 			console.error(e)

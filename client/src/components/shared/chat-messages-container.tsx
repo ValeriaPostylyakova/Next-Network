@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box'
 import { FC } from 'react'
 import { TMessage } from '../../../@types/chat'
+import { BlockEmpty } from './block-empty'
 import { Message } from './message'
 
 export interface Props {
@@ -29,22 +30,31 @@ export const ChatMessagesContainer: FC<Props> = ({ profileId, messages }) => {
 					flexDirection: 'column',
 				}}
 			>
-				{messages?.map((message: TMessage, index: number) =>
-					message.sender == String(profileId) ? (
-						<Message
-							key={index}
-							text={message.text}
-							time={message.time}
-							className='message sent'
-						/>
-					) : (
-						<Message
-							key={index}
-							text={message.text}
-							time={message.time}
-							className='message received'
-						/>
-					)
+				{messages.length > 0 ? (
+					<>
+						{messages?.map((message: TMessage, index: number) =>
+							message.sender == String(profileId) ? (
+								<Message
+									key={index}
+									text={message.text}
+									time={message.time}
+									className='message sent'
+								/>
+							) : (
+								<Message
+									key={index}
+									text={message.text}
+									time={message.time}
+									className='message received'
+								/>
+							)
+						)}
+					</>
+				) : (
+					<BlockEmpty
+						imageName='/posts-empty.svg'
+						text='Список сообщений пуст. Напишите первым, чтобы начать общение!'
+					/>
 				)}
 			</Box>
 		</Box>

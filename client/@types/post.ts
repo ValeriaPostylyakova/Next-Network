@@ -36,4 +36,5 @@ export type Comments = {
 	username: string
 	userImgUrl?: string
 	text: string
+	date: string
 }

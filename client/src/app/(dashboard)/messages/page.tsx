@@ -29,7 +29,7 @@ const Page: FC<Props> = () => {
 					<ChatBlock
 						key={chat.id}
 						chatId={chat.id}
-						user={chat.users[0]}
+						{...chat.chatUsers[0]}
 						lastMessage={chat.messages.at(-1)}
 					/>
 				))}

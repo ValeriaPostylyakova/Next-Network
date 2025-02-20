@@ -24,6 +24,7 @@ export const BlockEmpty: FC<Props> = ({ imageName, text }) => {
 					flexDirection: 'column',
 					alignItems: 'center',
 					gap: '1.5rem',
+					textAlign: 'center',
 				}}
 			>
 				<img width={300} src={`/images/${imageName}`} alt='post-empty' />

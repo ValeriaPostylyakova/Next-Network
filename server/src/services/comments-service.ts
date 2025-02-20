@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { CommentDTO } from '../dtos/comment-dto'
 
 const prisma = new PrismaClient()
 
@@ -23,6 +24,17 @@ export class CommentsService {
 			},
 		})
 
-		return comment
+		const commentDate = new CommentDTO(comment)
+
+		const commentData = await prisma.comment.update({
+			where: {
+				id: commentDate.id,
+			},
+			data: {
+				date: commentDate.date,
+			},
+		})
+
+		return commentData
 	}
 }

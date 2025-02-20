@@ -1,8 +1,12 @@
 import { TProfile } from './profile'
 
+type TChatUsers = {
+	user: TProfile
+}
+
 export type TChat = {
 	id: number
-	users: TProfile[]
+	chatUsers: TChatUsers[]
 	messages: TMessage[]
 }
 
