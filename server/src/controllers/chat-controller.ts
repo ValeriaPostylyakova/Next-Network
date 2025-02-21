@@ -31,9 +31,9 @@ export class ChatController {
 
 	async getChat(req: any, res: any) {
 		try {
-			const { profileId, userId } = req.query
+			const { chatId, profileId } = req.query
 
-			const response = await chatService.getChat(profileId, userId)
+			const response = await chatService.getChat(chatId, profileId)
 			return res.status(200).json(response)
 		} catch (e) {
 			console.error(e)

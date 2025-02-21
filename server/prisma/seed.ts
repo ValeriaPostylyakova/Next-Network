@@ -114,15 +114,6 @@ async function up() {
 	// 	],
 	// })
 
-	await prisma.chat.create({
-		data: {
-			id: 1,
-			users: {
-				connect: [{ id: 3 }, { id: 4 }],
-			},
-		},
-	})
-
 	// await prisma.message.createMany({
 	// 	data: [
 	// 		{
@@ -232,6 +223,7 @@ async function down() {
 	await prisma.$executeRaw`TRUNCATE TABLE "Token" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Comment" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Chat" RESTART IDENTITY CASCADE`
+	await prisma.$executeRaw`TRUNCATE TABLE "ChatUser" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Message" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Story" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "StoryItem" RESTART IDENTITY CASCADE`

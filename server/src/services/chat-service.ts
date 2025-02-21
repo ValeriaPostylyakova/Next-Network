@@ -13,18 +13,44 @@ export class ChatService {
 			throw new Error('Пользователь не найден')
 		}
 
-		const findChat = await prisma.chat.findFirst({
+		const findChat = await prisma.chatUser.findFirst({
 			where: {
-				chatUsers: {
-					some: {
-						AND: [{ userId: user1.id }, { userId: user2.id }],
+				AND: [
+					{ userId: user1.id },
+					{
+						chat: {
+							chatUsers: {
+								some: {
+									userId: user2.id,
+								},
+							},
+						},
 					},
-				},
+				],
+			},
+			select: {
+				chatId: true,
 			},
 		})
 
 		if (findChat) {
-			return findChat
+			const chat = await prisma.chat.findFirst({
+				where: {
+					id: findChat.chatId,
+				},
+				include: {
+					chatUsers: {
+						where: {
+							userId: { not: Number(profileId) },
+						},
+						include: {
+							user: true,
+						},
+					},
+				},
+			})
+
+			return chat
 		}
 
 		const chat = await prisma.chat.create({
@@ -39,19 +65,40 @@ export class ChatService {
 		return chat
 	}
 
-	async getChat(profileId: string, userId: string) {
+	async getChat(chatId: string, profileId: string) {
+		// const chat = await prisma.chatUser.findFirst({
+		// 	where: {
+		// 		AND: [
+		// 			{ userId: Number(userId) },
+		// 			{
+		// 				chat: {
+		// 					chatUsers: {
+		// 						some: {
+		// 							userId: Number(profileId),
+		// 						},
+		// 					},
+		// 				},
+		// 			},
+		// 		],
+		// 	},
+		// 	select: {
+		// 		chatId: true,
+		// 		user: true,
+		// 	},
+		// })
+
 		const chat = await prisma.chat.findFirst({
 			where: {
-				chatUsers: {
-					some: {
-						AND: [{ userId: Number(profileId) }, { userId: Number(userId) }],
-					},
-				},
+				id: Number(chatId),
 			},
 			include: {
 				chatUsers: {
-					where: { userId: { not: Number(userId) } },
-					include: { user: true },
+					where: {
+						userId: { not: Number(profileId) },
+					},
+					include: {
+						user: true,
+					},
 				},
 			},
 		})

@@ -32,8 +32,8 @@ export const ChatContent: FC<Props> = ({ id }) => {
 		dispatch(messagesActions.getMessages(id))
 		dispatch(
 			chatsActions.getChat({
-				profileId: String(profileId),
-				userId: id,
+				chatId: id,
+				profileId: profileId,
 			})
 		)
 
@@ -49,16 +49,17 @@ export const ChatContent: FC<Props> = ({ id }) => {
 		}
 	}, [socket, dispatch])
 
-	const handleInputValue = async () => {
+	const handleInputValue = async (e: any) => {
 		const message = {
 			text: value,
 			sender: profileId,
 			chatId: id,
 		}
 
-		socket?.emit('chat_message', message)
-
-		setValue('')
+		if (e.code === 'Enter' || e.type === 'click') {
+			socket?.emit('chat_message', message)
+			setValue('')
+		}
 	}
 
 	return (
