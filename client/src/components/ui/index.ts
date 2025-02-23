@@ -1,3 +1,4 @@
+export { AvatarIsOnline } from './avatar-is-online'
 export { ButtonUI } from './button'
 export { ContainerUI } from './container'
 export { DrawerUI } from './drawer'

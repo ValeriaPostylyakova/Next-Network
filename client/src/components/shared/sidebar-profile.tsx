@@ -43,13 +43,12 @@ export const SidebarProfile: FC = () => {
 						width={40}
 						height={40}
 						image={
-							profile.imageUrl
-								? profile.imageUrl
-								: '/images/profile-profile.svg'
+							profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'
 						}
 						sizeTitle={16}
 						sizeSubTitle={14}
 						name={profile?.firstname + ' ' + profile?.lastname}
+						isOnline={profile.isOnline}
 					/>
 				)}
 			</Box>

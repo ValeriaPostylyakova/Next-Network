@@ -1,10 +1,9 @@
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
-import Link from 'next/link'
 import { FC, ReactNode } from 'react'
 import { TProfile } from '../../../@types/profile'
-import { ButtonUI, FlexContainer } from '../ui'
+import { FlexContainer } from '../ui'
 import { EditorProfileAvatar } from './editor-profile-avatar'
 
 export interface Props {
@@ -45,6 +44,14 @@ export const ProfileInfoBlock: FC<Props> = ({ profileInfo, children }) => {
 							}}
 						>
 							{profileInfo.jobTitle}
+						</Typography>
+						<Typography
+							sx={{
+								mt: 1,
+								color: '#8b8b8b',
+							}}
+						>
+							{profileInfo.isOnline}
 						</Typography>
 					</Box>
 				</FlexContainer>

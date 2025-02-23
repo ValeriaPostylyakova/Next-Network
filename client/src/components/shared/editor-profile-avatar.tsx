@@ -13,7 +13,7 @@ import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TProfile } from '../../../@types/profile'
-import { ModalFormUI } from '../ui'
+import { AvatarIsOnline, ModalFormUI } from '../ui'
 
 export interface Props {
 	profile: TProfile
@@ -93,15 +93,26 @@ export const EditorProfileAvatar: FC<Props> = ({ width, height, profile }) => {
 					</ul>
 				}
 			>
-				<Avatar
-					alt='avatar'
-					src={profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'}
-					sx={{
-						width: width,
-						height: height,
-						cursor: 'pointer',
-					}}
-				/>
+				{profile.isOnline !== null ? (
+					<AvatarIsOnline
+						width={width}
+						image={profile.imageUrl}
+						circleWidth={15}
+						bottom={4}
+					/>
+				) : (
+					<Avatar
+						alt='avatar'
+						src={
+							profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'
+						}
+						sx={{
+							width: width,
+							height: height,
+							cursor: 'pointer',
+						}}
+					/>
+				)}
 			</Tooltip>
 
 			<ModalFormUI

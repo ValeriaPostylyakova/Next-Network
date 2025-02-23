@@ -37,7 +37,8 @@ const io = new Server(https, {
 const chatService = new ChatService()
 
 io.on('connection', socket => {
-	console.log(`User connected ${socket.id}, socket.io`)
+	socket.emit('resConnection', 'online')
+	socket.broadcast.emit('resConnection', 'online')
 
 	socket.on('chat_message', async data => {
 		try {
@@ -47,6 +48,14 @@ io.on('connection', socket => {
 		} catch (e) {
 			console.error(e)
 		}
+	})
+
+	socket.on('username', data => {
+		socket.broadcast.emit('resUsername', data)
+	})
+
+	socket.on('typing', data => {
+		socket.broadcast.emit('resTyping', data)
 	})
 
 	socket.on('disconnect', () => {

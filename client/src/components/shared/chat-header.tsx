@@ -9,9 +9,11 @@ import { UserInfoName } from './user-info-name'
 
 export interface Props {
 	user: TProfile
+	status: string | null
+	isOnline: string | null
 }
 
-export const ChatHeader: FC<Props> = ({ user }) => {
+export const ChatHeader: FC<Props> = ({ user, status, isOnline }) => {
 	return (
 		<>
 			<AppBar
@@ -28,6 +30,7 @@ export const ChatHeader: FC<Props> = ({ user }) => {
 				<Toolbar>
 					<Link href={`/user/${user.id}`}>
 						<UserInfoName
+							isOnline={null}
 							width={50}
 							height={50}
 							image={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
@@ -35,7 +38,17 @@ export const ChatHeader: FC<Props> = ({ user }) => {
 							cursor='pointer'
 							name={user.firstname + ' ' + user.lastname}
 							messageBlock={
-								<Typography>был(a) в сети 3 минуты назад</Typography>
+								status !== null ? (
+									<Typography>{status}</Typography>
+								) : (
+									<>
+										{isOnline !== null ? (
+											<Typography>online</Typography>
+										) : (
+											<Typography>был(a) в сети 3 минуты назад</Typography>
+										)}
+									</>
+								)
 							}
 						/>
 					</Link>

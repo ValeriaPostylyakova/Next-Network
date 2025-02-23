@@ -26,6 +26,8 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const chat = useSelector((state: RootState) => state.chats.chat)
 	const dispatch: AppDispatch = useDispatch()
 	const [value, setValue] = useState<string>('')
+	const [isOnline, setIsOnline] = useState<string | null>(null)
+	const [statusTyping, setStatusTyping] = useState<string | null>(null)
 	const socket = useSocket('http://localhost:4200')
 
 	useEffect(() => {
@@ -41,13 +43,26 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			dispatch(setMessages(data))
 		})
 
+		socket?.on('resTyping', data => {
+			setStatusTyping(data)
+		})
+
+		socket?.on('resUsername', data => {
+			setIsOnline(data)
+		})
+
 		return () => {
 			if (socket) {
 				socket.off('new_message')
+				socket.off('resTyping')
 				socket.disconnect()
 			}
 		}
 	}, [socket, dispatch])
+
+	useEffect(() => {
+		socket?.emit('username', profile.firstname + ' ' + profile.lastname)
+	}, [socket])
 
 	const handleInputValue = async (e: any) => {
 		const message = {
@@ -56,7 +71,10 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			chatId: id,
 		}
 
+		socket?.emit('typing', 'Печатает...')
+
 		if (e.code === 'Enter' || e.type === 'click') {
+			socket?.emit('typing', null)
 			socket?.emit('chat_message', message)
 			setValue('')
 		}
@@ -71,7 +89,13 @@ export const ChatContent: FC<Props> = ({ id }) => {
 				flexDirection: 'column',
 			}}
 		>
-			{chatStatus === 'success' && <ChatHeader {...chat.chatUsers[0]} />}
+			{chatStatus === 'success' && (
+				<ChatHeader
+					{...chat.chatUsers[0]}
+					status={statusTyping}
+					isOnline={isOnline}
+				/>
+			)}
 			<ChatMessagesContainer messages={messages} profileId={profile.id} />
 
 			<ChatFooter

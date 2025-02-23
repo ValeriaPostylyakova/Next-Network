@@ -1,5 +1,6 @@
 export type TProfile = {
 	id: number
+	isOnline: string | null
 	email: string
 	password: string
 	isActivated: boolean

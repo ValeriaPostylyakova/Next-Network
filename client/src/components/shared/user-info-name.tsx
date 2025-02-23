@@ -2,7 +2,7 @@ import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC, ReactNode } from 'react'
-import { FlexContainer } from '../ui'
+import { AvatarIsOnline, FlexContainer } from '../ui'
 
 export interface Props {
 	width: number
@@ -15,6 +15,7 @@ export interface Props {
 	cursor?: string
 	name?: string
 	mb?: number
+	isOnline: string | null
 }
 
 export const UserInfoName: FC<Props> = ({
@@ -25,20 +26,30 @@ export const UserInfoName: FC<Props> = ({
 	sizeTitle,
 	text,
 	messageBlock,
-	cursor,
 	name,
 	mb,
+	isOnline,
 }) => {
 	return (
 		<FlexContainer mb={mb}>
-			<Avatar
-				alt='avatar'
-				src={image ? image : '/images/user-profile.svg'}
-				sx={{
-					width: `${width}px`,
-					height: `${height}px`,
-				}}
-			/>
+			{isOnline !== null ? (
+				<AvatarIsOnline
+					image={image}
+					circleWidth={10}
+					width={width}
+					bottom={0}
+				/>
+			) : (
+				<Avatar
+					alt='avatar'
+					src={image ? image : '/images/user-profile.svg'}
+					sx={{
+						width: `${width}px`,
+						height: `${height}px`,
+					}}
+				/>
+			)}
+
 			<Box
 				sx={{
 					display: 'flex',

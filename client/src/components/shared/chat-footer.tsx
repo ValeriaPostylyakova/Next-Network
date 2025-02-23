@@ -56,6 +56,7 @@ export const ChatFooter: FC<Props> = ({
 						<Smile />
 					</Button>
 					<TextField
+						autoComplete='off'
 						placeholder='Message'
 						sx={{
 							width: '100%',
@@ -85,7 +86,7 @@ export const ChatFooter: FC<Props> = ({
 				</Box>
 			</Box>
 
-			{smileOpen && <EmojiBlock setValue={setValue} top='59.5%' left='0%' />}
+			{smileOpen && <EmojiBlock setValue={setValue} top='52.5%' left='0%' />}
 		</>
 	)
 }
