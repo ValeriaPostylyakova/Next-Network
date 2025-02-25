@@ -37,10 +37,6 @@ export const authSlice = createSlice({
 		setUserImageUrl: (state, action: PayloadAction<string>) => {
 			state.profile.imageUrl = action.payload
 		},
-
-		setIsOnline: (state, action: PayloadAction<string>) => {
-			state.profile.isOnline = action.payload
-		},
 	},
 
 	extraReducers: builder => {
@@ -173,6 +169,5 @@ export const authSlice = createSlice({
 	},
 })
 
-export const { setAth, setUser, setUserImageUrl, setIsOnline } =
-	authSlice.actions
+export const { setAth, setUser, setUserImageUrl } = authSlice.actions
 export default authSlice.reducer

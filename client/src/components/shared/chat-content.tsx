@@ -26,7 +26,6 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const chat = useSelector((state: RootState) => state.chats.chat)
 	const dispatch: AppDispatch = useDispatch()
 	const [value, setValue] = useState<string>('')
-	const [isOnline, setIsOnline] = useState<string | null>(null)
 	const [statusTyping, setStatusTyping] = useState<string | null>(null)
 	const socket = useSocket('http://localhost:4200')
 
@@ -47,10 +46,6 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			setStatusTyping(data)
 		})
 
-		socket?.on('resUsername', data => {
-			setIsOnline(data)
-		})
-
 		return () => {
 			if (socket) {
 				socket.off('new_message')
@@ -59,10 +54,6 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			}
 		}
 	}, [socket, dispatch])
-
-	useEffect(() => {
-		socket?.emit('username', profile.firstname + ' ' + profile.lastname)
-	}, [socket])
 
 	const handleInputValue = async (e: any) => {
 		const message = {
@@ -90,11 +81,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			}}
 		>
 			{chatStatus === 'success' && (
-				<ChatHeader
-					{...chat.chatUsers[0]}
-					status={statusTyping}
-					isOnline={isOnline}
-				/>
+				<ChatHeader {...chat.chatUsers[0]} status={statusTyping} />
 			)}
 			<ChatMessagesContainer messages={messages} profileId={profile.id} />
 

@@ -16,6 +16,7 @@ model User {
   activationLink String?
   token          Token?
   phone          String?
+  isOnline       String?
   imageUrl       String?
   firstname      String
   lastname       String
@@ -28,6 +29,18 @@ model User {
   chatUsers          ChatUser[]
   friends            Friend[]
   friendsSuggestions FriendsSuggestions[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Session   Session[]
+}
+
+model Session {
+  id Int @id @default(autoincrement())
+
+  userId   Int
+  socketId String @unique
+  user     User   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

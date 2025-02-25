@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
@@ -27,6 +28,7 @@ app.use(
 app.use('/api', routers)
 
 const https = createServer(app)
+const prisma = new PrismaClient()
 const io = new Server(https, {
 	cors: {
 		origin: 'http://localhost:3000',
@@ -37,8 +39,7 @@ const io = new Server(https, {
 const chatService = new ChatService()
 
 io.on('connection', socket => {
-	socket.emit('resConnection', 'online')
-	socket.broadcast.emit('resConnection', 'online')
+	console.log('User connected', socket.id)
 
 	socket.on('chat_message', async data => {
 		try {
@@ -50,16 +51,63 @@ io.on('connection', socket => {
 		}
 	})
 
-	socket.on('username', data => {
-		socket.broadcast.emit('resUsername', data)
+	socket.on('onlineUsers', async (userId: string) => {
+		try {
+			const session = await prisma.session.create({
+				data: {
+					userId: Number(userId),
+					socketId: socket.id,
+				},
+			})
+
+			if (session.socketId) {
+				const user = await prisma.user.update({
+					where: {
+						id: Number(session.userId),
+					},
+					data: {
+						isOnline: 'online',
+					},
+				})
+
+				socket.broadcast.emit('resOnlineUsers', user)
+				socket.emit('resOnlineUsers', user)
+			}
+		} catch (e) {
+			console.error(e)
+		}
 	})
 
 	socket.on('typing', data => {
 		socket.broadcast.emit('resTyping', data)
 	})
 
-	socket.on('disconnect', () => {
+	socket.on('disconnect', async () => {
 		console.log(`User disconnected ${socket.id}`)
+		const date = new Date()
+		const lastOnlineTime = date.toLocaleTimeString('UTC', {
+			month: 'short',
+			hour: '2-digit',
+			day: '2-digit',
+			minute: '2-digit',
+		})
+
+		const session = await prisma.session.findUnique({
+			where: {
+				socketId: socket.id,
+			},
+		})
+
+		if (session) {
+			await prisma.user.update({
+				where: {
+					id: session.userId,
+				},
+				data: {
+					isOnline: `был(a) в сети в ${lastOnlineTime}`,
+				},
+			})
+		}
 	})
 })
 

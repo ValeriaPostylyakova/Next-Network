@@ -39,7 +39,6 @@ export const PostBlockHeader: FC<Props> = ({
 				sizeTitle={18}
 				sizeSubTitle={15}
 				name={fullname}
-				isOnline={null}
 			/>
 			{visibleMenu.current === true && (
 				<MenuBlockButton

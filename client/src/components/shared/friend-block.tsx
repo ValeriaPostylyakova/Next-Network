@@ -28,7 +28,6 @@ export const FriendBlock: FC<Props> = () => {
 				sizeTitle={18}
 				cursor='pointer'
 				name='X_AE_A-13'
-				isOnline='online'
 				messageBlock={
 					<Box
 						sx={{

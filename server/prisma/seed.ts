@@ -227,6 +227,7 @@ async function down() {
 	await prisma.$executeRaw`TRUNCATE TABLE "Message" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "Story" RESTART IDENTITY CASCADE`
 	await prisma.$executeRaw`TRUNCATE TABLE "StoryItem" RESTART IDENTITY CASCADE`
+	await prisma.$executeRaw`TRUNCATE TABLE "Session" RESTART IDENTITY CASCADE`
 }
 
 async function main() {

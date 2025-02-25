@@ -48,7 +48,7 @@ export const SidebarProfile: FC = () => {
 						sizeTitle={16}
 						sizeSubTitle={14}
 						name={profile?.firstname + ' ' + profile?.lastname}
-						isOnline={profile.isOnline}
+						profile={profile}
 					/>
 				)}
 			</Box>

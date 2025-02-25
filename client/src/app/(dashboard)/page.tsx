@@ -5,7 +5,7 @@ import useSocket from '@/hooks/use-socket'
 import { FeedActions } from '@/redux/feed/async-actions'
 import { FriendsSuggestionActions } from '@/redux/friends/async-actions'
 import { FetchAuth } from '@/redux/profile/async-actions'
-import { setIsOnline } from '@/redux/profile/auth-slice'
+import { setUser } from '@/redux/profile/auth-slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import { StoriesActions } from '@/redux/stories/async-actions'
 import Box from '@mui/material/Box'
@@ -25,7 +25,7 @@ const DashboardPage: FC<Props> = ({ children }) => {
 	const friendsSuggestion = new FriendsSuggestionActions()
 	const storiesActions = new StoriesActions()
 	const feedActions = new FeedActions()
-	const socket = useSocket('http://localhost:4200')
+	const socket = useSocket('http://localhost:4200', profile, status)
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
@@ -38,9 +38,13 @@ const DashboardPage: FC<Props> = ({ children }) => {
 	}, [])
 
 	useEffect(() => {
-		socket?.on('resConnection', data => {
-			dispatch(setIsOnline(data))
+		socket?.on('resOnlineUsers', data => {
+			dispatch(setUser(data))
 		})
+
+		return () => {
+			socket?.disconnect()
+		}
 	}, [socket, dispatch])
 
 	return (
