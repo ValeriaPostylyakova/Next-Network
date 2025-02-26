@@ -1,17 +1,39 @@
-import Box from '@mui/material/Box'
+'use client'
+
 import List from '@mui/material/List'
-import TextField from '@mui/material/TextField'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
-import { House, MessagesSquare, Search, Settings, Users } from 'lucide-react'
+import { House, MessagesSquare, Settings } from 'lucide-react'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import { ISidebarItem } from '../../../@types/sidebar-items'
 import { DrawerUI, FlexContainer } from '../ui'
 import { SidebarItem } from './sidebar-item'
+import { SidebarLeftSearch } from './sidebar-left-search'
 import { SidebarProfile } from './sidebar-profile'
 
+const sidebarItems: ISidebarItem[] = [
+	{
+		text: 'Главная',
+		icons: <House />,
+		link: 'feed',
+	},
+	{
+		text: 'Чаты',
+		icons: <MessagesSquare />,
+		link: 'messages',
+	},
+	{
+		text: 'Настройки',
+		icons: <Settings />,
+		link: 'settings',
+	},
+]
+
 export const SidebarLeft: FC = () => {
+	const [searchValue, setSearchValue] = useState<string>('')
+
 	return (
 		<DrawerUI>
 			<Toolbar
@@ -43,49 +65,16 @@ export const SidebarLeft: FC = () => {
 						</Typography>
 					</Link>
 				</FlexContainer>
-				<Box
-					sx={{
-						position: 'relative',
-						ml: -1,
-					}}
-				>
-					<Search
-						style={{
-							position: 'absolute',
-							top: '50%',
-							left: '10px',
-							transform: 'translateY(-50%)',
-							color: '#c2c2c2',
-						}}
-					/>
-					<TextField
-						size='small'
-						sx={{
-							width: '100%',
-							'& .MuiOutlinedInput-root': {
-								borderRadius: 4.3,
-								pl: '30px',
-								color: 'white',
-								'& fieldset': {
-									borderColor: '#ffffff',
-								},
-								'&:hover fieldset': {
-									borderColor: '#ffffff',
-								},
-								'&.Mui-focused fieldset': {
-									borderColor: '#ffffff',
-								},
-							},
-						}}
-						placeholder='Search'
-					/>
-				</Box>
+				<SidebarLeftSearch value={searchValue} setValue={setSearchValue} />
 			</Toolbar>
 			<List sx={{ mt: 4 }}>
-				<SidebarItem text='Главная' icons={<House />} link='feed' />
-				<SidebarItem text='Чаты' icons={<MessagesSquare />} link='messages' />
-				<SidebarItem text='Друзья' icons={<Users />} link='friends' />
-				<SidebarItem text='Настройки' icons={<Settings />} link='settings' />
+				{sidebarItems
+					.filter(item =>
+						item.text.toLowerCase().includes(searchValue.toLowerCase())
+					)
+					.map(item => (
+						<SidebarItem {...item} key={item.link} />
+					))}
 			</List>
 			<SidebarProfile />
 		</DrawerUI>

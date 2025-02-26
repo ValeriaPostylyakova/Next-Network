@@ -8,11 +8,11 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
 import { RootState } from '@/redux/store'
-import Avatar from '@mui/material/Avatar'
 import Skeleton from '@mui/material/Skeleton'
 import Link from 'next/link'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
+import { AvatarUI } from '../ui'
 import { SidebarRightButtonGroup } from './sidebar-right-button-group'
 import { SidebarRightItem } from './sidebar-right-item'
 
@@ -53,16 +53,7 @@ export const SidebarRight: FC<Props> = () => {
 					<Skeleton variant='circular' width={40} height={40} />
 				) : (
 					<Link href={`/profile/${profile.id}`}>
-						<Avatar
-							alt='avatar'
-							src={
-								profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'
-							}
-							sx={{
-								width: 40,
-								height: 40,
-							}}
-						/>
+						<AvatarUI width={40} imageUrl={profile.imageUrl} />
 					</Link>
 				)}
 

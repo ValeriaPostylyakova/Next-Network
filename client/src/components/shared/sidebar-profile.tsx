@@ -41,7 +41,7 @@ export const SidebarProfile: FC = () => {
 					<UserInfoName
 						text={`@${profile.identifier}`}
 						width={40}
-						height={40}
+						
 						image={
 							profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'
 						}

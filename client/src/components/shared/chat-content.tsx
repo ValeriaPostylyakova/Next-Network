@@ -62,7 +62,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			chatId: id,
 		}
 
-		socket?.emit('typing', 'Печатает...')
+		socket?.emit('typing', 'Печатает')
 
 		if (e.code === 'Enter' || e.type === 'click') {
 			socket?.emit('typing', null)

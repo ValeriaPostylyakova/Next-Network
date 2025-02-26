@@ -3,8 +3,6 @@
 import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import { Plus } from 'lucide-react'
 import { useRouter } from 'nextjs-toploader/app'
 import { FC } from 'react'
 import { UserInfoName } from './user-info-name'
@@ -34,7 +32,6 @@ export const SidebarRightItem: FC<Props> = ({
 					<div onClick={() => router.push(`/user/${id}`)}>
 						<UserInfoName
 							width={40}
-							height={40}
 							image={imageUrl ? imageUrl : '/images/user-profile.svg'}
 							sizeTitle={16}
 							sizeSubTitle={14}
@@ -42,9 +39,6 @@ export const SidebarRightItem: FC<Props> = ({
 							name={firstname + ' ' + lastname}
 						/>
 					</div>
-					<ListItemIcon sx={{ color: '#a6a6a6' }}>
-						<Plus />
-					</ListItemIcon>
 				</ListItemButton>
 			</ListItem>
 			<Divider />

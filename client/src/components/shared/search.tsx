@@ -100,7 +100,7 @@ export const HeaderSearch: FC<Props> = ({ width, placeholder }) => {
 										user.imageUrl ? user.imageUrl : '/images/user-profile.svg'
 									}
 									sizeSubTitle={11}
-									height={30}
+								
 									width={30}
 									name={user.firstname + ' ' + user.lastname}
 									text={`@${user.identifier}`}

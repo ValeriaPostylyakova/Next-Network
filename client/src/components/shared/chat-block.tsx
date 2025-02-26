@@ -1,8 +1,9 @@
-import { Avatar, Box, Divider, Typography } from '@mui/material'
+import { Box, Divider, Typography } from '@mui/material'
 import Link from 'next/link'
 import { FC } from 'react'
 import { TMessage } from '../../../@types/chat'
 import { TProfile } from '../../../@types/profile'
+import { AvatarIsOnline, AvatarUI } from '../ui'
 
 export interface Props {
 	lastMessage?: TMessage
@@ -26,14 +27,16 @@ export const ChatBlock: FC<Props> = ({ user, lastMessage, chatId }) => {
 				}}
 			>
 				<Box sx={{ display: 'flex', gap: '1rem' }}>
-					<Avatar
-						alt='avatar'
-						src={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
-						sx={{
-							width: 70,
-							height: 70,
-						}}
-					/>
+					{user.isOnline === 'online' ? (
+						<AvatarIsOnline
+							bottom={2}
+							width={70}
+							circleWidth={14}
+							image={user.imageUrl}
+						/>
+					) : (
+						<AvatarUI width={70} imageUrl={user.imageUrl} />
+					)}
 
 					<Box
 						sx={{

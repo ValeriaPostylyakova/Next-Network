@@ -1,6 +1,6 @@
-import Avatar from '@mui/material/Avatar'
 import Badge from '@mui/material/Badge'
 import { FC } from 'react'
+import { AvatarUI } from './avatar'
 
 export interface Props {
 	image?: string
@@ -35,14 +35,7 @@ export const AvatarIsOnline: FC<Props> = ({
 				},
 			}}
 		>
-			<Avatar
-				src={image ? image : '/images/user-profile.svg'}
-				sx={{
-					width: width,
-					height: width,
-					cursor: 'pointer',
-				}}
-			/>
+			<AvatarUI width={width} imageUrl={image} />
 		</Badge>
 	)
 }

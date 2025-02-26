@@ -5,7 +5,6 @@ import { renderFileImage } from '@/libs/render-file-image'
 import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
 import { Box } from '@mui/material'
-import Avatar from '@mui/material/Avatar/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { OctagonX, Pen } from 'lucide-react'
@@ -13,15 +12,14 @@ import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TProfile } from '../../../@types/profile'
-import { AvatarIsOnline, ModalFormUI } from '../ui'
+import { AvatarIsOnline, AvatarUI, ModalFormUI } from '../ui'
 
 export interface Props {
 	profile: TProfile
 	width: number
-	height: number
 }
 
-export const EditorProfileAvatar: FC<Props> = ({ width, height, profile }) => {
+export const EditorProfileAvatar: FC<Props> = ({ width, profile }) => {
 	const [image, setImage] = useState<any | null>(null)
 	const [selectedImages, setSelectedImages] = useState<any | null>(null)
 
@@ -62,7 +60,12 @@ export const EditorProfileAvatar: FC<Props> = ({ width, height, profile }) => {
 		<>
 			<Tooltip
 				title={
-					<ul>
+					<ul
+						style={{
+							position: 'relative',
+							zIndex: 200,
+						}}
+					>
 						<li
 							onClick={() => setOpen(true)}
 							style={{
@@ -93,25 +96,15 @@ export const EditorProfileAvatar: FC<Props> = ({ width, height, profile }) => {
 					</ul>
 				}
 			>
-				{profile.isOnline !== null ? (
+				{profile.isOnline === 'online' ? (
 					<AvatarIsOnline
-						width={width}
 						image={profile.imageUrl}
-						circleWidth={15}
+						width={80}
+						circleWidth={17}
 						bottom={4}
 					/>
 				) : (
-					<Avatar
-						alt='avatar'
-						src={
-							profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'
-						}
-						sx={{
-							width: width,
-							height: height,
-							cursor: 'pointer',
-						}}
-					/>
+					<AvatarUI width={width} imageUrl={profile.imageUrl} />
 				)}
 			</Tooltip>
 

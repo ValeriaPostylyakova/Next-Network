@@ -34,7 +34,6 @@ export const PostBlockHeader: FC<Props> = ({
 			<UserInfoName
 				text={jobTitle}
 				width={55}
-				height={55}
 				image={userImageUrl ? userImageUrl : '/images/user-profile.svg'}
 				sizeTitle={18}
 				sizeSubTitle={15}

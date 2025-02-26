@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Divider from '@mui/material/Divider'
 import Toolbar from '@mui/material/Toolbar'
@@ -30,13 +31,23 @@ export const ChatHeader: FC<Props> = ({ user, status }) => {
 					<Link href={`/user/${user.id}`}>
 						<UserInfoName
 							width={50}
-							height={50}
 							image={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
 							sizeTitle={18}
 							cursor='pointer'
 							name={user.firstname + ' ' + user.lastname}
 							messageBlock={
-								<Typography>был(a) в сети 3 минуты назад</Typography>
+								status ? (
+									<Box className='typing-indicator'>
+										<Typography>{status}</Typography>
+										<div className='typing-dots'>
+											<Box component='span' />
+											<Box component='span' />
+											<Box component='span' />
+										</div>
+									</Box>
+								) : (
+									<Typography>{user.isOnline}</Typography>
+								)
 							}
 						/>
 					</Link>

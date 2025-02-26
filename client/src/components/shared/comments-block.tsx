@@ -1,9 +1,11 @@
-import { Avatar } from '@mui/material'
+'use client'
+
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import { Heart } from 'lucide-react'
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import { AvatarUI } from '../ui'
 
 export interface Props {
 	username: string
@@ -18,6 +20,8 @@ export const CommentsBlock: FC<Props> = ({
 	userImgUrl,
 	date,
 }) => {
+	const [clickLike, setClickLike] = useState<boolean>(false)
+
 	return (
 		<>
 			<Box
@@ -33,14 +37,7 @@ export const CommentsBlock: FC<Props> = ({
 				}}
 			>
 				<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-					<Avatar
-						alt='avatar'
-						src={userImgUrl ? userImgUrl : '/images/user-profile.svg'}
-						sx={{
-							width: 55,
-							height: 55,
-						}}
-					/>
+					<AvatarUI width={55} imageUrl={userImgUrl} />
 
 					<Box
 						sx={{
@@ -74,7 +71,13 @@ export const CommentsBlock: FC<Props> = ({
 						</Typography>
 					</Box>
 				</Box>
-				<Heart color='#d3d3d3' size={22} />
+				<button onClick={() => setClickLike(!clickLike)}>
+					{clickLike ? (
+						<Heart color='#ff3030' size={22} />
+					) : (
+						<Heart color='#d3d3d3' size={22} />
+					)}
+				</button>
 			</Box>
 			<Divider />
 		</>

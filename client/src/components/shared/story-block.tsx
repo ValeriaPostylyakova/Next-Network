@@ -1,10 +1,10 @@
 'use client'
 
-import { Avatar } from '@mui/material'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
 import { StoryItem } from '../../../@types/post'
+import { AvatarUI } from '../ui'
 
 export interface Props {
 	imageUrl: string
@@ -35,17 +35,7 @@ export const StoryBlock: FC<Props> = ({
 			sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
 		>
 			<button onClick={() => onClickStory(items)}>
-				<Avatar
-					component='div'
-					alt='avatar'
-					src={imageUrl ? imageUrl : '/images/user-profile.svg'}
-					sx={{
-						width: 70,
-						height: 70,
-						mb: 1,
-						border: '2px solid #ffffff',
-					}}
-				/>
+				<AvatarUI width={70} imageUrl={imageUrl} />
 			</button>
 			<Typography sx={{ fontSize: '13px', color: '#7e7e7e' }}>
 				{fullname}

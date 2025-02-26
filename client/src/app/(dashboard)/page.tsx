@@ -8,6 +8,7 @@ import { FetchAuth } from '@/redux/profile/async-actions'
 import { setUser } from '@/redux/profile/auth-slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import { StoriesActions } from '@/redux/stories/async-actions'
+import { UserActions } from '@/redux/user/async-actions'
 import Box from '@mui/material/Box'
 import { PagesTopLoader } from 'nextjs-toploader/pages'
 import { FC, ReactNode, useEffect } from 'react'
@@ -17,14 +18,16 @@ interface Props {
 	children: ReactNode
 }
 
+const fetchAuth = new FetchAuth()
+const friendsSuggestion = new FriendsSuggestionActions()
+const storiesActions = new StoriesActions()
+const userActions = new UserActions()
+const feedActions = new FeedActions()
+
 const DashboardPage: FC<Props> = ({ children }) => {
 	const dispatch: AppDispatch = useDispatch()
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
-	const fetchAuth = new FetchAuth()
-	const friendsSuggestion = new FriendsSuggestionActions()
-	const storiesActions = new StoriesActions()
-	const feedActions = new FeedActions()
 	const socket = useSocket('http://localhost:4200', profile, status)
 
 	useEffect(() => {
@@ -40,11 +43,12 @@ const DashboardPage: FC<Props> = ({ children }) => {
 	useEffect(() => {
 		socket?.on('resOnlineUsers', data => {
 			dispatch(setUser(data))
-		})
 
-		return () => {
-			socket?.disconnect()
-		}
+			return () => {
+				socket.off('resOnlineUsers')
+				socket.disconnect()
+			}
+		})
 	}, [socket, dispatch])
 
 	return (

@@ -23,7 +23,7 @@ export const FriendBlock: FC<Props> = () => {
 		>
 			<UserInfoName
 				width={80}
-				height={80}
+			
 				image='https://img.freepik.com/free-photo/smiley-man-relaxing-outdoors_23-2148739334.jpg'
 				sizeTitle={18}
 				cursor='pointer'

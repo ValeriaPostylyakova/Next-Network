@@ -2,7 +2,7 @@
 
 import { Button, TextField } from '@mui/material'
 import Box from '@mui/material/Box'
-import { Paperclip, SendHorizontal, Smile } from 'lucide-react'
+import { SendHorizontal, Smile } from 'lucide-react'
 
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { FlexContainer } from '../ui'
@@ -67,13 +67,6 @@ export const ChatFooter: FC<Props> = ({
 						onKeyDown={e => handleInputValue(e)}
 					/>
 					<FlexContainer>
-						<button
-							style={{
-								color: '#fff',
-							}}
-						>
-							<Paperclip size={21} />
-						</button>
 						<button
 							onClick={e => handleInputValue(e)}
 							style={{

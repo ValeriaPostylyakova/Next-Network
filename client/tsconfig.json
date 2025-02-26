@@ -28,7 +28,8 @@
 		"**/*.tsx",
 		".next/types/**/*.ts",
 		"src/components/shared/register-formtsx",
-		"src/components/shared/create-post-modal-image-empty.tsx"
+		"src/components/shared/create-post-modal-image-empty.tsx",
+		"constants/sidebar-items.оыщт"
 	],
 	"exclude": ["node_modules"]
 }

@@ -1,7 +1,7 @@
 'use-client'
 
 import Box from '@mui/material/Box'
-import { Bell, MessageCircleMore, Settings } from 'lucide-react'
+import { MessageCircleMore, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
 import { ButtonUI } from '../ui'
@@ -19,9 +19,6 @@ export const SidebarRightButtonGroup: FC<Props> = () => {
 				gap: '10px',
 			}}
 		>
-			<ButtonUI variant='outlined'>
-				<Bell />
-			</ButtonUI>
 			<Link href='/settings'>
 				<ButtonUI variant='outlined'>
 					<Settings />

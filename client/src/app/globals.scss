@@ -150,3 +150,42 @@ li {
 	align-self: flex-end;
 	border-radius: 15px 15px 0 15px;
 }
+
+.typing-indicator {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.typing-dots span {
+	display: inline-block;
+	width: 4px;
+	height: 4px;
+	margin-right: 6px;
+	border-radius: 50%;
+	background-color: #787878;
+	animation: dot-pulse 1.5s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(2) {
+	animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+	animation-delay: 0.4s;
+}
+
+@keyframes dot-pulse {
+	0% {
+		transform: scale(1);
+		opacity: 0.5;
+	}
+	50% {
+		transform: scale(1.5);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0.5;
+	}
+}

@@ -1,13 +1,11 @@
-import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC, ReactNode } from 'react'
 import { TProfile } from '../../../@types/profile'
-import { AvatarIsOnline, FlexContainer } from '../ui'
+import { AvatarIsOnline, AvatarUI, FlexContainer } from '../ui'
 
 export interface Props {
 	width: number
-	height: number
 	image: string
 	sizeTitle: number
 	sizeSubTitle?: number
@@ -21,7 +19,6 @@ export interface Props {
 
 export const UserInfoName: FC<Props> = ({
 	width,
-	height,
 	image,
 	sizeSubTitle,
 	sizeTitle,
@@ -41,14 +38,7 @@ export const UserInfoName: FC<Props> = ({
 					bottom={0}
 				/>
 			) : (
-				<Avatar
-					alt='avatar'
-					src={image ? image : '/images/user-profile.svg'}
-					sx={{
-						width: `${width}px`,
-						height: `${height}px`,
-					}}
-				/>
+				<AvatarUI width={width} imageUrl={image} />
 			)}
 
 			<Box

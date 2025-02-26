@@ -18,7 +18,7 @@ export const UserContent: FC<Props> = ({ id }) => {
 	const profileActions = new UserActions()
 	const postActions = new PostActions()
 	const dispatch: AppDispatch = useDispatch()
-	const profile = useSelector((state: RootState) => state.user.profile)
+	const user = useSelector((state: RootState) => state.user.profile)
 	const posts = useSelector((state: RootState) => state.post.posts)
 	const status = useSelector((state: RootState) => state.user.statusProfile)
 
@@ -30,15 +30,15 @@ export const UserContent: FC<Props> = ({ id }) => {
 	return (
 		<>
 			<ProfileInfoBlock
-				profileInfo={profile}
+				profileInfo={user}
 				children={
 					<FlexContainer>
 						<Link href={`/chat/${id}`}>
 							<ButtonUI variant='outlined'>Написать сообщение</ButtonUI>
 						</Link>
-						<Link href={`/editProfile`}>
+						{/* <Link href={`/editProfile`}>
 							<ButtonUI variant='outlined'>Добавить в друзья</ButtonUI>
-						</Link>
+						</Link> */}
 					</FlexContainer>
 				}
 			/>

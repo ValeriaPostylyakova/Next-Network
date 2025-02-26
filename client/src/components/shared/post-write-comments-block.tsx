@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField'
 import { SendHorizonal, Smile } from 'lucide-react'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { ButtonUI, FlexContainer } from '../ui'
+import { AvatarUI, ButtonUI, FlexContainer } from '../ui'
 
 export interface Props {
 	handleInputComment: (e: any) => void
@@ -27,14 +27,7 @@ export const PostWriteCommentsBlock: FC<Props> = ({
 	return (
 		<FlexContainer content='space-between' pt={2.5}>
 			<FlexContainer>
-				<Avatar
-					alt='avatar'
-					src={profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'}
-					sx={{
-						width: 45,
-						height: 45,
-					}}
-				/>
+				<AvatarUI width={45} imageUrl={profile.imageUrl} />
 				<TextField
 					size='small'
 					sx={{
