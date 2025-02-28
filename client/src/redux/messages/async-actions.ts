@@ -9,4 +9,12 @@ export class MessagesActions {
 			return data
 		}
 	)
+
+	deleteMessage = createAsyncThunk(
+		'messages/fetchDeleteMessage',
+		async (id: string) => {
+			const { data } = await api.delete(`/deleteMessage/${id}`)
+			return data
+		}
+	)
 }

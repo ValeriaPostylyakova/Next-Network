@@ -3,15 +3,20 @@ import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import { FC, ReactNode } from 'react'
 import { TProfile } from '../../../@types/profile'
-import { FlexContainer } from '../ui'
+import { AvatarUI, FlexContainer } from '../ui'
 import { EditorProfileAvatar } from './editor-profile-avatar'
 
 export interface Props {
 	profileInfo: TProfile
 	children?: ReactNode
+	tooltipOpen: boolean
 }
 
-export const ProfileInfoBlock: FC<Props> = ({ profileInfo, children }) => {
+export const ProfileInfoBlock: FC<Props> = ({
+	profileInfo,
+	children,
+	tooltipOpen,
+}) => {
 	return (
 		<>
 			<Box
@@ -24,7 +29,11 @@ export const ProfileInfoBlock: FC<Props> = ({ profileInfo, children }) => {
 				}}
 			>
 				<FlexContainer>
-					<EditorProfileAvatar width={80} profile={profileInfo} />
+					{tooltipOpen ? (
+						<EditorProfileAvatar width={80} profile={profileInfo} />
+					) : (
+						<AvatarUI width={80} imageUrl={profileInfo.imageUrl} />
+					)}
 					<Box
 						sx={{
 							display: 'flex',

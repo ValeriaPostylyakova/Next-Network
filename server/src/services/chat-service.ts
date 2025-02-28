@@ -43,8 +43,14 @@ export class ChatService {
 						where: {
 							userId: { not: Number(profileId) },
 						},
-						include: {
+						select: {
 							user: true,
+							chatId: true,
+							chat: {
+								include: {
+									messages: true,
+								},
+							},
 						},
 					},
 				},
@@ -59,34 +65,19 @@ export class ChatService {
 					create: [{ userId: user1.id }, { userId: user2.id }],
 				},
 			},
-			include: { chatUsers: { include: { user: true } } },
+			include: {
+				chatUsers: {
+					include: {
+						user: true,
+					},
+				},
+			},
 		})
 
 		return chat
 	}
 
 	async getChat(chatId: string, profileId: string) {
-		// const chat = await prisma.chatUser.findFirst({
-		// 	where: {
-		// 		AND: [
-		// 			{ userId: Number(userId) },
-		// 			{
-		// 				chat: {
-		// 					chatUsers: {
-		// 						some: {
-		// 							userId: Number(profileId),
-		// 						},
-		// 					},
-		// 				},
-		// 			},
-		// 		],
-		// 	},
-		// 	select: {
-		// 		chatId: true,
-		// 		user: true,
-		// 	},
-		// })
-
 		const chat = await prisma.chat.findFirst({
 			where: {
 				id: Number(chatId),
@@ -188,5 +179,46 @@ export class ChatService {
 		}
 
 		return messages
+	}
+
+	async deleteMessage(id: string) {
+		const message = await prisma.message.findUnique({
+			where: {
+				id: Number(id),
+			},
+		})
+
+		if (!message) {
+			throw new Error('Такого сообщения не существует')
+		}
+
+		await prisma.message.delete({
+			where: {
+				id: Number(id),
+			},
+		})
+	}
+
+	async deleteChat(id: string) {
+		const chat = await prisma.chat.findUnique({
+			where: {
+				id: Number(id),
+			},
+			include: {
+				messages: true,
+			},
+		})
+
+		if (!chat) {
+			throw new Error('Такого чата не существует')
+		}
+
+		if (chat.messages.length <= 0) {
+			await prisma.chat.delete({
+				where: {
+					id: Number(id),
+				},
+			})
+		}
 	}
 }

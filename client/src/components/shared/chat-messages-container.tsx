@@ -1,5 +1,9 @@
+'use client'
+
+import { useOpenModal } from '@/hooks/use-open-modal'
 import Box from '@mui/material/Box'
-import { FC } from 'react'
+import { FC, useRef } from 'react'
+import { useClickAway } from 'react-use'
 import { TMessage } from '../../../@types/chat'
 import { BlockEmpty } from './block-empty'
 import { Message } from './message'
@@ -10,8 +14,16 @@ export interface Props {
 }
 
 export const ChatMessagesContainer: FC<Props> = ({ profileId, messages }) => {
+	const { open, setOpen } = useOpenModal()
+	const ref = useRef(null)
+
+	useClickAway(ref, () => {
+		setOpen(false)
+	})
+
 	return (
 		<Box
+			ref={ref}
 			sx={{
 				width: '100%',
 				height: '92vh',
@@ -36,16 +48,16 @@ export const ChatMessagesContainer: FC<Props> = ({ profileId, messages }) => {
 							message.sender == String(profileId) ? (
 								<Message
 									key={index}
-									text={message.text}
-									time={message.time}
+									{...message}
 									className='message sent'
+									messages={messages}
 								/>
 							) : (
 								<Message
 									key={index}
-									text={message.text}
-									time={message.time}
+									{...message}
 									className='message received'
+									messages={messages}
 								/>
 							)
 						)}

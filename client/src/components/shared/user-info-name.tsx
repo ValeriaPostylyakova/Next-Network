@@ -6,7 +6,7 @@ import { AvatarIsOnline, AvatarUI, FlexContainer } from '../ui'
 
 export interface Props {
 	width: number
-	image: string
+	image?: string
 	sizeTitle: number
 	sizeSubTitle?: number
 	text?: string
@@ -32,13 +32,16 @@ export const UserInfoName: FC<Props> = ({
 		<FlexContainer mb={mb}>
 			{profile?.isOnline === 'online' ? (
 				<AvatarIsOnline
-					image={image}
+					image={image ? image : '/images/user-profile.svg'}
 					circleWidth={10}
 					width={width}
 					bottom={0}
 				/>
 			) : (
-				<AvatarUI width={width} imageUrl={image} />
+				<AvatarUI
+					width={width}
+					imageUrl={image ? image : '/images/user-profile.svg'}
+				/>
 			)}
 
 			<Box

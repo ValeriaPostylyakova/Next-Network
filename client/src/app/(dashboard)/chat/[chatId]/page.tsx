@@ -3,17 +3,17 @@ import { MainWrapper } from '@/components/ui/main-wrapper'
 import { FC } from 'react'
 
 type Params = {
-	id: string
+	chatId: string
 }
 interface Props {
 	params: Params
 }
 
 const Page: FC<Props> = async ({ params }) => {
-	const { id } = await params
+	const { chatId } = await params
 	return (
 		<MainWrapper mt={0}>
-			<ChatContent id={id} />
+			<ChatContent id={chatId} />
 		</MainWrapper>
 	)
 }

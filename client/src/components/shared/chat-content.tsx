@@ -29,15 +29,19 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const [statusTyping, setStatusTyping] = useState<string | null>(null)
 	const socket = useSocket('http://localhost:4200')
 
+	const chatId = chatStatus === 'success' ? String(chat.id) : id
+
 	useEffect(() => {
-		dispatch(messagesActions.getMessages(id))
+		dispatch(messagesActions.getMessages(chatId))
 		dispatch(
 			chatsActions.getChat({
-				chatId: id,
+				chatId: chatId,
 				profileId: profileId,
 			})
 		)
+	}, [dispatch])
 
+	useEffect(() => {
 		socket?.on('new_message', data => {
 			dispatch(setMessages(data))
 		})
@@ -59,7 +63,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 		const message = {
 			text: value,
 			sender: profileId,
-			chatId: id,
+			chatId: chatId,
 		}
 
 		socket?.emit('typing', 'Печатает')
@@ -70,7 +74,6 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			setValue('')
 		}
 	}
-
 	return (
 		<Box
 			sx={{

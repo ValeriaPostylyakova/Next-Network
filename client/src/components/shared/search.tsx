@@ -93,18 +93,26 @@ export const HeaderSearch: FC<Props> = ({ width, placeholder }) => {
 					<>
 						{users.map((user: TProfile) => (
 							<Link href={`/user/${user.id}`} key={user.id}>
-								<UserInfoName
-									mb={1.3}
-									sizeTitle={14}
-									image={
-										user.imageUrl ? user.imageUrl : '/images/user-profile.svg'
-									}
-									sizeSubTitle={11}
-								
-									width={30}
-									name={user.firstname + ' ' + user.lastname}
-									text={`@${user.identifier}`}
-								/>
+								<Box
+									sx={{
+										width: '100%',
+										cursor: 'pointer',
+										'&:hover': {
+											background: '#474747',
+										},
+										borderRadius: '5px',
+										py: 0.8,
+									}}
+								>
+									<UserInfoName
+										sizeTitle={14}
+										image={user.imageUrl}
+										sizeSubTitle={11}
+										width={30}
+										name={user.firstname + ' ' + user.lastname}
+										text={`@${user.identifier}`}
+									/>
+								</Box>
 							</Link>
 						))}
 					</>

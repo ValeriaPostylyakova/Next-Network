@@ -32,7 +32,7 @@ export const SidebarRightItem: FC<Props> = ({
 					<div onClick={() => router.push(`/user/${id}`)}>
 						<UserInfoName
 							width={40}
-							image={imageUrl ? imageUrl : '/images/user-profile.svg'}
+							image={imageUrl}
 							sizeTitle={16}
 							sizeSubTitle={14}
 							text={`@${identifier}`}

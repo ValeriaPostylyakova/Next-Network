@@ -41,13 +41,10 @@ export const SidebarProfile: FC = () => {
 					<UserInfoName
 						text={`@${profile.identifier}`}
 						width={40}
-						
-						image={
-							profile.imageUrl ? profile.imageUrl : '/images/user-profile.svg'
-						}
+						image={profile.imageUrl}
 						sizeTitle={16}
 						sizeSubTitle={14}
-						name={profile?.firstname + ' ' + profile?.lastname}
+						name={profile.firstname + ' ' + profile.lastname}
 						profile={profile}
 					/>
 				)}

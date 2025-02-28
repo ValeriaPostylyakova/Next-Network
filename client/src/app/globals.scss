@@ -189,3 +189,12 @@ li {
 		opacity: 0.5;
 	}
 }
+
+.tooltip-item {
+	padding: 10px 0;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	cursor: pointer;
+	border-bottom: 1px solid #898989;
+}

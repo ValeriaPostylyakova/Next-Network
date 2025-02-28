@@ -31,7 +31,7 @@ export const ChatHeader: FC<Props> = ({ user, status }) => {
 					<Link href={`/user/${user.id}`}>
 						<UserInfoName
 							width={50}
-							image={user.imageUrl ? user.imageUrl : '/images/user-profile.svg'}
+							image={user.imageUrl}
 							sizeTitle={18}
 							cursor='pointer'
 							name={user.firstname + ' ' + user.lastname}

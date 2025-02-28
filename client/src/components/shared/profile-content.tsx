@@ -44,6 +44,7 @@ export const ProfileContent: FC<Props> = ({ id }) => {
 				/>
 			) : (
 				<ProfileInfoBlock
+					tooltipOpen
 					profileInfo={profile}
 					children={
 						<Link href={`/editProfile`}>

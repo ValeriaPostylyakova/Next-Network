@@ -6,13 +6,12 @@ import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
-import { OctagonX, Pen } from 'lucide-react'
 import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TProfile } from '../../../@types/profile'
 import { AvatarIsOnline, AvatarUI, ModalFormUI } from '../ui'
+import { ListTooltipAndModal } from './list-tooltip-and-modal'
 
 export interface Props {
 	profile: TProfile
@@ -60,52 +59,25 @@ export const EditorProfileAvatar: FC<Props> = ({ width, profile }) => {
 		<>
 			<Tooltip
 				title={
-					<ul
-						style={{
-							position: 'relative',
-							zIndex: 200,
-						}}
-					>
-						<li
-							onClick={() => setOpen(true)}
-							style={{
-								padding: '10px 0',
-								display: 'flex',
-								alignItems: 'center',
-								gap: '1rem',
-								cursor: 'pointer',
-								borderBottom: '1px solid #898989',
-							}}
-						>
-							<Pen color='#898989' size={13} />
-							<Typography fontSize={13}>Изменить аватар</Typography>
-						</li>
-						<li
-							style={{
-								padding: '10px 0',
-								display: 'flex',
-								alignItems: 'center',
-								gap: '1rem',
-								cursor: 'pointer',
-							}}
-							onClick={deleteAvatar}
-						>
-							<OctagonX color='#898989' size={13} />
-							<Typography fontSize={13}>Удалить аватар</Typography>
-						</li>
-					</ul>
+					<ListTooltipAndModal
+						onClickDelete={deleteAvatar}
+						setOpen={setOpen}
+						text='аватар'
+					/>
 				}
 			>
-				{profile.isOnline === 'online' ? (
-					<AvatarIsOnline
-						image={profile.imageUrl}
-						width={80}
-						circleWidth={17}
-						bottom={4}
-					/>
-				) : (
-					<AvatarUI width={width} imageUrl={profile.imageUrl} />
-				)}
+				<span>
+					{profile.isOnline === 'online' ? (
+						<AvatarIsOnline
+							image={profile.imageUrl}
+							width={80}
+							circleWidth={17}
+							bottom={4}
+						/>
+					) : (
+						<AvatarUI width={width} imageUrl={profile.imageUrl} />
+					)}
+				</span>
 			</Tooltip>
 
 			<ModalFormUI

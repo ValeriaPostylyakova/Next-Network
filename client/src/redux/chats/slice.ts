@@ -30,6 +30,17 @@ export const chatsSlice = createSlice({
 				state.statusChats = Status.ERROR
 			})
 
+			.addCase(chatsActions.createChat.pending, state => {
+				state.statusChat = Status.LOADIND
+			})
+			.addCase(chatsActions.createChat.fulfilled, (state, action) => {
+				state.statusChat = Status.SUCCESS
+				state.chat = action.payload
+			})
+			.addCase(chatsActions.createChat.rejected, (state, action) => {
+				state.statusChat = Status.ERROR
+			})
+
 			.addCase(chatsActions.getChat.pending, state => {
 				state.statusChat = Status.LOADIND
 			})
@@ -38,6 +49,16 @@ export const chatsSlice = createSlice({
 				state.chat = action.payload
 			})
 			.addCase(chatsActions.getChat.rejected, (state, action) => {
+				state.statusChat = Status.ERROR
+			})
+
+			.addCase(chatsActions.deleteChatEmpty.pending, state => {
+				state.statusChat = Status.LOADIND
+			})
+			.addCase(chatsActions.deleteChatEmpty.fulfilled, (state, action) => {
+				state.statusChat = Status.SUCCESS
+			})
+			.addCase(chatsActions.deleteChatEmpty.rejected, (state, action) => {
 				state.statusChat = Status.ERROR
 			})
 	},

@@ -59,7 +59,9 @@ router.get('/friendsSuggestions', friendsController.getFriendsSuggetion)
 router.get('/chats/:id', chatController.getChats)
 router.post('/createChat', chatController.createChat)
 router.get('/chat', chatController.getChat)
+router.delete('/deleteChatEmpty/:id', chatController.deleteChat)
 router.get('/messages/:id', chatController.getMessages)
+router.delete('/deleteMessage/:id', chatController.deleteMessage)
 
 router.get('/feed', feedController.getFeed)
 

@@ -7,11 +7,10 @@ type TChatUsers = {
 export type TChat = {
 	id: number
 	chatUsers: TChatUsers[]
-	messages: TMessage[]
 }
 
 export type TMessage = {
-	id?: number
+	id: number
 	sender: string
 	text: string
 	chatId: number | string

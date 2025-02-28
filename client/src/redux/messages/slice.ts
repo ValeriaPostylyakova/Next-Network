@@ -18,6 +18,12 @@ export const messagesSlice = createSlice({
 		setMessages(state, action: PayloadAction<TMessage>) {
 			state.messages.push(action.payload)
 		},
+
+		deleteMessage(state, action: PayloadAction<number>) {
+			state.messages = state.messages.filter(
+				message => message.id === action.payload
+			)
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -31,9 +37,19 @@ export const messagesSlice = createSlice({
 			.addCase(messagesAction.getMessages.rejected, (state, action) => {
 				state.statusMessage = Status.ERROR
 			})
+
+			.addCase(messagesAction.deleteMessage.pending, state => {
+				state.statusMessage = Status.LOADIND
+			})
+			.addCase(messagesAction.deleteMessage.fulfilled, (state, action) => {
+				state.statusMessage = Status.SUCCESS
+			})
+			.addCase(messagesAction.deleteMessage.rejected, (state, action) => {
+				state.statusMessage = Status.ERROR
+			})
 	},
 })
 
-export const { setMessages } = messagesSlice.actions
+export const { setMessages, deleteMessage } = messagesSlice.actions
 
 export default messagesSlice.reducer
