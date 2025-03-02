@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TChat } from '../../../@types/chat'
 import { Status } from '../../../@types/fetchStatus'
 import { ChatActions } from './async-actions'
@@ -16,7 +16,14 @@ const initialState: InitialState = {
 export const chatsSlice = createSlice({
 	name: 'chats',
 	initialState,
-	reducers: {},
+	reducers: {
+		setChat: (state, action: PayloadAction<TChat>) => {
+			state.chat = action.payload
+		},
+		setStatus(state, action: PayloadAction<Status>) {
+			state.statusChat = action.payload
+		},
+	},
 	extraReducers: builder => {
 		builder
 			.addCase(chatsActions.getChats.pending, state => {
@@ -63,5 +70,7 @@ export const chatsSlice = createSlice({
 			})
 	},
 })
+
+export const { setChat, setStatus } = chatsSlice.actions
 
 export default chatsSlice.reducer

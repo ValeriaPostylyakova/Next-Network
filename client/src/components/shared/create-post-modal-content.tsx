@@ -1,7 +1,6 @@
-import { renderFileImage } from '@/libs/render-file-image'
 import Box from '@mui/material/Box'
 import { Dispatch, FC, SetStateAction } from 'react'
-import { CreatePostModalImageEmpty } from './create-post-modal-image-empty'
+import { CreateModalStateBlock } from './create-modal-state-block'
 
 interface Props {
 	setImgUrl: Dispatch<SetStateAction<File | undefined>>
@@ -25,17 +24,11 @@ export const CreatePostModalContent: FC<Props> = ({
 				m: '0 auto',
 			}}
 		>
-			{!selectedImage ? (
-				<CreatePostModalImageEmpty
-					handleImageChange={e =>
-						renderFileImage(e, setImgUrl, setSelectedImage)
-					}
-				/>
-			) : (
-				<Box>
-					<img src={selectedImage} alt='Uploaded' style={{ width: '100%' }} />
-				</Box>
-			)}
+			<CreateModalStateBlock
+				selectedImage={selectedImage}
+				setImgUrl={setImgUrl}
+				setSelectedImage={setSelectedImage}
+			/>
 			<textarea
 				name='text'
 				placeholder='Напишите что-нибудь...'

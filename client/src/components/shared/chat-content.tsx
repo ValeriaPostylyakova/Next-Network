@@ -2,12 +2,15 @@
 
 import useSocket from '@/hooks/use-socket'
 import { ChatActions } from '@/redux/chats/async-actions'
+import { setChat, setStatus } from '@/redux/chats/slice'
 import { MessagesActions } from '@/redux/messages/async-actions'
 import { setMessages } from '@/redux/messages/slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { TChat } from '../../../@types/chat'
+import { Status } from '../../../@types/fetchStatus'
 import { profileId } from '../../../constants/profile'
 import { ChatFooter } from './chat-footer'
 import { ChatHeader } from './chat-header'
@@ -23,6 +26,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const messages = useSelector((state: RootState) => state.messages.messages)
 	const chatStatus = useSelector((state: RootState) => state.chats.statusChat)
+
 	const chat = useSelector((state: RootState) => state.chats.chat)
 	const dispatch: AppDispatch = useDispatch()
 	const [value, setValue] = useState<string>('')
@@ -39,6 +43,11 @@ export const ChatContent: FC<Props> = ({ id }) => {
 				profileId: profileId,
 			})
 		)
+
+		return () => {
+			dispatch(setChat({} as TChat))
+			dispatch(setStatus(Status.LOADIND))
+		}
 	}, [dispatch])
 
 	useEffect(() => {

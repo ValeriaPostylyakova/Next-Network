@@ -36,7 +36,9 @@ export const ModalUI: FC<Props> = ({
 		>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>
-				<Button type='submit'>{buttonText}</Button>
+				<Button variant='outlined' type='submit'>
+					{buttonText}
+				</Button>
 			</DialogActions>
 		</Dialog>
 	)

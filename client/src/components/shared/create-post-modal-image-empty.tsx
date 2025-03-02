@@ -52,7 +52,7 @@ export const CreatePostModalImageEmpty: FC<Props> = ({ handleImageChange }) => {
 					fontSize='18px'
 					mb={2}
 				>
-					Добавьте фото или видео
+					Добавьте фото
 				</Typography>
 
 				<input name='post' type='file' onChange={handleImageChange} />

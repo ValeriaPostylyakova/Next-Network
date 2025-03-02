@@ -4,7 +4,6 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
 import { StoryItem } from '../../../@types/post'
-import { AvatarUI } from '../ui'
 
 export interface Props {
 	imageUrl: string
@@ -35,7 +34,21 @@ export const StoryBlock: FC<Props> = ({
 			sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
 		>
 			<button onClick={() => onClickStory(items)}>
-				<AvatarUI width={70} imageUrl={imageUrl} />
+				<img
+					src={
+						imageUrl
+							? imageUrl
+							: 'https://lh4.googleusercontent.com/proxy/JUL2sr04ai9oOpfU9HTz2GbIN83QGc1gEc1895tqHl9253cFLtG3M7opUtHKYzMTZNoUTCSDerFNBBioPs1CG0rV_xY4jCYQA7Z__XzM3qojmvXZ3hG_Cfeu3oRI77gCfHvDeeMWPg'
+					}
+					alt='image-story'
+					style={{
+						objectFit: 'cover',
+						objectPosition: 'center',
+						width: '100px',
+						height: '150px',
+						borderRadius: '7px',
+					}}
+				/>
 			</button>
 			<Typography sx={{ fontSize: '13px', color: '#7e7e7e' }}>
 				{fullname}
