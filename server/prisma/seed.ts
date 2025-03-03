@@ -159,62 +159,57 @@ async function up() {
 	// 	],
 	// })
 
-	await prisma.story.createMany({
-		data: [
-			{
-				imageUrl:
-					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-				fullname: 'Валерия',
-				userId: 3,
-			},
-			{
-				imageUrl:
-					'https://img.freepik.com/free-vector/hand-drawn-clothes-person_79603-614.jpg',
-				fullname: 'Кирилл',
-				userId: 1,
-			},
-			{
-				imageUrl: null,
-				fullname: 'Кристина',
-				userId: 2,
-			},
-		],
-	})
+	// await prisma.story.createMany({
+	// 	data: [
+	// 		{
+	// 			imageUrl:
+	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+	// 			fullname: 'Валерия',
+	// 			userId: 3,
+	// 		},
+	// 		{
+	// 			imageUrl:
+	// 				'https://img.freepik.com/free-vector/hand-drawn-clothes-person_79603-614.jpg',
+	// 			fullname: 'Кирилл',
+	// 			userId: 1,
+	// 		},
+	// 	],
+	// })
 
-	await prisma.storyItem.createMany({
-		data: [
-			{
-				imageUrl:
-					'https://i.pinimg.com/736x/14/d5/73/14d5735f4cd9c90fff1edb054cc6cbfb.jpg',
-				storyId: 1,
-			},
-			{
-				imageUrl:
-					'https://i.pinimg.com/736x/30/25/86/302586d8789577e220133514e3316f6b.jpg',
-				storyId: 1,
-			},
-			{
-				imageUrl:
-					'https://i.pinimg.com/736x/0a/17/a9/0a17a9bb2131e219f96da212b7f1de5d.jpg',
-				storyId: 2,
-			},
-			{
-				imageUrl:
-					'https://i.pinimg.com/736x/aa/8d/02/aa8d02164803eb19b6727eaa3a1a3c4a.jpg',
-				storyId: 2,
-			},
-			{
-				imageUrl:
-					'https://i.pinimg.com/736x/81/30/6c/81306cc82e987fc640af2e9e5bdb142a.jpg',
-				storyId: 2,
-			},
-			{
-				imageUrl:
-					'https://i.pinimg.com/736x/6e/a5/65/6ea56593fdb1ff7850c0898fe406e85a.jpg',
-				storyId: 3,
-			},
-		],
-	})
+	// await prisma.storyItem.createMany({
+	// 	data: [
+	// 		{
+	// 			imageUrl:
+	// 				'https://i.pinimg.com/736x/14/d5/73/14d5735f4cd9c90fff1edb054cc6cbfb.jpg',
+	// 			storyId: 1,
+	// 			expiresAt: new Date(Date.now() + 2 * 60 * 1000),
+	// 		},
+	// 		{
+	// 			imageUrl:
+	// 				'https://i.pinimg.com/736x/30/25/86/302586d8789577e220133514e3316f6b.jpg',
+	// 			storyId: 1,
+	// 			expiresAt: new Date(Date.now() + 2 * 60 * 1000),
+	// 		},
+	// 		{
+	// 			imageUrl:
+	// 				'https://i.pinimg.com/736x/aa/8d/02/aa8d02164803eb19b6727eaa3a1a3c4a.jpg',
+	// 			storyId: 1,
+	// 			expiresAt: new Date(Date.now() + 2 * 60 * 1000),
+	// 		},
+	// 		{
+	// 			imageUrl:
+	// 				'https://i.pinimg.com/736x/81/30/6c/81306cc82e987fc640af2e9e5bdb142a.jpg',
+	// 			storyId: 3,
+	// 			expiresAt: new Date(Date.now() + 2 * 60 * 1000),
+	// 		},
+	// 		{
+	// 			imageUrl:
+	// 				'https://i.pinimg.com/736x/6e/a5/65/6ea56593fdb1ff7850c0898fe406e85a.jpg',
+	// 			storyId: 3,
+	// 			expiresAt: new Date(Date.now() + 2 * 60 * 1000),
+	// 		},
+	// 	],
+	// })
 }
 
 async function down() {

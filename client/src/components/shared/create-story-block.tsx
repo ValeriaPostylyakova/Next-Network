@@ -2,8 +2,8 @@
 
 import { useCreateModalImages } from '@/hooks/use-create-modal-images'
 import { useOpenModal } from '@/hooks/use-open-modal'
-import { PostActions } from '@/redux/post/async-action'
 import { RootState } from '@/redux/store'
+import { StoriesActions } from '@/redux/stories/async-actions'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography'
 import { ALargeSmall, CircleFadingPlus } from 'lucide-react'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { ModalUI } from '../ui'
+import { ModalFormUI } from '../ui'
 import { CreateModalStateBlock } from './create-modal-state-block'
 
 export interface Props {
@@ -21,10 +21,10 @@ export interface Props {
 }
 
 export const CreateStoryBlock: FC<Props> = () => {
-	const { open, setOpen, handleClose: handleCloseModal } = useOpenModal()
+	const { open, setOpen } = useOpenModal()
 	const profile = useSelector((state: RootState) => state.auth.profile)
 
-	const postActions = new PostActions()
+	const storiesActions = new StoriesActions()
 
 	const {
 		selectedImage,
@@ -33,8 +33,9 @@ export const CreateStoryBlock: FC<Props> = () => {
 		onClickButtonSubmit,
 		handleClose,
 	} = useCreateModalImages({
-		apiActions: postActions,
+		apiActions: storiesActions.createStory,
 		setOpen,
+		muddlewareName: 'story',
 	})
 
 	return (
@@ -81,11 +82,12 @@ export const CreateStoryBlock: FC<Props> = () => {
 					{profile.firstname}
 				</Typography>
 			</Box>
-			<ModalUI
-				width={600}
+			<ModalFormUI
+				width={500}
 				open={open}
-				buttonText='Опубликовать'
-				handleClose={handleCloseModal}
+				buttonTextSubmit='Опубликовать'
+				handleCloseModal={handleClose}
+				onClickButtonSubmit={onClickButtonSubmit}
 			>
 				<Box
 					sx={{
@@ -109,7 +111,7 @@ export const CreateStoryBlock: FC<Props> = () => {
 						</ListItemButton>
 					</List>
 				</Box>
-			</ModalUI>
+			</ModalFormUI>
 		</>
 	)
 }

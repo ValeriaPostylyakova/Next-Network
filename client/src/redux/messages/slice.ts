@@ -19,9 +19,13 @@ export const messagesSlice = createSlice({
 			state.messages.push(action.payload)
 		},
 
+		updateStateMessages(state, action: PayloadAction<any[]>) {
+			state.messages = action.payload
+		},
+
 		deleteMessage(state, action: PayloadAction<number>) {
 			state.messages = state.messages.filter(
-				message => message.id === action.payload
+				message => message.id !== action.payload
 			)
 		},
 	},
@@ -50,6 +54,7 @@ export const messagesSlice = createSlice({
 	},
 })
 
-export const { setMessages, deleteMessage } = messagesSlice.actions
+export const { setMessages, deleteMessage, updateStateMessages } =
+	messagesSlice.actions
 
 export default messagesSlice.reducer

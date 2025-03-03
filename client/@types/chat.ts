@@ -15,4 +15,5 @@ export type TMessage = {
 	text: string
 	chatId: number | string
 	time: string
+	isRead: boolean
 }

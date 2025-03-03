@@ -6,35 +6,43 @@ import Typography from '@mui/material/Typography'
 import { MessagesActions } from '@/redux/messages/async-actions'
 import { deleteMessage } from '@/redux/messages/slice'
 import { AppDispatch } from '@/redux/store'
-import { FC } from 'react'
+import Box from '@mui/material/Box'
+import { Check } from 'lucide-react'
+import { FC, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TMessage } from '../../../@types/chat'
 import { ListTooltipAndModal } from './list-tooltip-and-modal'
 
 export interface Props {
-	id: number
-	text: string
+	message: TMessage
 	className: string
-	time: string
-	messages: TMessage[]
 }
 
 const messagesActions = new MessagesActions()
 
-export const Message: FC<Props> = ({ id, text, className, time, messages }) => {
+export const Message: FC<Props> = ({ message, className }) => {
+	const [isRead, setIsRead] = useState(message.isRead)
+
 	const dispatch: AppDispatch = useDispatch()
+
 	const onClickMessageDelete = async () => {
-		const message = messages.find(message => message.id === id)
-		if (message) {
-			dispatch(messagesActions.deleteMessage(String(message.id)))
+		console.log(message.sender)
+		try {
+			await dispatch(messagesActions.deleteMessage(String(message.id)))
 			dispatch(deleteMessage(message.id))
+			toast.success('Сообщение успешно удалено')
+		} catch (error) {
+			toast.error(
+				'Ошибка при удалении сообщения. Пожалуйста, попробуйте ещё раз'
+			)
+			console.log(error)
 		}
 	}
 
 	return (
 		<>
 			<Tooltip
-				sx={{}}
 				title={
 					<ListTooltipAndModal
 						onClickDelete={onClickMessageDelete}
@@ -44,7 +52,7 @@ export const Message: FC<Props> = ({ id, text, className, time, messages }) => {
 				disableFocusListener
 				placement='bottom'
 			>
-				<div
+				<Box
 					className={className}
 					style={{
 						display: 'flex',
@@ -59,23 +67,30 @@ export const Message: FC<Props> = ({ id, text, className, time, messages }) => {
 							fontSize: '17px',
 						}}
 					>
-						{text}
+						{message.text}
 					</Typography>
-					<Typography
+					<Box
 						sx={{
-							fontSize: '13px',
-							mt: 1,
-							fontStyle: 'italic',
-							justifyContent: 'flex-end',
+							display: 'flex',
+							alignItems: 'flex-end',
+							gap: '0.5rem',
 						}}
 					>
-						{time}
-					</Typography>
-				</div>
+						<Typography
+							sx={{
+								fontSize: '13px',
+								mt: 1,
+								fontStyle: 'italic',
+								justifyContent: 'flex-end',
+							}}
+						>
+							{message.time}
+						</Typography>
+						<Check size={17} />
+						{/* <CheckCheck size={17} /> */}
+					</Box>
+				</Box>
 			</Tooltip>
 		</>
 	)
-}
-function useAppDispatch() {
-	throw new Error('Function not implemented.')
 }

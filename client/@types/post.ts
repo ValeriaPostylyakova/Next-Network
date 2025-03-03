@@ -14,7 +14,7 @@ export type TStory = {
 	imageUrl: string
 	fullname: string
 	items: StoryItem[]
-	storyId?: number
+	userId: number
 }
 
 export type Post = {

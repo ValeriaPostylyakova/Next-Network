@@ -95,7 +95,8 @@ model Comment {
 model StoryItem {
   id Int @id @default(autoincrement())
 
-  imageUrl String
+  imageUrl  String
+  expiresAt DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -143,8 +144,9 @@ model Message {
   sender String
   time   String?
 
-  chat   Chat? @relation(fields: [chatId], references: [id])
+  chat   Chat?   @relation(fields: [chatId], references: [id])
   chatId Int?
+  isRead Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

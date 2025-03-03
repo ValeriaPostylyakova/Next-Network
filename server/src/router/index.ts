@@ -10,6 +10,7 @@ import { StoriesController } from '../controllers/stories-controller'
 import { UserControllers } from '../controllers/user-controllers'
 import { multersAvatar } from '../middleware/avatar'
 import { multersFile } from '../middleware/file'
+import { multersStory } from '../middleware/story'
 
 const router = Router()
 const userControllers = new UserControllers()
@@ -65,6 +66,11 @@ router.delete('/deleteMessage/:id', chatController.deleteMessage)
 
 router.get('/feed', feedController.getFeed)
 
+router.post(
+	'/createStory',
+	multersStory.single('story'),
+	storiesController.createStory
+)
 router.get('/stories', storiesController.getStories)
 
 export const routers = router

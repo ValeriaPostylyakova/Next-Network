@@ -51,6 +51,24 @@ io.on('connection', socket => {
 		}
 	})
 
+	socket.on('isReadMessage', async id => {
+		try {
+			await prisma.message.update({
+				where: {
+					id: Number(id),
+				},
+				data: {
+					isRead: true,
+				},
+			})
+
+			socket.emit('resIsReadMessage', id)
+			socket.broadcast.emit('resIsReadMessage', id)
+		} catch (e) {
+			console.error(e)
+		}
+	})
+
 	socket.on('onlineUsers', async (userId: string) => {
 		try {
 			const session = await prisma.session.create({

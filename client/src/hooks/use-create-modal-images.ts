@@ -10,6 +10,8 @@ interface Props {
 	setOpen: (value: boolean) => void
 	setText?: (value: string) => void
 	text?: string
+	muddlewareName: string
+	childrenMiddlewareName?: string
 }
 
 export const useCreateModalImages = ({
@@ -17,6 +19,8 @@ export const useCreateModalImages = ({
 	setOpen,
 	setText,
 	text,
+	muddlewareName,
+	childrenMiddlewareName,
 }: Props) => {
 	const dispatch: AppDispatch = useDispatch()
 	const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -28,9 +32,9 @@ export const useCreateModalImages = ({
 				e.preventDefault()
 				const formData = new FormData()
 				text && formData.append('text', text)
-				formData.append('post', imgUrl)
+				formData.append(muddlewareName, imgUrl)
 
-				await dispatch(apiActions.createPost(formData)).then(() => {
+				await dispatch(apiActions(formData)).then(() => {
 					handleClose()
 					setSelectedImage(null)
 					setText && setText('')

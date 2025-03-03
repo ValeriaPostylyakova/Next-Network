@@ -15,6 +15,28 @@ export const storiesSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
+		builder.addCase(storiesActions.createStory.pending, state => {
+			state.status = Status.LOADIND
+		})
+
+		builder.addCase(storiesActions.createStory.fulfilled, (state, action) => {
+			state.status = Status.SUCCESS
+			const findStory = state.stories.find(
+				story => story.userId === action.payload.userId
+			)
+
+			if (findStory) {
+				findStory.items = action.payload.items
+				return
+			}
+
+			state.stories.push(action.payload)
+		})
+
+		builder.addCase(storiesActions.createStory.rejected, state => {
+			state.status = Status.ERROR
+		})
+
 		builder.addCase(storiesActions.getStories.pending, state => {
 			state.status = Status.LOADIND
 		})

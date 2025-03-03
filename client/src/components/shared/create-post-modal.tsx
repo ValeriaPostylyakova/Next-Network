@@ -21,10 +21,11 @@ export const CreatePostModal: FC = () => {
 		onClickButtonSubmit,
 		handleClose,
 	} = useCreateModalImages({
-		apiActions: postActions,
+		apiActions: postActions.createPost,
 		setOpen,
 		text,
 		setText,
+		muddlewareName: 'post',
 	})
 
 	return (
