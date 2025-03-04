@@ -63,4 +63,12 @@ export class PostActions {
 			return data
 		}
 	)
+
+	deleteComment = createAsyncThunk(
+		'comments/fetchDeleteComment',
+		async (id: number) => {
+			const { data } = await api.delete(`/commentDelete/${id}`)
+			return data
+		}
+	)
 }

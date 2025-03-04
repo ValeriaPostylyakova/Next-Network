@@ -1,7 +1,6 @@
 'use client'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
-import useSocket from '@/hooks/use-socket'
 import Box from '@mui/material/Box'
 import { FC, useRef } from 'react'
 import { useClickAway } from 'react-use'
@@ -16,7 +15,6 @@ export interface Props {
 
 export const ChatMessagesContainer: FC<Props> = ({ profileId, messages }) => {
 	const { setOpen } = useOpenModal()
-	const socket = useSocket('http://localhost:4200')
 
 	const ref = useRef(null)
 

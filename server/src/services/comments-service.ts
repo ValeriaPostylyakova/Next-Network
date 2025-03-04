@@ -37,4 +37,18 @@ export class CommentsService {
 
 		return commentData
 	}
+
+	async delete(id: string) {
+		const comment = await prisma.comment.delete({
+			where: {
+				id: Number(id),
+			},
+		})
+
+		if (!comment) {
+			throw new Error('Такого комментария не существует')
+		}
+
+		return comment
+	}
 }

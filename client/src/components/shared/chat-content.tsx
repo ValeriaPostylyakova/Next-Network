@@ -4,12 +4,12 @@ import useSocket from '@/hooks/use-socket'
 import { ChatActions } from '@/redux/chats/async-actions'
 import { setChat, setStatus } from '@/redux/chats/slice'
 import { MessagesActions } from '@/redux/messages/async-actions'
-import { setMessages } from '@/redux/messages/slice'
+import { setMessages, updateStateMessages } from '@/redux/messages/slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { TChat } from '../../../@types/chat'
+import { TChat, TMessage } from '../../../@types/chat'
 import { Status } from '../../../@types/fetchStatus'
 import { profileId } from '../../../constants/profile'
 import { ChatFooter } from './chat-footer'
@@ -26,7 +26,6 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const messages = useSelector((state: RootState) => state.messages.messages)
 	const chatStatus = useSelector((state: RootState) => state.chats.statusChat)
-
 	const chat = useSelector((state: RootState) => state.chats.chat)
 	const dispatch: AppDispatch = useDispatch()
 	const [value, setValue] = useState<string>('')
@@ -35,7 +34,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 
 	const chatId = chatStatus === 'success' ? String(chat.id) : id
 
-	useEffect(() => {
+	const loadChatData = useCallback(() => {
 		dispatch(messagesActions.getMessages(chatId))
 		dispatch(
 			chatsActions.getChat({
@@ -43,7 +42,10 @@ export const ChatContent: FC<Props> = ({ id }) => {
 				profileId: profileId,
 			})
 		)
+	}, [chatId, profileId, dispatch])
 
+	useEffect(() => {
+		loadChatData()
 		return () => {
 			dispatch(setChat({} as TChat))
 			dispatch(setStatus(Status.LOADIND))
@@ -51,38 +53,58 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	}, [dispatch])
 
 	useEffect(() => {
-		socket?.on('new_message', data => {
+		if (!socket) return
+
+		const handleNewMessage = (data: TMessage) => {
 			dispatch(setMessages(data))
-		})
+		}
 
-		socket?.on('resTyping', data => {
+		const handleResTyping = (data: string | null) => {
 			setStatusTyping(data)
-		})
+		}
 
-		return () => {
-			if (socket) {
-				socket.off('new_message')
-				socket.off('resTyping')
-				socket.disconnect()
+		const handleResJoinChat = (joinedProfileId: string) => {
+			if (Number(joinedProfileId) !== profile.id) {
+				socket.emit('isReadMessage', chatId, profileId)
 			}
 		}
-	}, [socket, dispatch])
+
+		const handleResIsReadMessage = (messagesReading: TMessage[]) => {
+			dispatch(updateStateMessages(messagesReading))
+		}
+
+		socket.emit('joinChat', chatId)
+		socket.on('new_message', handleNewMessage)
+		socket.on('resTyping', handleResTyping)
+		socket.on('resJoinChat', handleResJoinChat)
+		socket.on('resIsReadMessage', handleResIsReadMessage)
+
+		return () => {
+			socket.off('new_message')
+			socket.off('resTyping')
+			socket.off('resIsReadMessage')
+			socket.off('resJoinChat')
+		}
+	}, [socket, chatId, dispatch])
 
 	const handleInputValue = async (e: any) => {
+		if (!socket || !chatId) return
+
 		const message = {
 			text: value,
 			sender: profileId,
 			chatId: chatId,
 		}
 
-		socket?.emit('typing', 'Печатает')
+		socket.emit('typing', 'Печатает')
 
 		if (e.code === 'Enter' || e.type === 'click') {
-			socket?.emit('typing', null)
-			socket?.emit('chat_message', message)
+			socket.emit('typing', null)
+			socket.emit('chat_message', message)
 			setValue('')
 		}
 	}
+
 	return (
 		<Box
 			sx={{

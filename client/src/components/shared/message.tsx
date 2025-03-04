@@ -7,8 +7,8 @@ import { MessagesActions } from '@/redux/messages/async-actions'
 import { deleteMessage } from '@/redux/messages/slice'
 import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
-import { Check } from 'lucide-react'
-import { FC, useState } from 'react'
+import { Check, CheckCheck } from 'lucide-react'
+import { FC } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TMessage } from '../../../@types/chat'
@@ -17,13 +17,12 @@ import { ListTooltipAndModal } from './list-tooltip-and-modal'
 export interface Props {
 	message: TMessage
 	className: string
+	isRead?: boolean
 }
 
 const messagesActions = new MessagesActions()
 
-export const Message: FC<Props> = ({ message, className }) => {
-	const [isRead, setIsRead] = useState(message.isRead)
-
+export const Message: FC<Props> = ({ message, className, isRead }) => {
 	const dispatch: AppDispatch = useDispatch()
 
 	const onClickMessageDelete = async () => {
@@ -86,8 +85,15 @@ export const Message: FC<Props> = ({ message, className }) => {
 						>
 							{message.time}
 						</Typography>
-						<Check size={17} />
-						{/* <CheckCheck size={17} /> */}
+						{className === 'message sent' && (
+							<>
+								{message.isRead ? (
+									<CheckCheck size={17} />
+								) : (
+									<Check size={17} />
+								)}
+							</>
+						)}
 					</Box>
 				</Box>
 			</Tooltip>

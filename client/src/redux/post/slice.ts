@@ -79,6 +79,14 @@ const postSlice = createSlice({
 			state.statusComments = Status.ERROR
 		})
 
+		builder.addCase(postActions.deleteComment.pending, state => {
+			state.statusComments = Status.LOADIND
+		})
+
+		builder.addCase(postActions.deleteComment.fulfilled, (state, actions) => {
+			state.statusComments = Status.SUCCESS
+		})
+
 		builder.addCase(postActions.deletePost.pending, state => {
 			state.statusDeletePost = Status.LOADIND
 		})

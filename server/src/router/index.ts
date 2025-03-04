@@ -54,6 +54,7 @@ router.patch('/addPostLike/:id', postControllers.addPostLike)
 router.patch('/removePostLike/:id', postControllers.removePostLike)
 
 router.post('/comment', commentsController.createCommentPost)
+router.delete('/commentDelete/:id', commentsController.deleteComment)
 
 router.get('/friendsSuggestions', friendsController.getFriendsSuggetion)
 

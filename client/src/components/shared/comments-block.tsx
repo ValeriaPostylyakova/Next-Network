@@ -1,31 +1,57 @@
 'use client'
 
+import { PostActions } from '@/redux/post/async-action'
+import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
-import { Heart } from 'lucide-react'
+import { Heart, Trash } from 'lucide-react'
+import Link from 'next/link'
 import { FC, useState } from 'react'
-import { AvatarUI } from '../ui'
+import toast from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import { AvatarUI, FlexContainer } from '../ui'
 
 export interface Props {
+	id: number
 	username: string
+	userId: number
 	userImgUrl?: string
 	text: string
 	date: string
 }
 
+const postActions = new PostActions()
+
 export const CommentsBlock: FC<Props> = ({
+	id,
 	username,
+	userId,
 	text,
 	userImgUrl,
 	date,
 }) => {
+	const [commentDisabledId, setCommentDisabledId] = useState<number | null>(
+		null
+	)
 	const [clickLike, setClickLike] = useState<boolean>(false)
+	const dispatch: AppDispatch = useDispatch()
+
+	const deleteComment = async () => {
+		try {
+			dispatch(postActions.deleteComment(id))
+			setCommentDisabledId(id)
+			toast.success('Комментарий успешно удален')
+		} catch (e) {
+			console.error(e)
+			toast.error('Ошибка при удалении комментария')
+		}
+	}
 
 	return (
 		<>
 			<Box
-				sx={{
+				style={{
 					width: '98%',
 					margin: '0 auto',
 					display: 'flex',
@@ -33,51 +59,60 @@ export const CommentsBlock: FC<Props> = ({
 					justifyContent: 'space-between',
 					background: 'background.default',
 					cursor: 'pointer',
-					py: 2,
+					padding: '10px 0',
+					opacity: commentDisabledId === id ? 0.5 : 1,
+					pointerEvents: commentDisabledId === id ? 'none' : 'auto',
 				}}
 			>
 				<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-					<AvatarUI width={55} imageUrl={userImgUrl} />
+					<Link href={`/user/${userId}`}>
+						<AvatarUI width={55} imageUrl={userImgUrl} />
 
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'start',
-							height: '100%',
-							flexDirection: 'column',
-							gap: ' 0.2rem',
-						}}
-					>
-						<Typography sx={{ fontSize: `16px`, fontWeight: 600 }}>
-							{username}
-						</Typography>
-
-						<Typography
+						<Box
 							sx={{
-								fontSize: `14px`,
-								fontWeight: 500,
-								color: '#b5b5b5',
-								mb: 1,
+								display: 'flex',
+								alignItems: 'start',
+								height: '100%',
+								flexDirection: 'column',
+								gap: ' 0.2rem',
 							}}
 						>
-							{text}
-						</Typography>
-						<Typography
-							sx={{
-								fontSize: '12px',
-							}}
-						>
-							{date}
-						</Typography>
-					</Box>
+							<Typography sx={{ fontSize: `16px`, fontWeight: 600 }}>
+								{username}
+							</Typography>
+
+							<Typography
+								sx={{
+									fontSize: `14px`,
+									fontWeight: 500,
+									color: '#b5b5b5',
+									mb: 1,
+								}}
+							>
+								{text}
+							</Typography>
+							<Typography
+								sx={{
+									fontSize: '12px',
+								}}
+							>
+								{date}
+							</Typography>
+						</Box>
+					</Link>
 				</Box>
-				<button onClick={() => setClickLike(!clickLike)}>
-					{clickLike ? (
-						<Heart color='#ff3030' size={22} />
-					) : (
-						<Heart color='#d3d3d3' size={22} />
-					)}
-				</button>
+				<FlexContainer>
+					<button onClick={() => setClickLike(!clickLike)}>
+						{clickLike ? (
+							<Heart color='#ff3030' size={22} />
+						) : (
+							<Heart color='#d3d3d3' size={22} />
+						)}
+					</button>
+					<button onClick={deleteComment}>
+						<Trash size={22} color='#d3d3d3' />
+					</button>
+				</FlexContainer>
 			</Box>
 			<Divider />
 		</>

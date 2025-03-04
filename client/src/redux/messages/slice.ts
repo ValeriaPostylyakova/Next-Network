@@ -19,8 +19,16 @@ export const messagesSlice = createSlice({
 			state.messages.push(action.payload)
 		},
 
-		updateStateMessages(state, action: PayloadAction<any[]>) {
-			state.messages = action.payload
+		updateStateMessages(state, action: PayloadAction<TMessage[]>) {
+			state.messages = state.messages.map(message => {
+				if (action.payload.find(m => m.id === message.id)) {
+					return {
+						...message,
+						isRead: true,
+					}
+				}
+				return message
+			})
 		},
 
 		deleteMessage(state, action: PayloadAction<number>) {

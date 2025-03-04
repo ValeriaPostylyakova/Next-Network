@@ -37,6 +37,7 @@ const io = new Server(https, {
 })
 
 const chatService = new ChatService()
+const users: string[] = []
 
 io.on('connection', socket => {
 	console.log('User connected', socket.id)
@@ -51,19 +52,39 @@ io.on('connection', socket => {
 		}
 	})
 
-	socket.on('isReadMessage', async id => {
+	socket.on('joinChat', async (profileId: string) => {
 		try {
-			await prisma.message.update({
+			socket.emit('resJoinChat', profileId)
+			users.push(profileId)
+			socket.broadcast.emit('resJoinChat', profileId)
+		} catch (e) {
+			console.error(e)
+		}
+	})
+
+	socket.on('isReadMessage', async (chatId: string, profileId: string) => {
+		try {
+			await prisma.message.updateMany({
 				where: {
-					id: Number(id),
+					chatId: Number(chatId),
+					sender: profileId,
+					isRead: false,
 				},
 				data: {
 					isRead: true,
 				},
 			})
 
-			socket.emit('resIsReadMessage', id)
-			socket.broadcast.emit('resIsReadMessage', id)
+			const messages = await prisma.message.findMany({
+				where: {
+					chatId: Number(chatId),
+					sender: profileId,
+					isRead: true,
+				},
+			})
+
+			socket.emit('resIsReadMessage', messages)
+			socket.broadcast.emit('resIsReadMessage', messages)
 		} catch (e) {
 			console.error(e)
 		}

@@ -33,6 +33,7 @@ export type Post = {
 
 export type Comments = {
 	id: number
+	userId: number
 	username: string
 	userImgUrl?: string
 	text: string
