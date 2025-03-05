@@ -200,6 +200,32 @@ export class ChatService {
 	}
 
 	async deleteChat(id: string) {
+		const chat = await prisma.chat.findFirst({
+			where: {
+				id: Number(id),
+			},
+		})
+
+		if (!chat) {
+			throw new Error('Такого чата не существует')
+		}
+
+		await prisma.chatUser.deleteMany({
+			where: {
+				chatId: chat.id,
+			},
+		})
+
+		await prisma.chat.delete({
+			where: {
+				id: chat.id,
+			},
+		})
+
+		return chat
+	}
+
+	async deleteChatEmpty(id: string) {
 		const chat = await prisma.chat.findUnique({
 			where: {
 				id: Number(id),

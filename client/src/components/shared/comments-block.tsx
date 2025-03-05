@@ -64,43 +64,48 @@ export const CommentsBlock: FC<Props> = ({
 					pointerEvents: commentDisabledId === id ? 'none' : 'auto',
 				}}
 			>
-				<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-					<Link href={`/user/${userId}`}>
-						<AvatarUI width={55} imageUrl={userImgUrl} />
+				<Link
+					href={`/user/${userId}`}
+					style={{
+						display: 'flex',
+						gap: '1rem',
+						alignItems: 'center',
+					}}
+				>
+					<AvatarUI width={55} imageUrl={userImgUrl} />
 
-						<Box
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'start',
+							height: '100%',
+							flexDirection: 'column',
+							gap: ' 0.2rem',
+						}}
+					>
+						<Typography sx={{ fontSize: `16px`, fontWeight: 600 }}>
+							{username}
+						</Typography>
+
+						<Typography
 							sx={{
-								display: 'flex',
-								alignItems: 'start',
-								height: '100%',
-								flexDirection: 'column',
-								gap: ' 0.2rem',
+								fontSize: `14px`,
+								fontWeight: 500,
+								color: '#b5b5b5',
+								mb: 1,
 							}}
 						>
-							<Typography sx={{ fontSize: `16px`, fontWeight: 600 }}>
-								{username}
-							</Typography>
-
-							<Typography
-								sx={{
-									fontSize: `14px`,
-									fontWeight: 500,
-									color: '#b5b5b5',
-									mb: 1,
-								}}
-							>
-								{text}
-							</Typography>
-							<Typography
-								sx={{
-									fontSize: '12px',
-								}}
-							>
-								{date}
-							</Typography>
-						</Box>
-					</Link>
-				</Box>
+							{text}
+						</Typography>
+						<Typography
+							sx={{
+								fontSize: '12px',
+							}}
+						>
+							{date}
+						</Typography>
+					</Box>
+				</Link>
 				<FlexContainer>
 					<button onClick={() => setClickLike(!clickLike)}>
 						{clickLike ? (

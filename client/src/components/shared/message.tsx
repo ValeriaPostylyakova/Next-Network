@@ -7,12 +7,11 @@ import { MessagesActions } from '@/redux/messages/async-actions'
 import { deleteMessage } from '@/redux/messages/slice'
 import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
-import { Check, CheckCheck } from 'lucide-react'
+import { Check, CheckCheck, X } from 'lucide-react'
 import { FC } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TMessage } from '../../../@types/chat'
-import { ListTooltipAndModal } from './list-tooltip-and-modal'
 
 export interface Props {
 	message: TMessage
@@ -43,10 +42,19 @@ export const Message: FC<Props> = ({ message, className, isRead }) => {
 		<>
 			<Tooltip
 				title={
-					<ListTooltipAndModal
-						onClickDelete={onClickMessageDelete}
-						text='сообщение'
-					/>
+					<Box
+						onClick={onClickMessageDelete}
+						sx={{
+							display: 'flex',
+							gap: '0.5rem',
+							alignItems: 'center',
+							cursor: 'pointer',
+							height: '30px',
+						}}
+					>
+						<X size={20} />
+						<Typography fontSize={14}>Удалить сообщение</Typography>
+					</Box>
 				}
 				disableFocusListener
 				placement='bottom'

@@ -7,7 +7,9 @@ import { MessagesActions } from '@/redux/messages/async-actions'
 import { setMessages, updateStateMessages } from '@/redux/messages/slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
+import { useRouter } from 'next/navigation'
 import { FC, useCallback, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { TChat, TMessage } from '../../../@types/chat'
 import { Status } from '../../../@types/fetchStatus'
@@ -31,6 +33,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const [value, setValue] = useState<string>('')
 	const [statusTyping, setStatusTyping] = useState<string | null>(null)
 	const socket = useSocket('http://localhost:4200')
+	const router = useRouter()
 
 	const chatId = chatStatus === 'success' ? String(chat.id) : id
 
@@ -105,6 +108,19 @@ export const ChatContent: FC<Props> = ({ id }) => {
 		}
 	}
 
+	const deleteChat = async () => {
+		try {
+			if (chatStatus === 'success') {
+				await dispatch(chatsActions.deleteChat(chatId))
+				toast.success('Чат успешно удален')
+				router.push('/messages')
+			}
+		} catch (e) {
+			console.error(e)
+			toast.error('Ошибка при удалении чата')
+		}
+	}
+
 	return (
 		<Box
 			sx={{
@@ -115,7 +131,11 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			}}
 		>
 			{chatStatus === 'success' && (
-				<ChatHeader {...chat.chatUsers[0]} status={statusTyping} />
+				<ChatHeader
+					{...chat.chatUsers[0]}
+					status={statusTyping}
+					deleteChat={deleteChat}
+				/>
 			)}
 			<ChatMessagesContainer messages={messages} profileId={profile.id} />
 

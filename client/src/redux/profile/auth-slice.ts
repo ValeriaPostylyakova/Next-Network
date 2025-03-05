@@ -91,81 +91,82 @@ export const authSlice = createSlice({
 				state.error = action.payload
 			})
 
-		builder.addCase(fetchAuth.updateProfile.pending, state => {
-			state.statusUpdateUserInfo = Status.LOADIND
-		})
-		builder.addCase(fetchAuth.updateProfile.fulfilled, (state, actions) => {
-			state.statusUpdateUserInfo = Status.SUCCESS
-			state.profile = actions.payload
-		})
-		builder.addCase(fetchAuth.updateProfile.rejected, (state, action) => {
-			state.statusUpdateUserInfo = Status.ERROR
-			state.errorUpdateUserInfo = action.payload
-		})
+			.addCase(fetchAuth.getProfile.pending, state => {
+				state.status = Status.LOADIND
+			})
+			.addCase(fetchAuth.getProfile.fulfilled, (state, action) => {
+				state.status = Status.SUCCESS
+				state.isAuth = true
+				state.profile = action.payload
+			})
+			.addCase(fetchAuth.getProfile.rejected, (state, action) => {
+				state.status = Status.ERROR
+				state.error = action.payload
+			})
 
-		builder.addCase(fetchAuth.updateProfileEmail.pending, state => {
-			state.statusUpdateUserEmail = Status.LOADIND
-		})
-		builder.addCase(
-			fetchAuth.updateProfileEmail.fulfilled,
-			(state, actions) => {
+			.addCase(fetchAuth.updateProfile.pending, state => {
+				state.statusUpdateUserInfo = Status.LOADIND
+			})
+			.addCase(fetchAuth.updateProfile.fulfilled, (state, actions) => {
+				state.statusUpdateUserInfo = Status.SUCCESS
+				state.profile = actions.payload
+			})
+			.addCase(fetchAuth.updateProfile.rejected, (state, action) => {
+				state.statusUpdateUserInfo = Status.ERROR
+				state.errorUpdateUserInfo = action.payload
+			})
+
+			.addCase(fetchAuth.updateProfileEmail.pending, state => {
+				state.statusUpdateUserEmail = Status.LOADIND
+			})
+			.addCase(fetchAuth.updateProfileEmail.fulfilled, (state, actions) => {
 				state.statusUpdateUserEmail = Status.SUCCESS
 				state.profile = actions.payload
-			}
-		)
-		builder.addCase(fetchAuth.updateProfileEmail.rejected, (state, action) => {
-			state.statusUpdateUserEmail = Status.ERROR
-			state.errorUpdateUserEmail = action.payload
-		})
+			})
+			.addCase(fetchAuth.updateProfileEmail.rejected, (state, action) => {
+				state.statusUpdateUserEmail = Status.ERROR
+				state.errorUpdateUserEmail = action.payload
+			})
 
-		builder.addCase(fetchAuth.updateProfilePhone.pending, state => {
-			state.statusUpdateUserPhone = Status.LOADIND
-		})
-		builder.addCase(
-			fetchAuth.updateProfilePhone.fulfilled,
-			(state, actions) => {
+			.addCase(fetchAuth.updateProfilePhone.pending, state => {
+				state.statusUpdateUserPhone = Status.LOADIND
+			})
+			.addCase(fetchAuth.updateProfilePhone.fulfilled, (state, actions) => {
 				state.statusUpdateUserPhone = Status.SUCCESS
 				state.profile = actions.payload
-			}
-		)
-		builder.addCase(fetchAuth.updateProfilePhone.rejected, (state, action) => {
-			state.statusUpdateUserPhone = Status.ERROR
-			state.errorUpdateUserPhone = action.payload
-		})
+			})
+			.addCase(fetchAuth.updateProfilePhone.rejected, (state, action) => {
+				state.statusUpdateUserPhone = Status.ERROR
+				state.errorUpdateUserPhone = action.payload
+			})
 
-		builder.addCase(fetchAuth.updateProfileImageUrl.pending, state => {
-			state.statusUpdateUserImageUrl = Status.LOADIND
-		})
+			.addCase(fetchAuth.updateProfileImageUrl.pending, state => {
+				state.statusUpdateUserImageUrl = Status.LOADIND
+			})
 
-		builder.addCase(
-			fetchAuth.updateProfileImageUrl.fulfilled,
-			(state, action) => {
+			.addCase(fetchAuth.updateProfileImageUrl.fulfilled, (state, action) => {
 				state.statusUpdateUserImageUrl = Status.SUCCESS
 				state.profile = action.payload
-			}
-		)
+			})
 
-		builder.addCase(
-			fetchAuth.updateProfileImageUrl.rejected,
-			(state, action) => {
+			.addCase(fetchAuth.updateProfileImageUrl.rejected, (state, action) => {
 				state.statusUpdateUserImageUrl = Status.ERROR
 				state.errorUpdateUserImageUrl = action.payload
-			}
-		)
+			})
 
-		builder.addCase(fetchAuth.deleteAvatar.pending, state => {
-			state.statusDeleteAvatar = Status.LOADIND
-		})
+			.addCase(fetchAuth.deleteAvatar.pending, state => {
+				state.statusDeleteAvatar = Status.LOADIND
+			})
 
-		builder.addCase(fetchAuth.deleteAvatar.fulfilled, (state, action) => {
-			state.statusDeleteAvatar = Status.SUCCESS
-			state.profile = action.payload
-		})
+			.addCase(fetchAuth.deleteAvatar.fulfilled, (state, action) => {
+				state.statusDeleteAvatar = Status.SUCCESS
+				state.profile = action.payload
+			})
 
-		builder.addCase(fetchAuth.deleteAvatar.rejected, (state, action) => {
-			state.statusDeleteAvatar = Status.ERROR
-			state.errorDeleteAvatar = action.payload
-		})
+			.addCase(fetchAuth.deleteAvatar.rejected, (state, action) => {
+				state.statusDeleteAvatar = Status.ERROR
+				state.errorDeleteAvatar = action.payload
+			})
 	},
 })
 

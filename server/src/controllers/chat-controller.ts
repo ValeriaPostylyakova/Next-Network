@@ -79,4 +79,17 @@ export class ChatController {
 			res.status(500).json({ message: 'Ошибка при удалении чата' })
 		}
 	}
+
+	async deleteChatEmpty(req: any, res: any) {
+		try {
+			const { id } = req.params
+
+			const response = await chatService.deleteChatEmpty(id)
+
+			return res.status(200).json(response)
+		} catch (e) {
+			console.error(e)
+			res.status(500).json({ message: 'Ошибка при удалении чата' })
+		}
+	}
 }

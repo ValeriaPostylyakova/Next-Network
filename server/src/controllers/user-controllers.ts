@@ -1,4 +1,5 @@
 import { validationResult } from 'express-validator'
+import { getUserFromToken } from '../../utils/getUserFromToken'
 import { UserService } from '../services/user-service'
 
 const userService = new UserService()
@@ -78,6 +79,20 @@ export class UserControllers {
 
 			return res.status(200).json(userData)
 		} catch (e) {
+			console.log(e)
+		}
+	}
+
+	async getProfile(req: any, res: any) {
+		try {
+			const { refreshToken } = req.cookies
+
+			const user = await getUserFromToken(refreshToken)
+			return res.status(200).json(user)
+		} catch (e) {
+			res
+				.status(400)
+				.json({ message: 'Ошибка при получении информации о профиле' })
 			console.log(e)
 		}
 	}

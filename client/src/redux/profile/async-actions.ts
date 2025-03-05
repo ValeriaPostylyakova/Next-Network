@@ -59,6 +59,11 @@ export class FetchAuth {
 		return data
 	})
 
+	getProfile = createAsyncThunk('user/fetchProfile', async () => {
+		const { data } = await api.get<TProfile>('/profile/')
+		return data
+	})
+
 	updateProfile = createAsyncThunk(
 		'user/fetchUpdateUser',
 		async (params: TParams) => {

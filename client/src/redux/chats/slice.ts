@@ -68,6 +68,22 @@ export const chatsSlice = createSlice({
 			.addCase(chatsActions.deleteChatEmpty.rejected, (state, action) => {
 				state.statusChat = Status.ERROR
 			})
+
+			.addCase(chatsActions.deleteChat.pending, state => {
+				state.statusChat = Status.LOADIND
+			})
+			.addCase(chatsActions.deleteChat.fulfilled, (state, action) => {
+				state.statusChat = Status.SUCCESS
+				const findChat = state.chats.find(chat => chat.id === action.payload.id)
+				if (findChat) {
+					state.chats = state.chats.filter(
+						chat => chat.id !== action.payload.id
+					)
+				}
+			})
+			.addCase(chatsActions.deleteChat.rejected, (state, action) => {
+				state.statusChat = Status.ERROR
+			})
 	},
 })
 
