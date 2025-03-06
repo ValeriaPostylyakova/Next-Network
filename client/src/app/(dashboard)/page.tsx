@@ -12,6 +12,7 @@ import Box from '@mui/material/Box'
 import { PagesTopLoader } from 'nextjs-toploader/pages'
 import { FC, ReactNode, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { profileId } from '../../../constants/profile'
 
 interface Props {
 	children: ReactNode
@@ -26,7 +27,9 @@ const DashboardPage: FC<Props> = ({ children }) => {
 	const dispatch: AppDispatch = useDispatch()
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
-	const socket = useSocket('http://localhost:4200', profile, status)
+
+	const id = status === 'success' ? String(profile.id) : profileId
+	const socket = useSocket('http://localhost:4200', id)
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {

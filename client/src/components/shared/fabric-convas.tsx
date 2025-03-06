@@ -1,52 +1,79 @@
 'use client'
 
 import { fabric } from 'fabric'
-import { FC, ReactNode, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
-interface FabricJSCanvasProps {
-	width?: number | string
-	height?: number | string
-	options?: fabric.ICanvasOptions
-	updateCanvasContext: (canvas: fabric.Canvas | null) => void
-	children?: ReactNode
-}
-
-export const FabricJSCanvas: FC<FabricJSCanvasProps> = ({
-	width = '100%',
-	height = '100%',
-	options = {
-		backgroundColor: 'transparent',
-	},
-	children,
-	updateCanvasContext,
+export const FabricConvas = ({
+	selectedImage,
+}: {
+	selectedImage: string | null
 }) => {
-	const canvasEl = useRef<HTMLCanvasElement>(null)
+	const canvasRef = useRef<HTMLCanvasElement>(null)
+	const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
+	const [isImageLoaded, setIsImageLoaded] = useState(false)
+	const [fontSize, setFontSize] = useState(20)
 
 	useEffect(() => {
-		if (!canvasEl.current) {
-			console.error('Canvas element is not available.')
-			return
-		}
+		if (!canvasRef.current) return
 
-		const canvas = new fabric.Canvas(canvasEl.current, {
-			...options,
+		const newCanvas = new fabric.Canvas(canvasRef.current, {
+			width: 300,
+			height: 400,
 		})
-
-		if (updateCanvasContext) {
-			updateCanvasContext(canvas)
-		}
+		setCanvas(newCanvas)
 
 		return () => {
-			if (updateCanvasContext) {
-				updateCanvasContext(null)
+			if (newCanvas) {
+				newCanvas.dispose()
 			}
-			canvas.dispose()
 		}
-	}, [options, updateCanvasContext])
+	}, [])
+
+	useEffect(() => {
+		if (!canvas || !selectedImage) return
+
+		fabric.Image.fromURL(
+			selectedImage,
+			img => {
+				if (!canvas) return
+				img.scaleToWidth(canvas.getWidth())
+				img.set({
+					originX: 'center',
+					originY: 'center',
+					left: canvas.getWidth() / 2,
+					top: canvas.getHeight() / 2,
+				})
+				canvas.add(img)
+				canvas.renderAll()
+				setIsImageLoaded(true)
+			},
+			{
+				crossOrigin: 'anonymous',
+			}
+		)
+	}, [selectedImage, canvas])
+
+	const addTextInput = useCallback(() => {
+		if (!canvas) return
+
+		const iText = new fabric.IText('Введите текст', {
+			left: 50,
+			top: 50,
+			fontSize: 20,
+			fill: 'black',
+			fontFamily: 'Arial',
+			hasControls: true,
+			hasBorders: true,
+		})
+		canvas.add(iText)
+		canvas.renderAll()
+	}, [canvas])
 
 	return (
-		<canvas width={width} height={height} ref={canvasEl}>
-			{children}
-		</canvas>
+		<canvas
+			ref={canvasRef}
+			id='myCanvas'
+			style={{ display: isImageLoaded ? 'block' : 'none' }}
+		/>
 	)
 }

@@ -1,13 +1,14 @@
 import { PrismaClient } from '@prisma/client'
+import { getUserFromToken } from '../../utils/getUserFromToken'
 import { CommentDTO } from '../dtos/comment-dto'
 
 const prisma = new PrismaClient()
 
 export class CommentsService {
-	async create(id: number, username: string, userImgUrl: string, text: string) {
+	async create(postId: number, text: string, token: string) {
 		const post = await prisma.post.findFirst({
 			where: {
-				id: id,
+				id: Number(postId),
 			},
 		})
 
@@ -15,11 +16,13 @@ export class CommentsService {
 			throw new Error('Такого поста не существует')
 		}
 
+		const user = await getUserFromToken(token)
+
 		const comment = await prisma.comment.create({
 			data: {
-				postId: id,
-				username: username,
-				userImgUrl: userImgUrl ? userImgUrl : null,
+				postId: postId,
+				username: user.firstname + ' ' + user.lastname,
+				userImgUrl: user.imageUrl ? user.imageUrl : null,
 				text: text,
 			},
 		})

@@ -57,24 +57,24 @@ export class ChatService {
 			})
 
 			return chat
-		}
-
-		const chat = await prisma.chat.create({
-			data: {
-				chatUsers: {
-					create: [{ userId: user1.id }, { userId: user2.id }],
-				},
-			},
-			include: {
-				chatUsers: {
-					include: {
-						user: true,
+		} else {
+			const chat = await prisma.chat.create({
+				data: {
+					chatUsers: {
+						create: [{ userId: user1.id }, { userId: user2.id }],
 					},
 				},
-			},
-		})
+				include: {
+					chatUsers: {
+						include: {
+							user: true,
+						},
+					},
+				},
+			})
 
-		return chat
+			return chat
+		}
 	}
 
 	async getChat(chatId: string, profileId: string) {

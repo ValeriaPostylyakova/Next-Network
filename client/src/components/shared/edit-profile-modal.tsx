@@ -1,10 +1,11 @@
 'use client'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
+import { ProfileForm, inputFields } from '@/json/edit-profile-modal'
 import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TProfile } from '../../../@types/profile'
@@ -14,39 +15,53 @@ export interface Props {
 	profile: TProfile
 }
 
+const userActions = new FetchAuth()
+
 export const EditProfileModal: FC<Props> = ({ profile }) => {
 	const { open, setOpen, handleClose } = useOpenModal()
-	const userActions = new FetchAuth()
 	const dispatch: AppDispatch = useDispatch()
-	const [firstname, setFirstname] = useState(profile.firstname)
-	const [lastname, setLastname] = useState(profile.lastname)
-	const [jobTitle, setJobTitle] = useState(profile.jobTitle || '')
-	const [identifier, setIdentifier] = useState(profile.identifier)
+	const [profileForm, setProfileForm] = useState<ProfileForm>({
+		firstname: profile.firstname || '',
+		lastname: profile.lastname || '',
+		jobTitle: profile.jobTitle || '',
+		identifier: profile.identifier || '',
+	})
 
-	const handleSubmit = async (e: any) => {
-		e.preventDefault()
-		try {
-			const res = await dispatch(
-				userActions.updateProfile({
-					id: profile.id,
-					firstname,
-					lastname,
-					jobTitle,
-					identifier,
-				})
-			)
+	const handleInputChange = useCallback(
+		(name: keyof ProfileForm, value: string) => {
+			setProfileForm({
+				...profileForm,
+				[name]: value,
+			})
+		},
+		[profileForm]
+	)
 
-			if (res.payload == null) {
-				return toast.error('Изменений нет')
+	const handleSubmit = useCallback(
+		async (e: any) => {
+			e.preventDefault()
+			try {
+				const res = await dispatch(
+					userActions.updateProfile({
+						id: profile.id,
+						...profileForm,
+					})
+				)
+
+				if (res.payload == null) {
+					toast.error('Изменений нет')
+					return
+				}
+
+				toast.success('Профиль успешно изменен')
+				handleClose()
+			} catch (e) {
+				console.error(e)
+				toast.error('Ошибка при изменении профиля')
 			}
-
-			toast.success('Профиль успешно изменен')
-			handleClose()
-		} catch (e) {
-			console.error(e)
-			toast.error('Ошибка при изменении профиля')
-		}
-	}
+		},
+		[dispatch, profileForm]
+	)
 
 	return (
 		<Box>
@@ -67,26 +82,14 @@ export const EditProfileModal: FC<Props> = ({ profile }) => {
 						gap: '1rem',
 					}}
 				>
-					<InputFormUI
-						labelText='Ваше имя'
-						value={firstname}
-						setValue={setFirstname}
-					/>
-					<InputFormUI
-						labelText='Ваша фамилия'
-						value={lastname}
-						setValue={setLastname}
-					/>
-					<InputFormUI
-						labelText='Ваша деятельность'
-						value={jobTitle}
-						setValue={setJobTitle}
-					/>
-					<InputFormUI
-						labelText='Ваш никнейм'
-						value={identifier}
-						setValue={setIdentifier}
-					/>
+					{inputFields.map(field => (
+						<InputFormUI
+							key={field.name}
+							labelText={field.labelText}
+							value={profileForm[field.name] as string}
+							setValue={(value: string) => handleInputChange(field.name, value)}
+						/>
+					))}
 				</Box>
 			</ModalFormUI>
 		</Box>

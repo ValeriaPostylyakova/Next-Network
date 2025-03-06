@@ -3,9 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Post } from '../../../@types/post'
 
 type TParams = {
-	id: number
-	username: string
-	userImgUrl?: string
+	postId: number
 	text: string
 }
 
@@ -51,12 +49,10 @@ export class PostActions {
 	createComment = createAsyncThunk(
 		'comments/fetchCreateComment',
 		async (params: TParams) => {
-			const { id, username, userImgUrl, text } = params
+			const { postId, text } = params
 
 			const { data } = await api.post('/comment', {
-				id,
-				username,
-				userImgUrl,
+				postId,
 				text,
 			})
 

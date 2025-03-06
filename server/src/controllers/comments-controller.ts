@@ -5,13 +5,9 @@ const commentsService = new CommentsService()
 export class CommentsController {
 	async createCommentPost(req: any, res: any) {
 		try {
-			const { id, username, userImgUrl, text } = req.body
-			const comment = await commentsService.create(
-				id,
-				username,
-				userImgUrl,
-				text
-			)
+			const { postId, text } = req.body
+			const { refreshToken } = req.cookies
+			const comment = await commentsService.create(postId, text, refreshToken)
 
 			return res.status(200).json(comment)
 		} catch (e) {

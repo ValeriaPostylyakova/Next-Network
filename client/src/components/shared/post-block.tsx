@@ -53,16 +53,11 @@ export const PostBlock: FC<Props> = ({
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const postActions = new PostActions()
 
-	const handleInputComment = (e: KeyboardEvent) => {
-		const userObj = {
-			id: id,
-			username: profile.firstname + ' ' + profile.lastname,
-			userImgUrl: profile.imageUrl,
-			text: valueInput,
-		}
-
+	const handleInputComment = async (e: KeyboardEvent) => {
 		if (e.code === 'Enter' || e.type === 'click') {
-			dispatch(postActions.createComment(userObj))
+			await dispatch(
+				postActions.createComment({ postId: id, text: valueInput })
+			)
 			setValueInput('')
 		}
 	}
