@@ -5,12 +5,8 @@ import { useOpenModal } from '@/hooks/use-open-modal'
 import { RootState } from '@/redux/store'
 import { StoriesActions } from '@/redux/stories/async-actions'
 import Box from '@mui/material/Box'
-import List from '@mui/material/List'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
-import { ALargeSmall, CircleFadingPlus } from 'lucide-react'
+import { CircleFadingPlus } from 'lucide-react'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { ModalFormUI } from '../ui'
@@ -89,28 +85,11 @@ export const CreateStoryBlock: FC<Props> = () => {
 				handleCloseModal={handleClose}
 				onClickButtonSubmit={onClickButtonSubmit}
 			>
-				<Box
-					sx={{
-						display: 'flex',
-					}}
-				>
-					<div>
-						<CreateModalStateBlock
-							selectedImage={selectedImage}
-							setImgUrl={setImgUrl}
-							setSelectedImage={setSelectedImage}
-						/>
-					</div>
-
-					<List>
-						<ListItemButton disabled={selectedImage === null}>
-							<ListItemIcon>
-								<ALargeSmall />
-							</ListItemIcon>
-							<ListItemText primary='Текст' />
-						</ListItemButton>
-					</List>
-				</Box>
+				<CreateModalStateBlock
+					selectedImage={selectedImage}
+					setImgUrl={setImgUrl}
+					setSelectedImage={setSelectedImage}
+				/>
 			</ModalFormUI>
 		</>
 	)

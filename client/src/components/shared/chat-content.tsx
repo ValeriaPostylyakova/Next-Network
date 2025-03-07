@@ -6,6 +6,7 @@ import { setChat, setStatus } from '@/redux/chats/slice'
 import { MessagesActions } from '@/redux/messages/async-actions'
 import { setMessages, updateStateMessages } from '@/redux/messages/slice'
 import { AppDispatch, RootState } from '@/redux/store'
+import { deleteUnreadMessages } from '@/redux/unreadMessages/slice'
 import Box from '@mui/material/Box'
 import { useRouter } from 'next/navigation'
 import { FC, useCallback, useEffect, useState } from 'react'
@@ -74,6 +75,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 
 		const handleResIsReadMessage = (messagesReading: TMessage[]) => {
 			dispatch(updateStateMessages(messagesReading))
+			dispatch(deleteUnreadMessages(messagesReading))
 		}
 
 		socket.emit('joinChat', chatId)

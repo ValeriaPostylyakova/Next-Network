@@ -6,10 +6,9 @@ import messagesSlice from './messages/slice'
 import postSlice from './post/slice'
 import authSlice from './profile/auth-slice'
 import searhSlice from './search/slice'
-import socketSlice from './socket/slice'
 import storiesSlice from './stories/slice'
+import unreadMessagesSlice from './unreadMessages/slice'
 import profileSlice from './user/slice'
-
 export const makeStore = () => {
 	return configureStore({
 		reducer: {
@@ -22,7 +21,7 @@ export const makeStore = () => {
 			messages: messagesSlice,
 			stories: storiesSlice,
 			feed: feedSlice,
-			socket: socketSlice,
+			unreadMessages: unreadMessagesSlice,
 		},
 	})
 }

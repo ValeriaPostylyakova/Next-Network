@@ -111,13 +111,16 @@ export class ChatService {
 			},
 			include: {
 				messages: true,
+				unreadMessage: true,
 				chatUsers: {
 					where: {
 						userId: {
 							not: Number(id),
 						},
 					},
-					include: { user: true },
+					include: {
+						user: true,
+					},
 				},
 			},
 		})
@@ -197,6 +200,23 @@ export class ChatService {
 				id: Number(id),
 			},
 		})
+	}
+
+	async getUnreadMessages(id: string) {
+		const unreadMessages = await prisma.unreadMessage.findMany({
+			where: {
+				userId: Number(id),
+			},
+			include: {
+				message: true,
+			},
+		})
+
+		if (!unreadMessages) {
+			return null
+		}
+
+		return unreadMessages
 	}
 
 	async deleteChat(id: string) {

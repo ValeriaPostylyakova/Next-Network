@@ -8,6 +8,7 @@ import { FetchAuth } from '@/redux/profile/async-actions'
 import { setUser } from '@/redux/profile/auth-slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import { StoriesActions } from '@/redux/stories/async-actions'
+import { UnreadMessagesAction } from '@/redux/unreadMessages/async-actions'
 import Box from '@mui/material/Box'
 import { PagesTopLoader } from 'nextjs-toploader/pages'
 import { FC, ReactNode, useEffect } from 'react'
@@ -22,6 +23,7 @@ const fetchAuth = new FetchAuth()
 const friendsSuggestion = new FriendsSuggestionActions()
 const storiesActions = new StoriesActions()
 const feedActions = new FeedActions()
+const unreadMessagesActions = new UnreadMessagesAction()
 
 const DashboardPage: FC<Props> = ({ children }) => {
 	const dispatch: AppDispatch = useDispatch()
@@ -39,6 +41,7 @@ const DashboardPage: FC<Props> = ({ children }) => {
 		dispatch(friendsSuggestion.getFriendsSuggestion())
 		dispatch(feedActions.getFeed())
 		dispatch(storiesActions.getStories())
+		dispatch(unreadMessagesActions.getUnreadMessages(id))
 	}, [])
 
 	useEffect(() => {

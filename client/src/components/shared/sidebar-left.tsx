@@ -4,35 +4,41 @@ import List from '@mui/material/List'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
+import { RootState } from '@/redux/store'
 import { House, MessagesSquare, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { FC, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { ISidebarItem } from '../../../@types/sidebar-items'
 import { DrawerUI, FlexContainer } from '../ui'
 import { SidebarItem } from './sidebar-item'
 import { SidebarLeftSearch } from './sidebar-left-search'
 import { SidebarProfile } from './sidebar-profile'
 
-const sidebarItems: ISidebarItem[] = [
-	{
-		text: 'Главная',
-		icons: <House />,
-		link: 'feed',
-	},
-	{
-		text: 'Чаты',
-		icons: <MessagesSquare />,
-		link: 'messages',
-	},
-	{
-		text: 'Настройки',
-		icons: <Settings />,
-		link: 'settings',
-	},
-]
-
 export const SidebarLeft: FC = () => {
 	const [searchValue, setSearchValue] = useState<string>('')
+	const unreadMessages = useSelector(
+		(state: RootState) => state.unreadMessages.unreadMessages
+	)
+
+	const sidebarItems: ISidebarItem[] = [
+		{
+			text: 'Главная',
+			icons: <House />,
+			link: 'feed',
+		},
+		{
+			text: 'Чаты',
+			icons: <MessagesSquare />,
+			link: 'messages',
+			count: unreadMessages.length,
+		},
+		{
+			text: 'Настройки',
+			icons: <Settings />,
+			link: 'settings',
+		},
+	]
 
 	return (
 		<DrawerUI>

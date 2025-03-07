@@ -45,6 +45,33 @@ io.on('connection', socket => {
 	socket.on('chat_message', async data => {
 		try {
 			const message = await chatService.createMessage(data)
+
+			const chat = await prisma.chat.findFirst({
+				where: {
+					id: Number(data.chatId),
+				},
+				include: {
+					chatUsers: {
+						where: {
+							userId: { not: Number(data.sender) },
+						},
+						include: {
+							user: true,
+						},
+					},
+				},
+			})
+
+			const userId = chat?.chatUsers[0].user.id
+
+			await prisma.unreadMessage.create({
+				data: {
+					userId: Number(userId),
+					messageId: message.id,
+					chatId: Number(data.chatId),
+				},
+			})
+
 			socket.emit('new_message', message)
 			socket.broadcast.emit('new_message', message)
 		} catch (e) {
@@ -80,6 +107,13 @@ io.on('connection', socket => {
 					chatId: Number(chatId),
 					sender: profileId,
 					isRead: true,
+				},
+			})
+
+			await prisma.unreadMessage.deleteMany({
+				where: {
+					chatId: Number(chatId),
+					userId: Number(profileId),
 				},
 			})
 

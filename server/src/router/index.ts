@@ -65,6 +65,7 @@ router.get('/chat', chatController.getChat)
 router.delete('/deleteChat/:id', chatController.deleteChat)
 router.delete('/deleteChatEmpty/:id', chatController.deleteChatEmpty)
 router.get('/messages/:id', chatController.getMessages)
+router.get('/unreadMessages/:id', chatController.getUnreadMessages)
 router.delete('/deleteMessage/:id', chatController.deleteMessage)
 
 router.get('/feed', feedController.getFeed)

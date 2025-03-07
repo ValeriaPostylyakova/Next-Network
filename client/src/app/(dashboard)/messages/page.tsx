@@ -31,6 +31,7 @@ const Page: FC<Props> = () => {
 							key={chat.id}
 							chatId={chat.id}
 							{...chat.chatUsers[0]}
+							unreadMessagesCount={chat.unreadMessage.length}
 							lastMessage={chat.messages.at(-1)}
 						/>
 					))}

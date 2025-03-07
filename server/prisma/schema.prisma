@@ -30,9 +30,10 @@ model User {
   friends            Friend[]
   friendsSuggestions FriendsSuggestions[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Session   Session[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Session       Session[]
+  unreadMessage UnreadMessage[]
 }
 
 model Session {
@@ -124,8 +125,9 @@ model Chat {
   messages  Message[]
   chatUsers ChatUser[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  unreadMessage UnreadMessage[]
 }
 
 model ChatUser {
@@ -147,6 +149,22 @@ model Message {
   chat   Chat?   @relation(fields: [chatId], references: [id])
   chatId Int?
   isRead Boolean @default(false)
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  unreadMessage UnreadMessage[]
+}
+
+model UnreadMessage {
+  id Int @id @default(autoincrement())
+
+  user    User    @relation(fields: [userId], references: [id])
+  message Message @relation(fields: [messageId], references: [id])
+  chat    Chat    @relation(fields: [chatId], references: [id])
+
+  userId    Int
+  messageId Int
+  chatId    Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

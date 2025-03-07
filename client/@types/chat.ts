@@ -1,4 +1,5 @@
 import { TProfile } from './profile'
+import { TUnreadMessage } from './unread-messages'
 
 type TChatUsers = {
 	user: TProfile
@@ -7,6 +8,8 @@ type TChatUsers = {
 export type TChat = {
 	id: number
 	chatUsers: TChatUsers[]
+	messages: TMessage[]
+	unreadMessage: TUnreadMessage[]
 }
 
 export type TMessage = {
