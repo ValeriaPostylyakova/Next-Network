@@ -41,7 +41,6 @@ export const CommentsBlock: FC<Props> = ({
 		try {
 			dispatch(postActions.deleteComment(id))
 			setCommentDisabledId(id)
-			toast.success('Комментарий успешно удален')
 		} catch (e) {
 			console.error(e)
 			toast.error('Ошибка при удалении комментария')

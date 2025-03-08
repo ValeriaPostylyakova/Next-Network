@@ -27,6 +27,8 @@ const chatsActions = new ChatActions()
 
 export const ChatContent: FC<Props> = ({ id }) => {
 	const profile = useSelector((state: RootState) => state.auth.profile)
+	const statusProfile = useSelector((state: RootState) => state.auth.status)
+
 	const messages = useSelector((state: RootState) => state.messages.messages)
 	const chatStatus = useSelector((state: RootState) => state.chats.statusChat)
 	const chat = useSelector((state: RootState) => state.chats.chat)
@@ -37,16 +39,36 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const router = useRouter()
 
 	const chatId = chatStatus === 'success' ? String(chat.id) : id
+	const joinProfileId =
+		statusProfile === 'success' ? String(profile.id) : profileId
 
 	const loadChatData = useCallback(() => {
 		dispatch(messagesActions.getMessages(chatId))
 		dispatch(
 			chatsActions.getChat({
 				chatId: chatId,
-				profileId: profileId,
+				profileId: joinProfileId,
 			})
 		)
-	}, [chatId, profileId, dispatch])
+	}, [chatId, joinProfileId, dispatch])
+
+	useEffect(() => {
+		if (!socket) return
+		socket.emit('joinChat', joinProfileId)
+
+		socket.on('resJoinChat', async (joinedProfileId: string) => {
+			socket.emit('isReadMessage', chatId, joinedProfileId)
+		})
+
+		socket.on('resIsReadMessage', async (messagesReading: TMessage[]) => {
+			dispatch(updateStateMessages(messagesReading))
+			dispatch(deleteUnreadMessages(messagesReading))
+		})
+
+		return () => {
+			socket.off('resJoinChat')
+		}
+	}, [socket, dispatch])
 
 	useEffect(() => {
 		loadChatData()
@@ -67,22 +89,8 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			setStatusTyping(data)
 		}
 
-		const handleResJoinChat = (joinedProfileId: string) => {
-			if (Number(joinedProfileId) !== profile.id) {
-				socket.emit('isReadMessage', chatId, profileId)
-			}
-		}
-
-		const handleResIsReadMessage = (messagesReading: TMessage[]) => {
-			dispatch(updateStateMessages(messagesReading))
-			dispatch(deleteUnreadMessages(messagesReading))
-		}
-
-		socket.emit('joinChat', chatId)
 		socket.on('new_message', handleNewMessage)
 		socket.on('resTyping', handleResTyping)
-		socket.on('resJoinChat', handleResJoinChat)
-		socket.on('resIsReadMessage', handleResIsReadMessage)
 
 		return () => {
 			socket.off('new_message')
@@ -90,7 +98,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			socket.off('resIsReadMessage')
 			socket.off('resJoinChat')
 		}
-	}, [socket, chatId, dispatch])
+	}, [socket, chatId, dispatch, joinProfileId])
 
 	const handleInputValue = async (e: any) => {
 		if (!socket || !chatId) return

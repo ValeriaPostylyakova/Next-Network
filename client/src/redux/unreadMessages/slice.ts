@@ -21,7 +21,9 @@ export const unreadMessagesSlice = createSlice({
 		},
 
 		deleteUnreadMessages: (state, action: PayloadAction<TMessage[]>) => {
-			state.unreadMessages = []
+			state.unreadMessages = state.unreadMessages.filter(
+				message => !action.payload.find(m => m.id === Number(message.id))
+			)
 		},
 	},
 	extraReducers: builder =>

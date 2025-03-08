@@ -2,7 +2,7 @@
 
 import { useOpenModal } from '@/hooks/use-open-modal'
 import Box from '@mui/material/Box'
-import { FC, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import { useClickAway } from 'react-use'
 import { TMessage } from '../../../@types/chat'
 import { BlockEmpty } from './block-empty'
@@ -16,11 +16,17 @@ export interface Props {
 export const ChatMessagesContainer: FC<Props> = ({ profileId, messages }) => {
 	const { setOpen } = useOpenModal()
 
-	const ref = useRef(null)
+	const ref = useRef<HTMLDivElement | null>(null)
 
 	useClickAway(ref, () => {
 		setOpen(false)
 	})
+
+	useEffect(() => {
+		if (ref.current) {
+			ref.current.scrollTop = ref.current.scrollHeight
+		}
+	}, [])
 
 	return (
 		<Box

@@ -1,5 +1,5 @@
 import { ChatContent } from '@/components/shared'
-import { MainWrapper } from '@/components/ui/main-wrapper'
+import Box from '@mui/material/Box'
 import { FC } from 'react'
 
 type Params = {
@@ -12,9 +12,17 @@ interface Props {
 const Page: FC<Props> = async ({ params }) => {
 	const { chatId } = await params
 	return (
-		<MainWrapper mt={0}>
+		<Box
+			sx={{
+				width: 'calc(100% - 660px)',
+				m: '0 auto',
+				display: 'flex',
+				flexGrow: 0,
+				bgcolor: '#000000',
+			}}
+		>
 			<ChatContent id={chatId} />
-		</MainWrapper>
+		</Box>
 	)
 }
 

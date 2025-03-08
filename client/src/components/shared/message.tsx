@@ -29,7 +29,6 @@ export const Message: FC<Props> = ({ message, className, isRead }) => {
 		try {
 			await dispatch(messagesActions.deleteMessage(String(message.id)))
 			dispatch(deleteMessage(message.id))
-			toast.success('Сообщение успешно удалено')
 		} catch (error) {
 			toast.error(
 				'Ошибка при удалении сообщения. Пожалуйста, попробуйте ещё раз'
@@ -65,13 +64,15 @@ export const Message: FC<Props> = ({ message, className, isRead }) => {
 						display: 'flex',
 						gap: '0.5rem',
 						cursor: 'pointer',
-						flexGrow: 0,
 						alignItems: 'flex-end',
+						height: 'auto',
 					}}
 				>
 					<Typography
 						sx={{
 							fontSize: '17px',
+							overflowWrap: 'break-word',
+							overflowY: 'auto',
 						}}
 					>
 						{message.text}

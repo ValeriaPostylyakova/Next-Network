@@ -45,7 +45,6 @@ export const RegisterForm: FC = () => {
 		if (status === 'success') {
 			toast.success('Вы успешно зарегистрировались')
 			setOpen(false)
-			router.push('/feed')
 		}
 	}
 

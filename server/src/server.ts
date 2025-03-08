@@ -79,10 +79,9 @@ io.on('connection', socket => {
 		}
 	})
 
-	socket.on('joinChat', async (profileId: string) => {
+	socket.on('joinChat', (profileId: string) => {
 		try {
 			socket.emit('resJoinChat', profileId)
-			users.push(profileId)
 			socket.broadcast.emit('resJoinChat', profileId)
 		} catch (e) {
 			console.error(e)
@@ -94,7 +93,9 @@ io.on('connection', socket => {
 			await prisma.message.updateMany({
 				where: {
 					chatId: Number(chatId),
-					sender: profileId,
+					sender: {
+						not: profileId,
+					},
 					isRead: false,
 				},
 				data: {
@@ -105,7 +106,9 @@ io.on('connection', socket => {
 			const messages = await prisma.message.findMany({
 				where: {
 					chatId: Number(chatId),
-					sender: profileId,
+					sender: {
+						not: profileId,
+					},
 					isRead: true,
 				},
 			})

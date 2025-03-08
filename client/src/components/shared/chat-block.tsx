@@ -62,7 +62,9 @@ export const ChatBlock: FC<Props> = ({
 								color: '#b5b5b5',
 							}}
 						>
-							{lastMessage?.text}
+							{lastMessage?.text && lastMessage?.text.length > 30
+								? lastMessage?.text.slice(0, 30) + '...'
+								: lastMessage?.text}
 						</Typography>
 					</Box>
 				</Box>

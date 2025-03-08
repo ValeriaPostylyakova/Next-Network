@@ -12,7 +12,6 @@ export interface Props {
 export const MainWrapper: FC<Props> = ({ children, mt, pt }) => {
 	return (
 		<Box
-			component='main'
 			sx={[
 				theme => ({
 					mt: `${mt}px`,

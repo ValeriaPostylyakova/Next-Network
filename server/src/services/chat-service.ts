@@ -100,12 +100,12 @@ export class ChatService {
 		return chat
 	}
 
-	async getChats(id: string) {
+	async getChats(id: number) {
 		const chats = await prisma.chat.findMany({
 			where: {
 				chatUsers: {
 					some: {
-						userId: Number(id),
+						userId: id,
 					},
 				},
 			},
@@ -115,7 +115,7 @@ export class ChatService {
 				chatUsers: {
 					where: {
 						userId: {
-							not: Number(id),
+							not: id,
 						},
 					},
 					include: {
@@ -229,6 +229,12 @@ export class ChatService {
 		if (!chat) {
 			throw new Error('Такого чата не существует')
 		}
+
+		await prisma.unreadMessage.deleteMany({
+			where: {
+				chatId: chat.id,
+			},
+		})
 
 		await prisma.chatUser.deleteMany({
 			where: {

@@ -19,7 +19,7 @@ const Page: FC<Props> = () => {
 	const chats = useSelector((state: RootState) => state.chats.chats)
 
 	useEffect(() => {
-		dispatch(chatsActions.getChats(profileId))
+		dispatch(chatsActions.getChats())
 	}, [])
 
 	return (

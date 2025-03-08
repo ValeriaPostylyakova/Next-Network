@@ -12,8 +12,8 @@ export type TParamsCreateChat = {
 }
 
 export class ChatActions {
-	getChats = createAsyncThunk('chats/fetchChats', async (id: string) => {
-		const { data } = await api.get(`/chats/${id}`)
+	getChats = createAsyncThunk('chats/fetchChats', async () => {
+		const { data } = await api.get(`/chats`)
 		return data
 	})
 

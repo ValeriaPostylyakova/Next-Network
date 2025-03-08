@@ -10,6 +10,8 @@ interface Props {
 	setOpen: (value: boolean) => void
 	setText?: (value: string) => void
 	text?: string
+	successModalText: string
+	errorModalText: string
 	muddlewareName: string
 	childrenMiddlewareName?: string
 }
@@ -21,6 +23,8 @@ export const useCreateModalImages = ({
 	text,
 	muddlewareName,
 	childrenMiddlewareName,
+	successModalText,
+	errorModalText,
 }: Props) => {
 	const dispatch: AppDispatch = useDispatch()
 	const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -38,10 +42,10 @@ export const useCreateModalImages = ({
 					handleClose()
 					setSelectedImage(null)
 					setText && setText('')
-					toast.success('Пост успешно создан!')
+					toast.success(successModalText)
 				})
 			} catch (error) {
-				toast.error('Ошибка при создании поста')
+				toast.error(errorModalText)
 				console.log(error)
 			}
 		},

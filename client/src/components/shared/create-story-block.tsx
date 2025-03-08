@@ -32,6 +32,8 @@ export const CreateStoryBlock: FC<Props> = () => {
 		apiActions: storiesActions.createStory,
 		setOpen,
 		muddlewareName: 'story',
+		successModalText: 'История успешно создана!',
+		errorModalText: 'Ошибка при создании истории',
 	})
 
 	return (

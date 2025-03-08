@@ -59,7 +59,7 @@ router.delete('/commentDelete/:id', commentsController.deleteComment)
 
 router.get('/friendsSuggestions', friendsController.getFriendsSuggetion)
 
-router.get('/chats/:id', chatController.getChats)
+router.get('/chats', chatController.getChats)
 router.post('/createChat', chatController.createChat)
 router.get('/chat', chatController.getChat)
 router.delete('/deleteChat/:id', chatController.deleteChat)

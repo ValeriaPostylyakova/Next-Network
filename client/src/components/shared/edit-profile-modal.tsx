@@ -53,7 +53,7 @@ export const EditProfileModal: FC<Props> = ({ profile }) => {
 					return
 				}
 
-				toast.success('Профиль успешно изменен')
+				toast.success('Изменения успешно сохранены')
 				handleClose()
 			} catch (e) {
 				console.error(e)
