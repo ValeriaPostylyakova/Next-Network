@@ -82,6 +82,7 @@ model Comment {
   id Int @id @default(autoincrement())
 
   username   String
+  userId     Int
   userImgUrl String?
   text       String
 

@@ -24,6 +24,7 @@ export interface Props {
 	fullname: string
 	jobTitle?: string
 	userImageUrl?: string
+	userId: number
 	likes: number
 	like: boolean
 	comments: Comments[]
@@ -43,6 +44,7 @@ export const PostBlock: FC<Props> = ({
 	userImageUrl,
 	date,
 	visibleMenu,
+	userId,
 }) => {
 	const [openComments, setOpenComments] = useState<boolean>(false)
 	const [showEmoji, setShowEmoji] = useState<boolean>(false)
@@ -87,6 +89,7 @@ export const PostBlock: FC<Props> = ({
 						visibleMenu={menuRef}
 						fullname={fullname}
 						jobTitle={jobTitle}
+						userId={userId}
 						userImageUrl={userImageUrl}
 						deletePost={deletePost}
 					/>
@@ -115,7 +118,7 @@ export const PostBlock: FC<Props> = ({
 				</Box>
 			</MainBlock>
 			{showEmoji && (
-				<EmojiBlock setValue={setValueInput} top='100%' right={0} />
+				<EmojiBlock setValue={setValueInput} bottom={'21%'} right={0} />
 			)}
 		</Box>
 	)

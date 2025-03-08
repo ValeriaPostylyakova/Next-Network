@@ -22,6 +22,7 @@ export class CommentsService {
 			data: {
 				postId: postId,
 				username: user.firstname + ' ' + user.lastname,
+				userId: user.id,
 				userImgUrl: user.imageUrl ? user.imageUrl : null,
 				text: text,
 			},

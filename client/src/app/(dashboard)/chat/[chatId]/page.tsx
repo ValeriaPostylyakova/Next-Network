@@ -19,6 +19,8 @@ const Page: FC<Props> = async ({ params }) => {
 				display: 'flex',
 				flexGrow: 0,
 				bgcolor: '#000000',
+				position: 'relative',
+				zIndex: 30,
 			}}
 		>
 			<ChatContent id={chatId} />

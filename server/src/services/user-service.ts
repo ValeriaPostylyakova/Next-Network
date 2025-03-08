@@ -270,7 +270,7 @@ export class UserService {
 				id: profile.id,
 			},
 			data: {
-				imageUrl: `http://localhost:4200/images/avatar/${imageUrl}`,
+				imageUrl: `${process.env.API_URL}/images/avatar/${imageUrl}`,
 			},
 		})
 

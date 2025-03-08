@@ -57,7 +57,7 @@ export const ChatFooter: FC<Props> = ({
 					</Button>
 					<TextField
 						autoComplete='off'
-						placeholder='Message'
+						placeholder='Сообщение'
 						sx={{
 							width: '100%',
 							'& fieldset': { border: 'none' },

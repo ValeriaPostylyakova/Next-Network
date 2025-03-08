@@ -82,14 +82,11 @@ export class PostService {
 				jobTitle: user.jobTitle,
 				userImageUrl: user.imageUrl,
 				postImageUrl: fileData
-					? `http://localhost:4200/images/posts/${fileData}`
+					? `${process.env.API_URL}/images/posts/${fileData}`
 					: null,
 				text: textData,
 				userId: user.id,
 				likes: 0,
-			},
-			include: {
-				comments: true,
 			},
 		})
 
@@ -101,6 +98,9 @@ export class PostService {
 			},
 			data: {
 				date: postDate.date,
+			},
+			include: {
+				comments: true,
 			},
 		})
 

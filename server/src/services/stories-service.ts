@@ -24,7 +24,7 @@ export class StoriesService {
 				data: {
 					items: {
 						create: {
-							imageUrl: `http://localhost:4200/images/story/${fileName}`,
+							imageUrl: `${process.env.API_URL}/images/story/${fileName}`,
 							expiresAt: expiresAt,
 						},
 					},
