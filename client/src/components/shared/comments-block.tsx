@@ -87,12 +87,24 @@ export const CommentsBlock: FC<Props> = ({
 						</Typography>
 
 						<Typography
-							sx={{
-								fontSize: `14px`,
-								fontWeight: 500,
-								color: '#b5b5b5',
-								mb: 1,
-							}}
+							// sx={{
+							// 	fontSize: `14px`,
+							// 	fontWeight: 500,
+							// 	color: '#b5b5b5',
+							// 	mb: 1,
+							// }}
+							sx={[
+								theme => ({
+									fontSize: `14px`,
+									fontWeight: 500,
+									color: '#555555',
+									mb: 1,
+								}),
+								theme =>
+									theme.applyStyles('dark', {
+										color: '#b5b5b5',
+									}),
+							]}
 						>
 							{text}
 						</Typography>
@@ -110,11 +122,11 @@ export const CommentsBlock: FC<Props> = ({
 						{clickLike ? (
 							<Heart color='#ff3030' size={22} />
 						) : (
-							<Heart color='#d3d3d3' size={22} />
+							<Heart color='#a3a3a3' size={22} />
 						)}
 					</button>
 					<button onClick={deleteComment}>
-						<Trash size={22} color='#d3d3d3' />
+						<Trash size={22} color='#a3a3a3' />
 					</button>
 				</FlexContainer>
 			</Box>

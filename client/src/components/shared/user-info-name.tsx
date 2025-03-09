@@ -1,3 +1,5 @@
+'use client'
+
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC, ReactNode } from 'react'
@@ -15,6 +17,7 @@ export interface Props {
 	name?: string
 	mb?: number
 	profile?: TProfile
+	identifier?: string
 }
 
 export const UserInfoName: FC<Props> = ({
@@ -27,6 +30,7 @@ export const UserInfoName: FC<Props> = ({
 	name,
 	profile,
 	mb,
+	identifier,
 }) => {
 	return (
 		<FlexContainer mb={mb}>
@@ -56,13 +60,30 @@ export const UserInfoName: FC<Props> = ({
 				</Typography>
 				{sizeSubTitle && (
 					<Typography
-						sx={{
-							fontSize: `${sizeSubTitle}px`,
-							fontWeight: 500,
-							color: '#b5b5b5',
-						}}
+						sx={[
+							theme => ({
+								fontSize: `${sizeSubTitle}px`,
+								fontWeight: 500,
+								color: '#6f6f6f',
+							}),
+							theme =>
+								theme.applyStyles('dark', {
+									color: '#b5b5b5',
+								}),
+						]}
 					>
 						{text}
+					</Typography>
+				)}
+				{identifier && (
+					<Typography
+						sx={{
+							fontWeight: 500,
+							color: '#ffffff',
+							fontSize: '14px',
+						}}
+					>
+						{identifier}
 					</Typography>
 				)}
 				{messageBlock && messageBlock}

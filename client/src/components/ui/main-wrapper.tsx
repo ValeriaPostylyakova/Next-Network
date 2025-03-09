@@ -17,7 +17,7 @@ export const MainWrapper: FC<Props> = ({ children, mt, pt }) => {
 					mt: `${mt}px`,
 					pt: `${pt}rem`,
 					minHeight: '100vh',
-					width: '100%',
+					width: 'calc(100% - 660px)',
 					position: 'relative',
 				}),
 				theme =>

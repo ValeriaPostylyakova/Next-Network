@@ -185,21 +185,25 @@ export class ChatService {
 	}
 
 	async deleteMessage(id: string) {
-		const message = await prisma.message.findUnique({
+		const message = await prisma.message.findFirst({
 			where: {
 				id: Number(id),
 			},
 		})
 
-		if (!message) {
-			throw new Error('Такого сообщения не существует')
+		if (message) {
+			await prisma.unreadMessage.deleteMany({
+				where: {
+					messageId: message.id,
+				},
+			})
+
+			await prisma.message.delete({
+				where: {
+					id: Number(id),
+				},
+			})
 		}
-
-		await prisma.message.delete({
-			where: {
-				id: Number(id),
-			},
-		})
 	}
 
 	async getUnreadMessages(id: string) {

@@ -39,11 +39,10 @@ export const SidebarProfile: FC = () => {
 					/>
 				) : (
 					<UserInfoName
-						text={`@${profile.identifier}`}
+						identifier={`@${profile.identifier}`}
 						width={40}
 						image={profile.imageUrl}
 						sizeTitle={16}
-						sizeSubTitle={14}
 						name={profile.firstname + ' ' + profile.lastname}
 						profile={profile}
 					/>

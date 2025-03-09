@@ -65,7 +65,14 @@ export const SidebarRight: FC<Props> = () => {
 					p: 2.5,
 				}}
 			>
-				<Typography variant='h6'>Возможные друзья</Typography>
+				<Typography
+					variant='h6'
+					sx={{
+						fontWeight: 600,
+					}}
+				>
+					Возможные друзья
+				</Typography>
 			</Box>
 
 			<Divider />

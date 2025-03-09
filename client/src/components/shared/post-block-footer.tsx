@@ -48,11 +48,18 @@ export const PostBlockFooter: FC<Props> = ({
 				/>
 			</Box>
 			<Typography
-				sx={{
-					fontSize: '14px',
-					fontWeight: 600,
-					mr: 1,
-				}}
+				sx={[
+					theme => ({
+						fontSize: '14px',
+						fontWeight: 600,
+						mr: 1,
+						color: '#595959',
+					}),
+					theme =>
+						theme.applyStyles('dark', {
+							color: '#dfdfdf',
+						}),
+				]}
 			>
 				{date}
 			</Typography>

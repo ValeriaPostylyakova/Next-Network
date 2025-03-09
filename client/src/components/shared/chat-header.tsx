@@ -37,7 +37,17 @@ export const ChatHeader: FC<Props> = ({ user, status, deleteChat }) => {
 						alignItems: 'center',
 					}}
 				>
-					<Toolbar>
+					<Toolbar
+						sx={[
+							theme => ({
+								color: '#000000',
+							}),
+							theme =>
+								theme.applyStyles('dark', {
+									color: '#fff',
+								}),
+						]}
+					>
 						<Link href={`/user/${user.id}`}>
 							<UserInfoName
 								width={50}

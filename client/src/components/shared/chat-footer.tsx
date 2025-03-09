@@ -70,7 +70,7 @@ export const ChatFooter: FC<Props> = ({
 						<button
 							onClick={e => handleInputValue(e)}
 							style={{
-								color: '#2a5de9',
+								color: '#5142f5',
 							}}
 						>
 							<SendHorizontal />

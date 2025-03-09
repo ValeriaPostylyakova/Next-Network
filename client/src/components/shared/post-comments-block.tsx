@@ -25,8 +25,21 @@ export const PostCommentsBlock: FC<Props> = ({
 			}}
 			onClick={() => setOpenComments(!openComments)}
 		>
-			<MessageSquareText color='#d3d3d3' size={22} />
-			<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
+			<MessageSquareText color='#bdbdbd' size={22} />
+			<Typography
+				sx={[
+					theme => ({
+						fontSize: '14px',
+						fontWeight: 600,
+						ml: -1.5,
+						color: '#595959',
+					}),
+					theme =>
+						theme.applyStyles('dark', {
+							color: '#dfdfdf',
+						}),
+				]}
+			>
 				{comments?.length} Comments
 			</Typography>
 		</Box>

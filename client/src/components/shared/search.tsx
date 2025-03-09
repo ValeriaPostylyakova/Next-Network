@@ -72,37 +72,69 @@ export const HeaderSearch: FC<Props> = ({ width, placeholder }) => {
 				}}
 			/>
 			<Box
-				sx={{
-					position: 'absolute',
-					top: focused ? '120%' : '130%',
-					left: '0',
-					width: '100%',
-					visibility: focused ? 'visible' : 'hidden',
-					background: '#313131ff',
-					transition: 'all 0.3s ease-in-out',
-					borderRadius: '0.8rem',
-					opacity: focused ? 1 : 0,
-					zIndex: 100,
-					p: 2,
-				}}
+				sx={[
+					theme => ({
+						position: 'absolute',
+						top: focused ? '120%' : '130%',
+						left: '0',
+						width: '100%',
+						visibility: focused ? 'visible' : 'hidden',
+						background: '#fafafaff',
+						transition: 'all 0.3s ease-in-out',
+						borderRadius: '0.8rem',
+						opacity: focused ? 1 : 0,
+						zIndex: 100,
+						p: 2,
+					}),
+
+					theme =>
+						theme.applyStyles('dark', {
+							background: '#313131ff',
+						}),
+				]}
 			>
-				<Box>
+				<Box
+					sx={[
+						theme => ({
+							color: '#000',
+						}),
+						theme =>
+							theme.applyStyles('dark', {
+								color: '#fff',
+							}),
+					]}
+				>
 					{users.length === 0 && (
 						<Typography>По данному запросу ничего не найдено</Typography>
 					)}
 					<>
 						{users.map((user: TProfile) => (
-							<Link href={`/user/${user.id}`} key={user.id}>
+							<Link
+								href={`/user/${user.id}`}
+								key={user.id}
+								style={{
+									color: 'inherit',
+								}}
+							>
 								<Box
-									sx={{
-										width: '100%',
-										cursor: 'pointer',
-										'&:hover': {
-											background: '#474747',
-										},
-										borderRadius: '5px',
-										py: 0.8,
-									}}
+									sx={[
+										theme => ({
+											width: '100%',
+											cursor: 'pointer',
+											'&:hover': {
+												background: '#ececec',
+											},
+											borderRadius: '5px',
+											py: 0.8,
+										}),
+
+										theme =>
+											theme.applyStyles('dark', {
+												'&:hover': {
+													background: '#474747',
+												},
+											}),
+									]}
 								>
 									<UserInfoName
 										sizeTitle={14}

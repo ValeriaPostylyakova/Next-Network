@@ -40,7 +40,7 @@ export const CreatePostModalContent: FC<Props> = ({
 					outline: 'none',
 					border: 'none',
 					fontSize: '16px',
-					color: '#fff',
+					color: 'inherit',
 					backgroundColor: 'inherit',
 					scrollbarWidth: 'thin',
 					scrollbarColor: '#888 #363636',

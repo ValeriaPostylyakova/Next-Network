@@ -46,19 +46,31 @@ export const ProfileInfoBlock: FC<Props> = ({
 						</Typography>
 
 						<Typography
-							sx={{
-								fontSize: `16px`,
-								fontWeight: 500,
-								color: '#b5b5b5',
-							}}
+							sx={[
+								theme => ({
+									fontSize: `16px`,
+									fontWeight: 500,
+									color: '#6d6d6d',
+								}),
+								theme =>
+									theme.applyStyles('dark', {
+										color: '#b5b5b5',
+									}),
+							]}
 						>
 							{profileInfo.jobTitle}
 						</Typography>
 						<Typography
-							sx={{
-								mt: 1,
-								color: '#8b8b8b',
-							}}
+							sx={[
+								theme => ({
+									mt: 1,
+									color: '#000000',
+								}),
+								theme =>
+									theme.applyStyles('dark', {
+										color: '#8b8b8b',
+									}),
+							]}
 						>
 							{profileInfo.isOnline}
 						</Typography>

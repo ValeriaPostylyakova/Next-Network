@@ -25,7 +25,6 @@ export const Message: FC<Props> = ({ message, className, isRead }) => {
 	const dispatch: AppDispatch = useDispatch()
 
 	const onClickMessageDelete = async () => {
-		console.log(message.sender)
 		try {
 			await dispatch(messagesActions.deleteMessage(String(message.id)))
 			dispatch(deleteMessage(message.id))

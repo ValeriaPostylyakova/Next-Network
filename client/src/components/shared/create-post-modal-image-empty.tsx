@@ -32,14 +32,19 @@ export const CreatePostModalImageEmpty: FC<Props> = ({ handleImageChange }) => {
 				}}
 			>
 				<Box
-					sx={{
-						px: 1.5,
-						py: 1,
-						borderWidth: '2px',
-						borderColor: '#fff',
-						borderStyle: 'dashed',
-						borderRadius: 3,
-					}}
+					sx={[
+						theme => ({
+							px: 1.5,
+							py: 1,
+							borderWidth: '2px',
+
+							borderStyle: 'dashed',
+							borderRadius: 3,
+						}),
+
+						theme => theme.applyStyles('dark', { borderColor: '#fff' }),
+						theme => theme.applyStyles('light', { borderColor: '#8b8b8b' }),
+					]}
 				>
 					<ArrowUpFromDot size={30} />
 				</Box>

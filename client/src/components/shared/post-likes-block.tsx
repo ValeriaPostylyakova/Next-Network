@@ -46,10 +46,23 @@ export const PostLikesBlock: FC<Props> = ({ likes, like, id }) => {
 				{clickLike ? (
 					<Heart color='#b63939' size={22} />
 				) : (
-					<Heart color='#d3d3d3' size={22} />
+					<Heart color='#bdbdbd' size={22} />
 				)}
 			</Button>
-			<Typography sx={{ fontSize: '14px', fontWeight: 600, ml: -1.5 }}>
+			<Typography
+				sx={[
+					theme => ({
+						fontSize: '14px',
+						fontWeight: 600,
+						ml: -1.5,
+						color: '#595959',
+					}),
+					theme =>
+						theme.applyStyles('dark', {
+							color: '#dfdfdf',
+						}),
+				]}
+			>
 				{likesData ? likesData : likes} Likes
 			</Typography>
 		</Box>

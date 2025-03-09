@@ -21,13 +21,21 @@ export const SidebarItem: FC<Props> = ({ text, icons, link, count }) => {
 		<ListItem disablePadding>
 			<ListItemButton onClick={() => router.push(`/${link}`)} sx={{ py: 2 }}>
 				<ListItemIcon sx={{ color: '#ffff' }}>{icons}</ListItemIcon>
-				<ListItemText sx={{ ml: -2 }} primary={text} />
+				<ListItemText
+					sx={{
+						ml: -2,
+						'& span': {
+							fontWeight: 600,
+						},
+					}}
+					primary={text}
+				/>
 				<Box
 					sx={{
 						pr: 1.5,
 					}}
 				>
-					{count !== 0 && <BadgeUI count={count} />}
+					{count !== 0 && <BadgeUI fontSize={12} width={20} count={count} />}
 				</Box>
 			</ListItemButton>
 		</ListItem>
