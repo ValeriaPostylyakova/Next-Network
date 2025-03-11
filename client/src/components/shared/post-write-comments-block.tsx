@@ -1,7 +1,6 @@
 'use client'
 
 import { RootState } from '@/redux/store'
-import { Avatar } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { SendHorizonal, Smile } from 'lucide-react'
 import { FC } from 'react'
@@ -9,7 +8,9 @@ import { useSelector } from 'react-redux'
 import { AvatarUI, ButtonUI, FlexContainer } from '../ui'
 
 export interface Props {
-	handleInputComment: (e: any) => void
+	handleInputComment: (
+		e: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
+	) => void
 	value: string
 	setValue: (value: string) => void
 	showEmoji: boolean
@@ -38,9 +39,7 @@ export const PostWriteCommentsBlock: FC<Props> = ({
 						},
 					}}
 					placeholder='Write your comment..'
-					onKeyDown={e => {
-						handleInputComment(e)
-					}}
+					onKeyDown={handleInputComment}
 					onChange={e => setValue(e.target.value)}
 					value={value}
 				/>
@@ -50,7 +49,7 @@ export const PostWriteCommentsBlock: FC<Props> = ({
 					<Smile />
 				</ButtonUI>
 
-				<ButtonUI variant='outlined' click={e => handleInputComment(e)}>
+				<ButtonUI variant='outlined' click={handleInputComment}>
 					<SendHorizonal />
 				</ButtonUI>
 			</FlexContainer>

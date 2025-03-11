@@ -8,6 +8,7 @@ import { setMessages, updateStateMessages } from '@/redux/messages/slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import { deleteUnreadMessages } from '@/redux/unreadMessages/slice'
 import Box from '@mui/material/Box'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { useRouter } from 'next/navigation'
 import { FC, useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -100,7 +101,9 @@ export const ChatContent: FC<Props> = ({ id }) => {
 		}
 	}, [socket, chatId, dispatch, joinProfileId])
 
-	const handleInputValue = async (e: any) => {
+	const handleInputValue = async (
+		e: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
+	) => {
 		if (!socket || !chatId) return
 
 		const message = {
@@ -120,11 +123,10 @@ export const ChatContent: FC<Props> = ({ id }) => {
 
 	const deleteChat = async () => {
 		try {
-			if (chatStatus === 'success') {
-				await dispatch(chatsActions.deleteChat(chatId))
-				toast.success('Чат успешно удален')
-				router.push('/messages')
-			}
+			const resultAction = await dispatch(chatsActions.deleteChat(chatId))
+			unwrapResult(resultAction)
+			toast.success('Чат успешно удален')
+			router.push('/messages')
 		} catch (e) {
 			console.error(e)
 			toast.error('Ошибка при удалении чата')

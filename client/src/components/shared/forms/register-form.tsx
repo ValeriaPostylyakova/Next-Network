@@ -7,11 +7,10 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import Divider from '@mui/material/Divider'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
 import { useSubmitFormData } from '@/hooks/use-submit-form-data'
-import Image from 'next/image'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -36,33 +35,21 @@ export const RegisterForm: FC = () => {
 	})
 
 	const onSubmit = async (data: TRegisterForm) => {
-		dispatch(fetchAuth.registration(data))
-
-		if (status === 'error') {
-			toast.error('Такой пользователь уже существует')
-		}
-
-		if (status === 'success') {
+		try {
+			const resultAction = await dispatch(fetchAuth.registration(data))
+			unwrapResult(resultAction)
 			toast.success('Вы успешно зарегистрировались')
 			setOpen(false)
+		} catch (e) {
+			console.error(e)
+			toast.error(
+				'Непредвиденная ошибка при регистрации. Пожалуйста, попробуйте ещё раз'
+			)
 		}
 	}
 
 	return (
 		<>
-			<ButtonUI width='80%' bgcolor='#fff' m='0.3rem' variant='contained'>
-				<Image src='/images/google.png' alt='google' width={20} height={20} />
-				Google
-			</ButtonUI>
-			<Divider
-				variant='fullWidth'
-				sx={{
-					width: '80%',
-				}}
-			>
-				или
-			</Divider>
-
 			<ButtonUI width='80%' click={handleOpen} variant='contained' m='2rem'>
 				Зарегистрироваться
 			</ButtonUI>
@@ -99,8 +86,8 @@ export const RegisterForm: FC = () => {
 									name='firstname'
 								/>
 								<FormItem
-									label='Введите свое имя'
-									placeholder='Введите имя'
+									label='Введите свою фамилию'
+									placeholder='Введите фамилию'
 									name='lastname'
 								/>
 								<FormItem

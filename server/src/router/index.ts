@@ -4,6 +4,7 @@ import { ChatController } from '../controllers/chat-controller'
 import { CommentsController } from '../controllers/comments-controller'
 import { FeedController } from '../controllers/feed-controller'
 import { FriendsController } from '../controllers/friends-controller'
+import { MessageController } from '../controllers/message-controller'
 import { PostControllers } from '../controllers/post-controllers'
 import { SearchController } from '../controllers/search-controller'
 import { StoriesController } from '../controllers/stories-controller'
@@ -21,6 +22,7 @@ const friendsController = new FriendsController()
 const chatController = new ChatController()
 const feedController = new FeedController()
 const storiesController = new StoriesController()
+const messageController = new MessageController()
 
 router.post(
 	'/registration',
@@ -30,7 +32,6 @@ router.post(
 )
 router.post('/login', userControllers.login)
 router.post('/logout', userControllers.logout)
-router.get('/activate/:link', userControllers.activate)
 router.get('/refresh', userControllers.refresh)
 router.get('/user/:id', userControllers.getUser)
 router.get('/profile', userControllers.getProfile)
@@ -64,9 +65,9 @@ router.post('/createChat', chatController.createChat)
 router.get('/chat', chatController.getChat)
 router.delete('/deleteChat/:id', chatController.deleteChat)
 router.delete('/deleteChatEmpty/:id', chatController.deleteChatEmpty)
-router.get('/messages/:id', chatController.getMessages)
-router.get('/unreadMessages/:id', chatController.getUnreadMessages)
-router.delete('/deleteMessage/:id', chatController.deleteMessage)
+router.get('/messages/:id', messageController.getMessages)
+router.get('/unreadMessages/:id', messageController.getUnreadMessages)
+router.delete('/deleteMessage/:id', messageController.deleteMessage)
 
 router.get('/feed', feedController.getFeed)
 

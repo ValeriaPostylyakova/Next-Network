@@ -10,6 +10,7 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -20,7 +21,7 @@ import { loginFormSchema, TLoginFormSchema } from './schema'
 
 export const AuthForm: FC = () => {
 	const { open, handleClose, handleOpen, setOpen } = useOpenModal()
-	const { dispatch, user, fetchAuth, router, status } = useSubmitFormData()
+	const { dispatch, fetchAuth, router, status } = useSubmitFormData()
 	const error = useSelector((state: RootState) => state.auth.error)
 
 	const form = useForm({
@@ -33,13 +34,15 @@ export const AuthForm: FC = () => {
 	})
 
 	const onSubmit = async (data: TLoginFormSchema) => {
-		await dispatch(fetchAuth.login(data))
+		try {
+			const resultAction = await dispatch(fetchAuth.login(data))
 
-		if (error) {
-			toast.error(error)
-		} else {
+			unwrapResult(resultAction)
 			router.push('/feed')
 			toast.success('Вы успешно авторизовались')
+		} catch (e) {
+			console.error(e)
+			toast.error('Ошибка при авторизации')
 		}
 	}
 

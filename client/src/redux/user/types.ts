@@ -4,5 +4,4 @@ import { TProfile } from '../../../@types/profile'
 export interface InitialState {
 	profile: TProfile
 	statusProfile: Status
-	error: unknown | null
 }

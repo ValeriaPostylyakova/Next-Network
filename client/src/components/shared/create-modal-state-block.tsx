@@ -4,7 +4,7 @@ import { Dispatch, FC, SetStateAction } from 'react'
 import { CreatePostModalImageEmpty } from './create-post-modal-image-empty'
 
 export interface Props {
-	setImgUrl: Dispatch<SetStateAction<File | undefined>>
+	setImgUrl: Dispatch<SetStateAction<File | null>>
 	heightImage?: string
 	setSelectedImage: Dispatch<SetStateAction<string | null>>
 	selectedImage: string | null

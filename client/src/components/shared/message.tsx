@@ -7,6 +7,7 @@ import { MessagesActions } from '@/redux/messages/async-actions'
 import { deleteMessage } from '@/redux/messages/slice'
 import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { Check, CheckCheck, X } from 'lucide-react'
 import { FC } from 'react'
 import toast from 'react-hot-toast'
@@ -26,7 +27,10 @@ export const Message: FC<Props> = ({ message, className, isRead }) => {
 
 	const onClickMessageDelete = async () => {
 		try {
-			await dispatch(messagesActions.deleteMessage(String(message.id)))
+			const resultAction = await dispatch(
+				messagesActions.deleteMessage(String(message.id))
+			)
+			unwrapResult(resultAction)
 			dispatch(deleteMessage(message.id))
 		} catch (error) {
 			toast.error(

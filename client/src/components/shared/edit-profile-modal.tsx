@@ -5,7 +5,8 @@ import { ProfileForm, inputFields } from '@/json/edit-profile-modal'
 import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
-import { FC, useCallback, useState } from 'react'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { FC, FormEvent, useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { TProfile } from '../../../@types/profile'
@@ -38,7 +39,7 @@ export const EditProfileModal: FC<Props> = ({ profile }) => {
 	)
 
 	const handleSubmit = useCallback(
-		async (e: any) => {
+		async (e: FormEvent<HTMLFormElement>) => {
 			e.preventDefault()
 			try {
 				const res = await dispatch(
@@ -53,6 +54,7 @@ export const EditProfileModal: FC<Props> = ({ profile }) => {
 					return
 				}
 
+				unwrapResult(res)
 				toast.success('Изменения успешно сохранены')
 				handleClose()
 			} catch (e) {

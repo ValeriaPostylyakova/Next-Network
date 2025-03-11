@@ -30,7 +30,7 @@ const Page: FC<Props> = () => {
 				<SettingsBlock
 					myTitle={4}
 					sizeTitle={21}
-					title='Language'
+					title='Язык'
 					typographyText='Выбор языка'
 					open={openInput}
 					setStateOpen={setOpenInput}

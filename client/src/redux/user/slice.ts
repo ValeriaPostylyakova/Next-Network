@@ -9,7 +9,6 @@ const userActions = new UserActions()
 const initialState: InitialState = {
 	profile: {} as TProfile,
 	statusProfile: Status.LOADIND,
-	error: null,
 }
 
 const profileSlice = createSlice({
@@ -24,11 +23,9 @@ const profileSlice = createSlice({
 			.addCase(userActions.getUser.fulfilled, (state, action) => {
 				state.statusProfile = Status.SUCCESS
 				state.profile = action.payload
-				state.error = null
 			})
 			.addCase(userActions.getUser.rejected, (state, action) => {
 				state.statusProfile = Status.ERROR
-				state.error = action.payload
 			}),
 })
 

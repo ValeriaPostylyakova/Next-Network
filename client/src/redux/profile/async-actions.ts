@@ -1,6 +1,7 @@
 import { api, API_URL } from '@/http/axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import e from 'cors'
 import { TProfile } from '../../../@types/profile'
 import {
 	TParams,
@@ -27,24 +28,17 @@ export class FetchAuth {
 			return data
 		}
 	)
-	login = createAsyncThunk(
-		'user/fetchLogin',
-		async (params: TParamsLogin, { rejectWithValue }) => {
-			const { email, password } = params
+	login = createAsyncThunk('user/fetchLogin', async (params: TParamsLogin) => {
+		const { email, password } = params
 
-			try {
-				const response = await api.post('/login', { email, password })
+		try {
+			const { data } = await api.post('/login', { email, password })
 
-				if (response.status !== 200) {
-					throw new Error('Network response was not ok')
-				}
-
-				return response.data
-			} catch (error: any) {
-				return rejectWithValue(error.response.data.message)
-			}
+			return data
+		} catch (error) {
+			console.log(e)
 		}
-	)
+	})
 
 	logout = createAsyncThunk('user/fetchLogout', async () => {
 		await api.post('/logout')

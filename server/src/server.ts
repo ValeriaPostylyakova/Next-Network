@@ -7,7 +7,7 @@ import { createServer } from 'http'
 import path from 'path'
 import { Server } from 'socket.io'
 import { routers } from './router/index'
-import { ChatService } from './services/chat-service'
+import { MessageService } from './services/message-service'
 
 const app = express()
 
@@ -36,15 +36,14 @@ const io = new Server(https, {
 	},
 })
 
-const chatService = new ChatService()
-const users: string[] = []
+const messageService = new MessageService()
 
 io.on('connection', socket => {
 	console.log('User connected', socket.id)
 
 	socket.on('chat_message', async data => {
 		try {
-			const message = await chatService.createMessage(data)
+			const message = await messageService.createMessage(data)
 
 			const chat = await prisma.chat.findFirst({
 				where: {

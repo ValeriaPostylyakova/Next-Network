@@ -58,26 +58,6 @@ export class UserService {
 		}
 	}
 
-	async activate(activationLink: string) {
-		const user = await prisma.user.findFirst({
-			where: {
-				activationLink: activationLink,
-			},
-		})
-
-		if (!user) {
-			throw new Error('Некорректная ссылка активации')
-		}
-
-		await prisma.user.update({
-			where: {
-				id: user.id,
-			},
-			data: {
-				isActivated: true,
-			},
-		})
-	}
 	async login(email: string, password: string) {
 		const findUser = await prisma.user.findFirst({
 			where: {

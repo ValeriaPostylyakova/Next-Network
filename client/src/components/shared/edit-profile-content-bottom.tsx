@@ -4,6 +4,7 @@ import { FetchAuth } from '@/redux/profile/async-actions'
 import { AppDispatch } from '@/redux/store'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { IMaskInput } from 'react-imask'
@@ -27,16 +28,17 @@ export const EditProfileContentBottom: FC<Props> = ({ profile }) => {
 	const [openInput, setOpenInput] = useState<boolean>(false)
 	const [editedPhone, setEditedPhone] = useState<boolean>(false)
 
-	const handleClickInput = async (e: any) => {
+	const handleClickInput = async (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.code === 'Enter') {
 			try {
-				dispatch(
+				const resultAction = await dispatch(
 					userActions.updateProfileEmail({
 						id: profile.id,
 						email: editMode.email,
 					})
 				)
 				setOpenInput(false)
+				unwrapResult(resultAction)
 				toast.success('Изменения успешно сохранены')
 			} catch (e) {
 				console.error(e)
@@ -45,16 +47,19 @@ export const EditProfileContentBottom: FC<Props> = ({ profile }) => {
 		}
 	}
 
-	const handleClickInputPhone = async (e: any) => {
+	const handleClickInputPhone = async (
+		e: React.KeyboardEvent<HTMLInputElement>
+	) => {
 		if (e.code === 'Enter') {
 			try {
-				dispatch(
+				const resultAction = await dispatch(
 					userActions.updateProfilePhone({
 						id: profile.id,
 						phone: editMode.phone,
 					})
 				)
 				setEditedPhone(false)
+				unwrapResult(resultAction)
 				toast.success('Изменения успешно сохранены')
 			} catch (e) {
 				console.error(e)
@@ -78,7 +83,7 @@ export const EditProfileContentBottom: FC<Props> = ({ profile }) => {
 						type='text'
 						value={editMode.phone}
 						onAccept={value => setEditMode({ ...editMode, phone: value })}
-						onKeyDown={e => handleClickInputPhone(e)}
+						onKeyDown={handleClickInputPhone}
 						mask={'+{7}(000)000-00-00'}
 						style={{
 							backgroundColor: 'inherit',
@@ -110,7 +115,7 @@ export const EditProfileContentBottom: FC<Props> = ({ profile }) => {
 							color: '#fff',
 						}}
 						value={editMode.email}
-						onKeyDown={e => handleClickInput(e)}
+						onKeyDown={handleClickInput}
 						onChange={e => setEditMode({ ...editMode, email: e.target.value })}
 					/>
 				) : (

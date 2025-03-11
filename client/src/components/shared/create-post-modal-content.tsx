@@ -3,7 +3,7 @@ import { Dispatch, FC, SetStateAction } from 'react'
 import { CreateModalStateBlock } from './create-modal-state-block'
 
 interface Props {
-	setImgUrl: Dispatch<SetStateAction<File | undefined>>
+	setImgUrl: Dispatch<SetStateAction<File | null>>
 	setSelectedImage: Dispatch<SetStateAction<string | null>>
 	text: string
 	setText: (value: string) => void

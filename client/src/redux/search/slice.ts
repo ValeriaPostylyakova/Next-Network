@@ -8,7 +8,6 @@ const userActions = new UsersActions()
 const initialState: InitialState = {
 	users: [],
 	status: Status.LOADIND,
-	error: null,
 }
 
 const searhSlice = createSlice({
@@ -23,11 +22,9 @@ const searhSlice = createSlice({
 			.addCase(userActions.getUsers.fulfilled, (state, action) => {
 				state.status = Status.SUCCESS
 				state.users = action.payload
-				state.error = null
 			})
 			.addCase(userActions.getUsers.rejected, (state, action) => {
 				state.status = Status.ERROR
-				state.error = action.payload
 			}),
 })
 

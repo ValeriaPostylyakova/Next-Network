@@ -9,7 +9,7 @@ async function up() {
 			{
 				email: 'valeria.postylyakova@yandex.ru',
 				password: bcrypt.hashSync('postylyakovavs107', 7),
-				id: 3,
+
 				isActivated: false,
 				firstname: 'Валерия',
 				lastname: 'Постылякова',
@@ -21,7 +21,7 @@ async function up() {
 			{
 				email: 'ivanov@gmail.com',
 				password: bcrypt.hashSync('ivanov53465346', 7),
-				id: 1,
+
 				isActivated: true,
 				firstname: 'Иванов',
 				lastname: 'Даниил',
@@ -33,7 +33,7 @@ async function up() {
 			{
 				email: 'postj886@mail.ru',
 				password: bcrypt.hashSync('gh43j5kg4hgk', 7),
-				id: 2,
+
 				isActivated: true,
 				firstname: 'Кристина',
 				lastname: 'Разина',
@@ -44,7 +44,7 @@ async function up() {
 			{
 				email: 'romanov8785@gmail.com',
 				password: bcrypt.hashSync('fj5vldsqv2blfutr464', 7),
-				id: 4,
+
 				isActivated: false,
 				firstname: 'Егор',
 				lastname: 'Романов',
@@ -62,42 +62,42 @@ async function up() {
 			userId: 1,
 		},
 	})
-	await prisma.post.createMany({
-		data: [
-			{
-				postImageUrl:
-					'https://i.pinimg.com/736x/49/37/c5/4937c54f77949adc477383c0d4c37542.jpg',
-				text: 'Вечерний кайф 😄',
-				fullname: 'Валерия Постылякова',
-				jobTitle: 'Frontend Developer',
-				userImageUrl:
-					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-				likes: 4,
-				date: '10 февр. 2025 г., 19:27',
-				userId: 3,
-			},
-			{
-				postImageUrl:
-					'https://i.pinimg.com/736x/31/6c/1d/316c1de4fdbaed14fddc73833a18336d.jpg',
-				fullname: 'Кристина Разина',
-				jobTitle: 'Designer',
-				userImageUrl: null,
-				likes: 2,
-				userId: 2,
-				date: '25 янв. 2025 г., 14:30',
-			},
-			{
-				postImageUrl:
-					'https://i.pinimg.com/736x/02/a9/b3/02a9b3e654d849d82d73a72bea595993.jpg',
-				fullname: 'Егор Романов',
-				jobTitle: 'Chief Information Security Officer',
-				userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
-				likes: 0,
-				userId: 4,
-				date: '20 дек. 2024 г., 10:15',
-			},
-		],
-	})
+	// await prisma.post.createMany({
+	// 	data: [
+	// 		{
+	// 			postImageUrl:
+	// 				'https://i.pinimg.com/736x/49/37/c5/4937c54f77949adc477383c0d4c37542.jpg',
+	// 			text: 'Вечерний кайф 😄',
+	// 			fullname: 'Валерия Постылякова',
+	// 			jobTitle: 'Frontend Developer',
+	// 			userImageUrl:
+	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+	// 			likes: 4,
+	// 			date: '10 февр. 2025 г., 19:27',
+	// 			userId: 3,
+	// 		},
+	// 		{
+	// 			postImageUrl:
+	// 				'https://i.pinimg.com/736x/31/6c/1d/316c1de4fdbaed14fddc73833a18336d.jpg',
+	// 			fullname: 'Кристина Разина',
+	// 			jobTitle: 'Designer',
+	// 			userImageUrl: null,
+	// 			likes: 2,
+	// 			userId: 2,
+	// 			date: '25 янв. 2025 г., 14:30',
+	// 		},
+	// 		{
+	// 			postImageUrl:
+	// 				'https://i.pinimg.com/736x/02/a9/b3/02a9b3e654d849d82d73a72bea595993.jpg',
+	// 			fullname: 'Егор Романов',
+	// 			jobTitle: 'Chief Information Security Officer',
+	// 			userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
+	// 			likes: 0,
+	// 			userId: 4,
+	// 			date: '20 дек. 2024 г., 10:15',
+	// 		},
+	// 	],
+	// })
 
 	// await prisma.comment.createMany({
 	// 	data: [

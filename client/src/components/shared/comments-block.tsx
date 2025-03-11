@@ -5,6 +5,7 @@ import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { Heart, Trash } from 'lucide-react'
 import Link from 'next/link'
 import { FC, useState } from 'react'
@@ -39,7 +40,8 @@ export const CommentsBlock: FC<Props> = ({
 
 	const deleteComment = async () => {
 		try {
-			dispatch(postActions.deleteComment(id))
+			const resultAction = await dispatch(postActions.deleteComment(id))
+			unwrapResult(resultAction)
 			setCommentDisabledId(id)
 		} catch (e) {
 			console.error(e)

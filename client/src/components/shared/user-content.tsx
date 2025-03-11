@@ -4,6 +4,7 @@ import { ChatActions } from '@/redux/chats/async-actions'
 import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch, RootState } from '@/redux/store'
 import { UserActions } from '@/redux/user/async-actions'
+import { unwrapResult } from '@reduxjs/toolkit'
 import Link from 'next/link'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -33,9 +34,11 @@ export const UserContent: FC<Props> = ({ id }) => {
 	const createChat = async () => {
 		try {
 			if (profile) {
-				dispatch(
+				const resultAction = await dispatch(
 					chatActions.createChat({ userId: id, profileId: String(profile.id) })
 				)
+
+				unwrapResult(resultAction)
 			}
 		} catch (e) {
 			console.error(e)

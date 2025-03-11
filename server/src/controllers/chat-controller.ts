@@ -1,10 +1,11 @@
+import { Request, Response } from 'express'
 import { getUserFromToken } from '../../utils/getUserFromToken'
 import { ChatService } from '../services/chat-service'
 
 const chatService = new ChatService()
 
 export class ChatController {
-	async getChats(req: any, res: any) {
+	async getChats(req: Request, res: Response): Promise<any> {
 		try {
 			const user = await getUserFromToken(req.cookies.refreshToken)
 
@@ -17,7 +18,7 @@ export class ChatController {
 		}
 	}
 
-	async createChat(req: any, res: any) {
+	async createChat(req: Request, res: Response): Promise<any> {
 		try {
 			const { userId, profileId } = req.body
 
@@ -30,11 +31,14 @@ export class ChatController {
 		}
 	}
 
-	async getChat(req: any, res: any) {
+	async getChat(req: Request, res: Response): Promise<any> {
 		try {
 			const { chatId, profileId } = req.query
 
-			const response = await chatService.getChat(chatId, profileId)
+			const response = await chatService.getChat(
+				chatId as string,
+				profileId as string
+			)
 			return res.status(200).json(response)
 		} catch (e) {
 			console.error(e)
@@ -42,48 +46,7 @@ export class ChatController {
 		}
 	}
 
-	async getMessages(req: any, res: any) {
-		try {
-			const { id } = req.params
-
-			const response = await chatService.getMessages(id)
-
-			return res.status(200).json(response)
-		} catch (e) {
-			console.error(e)
-			res.status(500).json({ message: 'Ошибка при получении сообщений' })
-		}
-	}
-
-	async deleteMessage(req: any, res: any) {
-		try {
-			const { id } = req.params
-
-			const response = await chatService.deleteMessage(id)
-
-			return res.status(200).json(response)
-		} catch (e) {
-			console.error(e)
-			res.status(500).json({ message: 'Ошибка при удалении сообщений' })
-		}
-	}
-
-	async getUnreadMessages(req: any, res: any) {
-		try {
-			const { id } = req.params
-
-			const response = await chatService.getUnreadMessages(id)
-
-			return res.status(200).json(response)
-		} catch (e) {
-			console.error(e)
-			res
-				.status(500)
-				.json({ message: 'Ошибка при получении непрочитанных сообщений' })
-		}
-	}
-
-	async deleteChat(req: any, res: any) {
+	async deleteChat(req: Request, res: Response): Promise<any> {
 		try {
 			const { id } = req.params
 
@@ -96,7 +59,7 @@ export class ChatController {
 		}
 	}
 
-	async deleteChatEmpty(req: any, res: any) {
+	async deleteChatEmpty(req: Request, res: Response): Promise<any> {
 		try {
 			const { id } = req.params
 

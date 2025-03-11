@@ -20,7 +20,7 @@ export const ButtonGroupTheme: FC<Props> = () => {
 	return (
 		<>
 			<Typography sx={{ mb: 5, fontSize: '1.3rem', pt: 3 }}>
-				Переключение темы
+				Выбор темы
 			</Typography>
 			<FormControl sx={{ pb: 3 }}>
 				<RadioGroup

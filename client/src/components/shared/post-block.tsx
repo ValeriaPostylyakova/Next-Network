@@ -6,8 +6,9 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 
 import { PostActions } from '@/redux/post/async-action'
-import { AppDispatch, RootState } from '@/redux/store'
-import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '@/redux/store'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 import { Comments } from '../../../@types/post'
 import { MainBlock } from '../ui'
 import { EmojiBlock } from './emoji-block'
@@ -52,7 +53,6 @@ export const PostBlock: FC<Props> = ({
 	const menuRef = useRef<boolean>(visibleMenu)
 
 	const dispatch: AppDispatch = useDispatch()
-	const profile = useSelector((state: RootState) => state.auth.profile)
 	const postActions = new PostActions()
 
 	const handleInputComment = async (e: KeyboardEvent) => {
@@ -66,7 +66,8 @@ export const PostBlock: FC<Props> = ({
 
 	const deletePost = async () => {
 		try {
-			dispatch(postActions.deletePost(id))
+			const resultAction = await dispatch(postActions.deletePost(id))
+			unwrapResult(resultAction)
 			toast.success('Пост успешно удалён')
 		} catch (e) {
 			console.error(e)

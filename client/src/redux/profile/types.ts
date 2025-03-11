@@ -44,10 +44,4 @@ export interface InitiateState {
 	statusUpdateUserPhone: Status
 	statusUpdateUserImageUrl: Status
 	statusDeleteAvatar: Status
-	error: unknown | null
-	errorUpdateUserInfo: unknown | null
-	errorUpdateUserEmail: unknown | null
-	errorUpdateUserPhone: unknown | null
-	errorUpdateUserImageUrl: unknown | null
-	errorDeleteAvatar: unknown | null
 }
