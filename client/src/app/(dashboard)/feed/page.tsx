@@ -10,7 +10,7 @@ interface Props {
 const Page: FC<Props> = () => {
 	return (
 		<MainWrapper mt={65}>
-			<Box sx={{ width: '95%', m: '0 auto', pt: 3 }}>
+			<Box sx={{ width: '94%', m: '0 auto', pt: 3 }}>
 				<Header />
 				<FeedContent />
 			</Box>

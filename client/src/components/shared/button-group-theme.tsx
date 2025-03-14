@@ -9,9 +9,7 @@ import { useColorScheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
 
-export interface Props {}
-
-export const ButtonGroupTheme: FC<Props> = () => {
+export const ButtonGroupTheme: FC = () => {
 	const { mode, setMode } = useColorScheme()
 	if (!mode) {
 		return null

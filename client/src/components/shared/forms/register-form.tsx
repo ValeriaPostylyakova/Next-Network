@@ -43,7 +43,7 @@ export const RegisterForm: FC = () => {
 		} catch (e) {
 			console.error(e)
 			toast.error(
-				'Непредвиденная ошибка при регистрации. Пожалуйста, попробуйте ещё раз'
+				'Возможно, пользователь с такой почтой уже существует. Пожалуйста, введите другую почту и попробуйте снова'
 			)
 		}
 	}
@@ -79,26 +79,31 @@ export const RegisterForm: FC = () => {
 									label='Введите свою почту'
 									placeholder='Введите почту'
 									name='email'
+									autoComplete='email'
 								/>
 								<FormItem
 									label='Введите свое имя'
 									placeholder='Введите имя'
 									name='firstname'
+									autoComplete='username'
 								/>
 								<FormItem
 									label='Введите свою фамилию'
 									placeholder='Введите фамилию'
 									name='lastname'
+									autoComplete='username'
 								/>
 								<FormItem
 									label='Придумайте пароль'
 									type='password'
 									name='password'
+									autoComplete='current-password'
 								/>
 								<FormItem
 									label='Повторите пароль'
 									type='password'
 									name='confirmPassword'
+									autoComplete='current-password'
 								/>
 							</Box>
 						</DialogContent>

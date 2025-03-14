@@ -1,23 +1,4 @@
-export type Friend = {
-	id: number
-	userId?: number
-}
-
-export type StoryItem = {
-	id: number
-	imageUrl: string
-	storyId?: number
-}
-
-export type TStory = {
-	id: number
-	imageUrl: string
-	fullname: string
-	items: StoryItem[]
-	userId: number
-}
-
-export type Post = {
+export type TPost = {
 	id: number
 	userId: number
 	postImageUrl?: string
@@ -25,13 +6,13 @@ export type Post = {
 	jobTitle?: string
 	userImageUrl?: string
 	likes: number
-	comments: Comments[]
+	comments: TComments[]
 	like: boolean
 	text?: string
 	date: string
 }
 
-export type Comments = {
+export type TComments = {
 	id: number
 	userId: number
 	username: string

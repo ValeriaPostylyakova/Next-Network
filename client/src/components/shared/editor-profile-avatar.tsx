@@ -26,22 +26,6 @@ export const EditorProfileAvatar: FC<Props> = ({ width, profile }) => {
 	const { open, setOpen } = useOpenModal()
 	const dispatch: AppDispatch = useDispatch()
 
-	// const handleSubmit = async (e: FormEvent<HTMLFormElement> | undefined) => {
-	// 	e?.preventDefault()
-	// 	try {
-	// 		const formData = new FormData()
-	// 		formData.append('avatar', image)
-	// 		const resultAction = await dispatch(
-	// 			userActions.updateProfileImageUrl(formData)
-	// 		)
-	// 		unwrapResult(resultAction)
-	// 		handleClose()
-	// 		toast.success('Фотография успешно обновлена')
-	// 	} catch (e) {
-	// 		console.error(e)
-	// 	}
-	// }
-
 	const {
 		selectedImage,
 		setSelectedImage,

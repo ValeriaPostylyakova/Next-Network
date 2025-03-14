@@ -1,8 +1,8 @@
 import { Status } from '../../../@types/fetchStatus'
-import { Post } from '../../../@types/post'
+import { TPost } from '../../../@types/post'
 
 export type InitialState = {
-	feed: Post[]
+	feed: TPost[]
 	status: Status
 	statusComments: Status
 }

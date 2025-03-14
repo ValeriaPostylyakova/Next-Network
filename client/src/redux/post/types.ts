@@ -1,8 +1,8 @@
 import { Status } from '../../../@types/fetchStatus'
-import { Post } from '../../../@types/post'
+import { TPost } from '../../../@types/post'
 
 export interface InitialState {
-	posts: Post[]
+	posts: TPost[]
 	statusPosts: Status
 	statusCreatePost: Status
 	statusAddLike: Status

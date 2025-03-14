@@ -69,7 +69,7 @@ export class UserService {
 			throw new Error('Пользователь не зарегистрирован')
 		}
 
-		const validatedPassword = bcrypt.compare(password, findUser.password)
+		const validatedPassword = await bcrypt.compare(password, findUser.password)
 
 		if (!validatedPassword) {
 			throw new Error('Введен неверный пароль')

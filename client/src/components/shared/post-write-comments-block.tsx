@@ -8,9 +8,7 @@ import { useSelector } from 'react-redux'
 import { AvatarUI, ButtonUI, FlexContainer } from '../ui'
 
 export interface Props {
-	handleInputComment: (
-		e: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
-	) => void
+	handleInputComment: (e: React.KeyboardEvent) => Promise<void>
 	value: string
 	setValue: (value: string) => void
 	showEmoji: boolean

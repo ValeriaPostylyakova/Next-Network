@@ -1,11 +1,10 @@
 'use client'
 
+import { RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import { FC, useState } from 'react'
-
-import { RootState } from '@/redux/store'
 import { useSelector } from 'react-redux'
-import { StoryItem, TStory } from '../../../@types/post'
+import { TStory, TStoryItem } from '../../../@types/stories'
 import { MainBlock } from '../ui'
 import { CreateStoryBlock } from './create-story-block'
 import { StoryBlock } from './story-block'
@@ -17,7 +16,7 @@ export interface Props {
 
 export const StoriesBlock: FC<Props> = ({ stories }) => {
 	const [open, setOpen] = useState(false)
-	const [selectedStory, setSelectedStory] = useState<StoryItem[]>([])
+	const [selectedStory, setSelectedStory] = useState<TStoryItem[]>([])
 	const profile = useSelector((state: RootState) => state.auth.profile)
 
 	return (

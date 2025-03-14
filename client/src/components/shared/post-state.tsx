@@ -2,12 +2,12 @@ import Box from '@mui/material/Box'
 import { FC } from 'react'
 import { BlockEmpty, PostBlock } from '.'
 import { Status } from '../../../@types/fetchStatus'
-import { Post } from '../../../@types/post'
+import { TPost } from '../../../@types/post'
 import { PostSkeleton } from '../ui/post-skeleton'
 
 export interface Props {
 	status: Status
-	posts: Post[]
+	posts: TPost[]
 	visibleMenu: boolean
 }
 

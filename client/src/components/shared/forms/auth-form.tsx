@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useOpenModal } from '@/hooks/use-open-modal'
 import { useSubmitFormData } from '@/hooks/use-submit-form-data'
-import { RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -14,7 +13,6 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useSelector } from 'react-redux'
 import { ButtonUI } from '../../ui'
 import { FormItem } from '../form-item'
 import { loginFormSchema, TLoginFormSchema } from './schema'
@@ -22,7 +20,6 @@ import { loginFormSchema, TLoginFormSchema } from './schema'
 export const AuthForm: FC = () => {
 	const { open, handleClose, handleOpen, setOpen } = useOpenModal()
 	const { dispatch, fetchAuth, router, status } = useSubmitFormData()
-	const error = useSelector((state: RootState) => state.auth.error)
 
 	const form = useForm({
 		resolver: zodResolver(loginFormSchema),
@@ -42,7 +39,7 @@ export const AuthForm: FC = () => {
 			toast.success('Вы успешно авторизовались')
 		} catch (e) {
 			console.error(e)
-			toast.error('Ошибка при авторизации')
+			toast.error('Неправильный логин или пароль')
 		}
 	}
 
@@ -77,12 +74,14 @@ export const AuthForm: FC = () => {
 									name='email'
 									label='Введите почту'
 									placeholder='Введите вашу почту'
+									autoComplete='email'
 								/>
 								<FormItem
 									name='password'
 									label='Введите пароль'
 									placeholder='Введите ваш пароль'
 									type='password'
+									autoComplete='current-password'
 								/>
 							</Box>
 						</DialogContent>

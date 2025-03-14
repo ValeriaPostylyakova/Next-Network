@@ -9,7 +9,7 @@ import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch } from '@/redux/store'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import { Comments } from '../../../@types/post'
+import { TComments } from '../../../@types/post'
 import { MainBlock } from '../ui'
 import { EmojiBlock } from './emoji-block'
 import { PostBlockContent } from './post-block-content'
@@ -28,7 +28,7 @@ export interface Props {
 	userId: number
 	likes: number
 	like: boolean
-	comments: Comments[]
+	comments: TComments[]
 	date: string
 	visibleMenu: boolean
 }
@@ -50,12 +50,13 @@ export const PostBlock: FC<Props> = ({
 	const [openComments, setOpenComments] = useState<boolean>(false)
 	const [showEmoji, setShowEmoji] = useState<boolean>(false)
 	const [valueInput, setValueInput] = useState<string>('')
+
 	const menuRef = useRef<boolean>(visibleMenu)
 
 	const dispatch: AppDispatch = useDispatch()
 	const postActions = new PostActions()
 
-	const handleInputComment = async (e: KeyboardEvent) => {
+	const handleInputComment = async (e: React.KeyboardEvent) => {
 		if (e.code === 'Enter' || e.type === 'click') {
 			await dispatch(
 				postActions.createComment({ postId: id, text: valueInput })

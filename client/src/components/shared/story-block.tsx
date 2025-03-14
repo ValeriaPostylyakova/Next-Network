@@ -3,14 +3,14 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
-import { StoryItem } from '../../../@types/post'
+import { TStoryItem } from '../../../@types/stories'
 
 export interface Props {
 	imageUrl: string
 	fullname: string
-	items: StoryItem[]
+	items: TStoryItem[]
 	setOpen: (value: boolean) => void
-	setSelectedStory: (value: StoryItem[]) => void
+	setSelectedStory: (value: TStoryItem[]) => void
 }
 
 export const StoryBlock: FC<Props> = ({
@@ -20,7 +20,7 @@ export const StoryBlock: FC<Props> = ({
 	setOpen,
 	setSelectedStory,
 }) => {
-	const onClickStory = (story: StoryItem[]) => {
+	const onClickStory = (story: TStoryItem[]) => {
 		setSelectedStory(story)
 
 		if (story.length > 0) {

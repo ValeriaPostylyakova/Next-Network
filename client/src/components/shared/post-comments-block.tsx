@@ -2,10 +2,10 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { MessageSquareText } from 'lucide-react'
 import { FC } from 'react'
-import { Comments } from '../../../@types/post'
+import { TComments } from '../../../@types/post'
 
 export interface Props {
-	comments?: Comments[]
+	comments?: TComments[]
 	setOpenComments: (value: boolean) => void
 	openComments: boolean
 }

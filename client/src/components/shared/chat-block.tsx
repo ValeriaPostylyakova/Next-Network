@@ -56,12 +56,6 @@ export const ChatBlock: FC<Props> = ({
 							{user.firstname + ' ' + user.lastname}
 						</Typography>
 						<Typography
-							// sx={{
-							// 	fontSize: `17px`,
-							// 	fontWeight: 500,
-							// 	color: '#b5b5b5',
-							// }}
-
 							sx={[
 								theme => ({
 									fontSize: `17px`,

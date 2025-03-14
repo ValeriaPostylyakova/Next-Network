@@ -1,6 +1,6 @@
 import { api } from '@/http/axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Post } from '../../../@types/post'
+import { TComments, TPost } from '../../../@types/post'
 
 type TParams = {
 	postId: number
@@ -11,7 +11,7 @@ export class PostActions {
 	createPost = createAsyncThunk(
 		'post/fetchCreatePost',
 		async (formData: FormData) => {
-			const { data } = await api.post<Post>('/post', formData, {
+			const { data } = await api.post<TPost>('/post', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
@@ -21,28 +21,28 @@ export class PostActions {
 	)
 
 	posts = createAsyncThunk('post/fetchPosts', async (id: string) => {
-		const { data } = await api.get<Post[]>(`/posts/${id}`)
+		const { data } = await api.get<TPost[]>(`/posts/${id}`)
 		return data
 	})
 
 	deletePost = createAsyncThunk('post/deletePost', async (id: number) => {
-		const { data } = await api.delete(`/postDelete/${id}`)
+		const { data } = await api.delete<TPost>(`/postDelete/${id}`)
 		return data
 	})
 
 	addLikes = createAsyncThunk('post/addPostLike', async (id: string) => {
-		const { data } = await api.patch(`/addPostLike/${id}`)
+		const { data } = await api.patch<TPost>(`/addPostLike/${id}`)
 		return data
 	})
 
 	removeLikes = createAsyncThunk('post/removePostLike', async (id: string) => {
-		const { data } = await api.patch(`/removePostLike/${id}`)
+		const { data } = await api.patch<TPost>(`/removePostLike/${id}`)
 		console.log(data)
 		return data
 	})
 
 	comments = createAsyncThunk('post/fetchComments', async (id: string) => {
-		const { data } = await api.get(`/postComments/${id}`)
+		const { data } = await api.get<TComments[]>(`/postComments/${id}`)
 		return data
 	})
 
@@ -63,7 +63,7 @@ export class PostActions {
 	deleteComment = createAsyncThunk(
 		'comments/fetchDeleteComment',
 		async (id: number) => {
-			const { data } = await api.delete(`/commentDelete/${id}`)
+			const { data } = await api.delete<TComments>(`/commentDelete/${id}`)
 			return data
 		}
 	)

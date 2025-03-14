@@ -15,22 +15,6 @@ export interface Props {
 	px?: number
 }
 
-{
-	/* <Button
-            sx={[
-                theme => ({
-                    backgroundColor: theme.palette.primary.main,
-                }),
-                theme =>
-                    theme.applyStyles('dark', {
-                        backgroundColor: theme.palette.primary.dark,
-                    }),
-            ]}
-        >
-            Submit
-        </Button> */
-}
-
 export const ButtonUI: FC<Props> = ({
 	children,
 	variant,

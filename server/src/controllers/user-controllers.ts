@@ -36,7 +36,9 @@ export class UserControllers {
 
 			return res.status(200).json(userData)
 		} catch (e) {
-			res.status(400).json({ message: 'Ошибка при регистрации' })
+			res.status(400).json({
+				message: 'Ошибка при регистрации',
+			})
 			console.log(e)
 		}
 	}

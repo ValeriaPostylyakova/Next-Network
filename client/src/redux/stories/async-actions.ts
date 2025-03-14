@@ -1,11 +1,12 @@
 import { api } from '@/http/axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { TStory } from '../../../@types/stories'
 
 export class StoriesActions {
 	createStory = createAsyncThunk(
 		'stories/fetchCreateStory',
 		async (fileData: File) => {
-			const { data } = await api.post('/createStory', fileData, {
+			const { data } = await api.post<TStory>('/createStory', fileData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
@@ -15,7 +16,7 @@ export class StoriesActions {
 	)
 
 	getStories = createAsyncThunk('stories/fetchStories', async () => {
-		const { data } = await api.get('/stories')
+		const { data } = await api.get<TStory[]>('/stories')
 		return data
 	})
 }

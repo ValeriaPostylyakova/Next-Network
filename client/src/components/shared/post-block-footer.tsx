@@ -2,13 +2,13 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
 import { PostCommentsBlock, PostLikesBlock } from '.'
-import { Comments } from '../../../@types/post'
+import { TComments } from '../../../@types/post'
 
 export interface Props {
 	id: number
 	likes: number
 	like: boolean
-	comments?: Comments[]
+	comments?: TComments[]
 	setOpenComments: (value: boolean) => void
 	openComments: boolean
 	date: string

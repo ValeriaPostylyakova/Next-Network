@@ -89,12 +89,6 @@ export const CommentsBlock: FC<Props> = ({
 						</Typography>
 
 						<Typography
-							// sx={{
-							// 	fontSize: `14px`,
-							// 	fontWeight: 500,
-							// 	color: '#b5b5b5',
-							// 	mb: 1,
-							// }}
 							sx={[
 								theme => ({
 									fontSize: `14px`,

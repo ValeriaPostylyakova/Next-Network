@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { Status } from '../../../@types/fetchStatus'
-import { Post } from '../../../@types/post'
+import { TPost } from '../../../@types/post'
 import { PostActions } from '../post/async-action'
 import { FeedActions } from './async-actions'
 import { InitialState } from './types'
@@ -39,7 +39,7 @@ export const feedSlice = createSlice({
 		builder.addCase(postActions.createComment.fulfilled, (state, actions) => {
 			state.statusComments = Status.SUCCESS
 			state.feed
-				.find((post: Post) => post.id === actions.payload.postId)
+				.find((post: TPost) => post.id === actions.payload.postId)
 				?.comments.push(actions.payload)
 		})
 

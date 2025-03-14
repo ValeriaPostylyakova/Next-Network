@@ -5,11 +5,11 @@ import { X } from 'lucide-react'
 import { FC, useRef } from 'react'
 import Stories from 'react-insta-stories'
 import { useClickAway } from 'react-use'
-import { StoryItem } from '../../../@types/post'
+import { TStoryItem } from '../../../@types/stories'
 
 export interface Props {
 	setOpen: (value: boolean) => void
-	selectedStory: StoryItem[]
+	selectedStory: TStoryItem[]
 }
 
 export const StoryBlockContainer: FC<Props> = ({ setOpen, selectedStory }) => {

@@ -39,7 +39,8 @@ async function up() {
 				lastname: 'Разина',
 				identifier: 'yourname123',
 				jobTitle: 'Designer',
-				imageUrl: null,
+				imageUrl:
+					'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
 			},
 			{
 				email: 'romanov8785@gmail.com',
@@ -62,57 +63,42 @@ async function up() {
 			userId: 1,
 		},
 	})
-	// await prisma.post.createMany({
-	// 	data: [
-	// 		{
-	// 			postImageUrl:
-	// 				'https://i.pinimg.com/736x/49/37/c5/4937c54f77949adc477383c0d4c37542.jpg',
-	// 			text: 'Вечерний кайф 😄',
-	// 			fullname: 'Валерия Постылякова',
-	// 			jobTitle: 'Frontend Developer',
-	// 			userImageUrl:
-	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-	// 			likes: 4,
-	// 			date: '10 февр. 2025 г., 19:27',
-	// 			userId: 3,
-	// 		},
-	// 		{
-	// 			postImageUrl:
-	// 				'https://i.pinimg.com/736x/31/6c/1d/316c1de4fdbaed14fddc73833a18336d.jpg',
-	// 			fullname: 'Кристина Разина',
-	// 			jobTitle: 'Designer',
-	// 			userImageUrl: null,
-	// 			likes: 2,
-	// 			userId: 2,
-	// 			date: '25 янв. 2025 г., 14:30',
-	// 		},
-	// 		{
-	// 			postImageUrl:
-	// 				'https://i.pinimg.com/736x/02/a9/b3/02a9b3e654d849d82d73a72bea595993.jpg',
-	// 			fullname: 'Егор Романов',
-	// 			jobTitle: 'Chief Information Security Officer',
-	// 			userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
-	// 			likes: 0,
-	// 			userId: 4,
-	// 			date: '20 дек. 2024 г., 10:15',
-	// 		},
-	// 	],
-	// })
-
-	// await prisma.comment.createMany({
-	// 	data: [
-	// 		{
-	// 			text: 'test text',
-	// 			username: 'test',
-	// 			postId: 1,
-	// 		},
-	// 		{
-	// 			text: 'test text',
-	// 			username: 'test',
-	// 			postId: 1,
-	// 		},
-	// 	],
-	// })
+	await prisma.post.createMany({
+		data: [
+			{
+				postImageUrl:
+					'https://cfmoto-moto.ru/wp-content/uploads/2022/11/image5.jpg',
+				fullname: 'Валерия Постылякова',
+				jobTitle: 'Frontend Developer',
+				userImageUrl:
+					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+				likes: 20,
+				date: '10 февр. 2025 г., 19:27',
+				userId: 1,
+			},
+			{
+				postImageUrl:
+					'https://printwalls.ru/assets/cache_image/products/2309/fotooboi-priroda-lesa-kupit-0149_846x550_c8f.jpg',
+				fullname: 'Кристина Разина',
+				jobTitle: 'Designer',
+				userImageUrl:
+					'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
+				likes: 2,
+				userId: 3,
+				date: '25 янв. 2025 г., 14:30',
+			},
+			{
+				postImageUrl:
+					'https://iy.kommersant.ru/Issues.photo/RADIO/2022/05/17/KSP_015476_00003_1_t222_144858.jpg',
+				fullname: 'Егор Романов',
+				jobTitle: 'Chief Information Security Officer',
+				userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
+				likes: 10,
+				userId: 4,
+				date: '20 дек. 2024 г., 10:15',
+			},
+		],
+	})
 
 	// await prisma.message.createMany({
 	// 	data: [

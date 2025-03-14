@@ -10,9 +10,16 @@ export interface Props {
 	name: string
 	placeholder?: string
 	type?: string
+	autoComplete?: string
 }
 
-export const FormItem: FC<Props> = ({ label, placeholder, type, name }) => {
+export const FormItem: FC<Props> = ({
+	label,
+	placeholder,
+	type,
+	name,
+	autoComplete,
+}) => {
 	const {
 		register,
 		formState: { errors },
@@ -27,6 +34,7 @@ export const FormItem: FC<Props> = ({ label, placeholder, type, name }) => {
 				{...register(name)}
 				type={type}
 				placeholder={placeholder ? placeholder : label}
+				autoComplete={autoComplete}
 				sx={{
 					'& .MuiOutlinedInput-root': {
 						borderRadius: '0.8rem',

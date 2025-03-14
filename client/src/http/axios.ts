@@ -1,4 +1,3 @@
-import { AuthResponse } from '@/services/user-service'
 import axios from 'axios'
 
 export const API_URL = 'http://localhost:4200/api'
@@ -22,7 +21,7 @@ api.interceptors.response.use(
 		if (error.response.status === 401 && error.config && !error.config._retry) {
 			originalRequest._retry = true
 			try {
-				const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {
+				const response = await axios.get(`${API_URL}/refresh`, {
 					withCredentials: true,
 				})
 				localStorage.setItem('token', response.data.accessToken)
