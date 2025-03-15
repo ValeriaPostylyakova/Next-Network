@@ -10,7 +10,7 @@
 		"start": "node dist/src/server.js",
 		"postdeploy": "npx prisma migrate deploy && npx prisma generate",
 		"copy-images": "node copy-images.js",
-		"vercel-build": "npm run build",
+		"vercel-build": "npx prisma generate && tsc && cp -r src/images dist/src/images && cp prisma/schema.prisma dist/prisma/schema.prisma && cp -r prisma/migrations dist/prisma/migrations",
 		"copy-schema": "cp prisma/schema.prisma dist/prisma/schema.prisma"
 	},
 	"keywords": [],
