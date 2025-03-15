@@ -8,9 +8,9 @@
 		"dev": "nodemon src/server.ts",
 		"build": "tsc  && cp -r src/images dist/src/images",
 		"start": "node dist/src/server.js",
-		"db:migrate": "prisma migrate dev",
-		"db:generate": "prisma generate",
-		"copy-images": "node copy-images.js"
+		"postdeploy": "npx prisma migrate deploy && npx prisma generate",
+		"copy-images": "node copy-images.js",
+		"vercel-build": "npm run build"
 	},
 	"keywords": [],
 	"author": "",

@@ -23,11 +23,7 @@
 			"dest": "client/$1"
 		}
 	],
-	"scripts": {
-		"postdeploy": "cd server && npx prisma migrate deploy && npx prisma generate",
-		"copy-images": "cd server && node copy-images.js",
-		"vercel-build": "cd server && npm run build"
-	},
+
 	"installCommand": "npm install",
 	"buildCommand": "npm run vercel-build"
 }
