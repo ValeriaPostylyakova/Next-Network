@@ -12,6 +12,7 @@ import { MessageService } from './services/message-service'
 const app = express()
 
 dotenv.config({ path: '../.env' })
+
 app.use(express.json())
 app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use('/images/posts', express.static(path.join(__dirname, 'posts')))
