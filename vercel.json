@@ -23,14 +23,8 @@
 			"dest": "client/$1"
 		}
 	],
-	"functions": {
-		"server/src/server.ts": {
-			"memory": 512,
-			"maxDuration": 10
-		}
-	},
 	"scripts": {
-		"postdeploy": "cd server && npm run db:migrate",
+		"postdeploy": "cd server && npx prisma migrate deploy && npx prisma generate",
 		"copy-images": "cd server && node copy-images.js",
 		"vercel-build": "cd server && npm run build"
 	},
