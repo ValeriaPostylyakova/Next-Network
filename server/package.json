@@ -6,11 +6,12 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon src/server.ts",
-		"build": "tsc  && cp -r src/images dist/src/images",
+		"build": "tsc  && cp -r src/images dist/src/images && cp prisma/schema.prisma dist/prisma/schema.prisma && cp -r prisma/migrations dist/prisma/migrations",
 		"start": "node dist/src/server.js",
 		"postdeploy": "npx prisma migrate deploy && npx prisma generate",
 		"copy-images": "node copy-images.js",
-		"vercel-build": "npm run build"
+		"vercel-build": "npm run build",
+		"copy-schema": "cp prisma/schema.prisma dist/prisma/schema.prisma"
 	},
 	"keywords": [],
 	"author": "",
