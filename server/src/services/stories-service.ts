@@ -45,7 +45,7 @@ export class StoriesService {
 					imageUrl: user.imageUrl,
 					items: {
 						create: {
-							imageUrl: `http://localhost:4200/images/story/${fileName}`,
+							imageUrl: `${process.env.NEXT_PUBLIC_API_URL}/images/story/${fileName}`,
 							expiresAt: expiresAt,
 						},
 					},

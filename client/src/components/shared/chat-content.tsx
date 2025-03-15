@@ -36,7 +36,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const dispatch: AppDispatch = useDispatch()
 	const [value, setValue] = useState<string>('')
 	const [statusTyping, setStatusTyping] = useState<string | null>(null)
-	const socket = useSocket('http://localhost:4200')
+	const socket = useSocket(`${process.env.API_URL}`)
 	const router = useRouter()
 
 	const chatId = chatStatus === 'success' ? String(chat.id) : id

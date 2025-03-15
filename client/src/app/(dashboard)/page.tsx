@@ -31,7 +31,7 @@ const DashboardPage: FC<Props> = ({ children }) => {
 	const status = useSelector((state: RootState) => state.auth.status)
 
 	const id = status === 'success' ? String(profile.id) : profileId
-	const socket = useSocket('http://localhost:4200', id)
+	const socket = useSocket(`${process.env.API_URL}`, id)
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {

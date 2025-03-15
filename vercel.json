@@ -1,0 +1,39 @@
+{
+	"version": 2,
+	"builds": [
+		{
+			"src": "client/next.config.js",
+			"use": "@vercel/next"
+		},
+		{
+			"src": "server/src/server.ts",
+			"use": "@vercel/node",
+			"config": {
+				"functions": true
+			}
+		}
+	],
+	"routes": [
+		{
+			"src": "/api/(.*)",
+			"dest": "server/src/server.ts"
+		},
+		{
+			"src": "/(.*)",
+			"dest": "client/$1"
+		}
+	],
+	"functions": {
+		"server/src/server.ts": {
+			"memory": 512,
+			"maxDuration": 10
+		}
+	},
+	"scripts": {
+		"postdeploy": "cd server && npm run db:migrate",
+		"copy-images": "cd server && node copy-images.js",
+		"vercel-build": "cd server && npm run build"
+	},
+	"installCommand": "npm install",
+	"buildCommand": "npm run vercel-build"
+}
