@@ -1,6 +1,7 @@
 import { AuthForm, RegisterForm } from '@/components/shared'
 import { ContainerUI } from '@/components/ui'
-import { Box, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 
 const LoginPage = () => (

@@ -1,6 +1,5 @@
 'use client'
 
-import { SidebarLeft, SidebarRight } from '@/components/shared'
 import useSocket from '@/hooks/use-socket'
 import { FeedActions } from '@/redux/feed/async-actions'
 import { FriendsSuggestionActions } from '@/redux/friends/async-actions'
@@ -11,9 +10,11 @@ import { StoriesActions } from '@/redux/stories/async-actions'
 import { UnreadMessagesAction } from '@/redux/unreadMessages/async-actions'
 import Box from '@mui/material/Box'
 import { PagesTopLoader } from 'nextjs-toploader/pages'
-import { FC, ReactNode, useEffect } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { profileId } from '../../../constants/profile'
+import { Socket } from 'socket.io-client'
+import { SidebarLeft } from './sidebar-left'
+import { SidebarRight } from './sidebar-right'
 
 interface Props {
 	children: ReactNode
@@ -26,23 +27,33 @@ const feedActions = new FeedActions()
 const unreadMessagesActions = new UnreadMessagesAction()
 
 export const DashboardPageLayout: FC<Props> = ({ children }) => {
+	const [isClient, setIsClient] = useState(false)
+	const [socket, setSocket] = useState<Socket | null>(null)
 	const dispatch: AppDispatch = useDispatch()
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
 
-	const id = status === 'success' ? String(profile.id) : profileId
-	const socket = useSocket(`${process.env.API_URL}`, id)
+	const id = String(profile.id)
 
 	useEffect(() => {
-		if (localStorage.getItem('token')) {
+		setIsClient(true)
+		const newSocket = useSocket(`${process.env.API_URL}`, id)
+		setSocket(newSocket)
+	}, [id])
+
+	useEffect(() => {
+		if (isClient && localStorage.getItem('token')) {
 			dispatch(fetchAuth.checkAuth())
 		}
-		status === 'success' && localStorage.setItem('userId', String(profile.id))
+		if (status === 'success' && isClient) {
+			localStorage.setItem('userId', String(profile.id))
+		}
+
 		dispatch(friendsSuggestion.getFriendsSuggestion())
 		dispatch(feedActions.getFeed())
 		dispatch(storiesActions.getStories())
 		dispatch(unreadMessagesActions.getUnreadMessages(id))
-	}, [])
+	}, [isClient])
 
 	useEffect(() => {
 		socket?.on('resOnlineUsers', data => {

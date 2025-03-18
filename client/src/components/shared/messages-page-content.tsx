@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BlockEmpty } from './block-empty'
 import { ChatBlock } from './chat-block'
 
-const chatsActions = new ChatActions()
-const dispatch: AppDispatch = useDispatch()
-const chats = useSelector((state: RootState) => state.chats.chats)
-
 export const MessagesPageContent: FC = () => {
+	const chatsActions = new ChatActions()
+	const dispatch: AppDispatch = useDispatch()
+	const chats = useSelector((state: RootState) => state.chats.chats)
+
 	useEffect(() => {
 		dispatch(chatsActions.getChats())
 	}, [])

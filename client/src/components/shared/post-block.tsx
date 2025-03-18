@@ -1,22 +1,23 @@
 'use client'
+
 import { FC, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
 
 import { PostActions } from '@/redux/post/async-action'
 import { AppDispatch } from '@/redux/store'
+import Divider from '@mui/material/Divider'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { TComments } from '../../../@types/post'
 import { MainBlock } from '../ui'
 import { EmojiBlock } from './emoji-block'
-import { PostBlockContent } from './post-block-content'
 import { PostBlockFooter } from './post-block-footer'
 import { PostBlockHeader } from './post-block-header'
 import { PostCommentsContainer } from './post-comments-container'
 import { PostWriteCommentsBlock } from './post-write-comments-block'
+import { PostBlockContent } from './post-block-content'
 
 export interface Props {
 	id: number

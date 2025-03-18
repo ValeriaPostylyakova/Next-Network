@@ -9,20 +9,16 @@ import { PostSkeleton } from '../ui/post-skeleton'
 import { PostBlock } from './post-block'
 import { StoriesBlock } from './stories-block'
 
-export interface Props {
-	className?: string
-}
-
-const feedActions = new FeedActions()
-
-export const FeedContent: FC<Props> = () => {
+export const FeedContent: FC = () => {
 	const dispatch: AppDispatch = useDispatch()
-	const feed = useSelector((state: RootState) => state.feed.feed)
-	const statusFeed = useSelector((state: RootState) => state.feed.status)
 	const stories = useSelector((state: RootState) => state.stories.stories)
 	const statusStories = useSelector((state: RootState) => state.stories.status)
+	const feed = useSelector((state: RootState) => state.feed.feed)
+	const statusFeed = useSelector((state: RootState) => state.feed.status)
 
 	useEffect(() => {
+		const feedActions = new FeedActions()
+
 		dispatch(feedActions.getFeed())
 	}, [dispatch])
 

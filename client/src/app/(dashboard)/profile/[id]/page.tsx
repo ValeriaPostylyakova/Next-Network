@@ -16,7 +16,6 @@ const Page: FC = ({
 				<ProfileContent id={id} />
 			</Box>
 		</MainWrapper>
-		
 	)
 }
 

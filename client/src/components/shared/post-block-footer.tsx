@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
-import { PostCommentsBlock, PostLikesBlock } from '.'
 import { TComments } from '../../../@types/post'
+import { PostLikesAndCommentsBlock } from './post-likes-and-comments-block'
 
 export interface Props {
 	id: number
@@ -33,20 +33,14 @@ export const PostBlockFooter: FC<Props> = ({
 				mb: 2,
 			}}
 		>
-			<Box
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					gap: '3rem',
-				}}
-			>
-				<PostLikesBlock id={id} likes={likes} like={like} />
-				<PostCommentsBlock
-					setOpenComments={setOpenComments}
-					openComments={openComments}
-					comments={comments ? comments : []}
-				/>
-			</Box>
+			<PostLikesAndCommentsBlock
+				id={id}
+				like={like}
+				likes={likes}
+				openComments={openComments}
+				setOpenComments={setOpenComments}
+				comments={comments}
+			/>
 			<Typography
 				sx={[
 					theme => ({
