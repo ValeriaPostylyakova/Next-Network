@@ -12,7 +12,6 @@ import Box from '@mui/material/Box'
 import { PagesTopLoader } from 'nextjs-toploader/pages'
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Socket } from 'socket.io-client'
 import { SidebarLeft } from './sidebar-left'
 import { SidebarRight } from './sidebar-right'
 
@@ -28,18 +27,16 @@ const unreadMessagesActions = new UnreadMessagesAction()
 
 export const DashboardPageLayout: FC<Props> = ({ children }) => {
 	const [isClient, setIsClient] = useState(false)
-	const [socket, setSocket] = useState<Socket | null>(null)
 	const dispatch: AppDispatch = useDispatch()
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
 
-	const id = String(profile.id)
-
 	useEffect(() => {
 		setIsClient(true)
-		const newSocket = useSocket(`${process.env.API_URL}`, id)
-		setSocket(newSocket)
-	}, [id])
+	}, [])
+
+	const id = String(profile.id)
+	const socket = useSocket(`${process.env.API_URL}`, id)
 
 	useEffect(() => {
 		if (isClient && localStorage.getItem('token')) {
