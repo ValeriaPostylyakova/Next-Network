@@ -1,10 +1,11 @@
 'use client'
 
-import { PostActions } from '@/redux/post/async-action'
+import { LikesData, PostActions } from '@/redux/post/async-action'
 import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { Heart } from 'lucide-react'
 import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -24,14 +25,16 @@ export const PostLikesBlock: FC<Props> = ({ likes, like, id }) => {
 	const dispath = useDispatch<AppDispatch>()
 
 	const onClickLike = async () => {
-		if (likesData % 2 === 0) {
-			const data = await dispath(postActions.addLikes(String(id)))
-			setLikesData(data.payload.likes)
-			setClickLike(data.payload.like)
-		} else {
-			const data = await dispath(postActions.removeLikes(String(id)))
-			setLikesData(data.payload.likes)
-			setClickLike(data.payload.like)
+		try {
+			const actions =
+				likesData % 2 === 0 ? postActions.addLikes : postActions.removeLikes
+
+			const data = await dispath(actions(String(id)))
+			const res = unwrapResult(data) as LikesData
+			setLikesData(res.likes)
+			setClickLike(res.like)
+		} catch (e) {
+			console.error(e)
 		}
 	}
 

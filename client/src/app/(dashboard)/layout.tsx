@@ -1,8 +1,8 @@
+import { DashboardPageLayout } from '@/components/shared/dashboard-page-layout'
 import theme from '@/theme'
 import { ThemeProvider } from '@mui/material'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
-import DashboardPage from './page'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -17,7 +17,7 @@ export default function DashboardLayout({
 	return (
 		<AppRouterCacheProvider>
 			<ThemeProvider theme={theme}>
-				<DashboardPage children={children} />
+				<DashboardPageLayout children={children} />
 			</ThemeProvider>
 		</AppRouterCacheProvider>
 	)

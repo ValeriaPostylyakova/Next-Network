@@ -1,15 +1,12 @@
 import { ChatContent } from '@/components/shared'
 import { MainWrapper } from '@/components/ui/main-wrapper'
+import { InferGetStaticPropsType } from 'next'
+import { getServerSideProps } from 'next/dist/build/templates/pages'
 import { FC } from 'react'
 
-type Params = {
-	chatId: string
-}
-interface Props {
-	params: Params
-}
-
-const Page: FC<Props> = async ({ params }) => {
+const Page: FC = async ({
+	params,
+}: InferGetStaticPropsType<typeof getServerSideProps>) => {
 	const { chatId } = await params
 	return (
 		<MainWrapper mt={0}>

@@ -7,6 +7,11 @@ type TParams = {
 	text: string
 }
 
+export type LikesData = {
+	likes: number
+	like: boolean
+}
+
 export class PostActions {
 	createPost = createAsyncThunk(
 		'post/fetchCreatePost',
@@ -31,13 +36,12 @@ export class PostActions {
 	})
 
 	addLikes = createAsyncThunk('post/addPostLike', async (id: string) => {
-		const { data } = await api.patch<TPost>(`/addPostLike/${id}`)
+		const { data } = await api.patch<LikesData>(`/addPostLike/${id}`)
 		return data
 	})
 
 	removeLikes = createAsyncThunk('post/removePostLike', async (id: string) => {
-		const { data } = await api.patch<TPost>(`/removePostLike/${id}`)
-		console.log(data)
+		const { data } = await api.patch<LikesData>(`/removePostLike/${id}`)
 		return data
 	})
 

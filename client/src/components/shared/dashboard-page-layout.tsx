@@ -25,7 +25,7 @@ const storiesActions = new StoriesActions()
 const feedActions = new FeedActions()
 const unreadMessagesActions = new UnreadMessagesAction()
 
-const DashboardPage: FC<Props> = ({ children }) => {
+export const DashboardPageLayout: FC<Props> = ({ children }) => {
 	const dispatch: AppDispatch = useDispatch()
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
@@ -64,5 +64,3 @@ const DashboardPage: FC<Props> = ({ children }) => {
 		</Box>
 	)
 }
-
-export default DashboardPage

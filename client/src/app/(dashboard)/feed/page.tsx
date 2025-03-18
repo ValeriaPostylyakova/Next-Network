@@ -3,11 +3,7 @@ import { MainWrapper } from '@/components/ui/main-wrapper'
 import Box from '@mui/material/Box'
 import { FC } from 'react'
 
-interface Props {
-	className?: string
-}
-
-const Page: FC<Props> = () => {
+const Page: FC = () => {
 	return (
 		<MainWrapper mt={65}>
 			<Box sx={{ width: '94%', m: '0 auto', pt: 3 }}>

@@ -2,11 +2,8 @@ import { AuthForm, RegisterForm } from '@/components/shared'
 import { ContainerUI } from '@/components/ui'
 import { Box, Typography } from '@mui/material'
 import Image from 'next/image'
-import { FC } from 'react'
 
-interface Props {}
-
-const LoginPage: FC<Props> = () => (
+const LoginPage = () => (
 	<Box
 		sx={{
 			display: 'grid',

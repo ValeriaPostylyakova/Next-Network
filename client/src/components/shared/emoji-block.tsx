@@ -13,6 +13,8 @@ export interface Props {
 	right?: string | number
 }
 
+type TEmoji = Emoji & { native: string }
+
 export const EmojiBlock: FC<Props> = ({
 	setValue,
 	top,
@@ -20,7 +22,7 @@ export const EmojiBlock: FC<Props> = ({
 	right,
 	bottom,
 }) => {
-	const addEmoji = (emoji: Emoji) => {
+	const addEmoji = (emoji: TEmoji) => {
 		setValue((value: string) => value + emoji.native)
 	}
 

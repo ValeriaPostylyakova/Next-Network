@@ -6,13 +6,9 @@ import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
-interface Props {
-	className?: string
-}
-
-const Page: FC<Props> = () => {
+const Page = () => {
 	const [openInput, setOpenInput] = useState<boolean>(false)
 	return (
 		<MainWrapper mt={0} pt={3}>

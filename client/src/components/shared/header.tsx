@@ -5,9 +5,7 @@ import { FC } from 'react'
 import { CreatePostModal } from './create-post-modal'
 import { HeaderSearch } from './search'
 
-export interface Props {}
-
-export const Header: FC<Props> = () => {
+export const Header: FC = () => {
 	return (
 		<AppBar
 			position='fixed'

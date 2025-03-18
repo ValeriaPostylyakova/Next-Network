@@ -1,17 +1,13 @@
 import { UserContent } from '@/components/shared'
 import { MainWrapper } from '@/components/ui/main-wrapper'
 import Box from '@mui/material/Box'
+import { InferGetStaticPropsType } from 'next'
+import { getServerSideProps } from 'next/dist/build/templates/pages'
 import { FC } from 'react'
 
-interface Props {
-	params: Params
-}
-
-interface Params {
-	id: string
-}
-
-const Page: FC<Props> = async ({ params }) => {
+const Page: FC = async ({
+	params,
+}: InferGetStaticPropsType<typeof getServerSideProps>) => {
 	const { id } = await params
 	return (
 		<MainWrapper mt={0}>

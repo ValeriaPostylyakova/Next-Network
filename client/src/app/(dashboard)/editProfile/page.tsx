@@ -3,11 +3,7 @@ import { MainWrapper } from '@/components/ui/main-wrapper'
 import Box from '@mui/material/Box'
 import { FC } from 'react'
 
-interface Props {
-	params: { id: string }
-}
-
-const Page: FC<Props> = () => {
+const Page: FC = () => {
 	return (
 		<MainWrapper mt={0} pt={3}>
 			<Box

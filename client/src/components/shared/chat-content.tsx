@@ -101,9 +101,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 		}
 	}, [socket, chatId, dispatch, joinProfileId])
 
-	const handleInputValue = async (
-		e: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
-	) => {
+	const handleInputValue = async (e: any) => {
 		if (!socket || !chatId) return
 
 		const message = {
