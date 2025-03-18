@@ -1,3 +1,5 @@
+'use client'
+
 import AppBar from '@mui/material/AppBar'
 import Divider from '@mui/material/Divider'
 import Toolbar from '@mui/material/Toolbar'
