@@ -161,14 +161,15 @@ io.on('connection', socket => {
 	socket.on('disconnect', async () => {
 		console.log(`User disconnected ${socket.id}`)
 		const date = new Date()
-		const lastOnlineTime = date.toLocaleTimeString('UTC', {
+		const lastOnlineTime = date.toLocaleTimeString('ru-RU', {
+			timeZone: 'Europe/Moscow',
 			month: 'short',
 			hour: '2-digit',
 			day: '2-digit',
 			minute: '2-digit',
 		})
 
-		const session = await prisma.session.findUnique({
+		const session = await prisma.session.findFirst({
 			where: {
 				socketId: socket.id,
 			},

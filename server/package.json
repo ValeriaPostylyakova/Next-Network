@@ -9,9 +9,7 @@
 		"build": "tsc  && npx prisma generate && cp -r src/images dist/src/images && cp prisma/schema.prisma dist/prisma/schema.prisma && cp -r prisma/migrations dist/prisma/migrations",
 		"start": "node dist/src/server.js && node copy-images.js",
 		"postdeploy": "npx prisma migrate deploy && npx prisma generate",
-		"copy-images": "node copy-images.js",
-		"vercel-build": "npx prisma generate && tsc && cp -r src/images dist/src/images && cp prisma/schema.prisma dist/prisma/schema.prisma && cp -r prisma/migrations dist/prisma/migrations",
-		"copy-schema": "cp prisma/schema.prisma dist/prisma/schema.prisma"
+		"copy-images": "node copy-images.js"
 	},
 	"keywords": [],
 	"author": "",

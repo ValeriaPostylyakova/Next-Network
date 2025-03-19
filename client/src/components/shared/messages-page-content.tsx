@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from '@/redux/store'
 import Box from '@mui/material/Box'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { ProgressSkeletonUI } from '../ui/circle-skeleton'
 import { BlockEmpty } from './block-empty'
 import { ChatBlock } from './chat-block'
 
@@ -12,6 +13,7 @@ export const MessagesPageContent: FC = () => {
 	const chatsActions = new ChatActions()
 	const dispatch: AppDispatch = useDispatch()
 	const chats = useSelector((state: RootState) => state.chats.chats)
+	const status = useSelector((state: RootState) => state.chats.statusChats)
 
 	useEffect(() => {
 		dispatch(chatsActions.getChats())
@@ -19,7 +21,9 @@ export const MessagesPageContent: FC = () => {
 
 	return (
 		<>
-			{chats.length > 0 ? (
+			{status === 'loading' ? (
+				<ProgressSkeletonUI />
+			) : chats.length > 0 ? (
 				<Box sx={{ width: '100%', m: '0 auto' }}>
 					{chats.map(chat => (
 						<ChatBlock

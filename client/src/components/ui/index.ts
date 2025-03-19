@@ -1,6 +1,8 @@
 export { AvatarUI } from './avatar'
 export { AvatarIsOnline } from './avatar-is-online'
 export { ButtonUI } from './button'
+export { ChatHeaderSkeletonUI } from './chat-header-skeleton'
+export { ProgressSkeletonUI } from './circle-skeleton'
 export { ContainerUI } from './container'
 export { DrawerUI } from './drawer'
 export { EditUserInfoSkeleton } from './edit-user-info-skeleton'

@@ -8,7 +8,8 @@ export class MessageDTO {
 		const time = new Date(message.createdAt)
 
 		this.id = message.id
-		this.time = time.toLocaleTimeString('UTC', {
+		this.time = time.toLocaleTimeString('ru-RU', {
+			timeZone: 'Europe/Moscow',
 			hour: '2-digit',
 			minute: '2-digit',
 		})

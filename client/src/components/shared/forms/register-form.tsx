@@ -8,10 +8,11 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 
+import { ProgressSkeletonUI } from '@/components/ui/circle-skeleton'
 import { useOpenModal } from '@/hooks/use-open-modal'
 import { useSubmitFormData } from '@/hooks/use-submit-form-data'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { ButtonUI } from '../../ui'
@@ -21,6 +22,7 @@ import { TRegisterForm, registerFormSchema } from './schema'
 export const RegisterForm: FC = () => {
 	const { open, handleClose, handleOpen, setOpen } = useOpenModal()
 	const { dispatch, status, fetchAuth, router } = useSubmitFormData()
+	const [loading, setLoading] = useState<boolean>(false)
 
 	const form = useForm<TRegisterForm>({
 		resolver: zodResolver(registerFormSchema),
@@ -35,13 +37,17 @@ export const RegisterForm: FC = () => {
 	})
 
 	const onSubmit = async (data: TRegisterForm) => {
+		setLoading(true)
+
 		try {
 			const resultAction = await dispatch(fetchAuth.registration(data))
 			unwrapResult(resultAction)
 			toast.success('Вы успешно зарегистрировались')
 			setOpen(false)
+			setLoading(false)
 		} catch (e) {
 			console.error(e)
+			setLoading(false)
 			toast.error(
 				'Возможно, пользователь с такой почтой уже существует. Пожалуйста, введите другую почту и попробуйте снова'
 			)
@@ -114,6 +120,7 @@ export const RegisterForm: FC = () => {
 					</form>
 				</Dialog>
 			</FormProvider>
+			{loading && <ProgressSkeletonUI />}
 		</>
 	)
 }

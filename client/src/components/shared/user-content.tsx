@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ButtonUI, FlexContainer } from '../ui'
+import { ProfileSkeleton } from '../ui/profile-skeleton'
 import { PostState } from './post-state'
 import { ProfileInfoBlock } from './profile-info-block'
 
@@ -47,22 +48,31 @@ export const UserContent: FC<Props> = ({ id }) => {
 
 	return (
 		<>
-			<ProfileInfoBlock
-				tooltipOpen={false}
-				profileInfo={user}
-				children={
-					<FlexContainer>
-						<Link href={`/chat/${id}`}>
-							<ButtonUI click={createChat} variant='outlined'>
-								Написать сообщение
-							</ButtonUI>
-						</Link>
-						{/* <Link href={`/editProfile`}>
-							<ButtonUI variant='outlined'>Добавить в друзья</ButtonUI>
-						</Link> */}
-					</FlexContainer>
-				}
-			/>
+			{status === 'loading' ? (
+				<ProfileSkeleton
+					heightLineTop={25}
+					heightLineBottom={20}
+					widthLineTop={300}
+					widthLineBottom={240}
+					width={80}
+					widthContainer='100%'
+				/>
+			) : (
+				<ProfileInfoBlock
+					tooltipOpen={false}
+					profileInfo={user}
+					children={
+						<FlexContainer>
+							<Link href={`/chat/${id}`}>
+								<ButtonUI click={createChat} variant='outlined'>
+									Написать сообщение
+								</ButtonUI>
+							</Link>
+						</FlexContainer>
+					}
+				/>
+			)}
+
 			<PostState status={status} posts={posts} visibleMenu={false} />
 		</>
 	)

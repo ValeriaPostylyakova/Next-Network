@@ -10,7 +10,8 @@ export class PostDTO {
 
 		this.id = data.id
 		this.userId = data.userId
-		this.date = date.toLocaleDateString('UTC', {
+		this.date = date.toLocaleDateString('ru-RU', {
+			timeZone: 'Europe/Moscow',
 			year: 'numeric',
 			month: 'short',
 			day: '2-digit',

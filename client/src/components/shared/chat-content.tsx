@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TChat, TMessage } from '../../../@types/chat'
 import { Status } from '../../../@types/fetchStatus'
 import { profileId } from '../../../constants/profile'
+import { ChatHeaderSkeletonUI } from '../ui/chat-header-skeleton'
 import { ChatFooter } from './chat-footer'
 import { ChatHeader } from './chat-header'
 import { ChatMessagesContainer } from './chat-messages-container'
@@ -140,13 +141,17 @@ export const ChatContent: FC<Props> = ({ id }) => {
 				flexDirection: 'column',
 			}}
 		>
-			{chatStatus === 'success' && (
-				<ChatHeader
-					{...chat.chatUsers[0]}
-					status={statusTyping}
-					deleteChat={deleteChat}
-				/>
-			)}
+			<>
+				{chatStatus === 'loading' ? (
+					<ChatHeaderSkeletonUI height='80px' />
+				) : (
+					<ChatHeader
+						{...chat.chatUsers[0]}
+						status={statusTyping}
+						deleteChat={deleteChat}
+					/>
+				)}
+			</>
 			<ChatMessagesContainer messages={messages} profileId={profile.id} />
 
 			<ChatFooter

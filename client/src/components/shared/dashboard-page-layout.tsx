@@ -1,6 +1,5 @@
 'use client'
 
-import useSocket from '@/hooks/use-socket'
 import { FeedActions } from '@/redux/feed/async-actions'
 import { FriendsSuggestionActions } from '@/redux/friends/async-actions'
 import { FetchAuth } from '@/redux/profile/async-actions'
@@ -12,6 +11,7 @@ import Box from '@mui/material/Box'
 import { PagesTopLoader } from 'nextjs-toploader/pages'
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { io, Socket } from 'socket.io-client'
 import { SidebarLeft } from './sidebar-left'
 import { SidebarRight } from './sidebar-right'
 
@@ -30,13 +30,24 @@ export const DashboardPageLayout: FC<Props> = ({ children }) => {
 	const dispatch: AppDispatch = useDispatch()
 	const profile = useSelector((state: RootState) => state.auth.profile)
 	const status = useSelector((state: RootState) => state.auth.status)
+	const [socket, setSocket] = useState<Socket | null>(null)
 
 	useEffect(() => {
 		setIsClient(true)
 	}, [])
 
 	const id = String(profile.id)
-	const socket = useSocket(`${process.env.API_URL}`, id)
+
+	useEffect(() => {
+		const newSocket = io(process.env.API_URL)
+		setSocket(newSocket)
+
+		newSocket.on('connect', () => {
+			if (id !== undefined) {
+				newSocket.emit('onlineUsers', id)
+			}
+		})
+	}, [status])
 
 	useEffect(() => {
 		if (isClient && localStorage.getItem('token')) {
