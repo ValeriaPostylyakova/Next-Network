@@ -1,12 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogTitle from '@mui/material/DialogTitle'
 
 import { ProgressSkeletonUI } from '@/components/ui/circle-skeleton'
 import { useOpenModal } from '@/hooks/use-open-modal'
@@ -15,14 +9,16 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import { FC, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { ButtonUI } from '../../ui'
+import { ButtonUI, ModalFormUI } from '../../ui'
 import { FormItem } from '../form-item'
+import { PasswordVisibleToggle } from '../password-visible-toggle'
 import { TRegisterForm, registerFormSchema } from './schema'
 
 export const RegisterForm: FC = () => {
 	const { open, handleClose, handleOpen, setOpen } = useOpenModal()
 	const { dispatch, status, fetchAuth, router } = useSubmitFormData()
 	const [loading, setLoading] = useState<boolean>(false)
+	const [visiblePassword, setVisiblePassword] = useState<boolean>(false)
 
 	const form = useForm<TRegisterForm>({
 		resolver: zodResolver(registerFormSchema),
@@ -60,7 +56,7 @@ export const RegisterForm: FC = () => {
 				Зарегистрироваться
 			</ButtonUI>
 			<FormProvider {...form}>
-				<Dialog
+				{/* <Dialog
 					sx={{
 						'& .MuiDialog-paper': {
 							borderRadius: '1rem',
@@ -118,7 +114,58 @@ export const RegisterForm: FC = () => {
 							<Button type='submit'>Зарегистрироваться</Button>
 						</DialogActions>
 					</form>
-				</Dialog>
+				</Dialog> */}
+				<ModalFormUI
+					width={500}
+					open={open}
+					handleCloseModal={handleClose}
+					buttonTextSubmit='Зарегистрироваться'
+					onClickButtonSubmit={form.handleSubmit(onSubmit)}
+					titleText='Регистрация'
+					alignTitle='center'
+					weightTitle={600}
+				>
+					<FormItem
+						label='Введите свою почту'
+						placeholder='Введите почту'
+						name='email'
+						autoComplete='email'
+					/>
+					<FormItem
+						label='Введите свое имя'
+						placeholder='Введите имя'
+						name='firstname'
+						autoComplete='username'
+					/>
+					<FormItem
+						label='Введите свою фамилию'
+						placeholder='Введите фамилию'
+						name='lastname'
+						autoComplete='username'
+					/>
+					<FormItem
+						label='Придумайте пароль'
+						type={visiblePassword ? 'text' : 'password'}
+						name='password'
+						autoComplete='current-password'
+					>
+						<PasswordVisibleToggle
+							onClick={() => setVisiblePassword(!visiblePassword)}
+							visible={visiblePassword}
+						/>
+					</FormItem>
+					<FormItem
+						label='Повторите пароль'
+						type='password'
+						name='confirmPassword'
+						autoComplete='current-password'
+					>
+						<PasswordVisibleToggle
+							onClick={() => setVisiblePassword(!visiblePassword)}
+							visible={visiblePassword}
+						/>
+					</FormItem>
+				</ModalFormUI>
 			</FormProvider>
 			{loading && <ProgressSkeletonUI />}
 		</>

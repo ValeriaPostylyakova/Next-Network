@@ -86,6 +86,8 @@ export const CreateStoryBlock: FC<Props> = () => {
 				buttonTextSubmit='Опубликовать'
 				handleCloseModal={handleClose}
 				onClickButtonSubmit={onClickButtonSubmit}
+				weightTitle={500}
+				alignTitle='left'
 			>
 				<CreateModalStateBlock
 					selectedImage={selectedImage}

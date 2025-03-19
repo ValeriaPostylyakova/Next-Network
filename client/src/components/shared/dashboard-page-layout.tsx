@@ -55,12 +55,12 @@ export const DashboardPageLayout: FC<Props> = ({ children }) => {
 		}
 		if (status === 'success' && isClient) {
 			localStorage.setItem('userId', String(profile.id))
+			dispatch(unreadMessagesActions.getUnreadMessages(String(profile.id)))
 		}
 
 		dispatch(friendsSuggestion.getFriendsSuggestion())
 		dispatch(feedActions.getFeed())
 		dispatch(storiesActions.getStories())
-		dispatch(unreadMessagesActions.getUnreadMessages(id))
 	}, [isClient])
 
 	useEffect(() => {

@@ -47,6 +47,8 @@ export const CreatePostModal: FC = () => {
 				onClickButtonSubmit={onClickButtonSubmit}
 				width={500}
 				buttonTextSubmit='Создать'
+				weightTitle={500}
+				alignTitle='left'
 			>
 				<Typography
 					sx={{

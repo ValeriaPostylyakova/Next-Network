@@ -92,6 +92,10 @@ export class MessageService {
 			return null
 		}
 
+		if (!id) {
+			return null
+		}
+
 		return unreadMessages
 	}
 }

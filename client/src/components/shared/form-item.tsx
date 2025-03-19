@@ -1,8 +1,9 @@
 'use client'
 
+import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 export interface Props {
@@ -11,6 +12,7 @@ export interface Props {
 	placeholder?: string
 	type?: string
 	autoComplete?: string
+	children?: ReactNode
 }
 
 export const FormItem: FC<Props> = ({
@@ -19,6 +21,7 @@ export const FormItem: FC<Props> = ({
 	type,
 	name,
 	autoComplete,
+	children,
 }) => {
 	const {
 		register,
@@ -28,8 +31,21 @@ export const FormItem: FC<Props> = ({
 	const errorText = errors[name]?.message as string
 
 	return (
-		<>
-			<Typography sx={{ mt: 1, mb: -0.4 }}>{label}</Typography>
+		<Box
+			sx={{
+				position: 'relative',
+				width: '100%',
+				display: 'flex',
+				flexDirection: 'column',
+				gap: '0.6rem',
+				mb: 3,
+				'&:last-child': {
+					mb: 0,
+				},
+			}}
+		>
+			<Typography ml={0.2}>{label}</Typography>
+
 			<TextField
 				{...register(name)}
 				type={type}
@@ -37,10 +53,13 @@ export const FormItem: FC<Props> = ({
 				autoComplete={autoComplete}
 				sx={{
 					'& .MuiOutlinedInput-root': {
-						borderRadius: '0.8rem',
+						borderRadius: '0.7rem',
+						width: '450px',
 					},
 				}}
 			/>
+			{children}
+
 			{errors[name] && (
 				<Typography
 					sx={{
@@ -52,6 +71,6 @@ export const FormItem: FC<Props> = ({
 					{errorText}
 				</Typography>
 			)}
-		</>
+		</Box>
 	)
 }

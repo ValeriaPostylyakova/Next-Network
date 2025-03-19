@@ -81,6 +81,8 @@ export const EditorProfileAvatar: FC<Props> = ({ width, profile }) => {
 				handleCloseModal={handleClose}
 				onClickButtonSubmit={onClickButtonSubmit}
 				buttonTextSubmit='Сохранить'
+				weightTitle={500}
+				alignTitle='left'
 			>
 				<Box
 					sx={{

@@ -12,6 +12,8 @@ export interface Props {
 	children: ReactNode
 	open: boolean
 	width?: number
+	alignTitle: string
+	weightTitle: number
 	buttonTextSubmit: string
 	handleCloseModal?: () => void
 	onClickButtonSubmit: (e: FormEvent<HTMLFormElement>) => void
@@ -26,6 +28,8 @@ export const ModalFormUI: FC<Props> = ({
 	handleCloseModal,
 	width,
 	titleText,
+	alignTitle,
+	weightTitle,
 }) => {
 	return (
 		<Dialog
@@ -39,7 +43,16 @@ export const ModalFormUI: FC<Props> = ({
 			onClose={handleCloseModal}
 		>
 			<form onSubmit={e => onClickButtonSubmit(e)}>
-				{titleText && <DialogTitle>{titleText}</DialogTitle>}
+				{titleText && (
+					<DialogTitle
+						sx={{
+							textAlign: alignTitle,
+							fontWeight: weightTitle,
+						}}
+					>
+						{titleText}
+					</DialogTitle>
+				)}
 				<DialogContent>{children}</DialogContent>
 				<DialogActions>
 					<Button onClick={handleCloseModal}>Отмена</Button>

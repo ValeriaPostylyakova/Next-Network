@@ -15,7 +15,6 @@ import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { TChat, TMessage } from '../../../@types/chat'
 import { Status } from '../../../@types/fetchStatus'
-import { profileId } from '../../../constants/profile'
 import { ChatHeaderSkeletonUI } from '../ui/chat-header-skeleton'
 import { ChatFooter } from './chat-footer'
 import { ChatHeader } from './chat-header'
@@ -41,8 +40,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const router = useRouter()
 
 	const chatId = chatStatus === 'success' ? String(chat.id) : id
-	const joinProfileId =
-		statusProfile === 'success' ? String(profile.id) : profileId
+	const joinProfileId = String(profile.id)
 
 	const loadChatData = useCallback(() => {
 		dispatch(messagesActions.getMessages(chatId))
@@ -107,7 +105,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 
 		const message = {
 			text: value,
-			sender: profileId,
+			sender: String(profile.id),
 			chatId: chatId,
 		}
 

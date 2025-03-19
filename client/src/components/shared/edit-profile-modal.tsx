@@ -76,6 +76,8 @@ export const EditProfileModal: FC<Props> = ({ profile }) => {
 				handleCloseModal={handleClose}
 				buttonTextSubmit='Сохранить'
 				onClickButtonSubmit={handleSubmit}
+				weightTitle={500}
+				alignTitle='left'
 			>
 				<Box
 					sx={{
