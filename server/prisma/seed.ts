@@ -1,105 +1,98 @@
 import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 
 async function up() {
-	await prisma.user.createMany({
-		data: [
-			{
-				email: 'valeria.postylyakova@yandex.ru',
-				password: bcrypt.hashSync('postylyakovavs107', 7),
-
-				isActivated: false,
-				firstname: 'Валерия',
-				lastname: 'Постылякова',
-				identifier: 'valeriapostylyakova',
-				jobTitle: 'Frontend Developer',
-				imageUrl:
-					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-			},
-			{
-				email: 'ivanov@gmail.com',
-				password: bcrypt.hashSync('ivanov53465346', 7),
-
-				isActivated: true,
-				firstname: 'Иванов',
-				lastname: 'Даниил',
-				identifier: 'ivanov11',
-				jobTitle: 'Web Developer',
-				imageUrl:
-					'https://img.freepik.com/free-vector/hand-drawn-clothes-person_79603-614.jpg',
-			},
-			{
-				email: 'postj886@mail.ru',
-				password: bcrypt.hashSync('gh43j5kg4hgk', 7),
-
-				isActivated: true,
-				firstname: 'Кристина',
-				lastname: 'Разина',
-				identifier: 'yourname123',
-				jobTitle: 'Designer',
-				imageUrl:
-					'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
-			},
-			{
-				email: 'romanov8785@gmail.com',
-				password: bcrypt.hashSync('fj5vldsqv2blfutr464', 7),
-
-				isActivated: false,
-				firstname: 'Егор',
-				lastname: 'Романов',
-				identifier: 'romanov8785',
-				jobTitle: 'Chief Information Security Officer',
-				imageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
-			},
-		],
-	})
-
-	await prisma.token.create({
-		data: {
-			refreshToken:
-				'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzM0BtYWlsLnJ1IiwiaWQiOjIwLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImZ1bGxuYW1lIjoiVGVzdCBUZXN0IiwiaWRlbnRpZmllciI6InRlc3QzIiwiaWF0IjoxNzM3NjM2MDY4LCJleHAiOjE3NDAyMjgwNjh9.vT-kL91NlmPykAu9_gh96Se5wuEXuj-CH9wShmgyP4Q',
-			userId: 1,
-		},
-	})
-	await prisma.post.createMany({
-		data: [
-			{
-				postImageUrl:
-					'https://cfmoto-moto.ru/wp-content/uploads/2022/11/image5.jpg',
-				fullname: 'Валерия Постылякова',
-				jobTitle: 'Frontend Developer',
-				userImageUrl:
-					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-				likes: 20,
-				date: '10 февр. 2025 г., 19:27',
-				userId: 1,
-			},
-			{
-				postImageUrl:
-					'https://printwalls.ru/assets/cache_image/products/2309/fotooboi-priroda-lesa-kupit-0149_846x550_c8f.jpg',
-				fullname: 'Кристина Разина',
-				jobTitle: 'Designer',
-				userImageUrl:
-					'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
-				likes: 2,
-				userId: 3,
-				date: '25 янв. 2025 г., 14:30',
-			},
-			{
-				postImageUrl:
-					'https://iy.kommersant.ru/Issues.photo/RADIO/2022/05/17/KSP_015476_00003_1_t222_144858.jpg',
-				fullname: 'Егор Романов',
-				jobTitle: 'Chief Information Security Officer',
-				userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
-				likes: 10,
-				userId: 4,
-				date: '20 дек. 2024 г., 10:15',
-			},
-		],
-	})
-
+	// await prisma.user.createMany({
+	// 	data: [
+	// 		{
+	// 			email: 'valeria.postylyakova@yandex.ru',
+	// 			password: bcrypt.hashSync('postylyakovavs107', 7),
+	// 			isActivated: false,
+	// 			firstname: 'Валерия',
+	// 			lastname: 'Постылякова',
+	// 			identifier: 'valeriapostylyakova',
+	// 			jobTitle: 'Frontend Developer',
+	// 			imageUrl:
+	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+	// 		},
+	// 		{
+	// 			email: 'ivanov@gmail.com',
+	// 			password: bcrypt.hashSync('ivanov53465346', 7),
+	// 			isActivated: true,
+	// 			firstname: 'Иванов',
+	// 			lastname: 'Даниил',
+	// 			identifier: 'ivanov11',
+	// 			jobTitle: 'Web Developer',
+	// 			imageUrl:
+	// 				'https://img.freepik.com/free-vector/hand-drawn-clothes-person_79603-614.jpg',
+	// 		},
+	// 		{
+	// 			email: 'postj886@mail.ru',
+	// 			password: bcrypt.hashSync('gh43j5kg4hgk', 7),
+	// 			isActivated: true,
+	// 			firstname: 'Кристина',
+	// 			lastname: 'Разина',
+	// 			identifier: 'yourname123',
+	// 			jobTitle: 'Designer',
+	// 			imageUrl:
+	// 				'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
+	// 		},
+	// 		{
+	// 			email: 'romanov8785@gmail.com',
+	// 			password: bcrypt.hashSync('fj5vldsqv2blfutr464', 7),
+	// 			isActivated: false,
+	// 			firstname: 'Егор',
+	// 			lastname: 'Романов',
+	// 			identifier: 'romanov8785',
+	// 			jobTitle: 'Chief Information Security Officer',
+	// 			imageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
+	// 		},
+	// 	],
+	// })
+	// await prisma.token.create({
+	// 	data: {
+	// 		refreshToken:
+	// 			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzM0BtYWlsLnJ1IiwiaWQiOjIwLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImZ1bGxuYW1lIjoiVGVzdCBUZXN0IiwiaWRlbnRpZmllciI6InRlc3QzIiwiaWF0IjoxNzM3NjM2MDY4LCJleHAiOjE3NDAyMjgwNjh9.vT-kL91NlmPykAu9_gh96Se5wuEXuj-CH9wShmgyP4Q',
+	// 		userId: 1,
+	// 	},
+	// })
+	// await prisma.post.createMany({
+	// 	data: [
+	// 		{
+	// 			postImageUrl:
+	// 				'https://cfmoto-moto.ru/wp-content/uploads/2022/11/image5.jpg',
+	// 			fullname: 'Валерия Постылякова',
+	// 			jobTitle: 'Frontend Developer',
+	// 			userImageUrl:
+	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+	// 			likes: 20,
+	// 			date: '10 февр. 2025 г., 19:27',
+	// 			userId: 1,
+	// 		},
+	// 		{
+	// 			postImageUrl:
+	// 				'https://printwalls.ru/assets/cache_image/products/2309/fotooboi-priroda-lesa-kupit-0149_846x550_c8f.jpg',
+	// 			fullname: 'Кристина Разина',
+	// 			jobTitle: 'Designer',
+	// 			userImageUrl:
+	// 				'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
+	// 			likes: 2,
+	// 			userId: 3,
+	// 			date: '25 янв. 2025 г., 14:30',
+	// 		},
+	// 		{
+	// 			postImageUrl:
+	// 				'https://iy.kommersant.ru/Issues.photo/RADIO/2022/05/17/KSP_015476_00003_1_t222_144858.jpg',
+	// 			fullname: 'Егор Романов',
+	// 			jobTitle: 'Chief Information Security Officer',
+	// 			userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
+	// 			likes: 10,
+	// 			userId: 4,
+	// 			date: '20 дек. 2024 г., 10:15',
+	// 		},
+	// 	],
+	// })
 	// await prisma.message.createMany({
 	// 	data: [
 	// 		{
@@ -144,7 +137,6 @@ async function up() {
 	// 		},
 	// 	],
 	// })
-
 	// await prisma.story.createMany({
 	// 	data: [
 	// 		{
@@ -161,7 +153,6 @@ async function up() {
 	// 		},
 	// 	],
 	// })
-
 	// await prisma.storyItem.createMany({
 	// 	data: [
 	// 		{

@@ -11,7 +11,7 @@ export const getUserFromToken = async (token: string) => {
 		throw new Error('Пользователь не зарегистрирован')
 	}
 
-	const user = await prisma.user.findFirst({
+	const user = await prisma.user.findUnique({
 		where: { id: tokenData.userId },
 	})
 

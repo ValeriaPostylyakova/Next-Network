@@ -5,6 +5,8 @@ import { ChatActions } from '@/redux/chats/async-actions'
 import { setChat, setStatus } from '@/redux/chats/slice'
 import { MessagesActions } from '@/redux/messages/async-actions'
 import { setMessages, updateStateMessages } from '@/redux/messages/slice'
+import { FetchAuth } from '@/redux/profile/async-actions'
+import { setUser } from '@/redux/profile/auth-slice'
 import { AppDispatch, RootState } from '@/redux/store'
 import { deleteUnreadMessages } from '@/redux/unreadMessages/slice'
 import Box from '@mui/material/Box'
@@ -27,9 +29,8 @@ const messagesActions = new MessagesActions()
 const chatsActions = new ChatActions()
 
 export const ChatContent: FC<Props> = ({ id }) => {
+	const fetchAuth = new FetchAuth()
 	const profile = useSelector((state: RootState) => state.auth.profile)
-	const statusProfile = useSelector((state: RootState) => state.auth.status)
-
 	const messages = useSelector((state: RootState) => state.messages.messages)
 	const chatStatus = useSelector((state: RootState) => state.chats.statusChat)
 	const chat = useSelector((state: RootState) => state.chats.chat)
@@ -40,21 +41,31 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	const router = useRouter()
 
 	const chatId = chatStatus === 'success' ? String(chat.id) : id
-	const joinProfileId = String(profile.id)
 
 	const loadChatData = useCallback(() => {
-		dispatch(messagesActions.getMessages(chatId))
-		dispatch(
-			chatsActions.getChat({
-				chatId: chatId,
-				profileId: joinProfileId,
-			})
-		)
-	}, [chatId, joinProfileId, dispatch])
+		async function getData() {
+			try {
+				const data = await dispatch(fetchAuth.checkAuth())
+				const res = unwrapResult(data)
+				dispatch(setUser(res.user))
+				dispatch(messagesActions.getMessages(chatId))
+				dispatch(
+					chatsActions.getChat({
+						chatId: chatId,
+						profileId: String(res.user.id),
+					})
+				)
+			} catch (e) {
+				console.error(e)
+			}
+		}
+
+		getData()
+	}, [chatId, dispatch])
 
 	useEffect(() => {
 		if (!socket) return
-		socket.emit('joinChat', joinProfileId)
+		socket.emit('joinChat', profile.id)
 
 		socket.on('resJoinChat', async (joinedProfileId: string) => {
 			socket.emit('isReadMessage', chatId, joinedProfileId)
@@ -98,7 +109,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 			socket.off('resIsReadMessage')
 			socket.off('resJoinChat')
 		}
-	}, [socket, chatId, dispatch, joinProfileId])
+	}, [socket, chatId, dispatch])
 
 	const handleInputValue = async (e: any) => {
 		if (!socket || !chatId) return

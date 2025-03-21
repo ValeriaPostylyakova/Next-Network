@@ -24,7 +24,6 @@ export class FetchAuth {
 			})
 
 			localStorage.setItem('token', data.accessToken)
-			localStorage.setItem('userId', data.id)
 			return data
 		}
 	)
@@ -33,7 +32,7 @@ export class FetchAuth {
 
 		try {
 			const { data } = await api.post('/login', { email, password })
-
+			localStorage.setItem('token', data.accessToken)
 			return data
 		} catch (error) {
 			console.log(e)
