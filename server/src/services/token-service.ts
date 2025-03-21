@@ -12,6 +12,7 @@ export class TokenService {
 		const refreshToken = jwt.sign(
 			payload,
 			process.env.JWT_REFRESH_TOKEN || '',
+
 			{
 				expiresIn: '30d',
 			}
@@ -45,7 +46,7 @@ export class TokenService {
 	}
 
 	async saveToken(userId: number, refreshToken: string) {
-		const tokenData = await prisma.token.findFirst({
+		const tokenData = await prisma.token.findUnique({
 			where: {
 				userId: userId,
 			},
@@ -60,16 +61,16 @@ export class TokenService {
 					refreshToken: refreshToken,
 				},
 			})
+		} else {
+			const token = await prisma.token.create({
+				data: {
+					userId: userId,
+					refreshToken: refreshToken,
+				},
+			})
+
+			return token
 		}
-
-		const token = await prisma.token.create({
-			data: {
-				userId: userId,
-				refreshToken: refreshToken,
-			},
-		})
-
-		return token
 	}
 
 	async deleteToken(userId?: number) {

@@ -17,7 +17,7 @@ export class UserService {
 		firstname: string,
 		lastname: string
 	) {
-		const findUser = await prisma.user.findFirst({
+		const findUser = await prisma.user.findUnique({
 			where: {
 				email: email,
 			},
@@ -47,10 +47,6 @@ export class UserService {
 		const userDTO = new UserDTO(user)
 		const tokens = tokenServise.generateTokens({ ...userDTO })
 		await tokenServise.saveToken(userDTO.id, tokens.refreshToken)
-		await emailService.sendActivationEmail(
-			email,
-			`${process.env.API_URL}/api/activate/${activationLink}`
-		)
 
 		return {
 			...tokens,
@@ -59,7 +55,7 @@ export class UserService {
 	}
 
 	async login(email: string, password: string) {
-		const findUser = await prisma.user.findFirst({
+		const findUser = await prisma.user.findUnique({
 			where: {
 				email: email,
 			},
