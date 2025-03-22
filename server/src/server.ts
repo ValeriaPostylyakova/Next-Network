@@ -135,7 +135,6 @@ io.on('connection', socket => {
 					socketId: socket.id,
 				},
 			})
-
 			if (session.socketId) {
 				const user = await prisma.user.update({
 					where: {
@@ -145,9 +144,15 @@ io.on('connection', socket => {
 						isOnline: 'online',
 					},
 				})
-
-				socket.broadcast.emit('resOnlineUsers', user)
-				socket.emit('resOnlineUsers', user)
+				socket.emit('sessionCreated', { userId: user.id })
+				socket.broadcast.emit('userStatusChanged', {
+					userId: user.id,
+					isOnline: 'online',
+				})
+				socket.emit('userStatusChanged', {
+					userId: user.id,
+					isOnline: 'online',
+				})
 			}
 		} catch (e) {
 			console.error(e)
@@ -169,20 +174,34 @@ io.on('connection', socket => {
 			minute: '2-digit',
 		})
 
-		const session = await prisma.session.findFirst({
+		const session = await prisma.session.findUnique({
 			where: {
 				socketId: socket.id,
 			},
 		})
 
 		if (session) {
-			await prisma.user.update({
+			const user = await prisma.user.update({
 				where: {
 					id: session.userId,
 				},
 				data: {
 					isOnline: `был(a) в сети в ${lastOnlineTime}`,
 				},
+			})
+			await prisma.session.delete({
+				where: {
+					id: session.id,
+				},
+			})
+
+			socket.broadcast.emit('userStatusChanged', {
+				userId: user.id,
+				isOnline: user.isOnline,
+			})
+			socket.emit('userStatusChanged', {
+				userId: user.id,
+				isOnline: user.isOnline,
 			})
 		}
 	})
