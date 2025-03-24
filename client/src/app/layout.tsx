@@ -21,7 +21,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<link rel='shortcut icon' href='favicon.ico' type='image/x-icon' />
+			<link
+				rel='shortcut icon'
+				href='/next-network-icons.png'
+				type='image/x-icon'
+			/>
 			<body className={`${poppins.variable}`}>
 				<Providers>{children}</Providers>
 			</body>

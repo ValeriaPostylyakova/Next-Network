@@ -34,7 +34,7 @@ router.post('/login', userControllers.login)
 router.post('/logout', userControllers.logout)
 router.get('/refresh', userControllers.refresh)
 router.get('/user/:id', userControllers.getUser)
-router.get('/profile', userControllers.getProfile)
+router.get('/profile/:id', userControllers.getProfile)
 
 router.patch('/updateProfile', userControllers.updateProfileInfo)
 router.patch('/updateProfilePhone', userControllers.updateProfileInfoPhone)
@@ -60,7 +60,7 @@ router.delete('/commentDelete/:id', commentsController.deleteComment)
 
 router.get('/friendsSuggestions', friendsController.getFriendsSuggetion)
 
-router.get('/chats', chatController.getChats)
+router.get('/chats/:id', chatController.getChats)
 router.post('/createChat', chatController.createChat)
 router.get('/chat', chatController.getChat)
 router.delete('/deleteChat/:id', chatController.deleteChat)

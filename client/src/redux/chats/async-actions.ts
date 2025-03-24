@@ -13,8 +13,8 @@ export type TParamsCreateChat = {
 }
 
 export class ChatActions {
-	getChats = createAsyncThunk('chats/fetchChats', async () => {
-		const { data } = await api.get<TChat[]>(`/chats`)
+	getChats = createAsyncThunk('chats/fetchChats', async (userId: number) => {
+		const { data } = await api.get<TChat[]>(`/chats/${userId}`)
 		return data
 	})
 

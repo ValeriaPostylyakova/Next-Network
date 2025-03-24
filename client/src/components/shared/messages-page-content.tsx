@@ -14,9 +14,10 @@ export const MessagesPageContent: FC = () => {
 	const dispatch: AppDispatch = useDispatch()
 	const chats = useSelector((state: RootState) => state.chats.chats)
 	const status = useSelector((state: RootState) => state.chats.statusChats)
+	const profile = useSelector((state: RootState) => state.auth.profile)
 
 	useEffect(() => {
-		dispatch(chatsActions.getChats())
+		dispatch(chatsActions.getChats(profile.id))
 	}, [])
 
 	return (

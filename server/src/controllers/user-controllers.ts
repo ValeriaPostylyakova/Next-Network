@@ -1,12 +1,13 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
-import { getUserFromToken } from '../../utils/getUserFromToken'
+
 import {
 	IGetUserParams,
 	IUserRegistraytion,
 	IUserUpdateInfo,
 } from '../@types/user'
 import { UserService } from '../services/user-service'
+import { getUserFromToken } from '../utils/getUserFromToken'
 
 const userService = new UserService()
 
@@ -60,7 +61,7 @@ export class UserControllers {
 
 	async logout(req: Request, res: Response): Promise<any> {
 		try {
-			const { refreshToken } = req.cookies
+			const refreshToken = req.cookies.refreshToken
 			const token = await userService.logout(refreshToken)
 			res.clearCookie('refreshToken')
 			return res.json(token)
@@ -71,7 +72,7 @@ export class UserControllers {
 
 	async refresh(req: Request, res: Response, next: any): Promise<any> {
 		try {
-			const { refreshToken } = req.cookies
+			const refreshToken = req.cookies.refreshToken
 			const userData = await userService.refresh(refreshToken)
 			res.cookie('refreshToken', userData.refreshToken, {
 				maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -86,9 +87,9 @@ export class UserControllers {
 
 	async getProfile(req: Request, res: Response): Promise<any> {
 		try {
-			const { refreshToken } = req.cookies
+			const userId = req.params.id
 
-			const user = await getUserFromToken(refreshToken)
+			const user = await getUserFromToken(userId)
 			return res.status(200).json(user)
 		} catch (e) {
 			res
@@ -188,7 +189,7 @@ export class UserControllers {
 
 	async getUsers(req: Request, res: Response): Promise<any> {
 		try {
-			const { refreshToken } = req.cookies
+			const refreshToken = req.cookies.refreshToken
 			const response = await userService.getUsers(refreshToken)
 			return res.status(200).json(response)
 		} catch (e) {

@@ -5,10 +5,10 @@ import { InferGetStaticPropsType } from 'next'
 import { getServerSideProps } from 'next/dist/build/templates/pages'
 import { FC } from 'react'
 
-const Page: FC = ({
+const Page: FC = async ({
 	params,
 }: InferGetStaticPropsType<typeof getServerSideProps>) => {
-	const { id } = params
+	const { id } = await params
 	return (
 		<MainWrapper mt={65}>
 			<Box sx={{ width: '90%', m: '0 auto', pt: 3 }}>

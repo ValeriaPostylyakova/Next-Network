@@ -39,7 +39,7 @@ export class PostControllers {
 
 	async createPost(req: Request, res: Response): Promise<any> {
 		try {
-			const { refreshToken } = req.cookies
+			const refreshToken = req.cookies.refreshToken
 			const textData = req.body.text
 			const fileData = req.file?.filename
 

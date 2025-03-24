@@ -40,7 +40,9 @@ export class FetchAuth {
 	})
 
 	logout = createAsyncThunk('user/fetchLogout', async () => {
-		await api.post('/logout')
+		await api.post('/logout', {
+			withCredentials: true,
+		})
 		localStorage.removeItem('token')
 	})
 
@@ -52,8 +54,8 @@ export class FetchAuth {
 		return data
 	})
 
-	getProfile = createAsyncThunk('user/fetchProfile', async () => {
-		const { data } = await api.get<TProfile>('/profile/')
+	getProfile = createAsyncThunk('user/fetchProfile', async (userId: number) => {
+		const { data } = await api.get<TProfile>(`/profile/${userId}`)
 		return data
 	})
 
@@ -106,6 +108,7 @@ export class FetchAuth {
 					headers: {
 						'Content-Type': 'multipart/form-data',
 					},
+					withCredentials: true,
 				}
 			)
 			return data

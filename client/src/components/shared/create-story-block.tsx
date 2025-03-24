@@ -33,7 +33,8 @@ export const CreateStoryBlock: FC<Props> = () => {
 		setOpen,
 		muddlewareName: 'story',
 		successModalText: 'История успешно создана!',
-		errorModalText: 'Ошибка при создании истории',
+		errorModalText:
+			'Ошибка при создании истории. Пожалуйста, обновите страницу и попробуйте ещё раз',
 	})
 
 	return (

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import { getUserFromToken } from '../../utils/getUserFromToken'
+import { getUserFromToken } from '../utils/getUserFromToken'
+
 import { ChatService } from '../services/chat-service'
 
 const chatService = new ChatService()
@@ -7,8 +8,8 @@ const chatService = new ChatService()
 export class ChatController {
 	async getChats(req: Request, res: Response): Promise<any> {
 		try {
-			const user = await getUserFromToken(req.cookies.refreshToken)
-
+			const userId = req.params.id
+			const user = await getUserFromToken(userId)
 			const response = await chatService.getChats(user.id)
 
 			return res.status(200).json(response)

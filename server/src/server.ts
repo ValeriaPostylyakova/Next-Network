@@ -22,8 +22,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(
 	cors({
-		credentials: true,
 		origin: process.env.CLIENT_URL,
+		credentials: true,
 	})
 )
 app.use('/api', routers)
@@ -94,7 +94,7 @@ io.on('connection', socket => {
 				where: {
 					chatId: Number(chatId),
 					sender: {
-						not: profileId,
+						not: String(profileId),
 					},
 					isRead: false,
 				},
@@ -107,7 +107,7 @@ io.on('connection', socket => {
 				where: {
 					chatId: Number(chatId),
 					sender: {
-						not: profileId,
+						not: String(profileId),
 					},
 					isRead: true,
 				},

@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { TComments, TPost } from '../../../@types/post'
 
 type TParams = {
+	id: number
 	postId: number
 	text: string
 }
@@ -20,6 +21,7 @@ export class PostActions {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
+				withCredentials: true,
 			})
 			return data
 		}
@@ -53,9 +55,10 @@ export class PostActions {
 	createComment = createAsyncThunk(
 		'comments/fetchCreateComment',
 		async (params: TParams) => {
-			const { postId, text } = params
+			const { id, postId, text } = params
 
 			const { data } = await api.post('/comment', {
+				id,
 				postId,
 				text,
 			})

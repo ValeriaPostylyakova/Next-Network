@@ -6,18 +6,18 @@ import toast from 'react-hot-toast'
 import Box from '@mui/material/Box'
 
 import { PostActions } from '@/redux/post/async-action'
-import { AppDispatch } from '@/redux/store'
+import { AppDispatch, RootState } from '@/redux/store'
 import Divider from '@mui/material/Divider'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TComments } from '../../../@types/post'
 import { MainBlock } from '../ui'
 import { EmojiBlock } from './emoji-block'
+import { PostBlockContent } from './post-block-content'
 import { PostBlockFooter } from './post-block-footer'
 import { PostBlockHeader } from './post-block-header'
 import { PostCommentsContainer } from './post-comments-container'
 import { PostWriteCommentsBlock } from './post-write-comments-block'
-import { PostBlockContent } from './post-block-content'
 
 export interface Props {
 	id: number
@@ -55,12 +55,17 @@ export const PostBlock: FC<Props> = ({
 	const menuRef = useRef<boolean>(visibleMenu)
 
 	const dispatch: AppDispatch = useDispatch()
+	const profile = useSelector((state: RootState) => state.auth.profile)
 	const postActions = new PostActions()
 
 	const handleInputComment = async (e: React.KeyboardEvent) => {
 		if (e.code === 'Enter' || e.type === 'click') {
 			await dispatch(
-				postActions.createComment({ postId: id, text: valueInput })
+				postActions.createComment({
+					id: profile.id,
+					postId: id,
+					text: valueInput,
+				})
 			)
 			setValueInput('')
 		}

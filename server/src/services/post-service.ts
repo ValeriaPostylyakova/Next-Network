@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
-import { getUserFromToken } from '../../utils/getUserFromToken'
+
 import { PostDTO } from '../dtos/post-dto'
+import { getUserFromToken } from '../utils/getUserFromToken'
 
 const prisma = new PrismaClient()
 
@@ -74,7 +75,17 @@ export class PostService {
 	}
 
 	async createPost(token: string, textData?: string, fileData?: string) {
-		const user = await getUserFromToken(token)
+		const userToken = await prisma.token.findFirst({
+			where: {
+				refreshToken: token,
+			},
+		})
+
+		if (!userToken) {
+			throw new Error('Такого пользователя не существует')
+		}
+
+		const user = await getUserFromToken(String(userToken.userId))
 
 		const post = await prisma.post.create({
 			data: {

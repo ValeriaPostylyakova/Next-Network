@@ -27,7 +27,8 @@ export const CreatePostModal: FC = () => {
 		setText,
 		muddlewareName: 'post',
 		successModalText: 'Пост успешно создан!',
-		errorModalText: 'Ошибка при создании поста',
+		errorModalText:
+			'Ошибка при создании поста. Пожалуйста, обновите страницу и попробуйте ещё раз',
 	})
 
 	return (
