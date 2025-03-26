@@ -1,6 +1,7 @@
 'use client'
 
-import { LikesData, PostActions } from '@/redux/post/async-action'
+import { PostActions } from '@/redux/post/async-action'
+import { LikesData } from '@/redux/post/types'
 import { AppDispatch } from '@/redux/store'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
