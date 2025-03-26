@@ -1,27 +1,18 @@
 import { api } from '@/http/axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { TComments, TPost } from '../../../@types/post'
-
-type TParams = {
-	id: number
-	postId: number
-	text: string
-}
-
-export type LikesData = {
-	likes: number
-	like: boolean
-}
+import { LikesData, TFormData, TParams } from './types'
 
 export class PostActions {
 	createPost = createAsyncThunk(
 		'post/fetchCreatePost',
-		async (formData: FormData) => {
-			const { data } = await api.post<TPost>('/post', formData, {
+		async (params: TFormData) => {
+			const { formData, profileId } = params
+
+			const { data } = await api.post<TPost>(`/post/${profileId}`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
-				withCredentials: true,
 			})
 			return data
 		}

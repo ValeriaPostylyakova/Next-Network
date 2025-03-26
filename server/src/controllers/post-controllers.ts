@@ -39,15 +39,14 @@ export class PostControllers {
 
 	async createPost(req: Request, res: Response): Promise<any> {
 		try {
-			const refreshToken = req.cookies.refreshToken
+			const { id: profileId } = req.params
+
+			console.log(req.params)
+
 			const textData = req.body.text
 			const fileData = req.file?.filename
 
-			const post = await postService.createPost(
-				refreshToken,
-				textData,
-				fileData
-			)
+			const post = await postService.createPost(profileId, textData, fileData)
 
 			return res.status(200).json(post)
 		} catch (e) {

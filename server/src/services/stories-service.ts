@@ -1,31 +1,14 @@
 import { PrismaClient } from '@prisma/client'
+import { getUserFromToken } from '../utils/getUserFromToken'
 import { startCronJob } from '../utils/startCronJob'
 
 const prisma = new PrismaClient()
 
 export class StoriesService {
-	async createStory(token: string, fileName: string) {
+	async createStory(profileId: string, fileName: string) {
 		const expiresAt = new Date(Date.now() + 2 * 60 * 1000)
 
-		const tokenData = await prisma.token.findFirst({
-			where: {
-				refreshToken: token,
-			},
-		})
-
-		if (!tokenData) {
-			throw new Error('Пользователь не зарегистрирован')
-		}
-
-		const user = await prisma.user.findUnique({
-			where: {
-				id: tokenData.userId,
-			},
-		})
-
-		if (!user) {
-			throw new Error('Такого пользователя не существует')
-		}
+		const user = await getUserFromToken(profileId)
 
 		const findStory = await prisma.story.findFirst({
 			where: {

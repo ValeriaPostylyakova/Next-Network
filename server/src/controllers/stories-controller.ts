@@ -6,12 +6,12 @@ const storiesService = new StoriesService()
 export class StoriesController {
 	async createStory(req: Request, res: Response): Promise<any> {
 		try {
+			const { id: profileId } = req.params
+
 			const fileName = req.file?.filename
 
-			const token = req.cookies.refreshToken
-
 			const response = await storiesService.createStory(
-				token,
+				profileId,
 				fileName as string
 			)
 			return res.status(200).json(response)

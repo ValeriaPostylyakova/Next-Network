@@ -74,18 +74,8 @@ export class PostService {
 		return postsData
 	}
 
-	async createPost(token: string, textData?: string, fileData?: string) {
-		const userToken = await prisma.token.findFirst({
-			where: {
-				refreshToken: token,
-			},
-		})
-
-		if (!userToken) {
-			throw new Error('Такого пользователя не существует')
-		}
-
-		const user = await getUserFromToken(String(userToken.userId))
+	async createPost(profileId: string, textData?: string, fileData?: string) {
+		const user = await getUserFromToken(profileId)
 
 		const post = await prisma.post.create({
 			data: {

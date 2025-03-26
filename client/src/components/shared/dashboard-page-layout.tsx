@@ -45,11 +45,7 @@ export const DashboardPageLayout: FC<Props> = ({ children }) => {
 				if (status === 'loading') {
 					const data = await dispatch(fetchAuth.checkAuth())
 					const res = unwrapResult(data)
-
-					console.log(res)
 					dispatch(setUser(res.user))
-
-					dispatch(unreadMessagesActions.getUnreadMessages(String(res.user.id)))
 				}
 			} catch (e) {
 				console.error(e)
@@ -78,6 +74,7 @@ export const DashboardPageLayout: FC<Props> = ({ children }) => {
 				const result = await dispatch(userActions.getUser(String(userId)))
 				const res = unwrapResult(result)
 				dispatch(setUser(res))
+				dispatch(unreadMessagesActions.getUnreadMessages(String(userId)))
 			} catch (e) {
 				console.error(e)
 				toast.error(

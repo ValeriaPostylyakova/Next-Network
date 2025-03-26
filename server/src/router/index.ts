@@ -48,7 +48,7 @@ router.patch('/avatar/:id', userControllers.deleteAvatar)
 
 router.get('/', searchController.search)
 
-router.post('/post', multersFile.single('post'), postControllers.createPost)
+router.post('/post/:id', multersFile.single('post'), postControllers.createPost)
 router.get('/posts/:id', postControllers.posts)
 router.delete('/postDelete/:id', postControllers.deletePost)
 
@@ -72,7 +72,7 @@ router.delete('/deleteMessage/:id', messageController.deleteMessage)
 router.get('/feed', feedController.getFeed)
 
 router.post(
-	'/createStory',
+	'/createStory/:id',
 	multersStory.single('story'),
 	storiesController.createStory
 )

@@ -1,10 +1,10 @@
 'use client'
 
-import { AppDispatch } from '@/redux/store'
+import { AppDispatch, RootState } from '@/redux/store'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { FormEvent, useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface Props {
 	apiActions: any
@@ -27,9 +27,11 @@ export const useCreateModalImages = ({
 	successModalText,
 	errorModalText,
 }: Props) => {
-	const dispatch: AppDispatch = useDispatch()
 	const [selectedImage, setSelectedImage] = useState<string | null>(null)
 	const [imgUrl, setImgUrl] = useState<File | null>(null)
+
+	const dispatch: AppDispatch = useDispatch()
+	const profile = useSelector((state: RootState) => state.auth.profile)
 
 	const onClickButtonSubmit = useCallback(
 		async (e: FormEvent<HTMLFormElement>) => {
@@ -39,7 +41,12 @@ export const useCreateModalImages = ({
 				text && formData.append('text', text)
 				formData.append(muddlewareName, imgUrl as File)
 
-				const resultAction = await dispatch(apiActions(formData))
+				console.log(profile.id)
+
+				const resultAction = await dispatch(
+					apiActions({ formData, profileId: profile.id })
+				)
+
 				unwrapResult(resultAction)
 				handleClose()
 				toast.success(successModalText)

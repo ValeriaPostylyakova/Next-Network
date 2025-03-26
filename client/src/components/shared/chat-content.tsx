@@ -31,6 +31,7 @@ const chatsActions = new ChatActions()
 export const ChatContent: FC<Props> = ({ id }) => {
 	const fetchAuth = new FetchAuth()
 	const profile = useSelector((state: RootState) => state.auth.profile)
+	const statusProfile = useSelector((state: RootState) => state.auth.status)
 	const messages = useSelector((state: RootState) => state.messages.messages)
 	const chatStatus = useSelector((state: RootState) => state.chats.statusChat)
 	const chat = useSelector((state: RootState) => state.chats.chat)
@@ -63,16 +64,19 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	useEffect(() => {
 		async function getData() {
 			try {
-				const data = await dispatch(fetchAuth.checkAuth())
-				const res = unwrapResult(data)
-				dispatch(setUser(res.user))
-				dispatch(messagesActions.getMessages(chatId))
-				dispatch(
-					chatsActions.getChat({
-						chatId: chatId,
-						profileId: String(res.user.id),
-					})
-				)
+				if (statusProfile === 'loading') {
+					const data = await dispatch(fetchAuth.checkAuth())
+					const res = unwrapResult(data)
+					dispatch(setUser(res.user))
+				} else {
+					dispatch(messagesActions.getMessages(chatId))
+					dispatch(
+						chatsActions.getChat({
+							chatId: chatId,
+							profileId: String(profile.id),
+						})
+					)
+				}
 			} catch (e) {
 				console.error(e)
 			}
