@@ -38,15 +38,19 @@ export const DashboardPageLayout: FC<Props> = ({ children }) => {
 	useEffect(() => {
 		async function getData() {
 			try {
-				const data = await dispatch(fetchAuth.checkAuth())
-				const res = unwrapResult(data)
-				dispatch(setUser(res.user))
-
-				dispatch(unreadMessagesActions.getUnreadMessages(String(res.user.id)))
-
 				dispatch(friendsSuggestion.getFriendsSuggestion())
 				dispatch(feedActions.getFeed())
 				dispatch(storiesActions.getStories())
+
+				if (status === 'loading') {
+					const data = await dispatch(fetchAuth.checkAuth())
+					const res = unwrapResult(data)
+
+					console.log(res)
+					dispatch(setUser(res.user))
+
+					dispatch(unreadMessagesActions.getUnreadMessages(String(res.user.id)))
+				}
 			} catch (e) {
 				console.error(e)
 			}
@@ -76,7 +80,9 @@ export const DashboardPageLayout: FC<Props> = ({ children }) => {
 				dispatch(setUser(res))
 			} catch (e) {
 				console.error(e)
-				toast.error('Ошибка при создании сессии. Пожалуйста, попробуйте ещё раз')
+				toast.error(
+					'Ошибка при создании сессии. Пожалуйста, попробуйте ещё раз'
+				)
 			}
 		}
 

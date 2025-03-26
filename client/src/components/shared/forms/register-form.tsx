@@ -56,65 +56,6 @@ export const RegisterForm: FC = () => {
 				Зарегистрироваться
 			</ButtonUI>
 			<FormProvider {...form}>
-				{/* <Dialog
-					sx={{
-						'& .MuiDialog-paper': {
-							borderRadius: '1rem',
-							width: '500px',
-							bgcolor: '#000',
-						},
-					}}
-					open={open}
-					onClose={handleClose}
-				>
-					<form onSubmit={form.handleSubmit(onSubmit)}>
-						<DialogTitle>Регистрация</DialogTitle>
-						<DialogContent>
-							<Box
-								sx={{
-									display: 'flex',
-									flexDirection: 'column',
-									gap: '1rem',
-								}}
-							>
-								<FormItem
-									label='Введите свою почту'
-									placeholder='Введите почту'
-									name='email'
-									autoComplete='email'
-								/>
-								<FormItem
-									label='Введите свое имя'
-									placeholder='Введите имя'
-									name='firstname'
-									autoComplete='username'
-								/>
-								<FormItem
-									label='Введите свою фамилию'
-									placeholder='Введите фамилию'
-									name='lastname'
-									autoComplete='username'
-								/>
-								<FormItem
-									label='Придумайте пароль'
-									type='password'
-									name='password'
-									autoComplete='current-password'
-								/>
-								<FormItem
-									label='Повторите пароль'
-									type='password'
-									name='confirmPassword'
-									autoComplete='current-password'
-								/>
-							</Box>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={handleClose}>Отмена</Button>
-							<Button type='submit'>Зарегистрироваться</Button>
-						</DialogActions>
-					</form>
-				</Dialog> */}
 				<ModalFormUI
 					width={500}
 					open={open}
@@ -156,7 +97,7 @@ export const RegisterForm: FC = () => {
 					</FormItem>
 					<FormItem
 						label='Повторите пароль'
-						type='password'
+						type={visiblePassword ? 'text' : 'password'}
 						name='confirmPassword'
 						autoComplete='current-password'
 					>

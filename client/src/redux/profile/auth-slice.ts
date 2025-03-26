@@ -41,7 +41,6 @@ export const authSlice = createSlice({
 			.addCase(fetchAuth.registration.fulfilled, (state, action) => {
 				state.isAuth = true
 				state.status = Status.SUCCESS
-				state.profile = action.payload.user
 			})
 
 			.addCase(fetchAuth.registration.rejected, (state, action) => {
@@ -52,10 +51,10 @@ export const authSlice = createSlice({
 			})
 			.addCase(fetchAuth.login.fulfilled, (state, action) => {
 				state.isAuth = true
-
 				state.status = Status.SUCCESS
 				state.profile = action.payload.user
 			})
+
 			.addCase(fetchAuth.login.rejected, (state, action) => {
 				state.status = Status.ERROR
 			})
@@ -74,7 +73,6 @@ export const authSlice = createSlice({
 			})
 			.addCase(fetchAuth.checkAuth.fulfilled, (state, action) => {
 				state.status = Status.SUCCESS
-				state.isAuth = true
 				state.profile = action.payload.user
 			})
 			.addCase(fetchAuth.checkAuth.rejected, (state, action) => {
@@ -86,7 +84,6 @@ export const authSlice = createSlice({
 			})
 			.addCase(fetchAuth.getProfile.fulfilled, (state, action) => {
 				state.status = Status.SUCCESS
-				state.isAuth = true
 				state.profile = action.payload
 			})
 			.addCase(fetchAuth.getProfile.rejected, (state, action) => {

@@ -12,7 +12,7 @@ import { deleteUnreadMessages } from '@/redux/unreadMessages/slice'
 import Box from '@mui/material/Box'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useRouter } from 'next/navigation'
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { TChat, TMessage } from '../../../@types/chat'
@@ -42,27 +42,6 @@ export const ChatContent: FC<Props> = ({ id }) => {
 
 	const chatId = chatStatus === 'success' ? String(chat.id) : id
 
-	const loadChatData = useCallback(() => {
-		async function getData() {
-			try {
-				const data = await dispatch(fetchAuth.checkAuth())
-				const res = unwrapResult(data)
-				dispatch(setUser(res.user))
-				dispatch(messagesActions.getMessages(chatId))
-				dispatch(
-					chatsActions.getChat({
-						chatId: chatId,
-						profileId: String(res.user.id),
-					})
-				)
-			} catch (e) {
-				console.error(e)
-			}
-		}
-
-		getData()
-	}, [chatId, dispatch])
-
 	useEffect(() => {
 		if (!socket) return
 		socket.emit('joinChat', profile.id)
@@ -82,12 +61,29 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	}, [socket, dispatch])
 
 	useEffect(() => {
-		loadChatData()
+		async function getData() {
+			try {
+				const data = await dispatch(fetchAuth.checkAuth())
+				const res = unwrapResult(data)
+				dispatch(setUser(res.user))
+				dispatch(messagesActions.getMessages(chatId))
+				dispatch(
+					chatsActions.getChat({
+						chatId: chatId,
+						profileId: String(res.user.id),
+					})
+				)
+			} catch (e) {
+				console.error(e)
+			}
+		}
+
+		getData()
 		return () => {
 			dispatch(setChat({} as TChat))
 			dispatch(setStatus(Status.LOADIND))
 		}
-	}, [dispatch])
+	}, [chatId, dispatch])
 
 	useEffect(() => {
 		if (!socket) return
