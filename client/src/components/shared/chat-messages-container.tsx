@@ -26,7 +26,7 @@ export const ChatMessagesContainer: FC<Props> = ({ profileId, messages }) => {
 		if (ref.current) {
 			ref.current.scrollTop = ref.current.scrollHeight
 		}
-	}, [])
+	}, [messages])
 
 	return (
 		<Box

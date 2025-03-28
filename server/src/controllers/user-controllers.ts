@@ -149,9 +149,9 @@ export class UserControllers {
 
 	async updateProfileInfoImageUrl(req: Request, res: Response): Promise<any> {
 		try {
-			const token = req.cookies.refreshToken
+			const { id: profileId } = req.params
 			const response = await userService.updateProfileInfoImageUrl(
-				token,
+				profileId,
 				req.file?.filename as string
 			)
 			return res.status(200).json(response)

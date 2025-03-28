@@ -40,7 +40,7 @@ router.patch('/updateProfile', userControllers.updateProfileInfo)
 router.patch('/updateProfilePhone', userControllers.updateProfileInfoPhone)
 router.patch('/updateProfileEmail', userControllers.updateProfileInfoEmail)
 router.patch(
-	'/updateProfileImageUrl',
+	'/updateProfileImageUrl/:id',
 	multersAvatar.single('avatar'),
 	userControllers.updateProfileInfoImageUrl
 )

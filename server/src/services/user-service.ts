@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
 import { UserDTO } from './../dtos/user-dto'
 
+import { getUserFromToken } from '../utils/getUserFromToken'
 import { EmailService } from './email-service'
 import { TokenService } from './token-service'
 
@@ -220,30 +221,12 @@ export class UserService {
 		return updatedProfile
 	}
 
-	async updateProfileInfoImageUrl(token: string, imageUrl: string) {
-		const tokenData = await prisma.token.findFirst({
-			where: {
-				refreshToken: token,
-			},
-		})
-
-		if (!tokenData) {
-			throw new Error('Пользователь не зарегистрирован')
-		}
-
-		const profile = await prisma.user.findFirst({
-			where: {
-				id: tokenData.userId,
-			},
-		})
-
-		if (!profile) {
-			throw new Error('Такого пользователя не существует')
-		}
+	async updateProfileInfoImageUrl(profileId: string, imageUrl: string) {
+		const user = await getUserFromToken(profileId)
 
 		const updatedProfile = await prisma.user.update({
 			where: {
-				id: profile.id,
+				id: user.id,
 			},
 			data: {
 				imageUrl: `${process.env.API_URL}/images/avatar/${imageUrl}`,

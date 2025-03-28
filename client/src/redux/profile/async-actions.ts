@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import e from 'cors'
 import { TProfile } from '../../../@types/profile'
+import { TFormData } from '../post/types'
 import {
 	TParams,
 	TParamsEmail,
@@ -100,15 +101,16 @@ export class FetchAuth {
 
 	updateProfileImageUrl = createAsyncThunk(
 		'user/fetchUpdateUserImage',
-		async (formData: FormData) => {
+		async (params: TFormData) => {
+			const { formData, profileId } = params
+
 			const { data } = await api.patch<TProfile>(
-				`/updateProfileImageUrl`,
+				`/updateProfileImageUrl/${profileId}`,
 				formData,
 				{
 					headers: {
 						'Content-Type': 'multipart/form-data',
 					},
-					withCredentials: true,
 				}
 			)
 			return data

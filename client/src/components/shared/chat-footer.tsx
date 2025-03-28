@@ -70,6 +70,7 @@ export const ChatFooter: FC<Props> = ({
 					/>
 					<FlexContainer>
 						<button
+							disabled={value === ''}
 							onClick={handleInputValue}
 							style={{
 								color: '#5142f5',

@@ -2,6 +2,7 @@
 
 import { FeedActions } from '@/redux/feed/async-actions'
 import { AppDispatch, RootState } from '@/redux/store'
+import { StoriesActions } from '@/redux/stories/async-actions'
 import Box from '@mui/material/Box'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,8 +19,10 @@ export const FeedContent: FC = () => {
 
 	useEffect(() => {
 		const feedActions = new FeedActions()
+		const storiesActions = new StoriesActions()
 
 		dispatch(feedActions.getFeed())
+		dispatch(storiesActions.getStories())
 	}, [dispatch])
 
 	return (

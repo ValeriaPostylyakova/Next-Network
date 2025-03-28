@@ -39,8 +39,6 @@ export const DashboardPageLayout: FC<Props> = ({ children }) => {
 		async function getData() {
 			try {
 				dispatch(friendsSuggestion.getFriendsSuggestion())
-				dispatch(feedActions.getFeed())
-				dispatch(storiesActions.getStories())
 
 				if (status === 'loading') {
 					const data = await dispatch(fetchAuth.checkAuth())

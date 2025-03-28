@@ -112,7 +112,7 @@ export const ChatContent: FC<Props> = ({ id }) => {
 	}, [socket, chatId, dispatch])
 
 	const handleInputValue = async (e: any) => {
-		if (!socket || !chatId) return
+		if (!socket || !chatId || value === '') return
 
 		const message = {
 			text: value,

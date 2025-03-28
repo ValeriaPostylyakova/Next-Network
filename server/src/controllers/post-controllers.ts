@@ -41,8 +41,6 @@ export class PostControllers {
 		try {
 			const { id: profileId } = req.params
 
-			console.log(req.params)
-
 			const textData = req.body.text
 			const fileData = req.file?.filename
 

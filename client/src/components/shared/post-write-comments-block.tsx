@@ -47,7 +47,11 @@ export const PostWriteCommentsBlock: FC<Props> = ({
 					<Smile />
 				</ButtonUI>
 
-				<ButtonUI variant='outlined' click={handleInputComment}>
+				<ButtonUI
+					buttonDisabled={value === ''}
+					variant='outlined'
+					click={handleInputComment}
+				>
 					<SendHorizonal />
 				</ButtonUI>
 			</FlexContainer>

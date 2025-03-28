@@ -59,6 +59,8 @@ export const PostBlock: FC<Props> = ({
 	const postActions = new PostActions()
 
 	const handleInputComment = async (e: React.KeyboardEvent) => {
+		if (valueInput === '') return
+
 		if (e.code === 'Enter' || e.type === 'click') {
 			await dispatch(
 				postActions.createComment({

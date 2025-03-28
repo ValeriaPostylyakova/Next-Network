@@ -41,8 +41,6 @@ export const useCreateModalImages = ({
 				text && formData.append('text', text)
 				formData.append(muddlewareName, imgUrl as File)
 
-				console.log(profile.id)
-
 				const resultAction = await dispatch(
 					apiActions({ formData, profileId: profile.id })
 				)

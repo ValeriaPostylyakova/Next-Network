@@ -13,6 +13,7 @@ export interface Props {
 	color?: string
 	fontWeight?: number
 	px?: number
+	buttonDisabled?: boolean
 }
 
 export const ButtonUI: FC<Props> = ({
@@ -25,9 +26,11 @@ export const ButtonUI: FC<Props> = ({
 	color,
 	fontWeight,
 	px,
+	buttonDisabled,
 }) => {
 	return (
 		<Button
+			disabled={buttonDisabled}
 			onClick={click}
 			variant={variant}
 			sx={{
