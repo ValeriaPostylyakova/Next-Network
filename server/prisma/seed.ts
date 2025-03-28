@@ -75,42 +75,42 @@ async function up() {
 			},
 		],
 	})
-	// await prisma.post.createMany({
-	// 	data: [
-	// 		{
-	// 			postImageUrl:
-	// 				'https://cfmoto-moto.ru/wp-content/uploads/2022/11/image5.jpg',
-	// 			fullname: 'Валерия Постылякова',
-	// 			jobTitle: 'Frontend Developer',
-	// 			userImageUrl:
-	// 				'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
-	// 			likes: 20,
-	// 			date: '10 февр. 2025 г., 19:27',
-	// 			userId: 1,
-	// 		},
-	// 		{
-	// 			postImageUrl:
-	// 				'https://printwalls.ru/assets/cache_image/products/2309/fotooboi-priroda-lesa-kupit-0149_846x550_c8f.jpg',
-	// 			fullname: 'Кристина Разина',
-	// 			jobTitle: 'Designer',
-	// 			userImageUrl:
-	// 				'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
-	// 			likes: 2,
-	// 			userId: 3,
-	// 			date: '25 янв. 2025 г., 14:30',
-	// 		},
-	// 		{
-	// 			postImageUrl:
-	// 				'https://iy.kommersant.ru/Issues.photo/RADIO/2022/05/17/KSP_015476_00003_1_t222_144858.jpg',
-	// 			fullname: 'Егор Романов',
-	// 			jobTitle: 'Chief Information Security Officer',
-	// 			userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
-	// 			likes: 10,
-	// 			userId: 4,
-	// 			date: '20 дек. 2024 г., 10:15',
-	// 		},
-	// 	],
-	// })
+	await prisma.post.createMany({
+		data: [
+			{
+				postImageUrl:
+					'https://cfmoto-moto.ru/wp-content/uploads/2022/11/image5.jpg',
+				fullname: 'Валерия Постылякова',
+				jobTitle: 'Frontend Developer',
+				userImageUrl:
+					'https://sun9-31.userapi.com/impg/TVI3Ieil8CnHuLfFgv7WXHxoODTjRyD5XO-4sg/kY_6WrJhRbY.jpg?size=1623x2160&quality=95&sign=cdb1c07a7b2a7e2fc93359824349d5c3&type=album',
+				likes: 20,
+				date: '10 февр. 2025 г., 19:27',
+				userId: 1,
+			},
+			{
+				postImageUrl:
+					'https://printwalls.ru/assets/cache_image/products/2309/fotooboi-priroda-lesa-kupit-0149_846x550_c8f.jpg',
+				fullname: 'Кристина Разина',
+				jobTitle: 'Designer',
+				userImageUrl:
+					'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
+				likes: 2,
+				userId: 3,
+				date: '25 янв. 2025 г., 14:30',
+			},
+			{
+				postImageUrl:
+					'https://iy.kommersant.ru/Issues.photo/RADIO/2022/05/17/KSP_015476_00003_1_t222_144858.jpg',
+				fullname: 'Егор Романов',
+				jobTitle: 'Chief Information Security Officer',
+				userImageUrl: 'https://avatarko.ru/img/kartinka/1/multfilm_gomer.png',
+				likes: 10,
+				userId: 4,
+				date: '20 дек. 2024 г., 10:15',
+			},
+		],
+	})
 	// await prisma.message.createMany({
 	// 	data: [
 	// 		{

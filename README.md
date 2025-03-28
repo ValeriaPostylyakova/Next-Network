@@ -52,7 +52,7 @@
 1. Склонируйте репозиторий
 
 ```git
-git clone https://github.com/ValeriaPostylyakova/Next-Pizza.git
+git clone https://github.com/ValeriaPostylyakova/Next-Network.git
 ```
 
 2. Перейдите в директорию сервера
@@ -98,4 +98,4 @@ yarn dev
 
 ## Авторы проекта
 
-- Valeria Postylyakova - разработчик приложения
+Valeria Postylyakova - разработчик приложения
