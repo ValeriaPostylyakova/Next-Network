@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  email          String  @unique
+  password       String
+  isActivated    Boolean @default(false)
+  activationLink String?
+  token          Token?
+  phone          String?
+  isOnline       String?
+  imageUrl       String?
+  firstname      String
+  lastname       String
+  identifier     String? @unique
+  jobTitle       String?
+
+  role               UserRole             @default(USER)
+  posts              Post[]
+  stories            Story[]
+  chatUsers          ChatUser[]
+  friends            Friend[]
+  friendsSuggestions FriendsSuggestions[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Session       Session[]
+  unreadMessage UnreadMessage[]
+}
+
+model Session {
+  id Int @id @default(autoincrement())
+
+  userId   Int
+  socketId String @unique
+  user     User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Token {
+  id Int @id @default(autoincrement())
+
+  isActivated  Boolean @default(false)
+  refreshToken String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+}
+
+model Post {
+  id           Int       @id @default(autoincrement())
+  postImageUrl String?
+  fullname     String
+  jobTitle     String?
+  userImageUrl String?
+  likes        Int
+  like         Boolean   @default(false)
+  comments     Comment[]
+  date         String?
+
+  text   String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+
+  username   String
+  userId     Int
+  userImgUrl String?
+  text       String
+
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId Int?
+  date   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model StoryItem {
+  id Int @id @default(autoincrement())
+
+  imageUrl  String
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Story     Story?   @relation(fields: [storyId], references: [id])
+  storyId   Int?
+}
+
+model Story {
+  id Int @id @default(autoincrement())
+
+  imageUrl String?
+  items    StoryItem[]
+  fullname String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model Chat {
+  id Int @id @default(autoincrement())
+
+  messages  Message[]
+  chatUsers ChatUser[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  unreadMessage UnreadMessage[]
+}
+
+model ChatUser {
+  chatId Int
+  userId Int
+  chat   Chat @relation(fields: [chatId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
+
+  @@id([chatId, userId])
+}
+
+model Message {
+  id Int @id @default(autoincrement())
+
+  text   String
+  sender String
+  time   String?
+
+  chat   Chat?   @relation(fields: [chatId], references: [id])
+  chatId Int?
+  isRead Boolean @default(false)
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  unreadMessage UnreadMessage[]
+}
+
+model UnreadMessage {
+  id Int @id @default(autoincrement())
+
+  user    User    @relation(fields: [userId], references: [id])
+  message Message @relation(fields: [messageId], references: [id])
+  chat    Chat    @relation(fields: [chatId], references: [id])
+
+  userId    Int
+  messageId Int
+  chatId    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Friend {
+  id Int @id @default(autoincrement())
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FriendsSuggestions {
+  id Int @id @default(autoincrement())
+
+  imageUrl    String?
+  fullname    String
+  indificator String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User[]
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
