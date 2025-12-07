@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { CommentsService } from '../services/comments-service'
+import { CommentsService } from '../services/comments-service.js'
 
 const commentsService = new CommentsService()
 

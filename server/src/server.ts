@@ -1,17 +1,40 @@
+import AdminJSExpress from '@adminjs/express'
+import { getModelByName } from '@adminjs/prisma'
 import { PrismaClient } from '@prisma/client'
+import AdminJS from 'adminjs'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
 import { createServer } from 'http'
-import path from 'path'
+import path, { dirname, join } from 'path'
 import { Server } from 'socket.io'
-import { routers } from './router/index'
-import { MessageService } from './services/message-service'
+import { fileURLToPath } from 'url'
+import createAdminConfig from './admin/admin.config.js'
+import { routers } from './router/index.js'
+import { MessageService } from './services/message-service.js'
 
 const app = express()
+const prisma = new PrismaClient()
+
+const adminOptions = createAdminConfig({
+	prisma,
+	getModelByName,
+})
+
+const admin = new AdminJS(adminOptions)
+const adminRouter = AdminJSExpress.buildRouter(admin)
+
+app.use(admin.options.rootPath, adminRouter)
 
 dotenv.config()
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+app.use('/images', express.static(join(__dirname, 'images')))
+app.use('/images/posts', express.static(join(__dirname, 'posts')))
+app.use('/images/avatar', express.static(join(__dirname, 'avatar')))
 
 app.use(express.json())
 app.use('/images', express.static(path.join(__dirname, 'images')))
@@ -29,7 +52,7 @@ app.use(
 app.use('/api', routers)
 
 const https = createServer(app)
-const prisma = new PrismaClient()
+
 const io = new Server(https, {
 	cors: {
 		origin: process.env.CLIENT_URL,
@@ -207,10 +230,14 @@ io.on('connection', socket => {
 	})
 })
 
-const start = () => {
+const start = async () => {
 	try {
 		https.listen(process.env.PORT || 4200, () => {
-			console.log(`Server started on ${process.env.PORT} port`)
+			console.log(
+				console.log(
+					`AdminJS started on http://localhost:${process.env.PORT}${admin.options.rootPath}`
+				)
+			)
 		})
 	} catch (e) {
 		console.log(e)

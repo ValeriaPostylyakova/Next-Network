@@ -1,4 +1,4 @@
-import { FriendsService } from '../services/friends-service'
+import { FriendsService } from '../services/friends-service.js'
 import { Request, Response } from 'express'
 
 const friendsService = new FriendsService()

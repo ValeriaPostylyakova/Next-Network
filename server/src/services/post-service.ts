@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 
-import { PostDTO } from '../dtos/post-dto'
-import { getUserFromToken } from '../utils/getUserFromToken'
+import { PostDTO } from '../dtos/post-dto.js'
+import { getUserFromToken } from '../utils/getUserFromToken.js'
 
 const prisma = new PrismaClient()
 

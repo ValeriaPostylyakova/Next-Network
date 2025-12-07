@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { getUserFromToken } from '../utils/getUserFromToken'
-import { startCronJob } from '../utils/startCronJob'
+import { getUserFromToken } from '../utils/getUserFromToken.js'
+import { startCronJob } from '../utils/startCronJob.js'
 
 const prisma = new PrismaClient()
 

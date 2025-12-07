@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { getUserFromToken } from '../utils/getUserFromToken'
+import { getUserFromToken } from '../utils/getUserFromToken.js'
 
-import { ChatService } from '../services/chat-service'
+import { ChatService } from '../services/chat-service.js'
 
 const chatService = new ChatService()
 

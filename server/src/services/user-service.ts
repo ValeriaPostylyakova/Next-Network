@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
-import { UserDTO } from './../dtos/user-dto'
+import { UserDTO } from './../dtos/user-dto.js'
 
-import { getUserFromToken } from '../utils/getUserFromToken'
-import { EmailService } from './email-service'
-import { TokenService } from './token-service'
+import { getUserFromToken } from '../utils/getUserFromToken.js'
+import { EmailService } from './email-service.js'
+import { TokenService } from './token-service.js'
 
 const emailService = new EmailService()
 const tokenServise = new TokenService()

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { PostService } from './../services/post-service'
+import { PostService } from './../services/post-service.js'
 const postService = new PostService()
 
 export class PostControllers {

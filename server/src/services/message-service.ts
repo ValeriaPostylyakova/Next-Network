@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { MessageDTO } from '../dtos/message-dto'
+import { MessageDTO } from '../dtos/message-dto.js'
 
 const prisma = new PrismaClient()
 

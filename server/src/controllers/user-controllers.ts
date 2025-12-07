@@ -5,9 +5,9 @@ import {
 	IGetUserParams,
 	IUserRegistraytion,
 	IUserUpdateInfo,
-} from '../@types/user'
-import { UserService } from '../services/user-service'
-import { getUserFromToken } from '../utils/getUserFromToken'
+} from '../@types/user.js'
+import { UserService } from '../services/user-service.js'
+import { getUserFromToken } from '../utils/getUserFromToken.js'
 
 const userService = new UserService()
 

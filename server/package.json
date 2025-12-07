@@ -1,11 +1,12 @@
 {
 	"name": "server-network",
 	"version": "1.0.0",
+	"type": "module",
 	"description": "",
 	"main": "dist/src/server.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon src/server.ts",
+		"dev": "nodemon",
 		"build": "tsc  && npx prisma generate && cp -r src/images dist/src/images && cp prisma/schema.prisma dist/prisma/schema.prisma && cp -r prisma/migrations dist/prisma/migrations",
 		"start": "node dist/src/server.js && node copy-images.js",
 		"postdeploy": "npx prisma migrate deploy && npx prisma generate",
@@ -15,10 +16,11 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@adminjs/express": "^6.1.1",
+		"@adminjs/prisma": "^5.0.4",
 		"@prisma/client": "^6.2.1",
 		"@types/bcrypt": "^5.0.2",
 		"@types/chokidar": "^2.1.7",
-		"@types/express": "^5.0.0",
 		"@types/fs-extra": "^11.0.4",
 		"@types/jsonwebtoken": "^9.0.7",
 		"@types/multer": "^1.4.12",
@@ -28,7 +30,9 @@
 		"chokidar": "^4.0.3",
 		"cookie-parser": "^1.4.7",
 		"cors": "^2.8.5",
-		"express": "^4.21.2",
+		"express": "^4.22.1",
+		"express-formidable": "^1.2.0",
+		"express-session": "^1.18.2",
 		"express-validator": "^7.2.1",
 		"fs-extra": "^11.3.0",
 		"jsonwebtoken": "^9.0.2",
@@ -38,6 +42,7 @@
 		"nodemon": "^3.1.9",
 		"socket.io": "^4.8.1",
 		"ts-node": "^10.9.2",
+		"tslib": "^2.8.1",
 		"uuid": "^11.0.5",
 		"web-push": "^3.6.7"
 	},
@@ -47,7 +52,9 @@
 	"devDependencies": {
 		"@types/cookie-parser": "^1.4.8",
 		"@types/cors": "^2.8.17",
+		"@types/express": "^5.0.6",
 		"@types/nodemailer": "^6.4.17",
-		"dotenv": "^16.4.7"
+		"dotenv": "^16.4.7",
+		"prisma": "^6.2.1"
 	}
 }

@@ -1,4 +1,4 @@
-import { FeedService } from '../services/feed-service'
+import { FeedService } from '../services/feed-service.js'
 import { Request, Response } from 'express'
 
 const feedService = new FeedService()

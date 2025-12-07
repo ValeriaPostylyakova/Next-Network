@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { StoriesService } from '../services/stories-service'
+import { StoriesService } from '../services/stories-service.js'
 
 const storiesService = new StoriesService()
 

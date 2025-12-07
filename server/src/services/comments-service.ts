@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 
-import { CommentDTO } from '../dtos/comment-dto'
-import { getUserFromToken } from '../utils/getUserFromToken'
+import { CommentDTO } from '../dtos/comment-dto.js'
+import { getUserFromToken } from '../utils/getUserFromToken.js'
 
 const prisma = new PrismaClient()
 
