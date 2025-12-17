@@ -30,7 +30,7 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 const router = AdminJSExpress.buildAuthenticatedRouter(
 	admin,
 	{
-		authenticate: async (email, password) => {
+		authenticate: async (email: string, password: string) => {
 			if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
 				return { email }
 			}

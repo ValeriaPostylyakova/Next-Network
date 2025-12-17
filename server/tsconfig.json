@@ -6,6 +6,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"outDir": "dist",
+		"skipLibCheck": true,
 		"sourceMap": true,
 		"baseUrl": ".",
 		"paths": {
