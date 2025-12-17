@@ -23,9 +23,30 @@ const adminOptions = createAdminConfig({
 })
 
 const admin = new AdminJS(adminOptions)
-const adminRouter = AdminJSExpress.buildRouter(admin)
 
-app.use(admin.options.rootPath, adminRouter)
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
+
+const router = AdminJSExpress.buildAuthenticatedRouter(
+	admin,
+	{
+		authenticate: async (email, password) => {
+			if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+				return { email }
+			}
+			return null
+		},
+		cookiePassword:
+			process.env.ADMIN_COOKIE_SECRET || 'super-secret-cookie-pass',
+	},
+	null,
+	{
+		resave: false,
+		saveUninitialized: true,
+	}
+)
+
+app.use(admin.options.rootPath, router)
 
 dotenv.config()
 
@@ -234,9 +255,7 @@ const start = async () => {
 	try {
 		https.listen(process.env.PORT || 4200, () => {
 			console.log(
-				console.log(
-					`AdminJS started on http://localhost:${process.env.PORT}${admin.options.rootPath}`
-				)
+				`AdminJS started on http://localhost:${process.env.PORT}${admin.options.rootPath}`
 			)
 		})
 	} catch (e) {

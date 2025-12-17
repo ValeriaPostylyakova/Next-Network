@@ -8,55 +8,48 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-
-  email          String  @unique
-  password       String
-  isActivated    Boolean @default(false)
-  activationLink String?
-  token          Token?
-  phone          String?
-  isOnline       String?
-  imageUrl       String?
-  firstname      String
-  lastname       String
-  identifier     String? @unique
-  jobTitle       String?
-
+  id                 Int                  @id @default(autoincrement())
+  email              String               @unique
+  password           String
+  isActivated        Boolean              @default(false)
+  activationLink     String?
+  phone              String?
+  isOnline           String?
+  imageUrl           String?
+  firstname          String
+  lastname           String
+  identifier         String?              @unique
+  jobTitle           String?
   role               UserRole             @default(USER)
-  posts              Post[]
-  stories            Story[]
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
   chatUsers          ChatUser[]
   friends            Friend[]
-  friendsSuggestions FriendsSuggestions[]
-
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  Session       Session[]
-  unreadMessage UnreadMessage[]
+  posts              Post[]
+  Session            Session[]
+  stories            Story[]
+  token              Token?
+  unreadMessage      UnreadMessage[]
+  friendsSuggestions FriendsSuggestions[] @relation("FriendsSuggestionsToUser")
 }
 
 model Session {
-  id Int @id @default(autoincrement())
-
-  userId   Int
-  socketId String @unique
-  user     User   @relation(fields: [userId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Token {
-  id Int @id @default(autoincrement())
-
-  isActivated  Boolean @default(false)
-  refreshToken String
-
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  socketId  String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
+}
+
+model Token {
+  id           Int      @id @default(autoincrement())
+  isActivated  Boolean  @default(false)
+  refreshToken String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       Int      @unique
+  user         User     @relation(fields: [userId], references: [id])
 }
 
 model Post {
@@ -67,67 +60,55 @@ model Post {
   userImageUrl String?
   likes        Int
   like         Boolean   @default(false)
-  comments     Comment[]
   date         String?
-
-  text   String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  text         String?
+  userId       Int
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  comments     Comment[]
+  user         User      @relation(fields: [userId], references: [id])
 }
 
 model Comment {
-  id Int @id @default(autoincrement())
-
+  id         Int      @id @default(autoincrement())
   username   String
   userId     Int
   userImgUrl String?
   text       String
-
-  Post   Post?   @relation(fields: [postId], references: [id])
-  postId Int?
-  date   String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  postId     Int?
+  date       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Post       Post?    @relation(fields: [postId], references: [id])
 }
 
 model StoryItem {
-  id Int @id @default(autoincrement())
-
+  id        Int      @id @default(autoincrement())
   imageUrl  String
   expiresAt DateTime
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Story     Story?   @relation(fields: [storyId], references: [id])
   storyId   Int?
+  Story     Story?   @relation(fields: [storyId], references: [id])
 }
 
 model Story {
-  id Int @id @default(autoincrement())
-
-  imageUrl String?
-  items    StoryItem[]
-  fullname String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  User   User? @relation(fields: [userId], references: [id])
-  userId Int?
+  id        Int         @id @default(autoincrement())
+  imageUrl  String?
+  fullname  String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  userId    Int?
+  User      User?       @relation(fields: [userId], references: [id])
+  items     StoryItem[]
 }
 
 model Chat {
-  id Int @id @default(autoincrement())
-
-  messages  Message[]
-  chatUsers ChatUser[]
-
+  id            Int             @id @default(autoincrement())
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  chatUsers     ChatUser[]
+  messages      Message[]
   unreadMessage UnreadMessage[]
 }
 
@@ -141,56 +122,46 @@ model ChatUser {
 }
 
 model Message {
-  id Int @id @default(autoincrement())
-
-  text   String
-  sender String
-  time   String?
-
-  chat   Chat?   @relation(fields: [chatId], references: [id])
-  chatId Int?
-  isRead Boolean @default(false)
-
+  id            Int             @id @default(autoincrement())
+  text          String
+  sender        String
+  time          String?
+  chatId        Int?
+  isRead        Boolean         @default(false)
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  chat          Chat?           @relation(fields: [chatId], references: [id])
   unreadMessage UnreadMessage[]
 }
 
 model UnreadMessage {
-  id Int @id @default(autoincrement())
-
-  user    User    @relation(fields: [userId], references: [id])
-  message Message @relation(fields: [messageId], references: [id])
-  chat    Chat    @relation(fields: [chatId], references: [id])
-
+  id        Int      @id @default(autoincrement())
   userId    Int
   messageId Int
   chatId    Int
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  message   Message  @relation(fields: [messageId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Friend {
-  id Int @id @default(autoincrement())
-
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
-
+  id        Int      @id @default(autoincrement())
+  userId    Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
 }
 
 model FriendsSuggestions {
-  id Int @id @default(autoincrement())
-
+  id          Int      @id @default(autoincrement())
   imageUrl    String?
   fullname    String
   indificator String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User[]   @relation("FriendsSuggestionsToUser")
 }
 
 enum UserRole {
